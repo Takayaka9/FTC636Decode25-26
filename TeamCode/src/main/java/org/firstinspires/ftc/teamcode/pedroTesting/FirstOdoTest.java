@@ -41,7 +41,10 @@ public class FirstOdoTest extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Write the rest of code...
-
+            FRMotor.setPower(.5);
+            FLMotor.setPower(.5);
+            BLMotor.setPower(.5);
+            BRMotor.setPower(.5);
 
 
         }
