@@ -13,13 +13,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Constants {
-    public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
-    public static Follower createFollower(HardwareMap hardwareMap) {
-        return new FollowerBuilder(followerConstants, hardwareMap)
-                .pathConstraints(pathConstraints)
-                .pinpointLocalizer(localizerConstants)
-                .build();
-    }
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(5.07);
     public static MecanumConstants driveConstants = new MecanumConstants()
@@ -42,4 +35,11 @@ public class Constants {
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
             .forwardPodY(4.625)
             .strafePodX(4.25);
+    public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
+    public static Follower createFollower(HardwareMap hardwareMap) {
+        return new FollowerBuilder(followerConstants, hardwareMap)
+                .pathConstraints(pathConstraints)
+                .pinpointLocalizer(localizerConstants)
+                .build();
+    }
 }
