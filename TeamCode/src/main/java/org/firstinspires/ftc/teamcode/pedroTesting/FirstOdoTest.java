@@ -19,8 +19,6 @@ public class FirstOdoTest extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-
-
         waitForStart();
 
         while (opModeIsActive()) {
