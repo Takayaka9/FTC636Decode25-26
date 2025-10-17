@@ -398,6 +398,10 @@ class ForwardVelocityTuner extends OpMode {
                 telemetry.addData(String.valueOf(i), velocities.get(i));
             }
 
+            //Emad Telemetry modification
+            telemetry.addData("left-stick-y", gamepad1.left_stick_y);
+            telemetry.addData("left-stick-x", gamepad2.left_stick_x);
+
             telemetryM.update(telemetry);
             telemetry.update();
 
