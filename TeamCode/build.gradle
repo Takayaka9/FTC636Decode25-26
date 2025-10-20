@@ -26,6 +26,11 @@ android {
     }
 }
 
+repositories {
+    maven { url "https://mymaven.bylazar.com/releases" }
+}
+
 dependencies {
     implementation project(':FtcRobotController')
+    implementation "com.bylazar:fullpanels:1.0.7"
 }
