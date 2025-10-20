@@ -14,7 +14,23 @@
 // Include common definitions from above.
 apply from: '../build.common.gradle'
 apply from: '../build.dependencies.gradle'
+// For Sloth
+apply plugin: 'dev.frozenmilk.sinister.sloth.load'
 
+// For Sloth
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://repo.dairy.foundation/releases"
+        }
+    }
+    dependencies {
+        classpath "dev.frozenmilk:Load:0.2.4"
+    }
+}
+
+// Default
 android {
     namespace = 'org.firstinspires.ftc.teamcode'
 
@@ -26,11 +42,20 @@ android {
     }
 }
 
+// Bylazar is for panels
+// Dairy is for Sloth
 repositories {
     maven { url "https://mymaven.bylazar.com/releases" }
+    maven {
+        url = "https://repo.dairy.foundation/releases"
+    }
 }
 
+// Default
+// Bylazar: panels
+// FrozenMilk is for Sloth
 dependencies {
     implementation project(':FtcRobotController')
     implementation "com.bylazar:fullpanels:1.0.7"
+    implementation("dev.frozenmilk.sinister:Sloth:0.2.4")
 }
