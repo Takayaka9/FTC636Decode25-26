@@ -13,7 +13,11 @@ public class FirstOdoTest extends LinearOpMode {
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
 
-    // Declare motors
+    // Hopefully declare motors?
+    private DcMotor FRMotor;
+    private DcMotor FLMotor;
+    private DcMotor BRMotor;
+    private DcMotor BLMotor;
 
 
     @Override
@@ -23,10 +27,30 @@ public class FirstOdoTest extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            // Write the rest of code...
-
-
-
+            // Like this?
+            FRMotor = hardwareMap.dcMotor.get("FRMotor");
+            FLMotor = hardwareMap.dcMotor.get("FLMotor");
+            BRMotor = hardwareMap.dcMotor.get("BRMotor");
+            BLMotor = hardwareMap.dcMotor.get("BLMotor");
+            // WIP
+            if(gamepad1.right_trigger > 0.5) { // Forward
+                FRMotor.setPower(1);
+                FLMotor.setPower(1);
+                BRMotor.setPower(0);
+                BLMotor.setPower(0);
+            }
+            else if(gamepad1.left_trigger > 0.5) { // Brake
+                FRMotor.setPower(0);
+                FLMotor.setPower(0);
+                BRMotor.setPower(0);
+                BLMotor.setPower(0);
+            }
+            else if(gamepad1.right_trigger > 0.5 && gamepad1.right_bumper) { // Reverse
+                FRMotor.setPower(0);
+                FLMotor.setPower(0);
+                BRMotor.setPower(1);
+                BLMotor.setPower(1);
+            }
         }
     }
 }
