@@ -14,21 +14,21 @@
 // Include common definitions from above.
 apply from: '../build.common.gradle'
 apply from: '../build.dependencies.gradle'
-// For Sloth
-apply plugin: 'dev.frozenmilk.sinister.sloth.load'
-
-// For Sloth
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            url "https://repo.dairy.foundation/releases"
-        }
-    }
-    dependencies {
-        classpath "dev.frozenmilk:Load:0.2.4"
-    }
-}
+//// For Sloth
+//apply plugin: 'dev.frozenmilk.sinister.sloth.load'
+//
+//// For Sloth
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//        maven {
+//            url "https://repo.dairy.foundation/releases"
+//        }
+//    }
+//    dependencies {
+//        classpath "dev.frozenmilk:Load:0.2.4"
+//    }
+//}
 
 // Default
 android {
@@ -47,11 +47,11 @@ android {
 repositories {
     maven {
         url = "https://mymaven.bylazar.com/releases"
-    }
-    maven {
-        url = "https://repo.dairy.foundation/releases"
-    }
-    maven { url = "https://repo.dairy.foundation/snapshots"
+//    }
+//    maven {
+//        url = "https://repo.dairy.foundation/releases"
+//    }
+//    maven { url = "https://repo.dairy.foundation/snapshots"
 
     }
 }
@@ -62,6 +62,6 @@ repositories {
 dependencies {
     implementation project(':FtcRobotController')
     implementation ("com.bylazar:fullpanels:1.0.8")
-    implementation("dev.frozenmilk.sinister:Sloth:0.2.4")
-    implementation("dev.frozenmilk.dairy:Core:2.2.4")
+//    implementation("dev.frozenmilk.sinister:Sloth:0.2.4")
+//    implementation("dev.frozenmilk.dairy:Core:2.2.4")
 }
