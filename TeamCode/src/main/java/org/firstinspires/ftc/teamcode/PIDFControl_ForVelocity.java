@@ -28,7 +28,8 @@ public class PIDFControl_ForVelocity {
 
         elapsedTime.reset();
 
-        double output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (target * Kf);
+        double output; // basically the same as the normal PIDControl
+        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (target * Kf);
         return output;
     }
 }

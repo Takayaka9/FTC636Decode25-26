@@ -29,7 +29,8 @@ public class PIDControl {
 
         elapsedTime.reset();
 
-        double output = (error * Kp) + (derivative * Kd) + (integralSum * Ki);
+        double output; // define separately for a little more neatness (and less warnings)
+        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki);
         return output;
     }
 }
