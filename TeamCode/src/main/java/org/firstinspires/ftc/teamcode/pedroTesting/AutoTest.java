@@ -22,9 +22,9 @@ public class AutoTest extends OpMode {
     private final Pose startPose = new Pose(10, 10, Math.toRadians(0));
     private final Pose Pose1 = new Pose(20, 20, Math.toRadians(0));
     private final Pose Pose2 = new Pose(20, 40, Math.toRadians(0));
-    private final Pose Pose3 = new Pose(40, 60, Math.toRadians(90)); //ti
-    // private final Pose Pose4 = new Pose(40, 20, Math.toRadians(45));
-    // private final Pose Pose5 = new Pose(40, 20, Math.toRadians(135));
+    private final Pose Pose3 = new Pose(40, 60, /*TI*/ Math.toRadians(90));
+    //// private final Pose Pose4 = new Pose(40, 20, Math.toRadians(45)) ;
+    //// private final Pose Pose5 = new Pose(40, 20, Math.toRadians(135));
 
 
     private Path scorePreload;
@@ -73,8 +73,6 @@ public class AutoTest extends OpMode {
         pathState = pState;
         pathTimer.resetTimer();
     }
-
-
 
     /** This is the main loop of the OpMode, it will run repeatedly after clicking "Play". **/
     @Override
