@@ -12,10 +12,10 @@ public class RobotScrims {
     public DcMotorEx flyRight, flyLeft, intake;
     public DcMotorEx belt;
     public Servo onRamp, offRamp;
-    public static int onRampPassive;
-    public static int onRampPush;
-    public static int offRampPassive;
-    public static int offRampPush;
+    public static int onRampPassive = 0;
+    public static int onRampPush = 0;
+    public static int offRampPassive = 0;
+    public static int offRampPush = 0;
     public RobotScrims(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
@@ -42,7 +42,4 @@ public class RobotScrims {
         onRamp.setPosition(onRampPassive);
         offRamp.setPosition(offRampPassive);
     }
-
-
-
 }
