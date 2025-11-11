@@ -21,20 +21,31 @@ public class ScrimTeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException{
+        robot = new RobotScrims(hardwareMap);
+
         waitForStart();
+
+        robot.initialTele();
+
         if (isStopRequested()) return;
 
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startingPose == null ? new Pose() : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
-
-
+        follower.startTeleopDrive();
 
         while(opModeIsActive()){
 
+            follower.setTeleOpDrive(
+                    -gamepad1.left_stick_y,
+                    -gamepad1.left_stick_x,
+                    -gamepad1.right_stick_x,
+                    true
+            );
 
-            follower.startTeleopDrive();
+
+
             follower.update();
         }
     }
