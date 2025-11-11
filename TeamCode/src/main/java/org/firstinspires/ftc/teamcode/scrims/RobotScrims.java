@@ -1,29 +1,43 @@
 package org.firstinspires.ftc.teamcode.scrims;
 
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 public class RobotScrims {
-    public DcMotorEx leftFront, rightFront, leftBack, rightBack;
     public DcMotorEx flyRight, flyLeft, intake;
     public DcMotorEx belt;
-    public ServoImplEx onRamp, offRamp;
+    public Servo onRamp, offRamp;
+    public static int onRampPassive;
+    public static int onRampPush;
+    public static int offRampPassive;
+    public static int offRampPush;
     public RobotScrims(HardwareMap hardwareMap){
-        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
+        flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
+        intake = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+        belt = hardwareMap.get(DcMotorEx.class, "beltMotor");
 
-        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        onRamp = hardwareMap.get(Servo.class, "onRamp");
+        offRamp = hardwareMap.get(Servo.class, "offRamp");
+
+        flyRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        flyLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        belt.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    public void initialTele(){
+        onRamp.setPosition(onRampPassive);
+        offRamp.setPosition(offRampPassive);
     }
 }
