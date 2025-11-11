@@ -34,12 +34,15 @@ public class RobotScrims {
         flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
+        flyLeft.setDirection(DcMotorEx.Direction.REVERSE);
     }
 
     public void initialTele(){
         onRamp.setPosition(onRampPassive);
         offRamp.setPosition(offRampPassive);
     }
+
 
 
 }

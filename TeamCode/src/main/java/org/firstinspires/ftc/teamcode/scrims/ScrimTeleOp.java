@@ -10,6 +10,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Configurable
@@ -18,6 +19,8 @@ public class ScrimTeleOp extends LinearOpMode {
     private Follower follower;
     private TelemetryManager telemetryM;
     RobotScrims robot;
+    PIDFControl_ForVelocity velocityControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
+    private double targetVelocity;
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -44,7 +47,8 @@ public class ScrimTeleOp extends LinearOpMode {
                     true
             );
 
-
+            double powerLeft = velocityControl.update(targetVelocity, robot.flyLeft.getVelocity());
+            double powerRight = velocityControl.update(targetVelocity, robot.flyRight.getVelocity());
 
             follower.update();
         }
