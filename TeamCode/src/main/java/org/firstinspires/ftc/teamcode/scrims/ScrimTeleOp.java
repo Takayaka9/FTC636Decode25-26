@@ -19,14 +19,23 @@ public class ScrimTeleOp extends LinearOpMode {
     Follower follower;
     TelemetryManager telemetryM;
     RobotScrims robot;
+
+
+    //PID for shooters
     PIDFControl_ForVelocity velocityControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
     private double targetVelocity;
-    public static boolean changedRB = false;
-    public static boolean changed1A = false;
-    public static boolean changedA = false;
-    public static boolean changedB = false;
+    //Velocities for shooters
     public static int velocityClose = 1000;
     public static int velocityFar = 2000;
+
+
+    //Booleans for inputs
+    public static boolean changedRB = false;
+    public static boolean changed1A = false;
+    public static boolean changed2A = false;
+    public static boolean changed2B = false;
+
+
     @Override
     public void runOpMode() throws InterruptedException{
         robot = new RobotScrims(hardwareMap);
@@ -37,6 +46,7 @@ public class ScrimTeleOp extends LinearOpMode {
 
         if (isStopRequested()) return;
 
+        //Pedro follower
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startingPose == null ? new Pose() : startingPose);
         follower.update();
@@ -73,25 +83,26 @@ public class ScrimTeleOp extends LinearOpMode {
             }
 
             //shoot with less velocity (close pos)
-            if(gamepad2.a && !changedA){
+            if(gamepad2.a && !changed2A){
                 robot.shoot(velocityClose);
-                changedA = true;
+                changed2A = true;
             }
             else if(!gamepad2.a){
-                changedA = false;
+                changed2A = false;
             }
 
             //shoot with more velocity (far pos)
-            if(gamepad2.b && !changedB){
+            if(gamepad2.b && !changed2B){
                 robot.shoot(velocityFar);
-                changedB = true;
+                changed2B = true;
             }
             else if(!gamepad2.b){
-                changedB = false;
+                changed2B = false;
             }
 
             //to be coded: change to sort mode
             if(gamepad1.a && !changed1A){
+
             }
 
             telemetryM.debug("amountGreen", robot.colorSensor.green());

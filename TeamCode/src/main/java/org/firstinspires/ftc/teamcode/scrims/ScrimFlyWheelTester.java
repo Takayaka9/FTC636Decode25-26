@@ -17,6 +17,7 @@ CODERS: graph targetV, VelocityL and VelocityR to tune PIDF control.
 @TeleOp(name = "FlyWheelTester", group = "TeleOp")
 public class ScrimFlyWheelTester extends LinearOpMode {
     RobotScrims robot = new RobotScrims(hardwareMap);
+    //Pid control numbers for flywheel:
     public static PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
     TelemetryManager telemetryM;
     public static double targetVelocity = 0.0;
