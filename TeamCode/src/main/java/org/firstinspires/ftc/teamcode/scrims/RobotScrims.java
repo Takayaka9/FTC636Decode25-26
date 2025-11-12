@@ -54,4 +54,12 @@ public class RobotScrims {
         flyLeft.setPower(powerLeft);
         flyRight.setPower(powerRight);
     }
+
+    public void pushOff(){
+        onRamp.setPosition(onRampPush);
+    }
+
+    public void pushOn(){
+        offRamp.setPosition(offRampPush);
+    }
 }
