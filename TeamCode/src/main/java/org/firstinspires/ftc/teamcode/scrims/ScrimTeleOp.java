@@ -22,6 +22,7 @@ public class ScrimTeleOp extends LinearOpMode {
     PIDFControl_ForVelocity velocityControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
     private double targetVelocity;
     public static boolean changedRB = false;
+    public static boolean changed1A = false;
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -71,6 +72,10 @@ public class ScrimTeleOp extends LinearOpMode {
             }
             else if(!gamepad2.right_bumper){
                 changedRB = false;
+            }
+
+            if(gamepad1.a && !changed1A){
+
             }
 
             telemetryM.debug("amountGreen", robot.colorSensor.green());
