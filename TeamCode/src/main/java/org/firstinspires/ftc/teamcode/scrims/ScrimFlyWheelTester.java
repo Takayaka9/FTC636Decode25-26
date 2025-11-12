@@ -8,7 +8,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
-
+/*
+Test the flywheel by changing "TargetVelocity" in panels (max 2800, I think). Then press button A
+on GAMEPAD 1 (ONE) to move.
+CODERS: graph targetV, VelocityL and VelocityR to tune PIDF control.
+ */
 @Configurable
 @TeleOp(name = "FlyWheelTester", group = "TeleOp")
 public class ScrimFlyWheelTester extends LinearOpMode {
@@ -34,7 +38,7 @@ public class ScrimFlyWheelTester extends LinearOpMode {
                 robot.flyRight.setPower(powerRight);
             }
 
-            telemetryM.debug("TargetV", targetVelocity);
+            telemetryM.debug("TargetVelocity", targetVelocity);
             telemetryM.debug("VelocityL", robot.flyLeft.getVelocity());
             telemetryM.debug("VelocityR", robot.flyRight.getVelocity());
         }
