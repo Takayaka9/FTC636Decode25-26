@@ -21,7 +21,6 @@ public class ScrimTeleOp extends LinearOpMode {
     RobotScrims robot;
     PIDFControl_ForVelocity velocityControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
     private double targetVelocity;
-    public static boolean changedRT = false;
     public static boolean changedRB = false;
 
     @Override
@@ -52,12 +51,18 @@ public class ScrimTeleOp extends LinearOpMode {
                     true
             );
 
-            if(gamepad2.right_trigger > 0.4 && !changedRT){
+            if(gamepad2.right_trigger != 0){
                 robot.belt.setPower(0.1);
-                changedRT = true;
             }
-            else if(gamepad2.right_trigger < 0.3){
+            else{
                 robot.belt.setPower(0);
+            }
+
+            if(gamepad2.left_trigger != 0){
+                robot.intake.setPower(0.1);
+            }
+            else{
+                robot.intake.setPower(0);
             }
 
             if(gamepad2.right_bumper && !changedRB && robot.isBallThere()){

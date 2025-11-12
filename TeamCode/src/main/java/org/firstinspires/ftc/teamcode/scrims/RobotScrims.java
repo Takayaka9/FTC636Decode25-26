@@ -75,7 +75,5 @@ public class RobotScrims {
         return distanceSensor.getDistance(DistanceUnit.CM) < 1;
     }
 
-    public boolean isBallGreen(){
-        return colorSensor.green() > 175;
-    }
+
 }
