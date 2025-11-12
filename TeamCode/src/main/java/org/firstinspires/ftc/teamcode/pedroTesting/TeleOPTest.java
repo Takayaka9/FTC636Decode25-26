@@ -30,6 +30,7 @@ public class TeleOPTest extends OpMode {
 
     //TestMotor declaration
     DcMotor TMotor;
+    DcMotor T2Motor;
 
     @Override
     public void init() {
@@ -43,6 +44,7 @@ public class TeleOPTest extends OpMode {
                 .build();
 
         TMotor = hardwareMap.get(DcMotor.class, "TMotor");
+        TMotor = hardwareMap.get(DcMotor.class, "T2Motor");
     }
     @Override
     public void start() {
@@ -57,9 +59,10 @@ public class TeleOPTest extends OpMode {
         follower.update();
         telemetryM.update();
 
-        //TestMotor logic
+        //TestMotor logic for both
         double TMotorPower = gamepad1.right_stick_y;
         TMotor.setPower(TMotorPower);
+        T2Motor.setPower(TMotorPower);
 
         if (!automatedDrive) {
             // Make the last parameter false for field-centric
