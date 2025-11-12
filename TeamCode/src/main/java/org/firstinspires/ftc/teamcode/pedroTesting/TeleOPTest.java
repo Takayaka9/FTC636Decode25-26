@@ -11,6 +11,8 @@ import com.pedropathing.paths.PathChain;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import java.util.function.Supplier;
 
@@ -24,6 +26,11 @@ public class TeleOPTest extends OpMode {
     private TelemetryManager telemetryM;
     private boolean slowMode = false;
     private double slowModeMultiplier = 0.5;
+
+
+    //TestMotor declaration
+    DcMotor TMotor;
+
     @Override
     public void init() {
         follower = Constants.createFollower(hardwareMap);
@@ -34,6 +41,8 @@ public class TeleOPTest extends OpMode {
                 .addPath(new Path(new BezierLine(follower::getPose, new Pose(45, 98))))
                 .setHeadingInterpolation(HeadingInterpolator.linearFromPoint(follower::getHeading, Math.toRadians(45), 0.8))
                 .build();
+
+        TMotor = hardwareMap.get(DcMotor.class, "TMotor");
     }
     @Override
     public void start() {
@@ -47,6 +56,11 @@ public class TeleOPTest extends OpMode {
         // Call this once per loop
         follower.update();
         telemetryM.update();
+
+        //TestMotor logic
+        double TMotorPower = gamepad1.right_stick_y;
+        TMotor.setPower(TMotorPower);
+
         if (!automatedDrive) {
             // Make the last parameter false for field-centric
             // In case the drivers want to use a "slowMode" you can scale the vectors
