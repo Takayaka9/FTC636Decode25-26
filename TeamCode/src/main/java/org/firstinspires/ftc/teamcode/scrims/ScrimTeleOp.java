@@ -45,6 +45,7 @@ public class ScrimTeleOp extends LinearOpMode {
             telemetryM.update();
             follower.update();
 
+            //drivetrain...I think it works...
             follower.setTeleOpDrive(
                     -gamepad1.left_stick_y,
                     -gamepad1.left_stick_x,
@@ -52,6 +53,7 @@ public class ScrimTeleOp extends LinearOpMode {
                     true
             );
 
+            //manually move the belt to move the balls
             if(gamepad2.right_trigger != 0){
                 robot.belt.setPower(0.1);
             }
@@ -59,23 +61,16 @@ public class ScrimTeleOp extends LinearOpMode {
                 robot.belt.setPower(0);
             }
 
+            //activate intake
             if(gamepad2.left_trigger != 0){
-                robot.intake.setPower(0.1);
+                robot.intake.setPower(0.5);
             }
             else{
                 robot.intake.setPower(0);
             }
 
-            if(gamepad2.right_bumper && !changedRB && robot.isBallThere()){
-                robot.pushOff();
-                changedRB = true;
-            }
-            else if(!gamepad2.right_bumper){
-                changedRB = false;
-            }
-
+            //to be coded: change to sort mode
             if(gamepad1.a && !changed1A){
-
             }
 
             telemetryM.debug("amountGreen", robot.colorSensor.green());
