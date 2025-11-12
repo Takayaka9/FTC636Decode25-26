@@ -1,13 +1,16 @@
 package org.firstinspires.ftc.teamcode.scrims;
 
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
 
 public class RobotScrims {
@@ -18,6 +21,8 @@ public class RobotScrims {
     public static int onRampPush = 0;
     public static int offRampPassive = 0;
     public static int offRampPush = 0;
+    public ColorSensor colorSensor;
+    public DistanceSensor distanceSensor;
     public RobotScrims(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
@@ -38,6 +43,9 @@ public class RobotScrims {
         belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         flyLeft.setDirection(DcMotorEx.Direction.REVERSE);
+
+        colorSensor = hardwareMap.get(ColorSensor.class, "CDSensor");
+        distanceSensor = hardwareMap.get(DistanceSensor.class, "CDSensor");
     }
 
     public void initialTele(){
@@ -61,5 +69,13 @@ public class RobotScrims {
 
     public void pushOn(){
         offRamp.setPosition(offRampPush);
+    }
+
+    public boolean isBallThere(){
+        return distanceSensor.getDistance(DistanceUnit.CM) < 1;
+    }
+
+    public boolean isBallGreen(){
+        return colorSensor.green() > 175;
     }
 }

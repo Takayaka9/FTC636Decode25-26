@@ -40,6 +40,9 @@ public class ScrimTeleOp extends LinearOpMode {
 
         while(opModeIsActive()){
 
+            telemetryM.update();
+            follower.update();
+
             follower.setTeleOpDrive(
                     -gamepad1.left_stick_y,
                     -gamepad1.left_stick_x,
@@ -47,9 +50,9 @@ public class ScrimTeleOp extends LinearOpMode {
                     true
             );
 
-            
-
-            follower.update();
+            telemetryM.debug("amountGreen", robot.colorSensor.green());
+            telemetryM.debug("amountRed", robot.colorSensor.red());
+            telemetryM.debug("amountBlue", robot.colorSensor.blue());
         }
     }
 }
