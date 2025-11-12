@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 @Configurable
 @TeleOp(name = "Scrims TeleOP", group = "TeleOp")
 public class ScrimTeleOp extends LinearOpMode {
-    private Follower follower;
-    private TelemetryManager telemetryM;
+    Follower follower;
+    TelemetryManager telemetryM;
     RobotScrims robot;
     PIDFControl_ForVelocity velocityControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
     private double targetVelocity;
