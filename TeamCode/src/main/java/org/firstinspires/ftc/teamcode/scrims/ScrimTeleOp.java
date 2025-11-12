@@ -23,7 +23,10 @@ public class ScrimTeleOp extends LinearOpMode {
     private double targetVelocity;
     public static boolean changedRB = false;
     public static boolean changed1A = false;
-
+    public static boolean changedA = false;
+    public static boolean changedB = false;
+    public static int velocityClose = 1000;
+    public static int velocityFar = 2000;
     @Override
     public void runOpMode() throws InterruptedException{
         robot = new RobotScrims(hardwareMap);
@@ -67,6 +70,24 @@ public class ScrimTeleOp extends LinearOpMode {
             }
             else{
                 robot.intake.setPower(0);
+            }
+
+            //shoot with less velocity (close pos)
+            if(gamepad2.a && !changedA){
+                robot.shoot(velocityClose);
+                changedA = true;
+            }
+            else if(!gamepad2.a){
+                changedA = false;
+            }
+
+            //shoot with more velocity (far pos)
+            if(gamepad2.b && !changedB){
+                robot.shoot(velocityFar);
+                changedB = true;
+            }
+            else if(!gamepad2.b){
+                changedB = false;
             }
 
             //to be coded: change to sort mode
