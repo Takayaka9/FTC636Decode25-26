@@ -47,8 +47,7 @@ public class ScrimTeleOp extends LinearOpMode {
                     true
             );
 
-            double powerLeft = velocityControl.update(targetVelocity, robot.flyLeft.getVelocity());
-            double powerRight = velocityControl.update(targetVelocity, robot.flyRight.getVelocity());
+            
 
             follower.update();
         }

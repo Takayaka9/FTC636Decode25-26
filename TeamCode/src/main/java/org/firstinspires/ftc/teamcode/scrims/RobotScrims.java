@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
+import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
+
 public class RobotScrims {
     public DcMotorEx flyRight, flyLeft, intake;
     public DcMotorEx belt;
@@ -41,5 +43,15 @@ public class RobotScrims {
     public void initialTele(){
         onRamp.setPosition(onRampPassive);
         offRamp.setPosition(offRampPassive);
+    }
+
+    public void shoot(double velocity){
+        PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
+
+        double powerLeft = control.update(velocity, flyLeft.getVelocity());
+        double powerRight = control.update(velocity, flyRight.getVelocity());
+
+        flyLeft.setPower(powerLeft);
+        flyRight.setPower(powerRight);
     }
 }
