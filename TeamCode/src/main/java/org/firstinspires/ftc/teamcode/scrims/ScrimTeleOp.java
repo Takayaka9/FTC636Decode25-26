@@ -60,8 +60,12 @@ public class ScrimTeleOp extends LinearOpMode {
                 robot.belt.setPower(0);
             }
 
-            if(gamepad2.right_bumper && !changedRB){
-
+            if(gamepad2.right_bumper && !changedRB && robot.isBallThere()){
+                robot.pushOff();
+                changedRB = true;
+            }
+            else if(!gamepad2.right_bumper){
+                changedRB = false;
             }
 
             telemetryM.debug("amountGreen", robot.colorSensor.green());
