@@ -30,6 +30,14 @@ public class PIDFControl_ForVelocity {
 
         double output; // basically the same as the normal PIDControl
         output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (target * Kf);
-        return output;
+
+        return Math.max(-1, Math.min(1, output)); //clamping so values do not exceed 1 or -1
+    }
+
+    public void setValues(double p, double i, double d, double f){
+        this.Kp = p;
+        this.Ki = i;
+        this.Kd = d;
+        this.Kf = f;
     }
 }

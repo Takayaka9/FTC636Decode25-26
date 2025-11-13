@@ -31,6 +31,13 @@ public class PIDControl {
 
         double output; // define separately for a little more neatness (and less warnings)
         output = (error * Kp) + (derivative * Kd) + (integralSum * Ki);
-        return output;
+
+        return Math.max(-1, Math.min(1, output)); //clamping so values do not exceed 1 or -1
+    }
+
+    public void setValues(double p, double i, double d){
+        this.Kp = p;
+        this.Ki = i;
+        this.Kd = d;
     }
 }

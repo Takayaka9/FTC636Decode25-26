@@ -17,9 +17,11 @@ CODERS: graph targetV, VelocityL and VelocityR to tune PIDF control.
 @TeleOp(name = "FlyWheelTester", group = "TeleOp")
 public class ScrimFlyWheelTester extends LinearOpMode {
     RobotScrims robot = new RobotScrims(hardwareMap);
-    //Pid control numbers for flywheel:
-    public static PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
+    //PIDF control numbers for flywheel: NEED TO BE TUNED
+    public static double p=0, i=0, d=0, f=0;
+    public static PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(p, i, d, f);
     TelemetryManager telemetryM;
+    //change the target velocity in panels/telemetry to test values
     public static double targetVelocity = 0.0;
 
     @Override
@@ -30,6 +32,12 @@ public class ScrimFlyWheelTester extends LinearOpMode {
 
         while(opModeIsActive()){
             telemetryM.update();
+
+            control.setValues(p, i, d, f);
+            telemetryM.debug("Kp", p);
+            telemetryM.debug("Ki", i);
+            telemetryM.debug("Kd", d);
+            telemetryM.debug("Kf", f);
 
             if(gamepad1.a){
                 double powerLeft = control.update(targetVelocity, robot.flyLeft.getVelocity());

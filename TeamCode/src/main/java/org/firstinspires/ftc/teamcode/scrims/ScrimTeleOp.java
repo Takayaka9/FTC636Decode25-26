@@ -21,16 +21,13 @@ public class ScrimTeleOp extends LinearOpMode {
     TelemetryManager telemetryM;
     RobotScrims robot;
 
-
-    //PID for shooters
-    PIDFControl_ForVelocity velocityControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
-    private double targetVelocity;
     //Velocities for shooters
+    //TODO: test values
     public static int velocityClose = 1000;
     public static int velocityFar = 2000;
 
 
-    //Booleans for inputs
+    //debouncers: prevents the code from repeating itself until the button is released and pressed again
     public static boolean changedRB = false;
     public static boolean changed1A = false;
     public static boolean changed2A = false;
