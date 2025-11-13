@@ -48,8 +48,8 @@ public class ScrimFlyWheelTester extends LinearOpMode {
             }
 
             telemetryM.debug("TargetVelocity", targetVelocity);
-            telemetryM.debug("VelocityL", robot.flyLeft.getVelocity());
-            telemetryM.debug("VelocityR", robot.flyRight.getVelocity());
+            telemetryM.addData("VelocityL", robot.flyLeft.getVelocity());
+            telemetryM.addData("VelocityR", robot.flyRight.getVelocity());
         }
 
     }

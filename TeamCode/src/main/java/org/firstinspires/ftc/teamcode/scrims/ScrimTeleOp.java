@@ -104,9 +104,9 @@ public class ScrimTeleOp extends LinearOpMode {
 
             }
 
-            telemetryM.debug("amountGreen", robot.colorSensor.green());
-            telemetryM.debug("amountRed", robot.colorSensor.red());
-            telemetryM.debug("amountBlue", robot.colorSensor.blue());
+            telemetryM.addData("amountGreen", robot.colorSensor.green());
+            telemetryM.addData("amountRed", robot.colorSensor.red());
+            telemetryM.addData("amountBlue", robot.colorSensor.blue());
         }
     }
 }
