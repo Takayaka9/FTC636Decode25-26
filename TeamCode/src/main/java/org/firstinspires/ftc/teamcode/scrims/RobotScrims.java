@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.scrims;
 
 
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -17,12 +18,13 @@ public class RobotScrims {
     public DcMotorEx flyRight, flyLeft, intake;
     public DcMotorEx belt;
     public Servo onRamp, offRamp;
+    public ColorSensor colorSensor;
+    public DistanceSensor distanceSensor;
+    Limelight3A limelight3A;
     public static int onRampPassive = 0;
     public static int onRampPush = 0;
     public static int offRampPassive = 0;
     public static int offRampPush = 0;
-    public ColorSensor colorSensor;
-    public DistanceSensor distanceSensor;
     public RobotScrims(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
@@ -44,6 +46,8 @@ public class RobotScrims {
 
         colorSensor = hardwareMap.get(ColorSensor.class, "CDSensor");
         distanceSensor = hardwareMap.get(DistanceSensor.class, "CDSensor");
+
+        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
     }
 
     public void initialTele(){
