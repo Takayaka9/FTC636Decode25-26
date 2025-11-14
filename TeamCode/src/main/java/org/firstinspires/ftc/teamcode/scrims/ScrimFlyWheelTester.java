@@ -16,7 +16,7 @@ CODERS: graph targetV, VelocityL and VelocityR to tune PIDF control.
 @Configurable
 @TeleOp(name = "FlyWheelTester", group = "TeleOp")
 public class ScrimFlyWheelTester extends LinearOpMode {
-    RobotScrims robot = new RobotScrims(hardwareMap);
+    RobotScrims robot;
     //PIDF control numbers for flywheel: NEED TO BE TUNED
     //public static double p=0, i=0, d=0, f=0;
     //public static PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(p, i, d, f);
@@ -28,6 +28,7 @@ public class ScrimFlyWheelTester extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
+        robot = new RobotScrims(hardwareMap);
 
         waitForStart();
 
