@@ -5,11 +5,9 @@ import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
@@ -29,6 +27,7 @@ public class RobotScrims {
     public static int onRampPush = 0;
     public static int offRampPassive = 0;
     public static int offRampPush = 0;
+    public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0); //TODO: TUNE PIDF VALUES
     public RobotScrims(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
@@ -63,10 +62,9 @@ public class RobotScrims {
 
     //spins shooter using PIDF control based on the target velocity that is passed through as a parameter
     public void shoot(double velocity){
-        PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0); //TODO: TUNE PIDF VALUES
 
-        double powerLeft = control.update(velocity, flyLeft.getVelocity());
-        double powerRight = control.update(velocity, flyRight.getVelocity());
+        double powerLeft = shootControl.update(velocity, flyLeft.getVelocity());
+        double powerRight = shootControl.update(velocity, flyRight.getVelocity());
 
         flyLeft.setPower(powerLeft);
         flyRight.setPower(powerRight);
