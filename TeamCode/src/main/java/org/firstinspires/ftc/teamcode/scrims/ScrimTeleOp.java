@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.scrims;
 
-import static org.firstinspires.ftc.teamcode.pedroTesting.TeleOPTest.startingPose;
-
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
@@ -20,6 +18,7 @@ public class ScrimTeleOp extends LinearOpMode {
     Follower follower;
     TelemetryManager telemetryM;
     RobotScrims robot;
+    public static Pose startingPose;
 
     //Velocities for shooters
     //TODO: test values
