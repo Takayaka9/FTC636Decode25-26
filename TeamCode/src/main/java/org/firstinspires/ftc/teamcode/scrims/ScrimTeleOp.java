@@ -45,7 +45,7 @@ public class ScrimTeleOp extends LinearOpMode {
 
         //Pedro follower
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(startingPose == null ? new Pose() : startingPose);
+        //follower.setStartingPose(startingPose == null ? new Pose() : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.startTeleopDrive();
