@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.scrims;
 
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,6 +17,7 @@ This file is meant to store all of the information and components on the bot
 so we can simply make an instance of this class in other files (such as auto, teleop)
 and call each component.
  */
+@Configurable
 public class RobotScrims {
     public DcMotorEx flyRight, flyLeft, intake; //motor declaration
     public DcMotorEx belt; //idk why this is separate
