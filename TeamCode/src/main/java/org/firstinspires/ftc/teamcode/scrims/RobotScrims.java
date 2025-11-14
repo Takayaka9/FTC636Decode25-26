@@ -32,29 +32,27 @@ public class RobotScrims {
     public RobotScrims(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
+        //intake = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+        //belt = hardwareMap.get(DcMotorEx.class, "beltMotor");
+
+        //onRamp = hardwareMap.get(Servo.class, "onRamp");
+        //offRamp = hardwareMap.get(Servo.class, "offRamp");
+
         flyRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         flyLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        //intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        //belt.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        /*intake = hardwareMap.get(DcMotorEx.class, "intakeMotor");
-        belt = hardwareMap.get(DcMotorEx.class, "beltMotor");
+        //intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        //belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        onRamp = hardwareMap.get(Servo.class, "onRamp");
-        offRamp = hardwareMap.get(Servo.class, "offRamp");
+        //colorSensor = hardwareMap.get(ColorSensor.class, "CDSensor");
+        //distanceSensor = hardwareMap.get(DistanceSensor.class, "CDSensor");
 
+        //limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
-        intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
-        belt.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-        intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-
-        colorSensor = hardwareMap.get(ColorSensor.class, "CDSensor");
-        distanceSensor = hardwareMap.get(DistanceSensor.class, "CDSensor");
-
-        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
-         */
     }
 
     //initial positions of everything at the start of teleop, as add needed
