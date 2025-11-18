@@ -102,10 +102,6 @@ public class ScrimTeleOp extends LinearOpMode {
             if(gamepad1.a && !changed1A){
 
             }
-
-            telemetryM.addData("amountGreen", robot.colorSensor.green());
-            telemetryM.addData("amountRed", robot.colorSensor.red());
-            telemetryM.addData("amountBlue", robot.colorSensor.blue());
         }
     }
 }

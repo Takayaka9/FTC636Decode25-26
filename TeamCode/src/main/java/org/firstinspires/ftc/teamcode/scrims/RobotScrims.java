@@ -2,14 +2,18 @@ package org.firstinspires.ftc.teamcode.scrims;
 
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
 /*
@@ -22,8 +26,8 @@ public class RobotScrims {
     public DcMotorEx flyRight, flyLeft, intake; //motor declaration
     public DcMotorEx belt; //idk why this is separate
     public Servo onRamp, offRamp; //servos
-    public ColorSensor colorSensor; //color sensor
-    public DistanceSensor distanceSensor; //distance sensor (same as color)
+    public NormalizedColorSensor colorSensor; //color sensor
+    //public DistanceSensor distanceSensor; //distance sensor (same as color)
     Limelight3A limelight3A; //limelight
     public static int onRampPassive = 0; //TODO: test values
     public static int onRampPush = 0;
@@ -50,8 +54,8 @@ public class RobotScrims {
         intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         //belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        //colorSensor = hardwareMap.get(ColorSensor.class, "CDSensor");
-        //distanceSensor = hardwareMap.get(DistanceSensor.class, "CDSensor");
+        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
+        colorSensor.setGain(1);
 
         //limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
@@ -61,6 +65,30 @@ public class RobotScrims {
     public void initialTele(){
         onRamp.setPosition(onRampPassive);
         offRamp.setPosition(offRampPassive);
+    }
+
+    public enum DetectedColor{
+        GREEN,
+        PURPLE,
+        UNKNOWN
+    }
+
+    public DetectedColor getDetectedColor(TelemetryManager telemetryManager){
+        NormalizedRGBA colors = colorSensor.getNormalizedColors();
+
+        float normRed, normGreen, normBlue;
+
+        normRed = colors.red / colors.alpha;
+        normGreen = colors.green / colors.alpha;
+        normBlue = colors.blue / colors.alpha;
+
+        //TODO: calibrate the thresholds and add if statements
+
+        telemetryManager.addData("Red", normRed);
+        telemetryManager.addData("Green", normGreen);
+        telemetryManager.addData("Blue", normBlue);
+
+        return DetectedColor.UNKNOWN;
     }
 
     //spins shooter using PIDF control based on the target velocity that is passed through as a parameter
@@ -90,16 +118,18 @@ public class RobotScrims {
         intake.setPower(intakePower);
     }
 
-    //checks if a ball is on the distance sensor
+    /*checks if a ball is on the distance sensor
     public boolean isBallThere(){
         return distanceSensor.getDistance(DistanceUnit.CM) < 1;
     }
+     */
 
     public void sortMode(String motif){
 
     }
 
     //this is Adit's totally not AI code that returns "1" for shoot and "0" for sort based on the three balls that it intakes. dw about it for now.
+    /*
     public static String sortToPattern(String s, String preferredPattern) {
         int n = s.length();
         if (n == 0) return ""; // nothing to do
@@ -173,5 +203,5 @@ public class RobotScrims {
         }
 
         return bestMoves == null ? "No possible sequence" : bestMoves;
-    }
+    }*/
 }
