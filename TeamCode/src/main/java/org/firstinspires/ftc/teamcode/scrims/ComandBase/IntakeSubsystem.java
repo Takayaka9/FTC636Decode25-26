@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.scrims.RobotScrims;
 public class IntakeSubsystem extends SubsystemBase {
 
     RobotScrims robot;
-    RobotScrims intakeRun;
 
     //Do we even need this:
     public IntakeSubsystem(HardwareMap hardwareMap) {
@@ -20,5 +19,9 @@ public class IntakeSubsystem extends SubsystemBase {
     //Run intake, call from command (emad: figure out how to not keep running forever in command)
     public void IntakeSubsystemRun() {
         robot.intakeRun();
+    }
+
+    public void IntakeSubsystemStop() {
+        robot.intake.setPower(0);
     }
 }
