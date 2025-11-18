@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode.scrims;
 
-import static org.firstinspires.ftc.teamcode.pedroTesting.TeleOPTest.startingPose;
-
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -19,17 +18,15 @@ public class ScrimTeleOp extends LinearOpMode {
     Follower follower;
     TelemetryManager telemetryM;
     RobotScrims robot;
+    public static Pose startingPose;
 
-
-    //PID for shooters
-    PIDFControl_ForVelocity velocityControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0);
-    private double targetVelocity;
     //Velocities for shooters
+    //TODO: test values
     public static int velocityClose = 1000;
     public static int velocityFar = 2000;
 
 
-    //Booleans for inputs
+    //debouncers: prevents the code from repeating itself until the button is released and pressed again
     public static boolean changedRB = false;
     public static boolean changed1A = false;
     public static boolean changed2A = false;
@@ -48,10 +45,11 @@ public class ScrimTeleOp extends LinearOpMode {
 
         //Pedro follower
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(startingPose == null ? new Pose() : startingPose);
+        //follower.setStartingPose(startingPose == null ? new Pose() : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.startTeleopDrive();
+        robot.limelight3A.start();
 
         while(opModeIsActive()){
 
@@ -104,10 +102,6 @@ public class ScrimTeleOp extends LinearOpMode {
             if(gamepad1.a && !changed1A){
 
             }
-
-            telemetryM.debug("amountGreen", robot.colorSensor.green());
-            telemetryM.debug("amountRed", robot.colorSensor.red());
-            telemetryM.debug("amountBlue", robot.colorSensor.blue());
         }
     }
 }

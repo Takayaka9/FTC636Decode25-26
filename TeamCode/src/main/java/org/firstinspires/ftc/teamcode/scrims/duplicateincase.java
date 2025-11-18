@@ -4,18 +4,13 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
-/*
-Test the flywheel by changing "TargetVelocity" in panels (max 2800, I think). Then press button A
-on GAMEPAD 1 (ONE) to move.
-CODERS: graph targetV, VelocityL and VelocityR to tune PIDF control.
- */
+
 @Configurable
-@TeleOp(name = "FlyWheelTester", group = "TeleOp")
-public class ScrimFlyWheelTester extends LinearOpMode {
+@TeleOp(name = "FlyWheelTesterDupe", group = "TeleOp")
+public class duplicateincase extends LinearOpMode{
     RobotScrims robot;
     //PIDF control numbers for flywheel: NEED TO BE TUNED
     //public static double p=0, i=0, d=0, f=0;

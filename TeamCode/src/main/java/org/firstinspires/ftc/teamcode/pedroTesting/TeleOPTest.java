@@ -44,7 +44,7 @@ public class TeleOPTest extends OpMode {
                 .build();
 
         TMotor = hardwareMap.get(DcMotor.class, "TMotor");
-        TMotor = hardwareMap.get(DcMotor.class, "T2Motor");
+        T2Motor = hardwareMap.get(DcMotor.class, "T2Motor");
     }
     @Override
     public void start() {
