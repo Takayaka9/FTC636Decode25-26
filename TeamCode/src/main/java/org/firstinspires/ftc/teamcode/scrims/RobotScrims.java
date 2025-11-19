@@ -52,11 +52,13 @@ public class RobotScrims {
         flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         belt.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
-        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
-        colorSensor.setGain(1);
+        belt.setTargetPosition(belt.getCurrentPosition());
+        belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+       // colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
+        //colorSensor.setGain(1);
 
         //limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
@@ -64,8 +66,8 @@ public class RobotScrims {
 
     //initial positions of everything at the start of teleop, as add needed
     public void initialTele(){
-        onRamp.setPosition(onRampPassive);
-        offRamp.setPosition(offRampPassive);
+        //onRamp.setPosition(onRampPassive);
+        //koffRamp.setPosition(offRampPassive);
     }
 
     public enum DetectedColor{
@@ -102,16 +104,16 @@ public class RobotScrims {
     }
 
     //method to push a ball off of the ramp
-    public void pushOff(){
+    /*public void pushOff(){
         onRamp.setPosition(onRampPush);
         onRamp.setPosition(onRampPassive);
-    }
+    }*/
 
     //method to push a ball back on the ramp
-    public void pushOn(){
+    /*public void pushOn(){
         offRamp.setPosition(offRampPush);
         offRamp.setPosition(offRampPassive);
-    }
+    }*/
 
     //run intake
     public void intakeRun(){
