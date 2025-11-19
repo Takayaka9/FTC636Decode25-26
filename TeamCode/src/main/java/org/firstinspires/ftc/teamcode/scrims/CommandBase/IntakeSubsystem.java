@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.scrims.ComandBase;
+package org.firstinspires.ftc.teamcode.scrims.CommandBase;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.scrims.RobotScrims;

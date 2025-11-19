@@ -24,9 +24,11 @@ public class ScrimTeleOp extends LinearOpMode {
     //TODO: test values
     public static int velocityClose = 1000;
     public static int velocityFar = 2000;
-
+    public static int beltOn = 0;
+    public static int intakeOn = 0;
 
     //debouncers: prevents the code from repeating itself until the button is released and pressed again
+    public static boolean intakeToggle = false;
     public static boolean changedRB = false;
     public static boolean changed1A = false;
     public static boolean changed2A = false;
@@ -64,20 +66,21 @@ public class ScrimTeleOp extends LinearOpMode {
                     true
             );
 
-            //manually move the belt to move the balls
-            if(gamepad2.right_trigger != 0){
-                robot.belt.setPower(0.1);
+            //move the belt and intake to move the balls
+            if(gamepad2.right_bumper && !intakeToggle && !changedRB){
+                robot.belt.setPower(beltOn);
+                robot.intake.setPower(intakeOn);
+                intakeToggle = true;
+                changedRB = true;
             }
-            else{
+            if(gamepad2.right_bumper && intakeToggle && !changedRB){
                 robot.belt.setPower(0);
-            }
-
-            //activate intake
-            if(gamepad2.left_trigger != 0){
-                robot.intake.setPower(0.5);
-            }
-            else{
                 robot.intake.setPower(0);
+                intakeToggle = false;
+                changedRB = true;
+            }
+            if(!gamepad2.right_bumper){
+                changedRB = false;
             }
 
             //shoot with less velocity (close pos)
@@ -87,6 +90,7 @@ public class ScrimTeleOp extends LinearOpMode {
             }
             else if(!gamepad2.a){
                 changed2A = false;
+                robot.shoot(0);
             }
 
             //shoot with more velocity (far pos)
@@ -96,11 +100,7 @@ public class ScrimTeleOp extends LinearOpMode {
             }
             else if(!gamepad2.b){
                 changed2B = false;
-            }
-
-            //to be coded: change to sort mode
-            if(gamepad1.a && !changed1A){
-
+                robot.shoot(0);
             }
         }
     }

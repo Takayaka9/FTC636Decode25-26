@@ -42,15 +42,13 @@ public class ScrimFlyWheelTester extends LinearOpMode {
             telemetryM.debug("Kf", control.Kf);
 
             if(gamepad1.a){
-                double powerLeft = control.update(targetVelocity, robot.flyLeft.getVelocity());
-                double powerRight = control.update(targetVelocity, robot.flyRight.getVelocity());
+                double power = control.update(targetVelocity, robot.flyRight.getVelocity());
 
-                robot.flyLeft.setPower(powerLeft);
-                robot.flyRight.setPower(powerRight);
+                robot.flyLeft.setPower(power);
+                robot.flyRight.setPower(power);
             }
 
             telemetryM.debug("TargetVelocity", targetVelocity);
-            telemetryM.addData("VelocityL", robot.flyLeft.getVelocity());
             telemetryM.addData("VelocityR", robot.flyRight.getVelocity());
         }
 

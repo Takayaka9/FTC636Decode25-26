@@ -94,11 +94,10 @@ public class RobotScrims {
     //spins shooter using PIDF control based on the target velocity that is passed through as a parameter
     public void shoot(double velocity){
 
-        double powerLeft = shootControl.update(velocity, flyLeft.getVelocity());
-        double powerRight = shootControl.update(velocity, flyRight.getVelocity());
+        double power = shootControl.update(velocity, flyRight.getVelocity());
 
-        flyLeft.setPower(powerLeft);
-        flyRight.setPower(powerRight);
+        flyLeft.setPower(power);
+        flyRight.setPower(power);
     }
 
     //method to push a ball off of the ramp
