@@ -5,11 +5,9 @@ import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Configurable
@@ -26,6 +24,8 @@ public class ScrimTeleOp extends LinearOpMode {
     public static int velocityFar = 2000;
     public static int beltOn = 0;
     public static int intakeOn = 0;
+    public static int beltTargetPosition = 0;
+    public static int beltIncrement = 0;
 
     //debouncers: prevents the code from repeating itself until the button is released and pressed again
     public static boolean intakeToggle = false;
@@ -33,6 +33,8 @@ public class ScrimTeleOp extends LinearOpMode {
     public static boolean changed1A = false;
     public static boolean changed2A = false;
     public static boolean changed2B = false;
+
+    public static boolean changed2Y = false;
 
 
     @Override
@@ -73,13 +75,13 @@ public class ScrimTeleOp extends LinearOpMode {
                 intakeToggle = true;
                 changedRB = true;
             }
-            if(gamepad2.right_bumper && intakeToggle && !changedRB){
+            else if(gamepad2.right_bumper && intakeToggle && !changedRB){
                 robot.belt.setPower(0);
                 robot.intake.setPower(0);
                 intakeToggle = false;
                 changedRB = true;
             }
-            if(!gamepad2.right_bumper){
+            else if(!gamepad2.right_bumper){
                 changedRB = false;
             }
 
@@ -102,6 +104,21 @@ public class ScrimTeleOp extends LinearOpMode {
                 changed2B = false;
                 robot.shoot(0);
             }
+
+            //Sort change
+            if(gamepad2.y && !changed2Y){
+                beltTargetPosition += beltIncrement;
+                robot.belt.setTargetPosition(beltTargetPosition);
+                robot.belt.setPower(beltOn);
+            }
+
+            telemetryM.debug("flywheel close", velocityClose);
+            telemetryM.debug("flywheel far", velocityFar);
+            telemetryM.debug("belt power", beltOn);
+            telemetryM.debug("intake power", intakeOn);
+            telemetryM.addData("intake toggle", intakeToggle);
+            telemetryM.addData("belt target", beltTargetPosition);
+            telemetryM.debug("belt increment", beltIncrement);
         }
     }
 }
