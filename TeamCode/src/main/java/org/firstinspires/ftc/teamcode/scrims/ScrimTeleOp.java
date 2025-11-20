@@ -7,6 +7,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -20,10 +21,10 @@ public class ScrimTeleOp extends LinearOpMode {
 
     //Velocities for shooters
     //TODO: test values
-    public static int velocityClose = 3500;
+    public static int velocityClose = 3000;
     public static int velocityFar = 5000;
     public static double beltOn = 0.5;
-    public static int intakeOn = 1;
+    public static double intakeOn = 0.7;
     public static int beltTargetPosition = 0;
     public static int beltIncrement = 1;
 
@@ -35,11 +36,13 @@ public class ScrimTeleOp extends LinearOpMode {
     public static boolean changed2B = false;
 
     public static boolean changed2Y = false;
+    public static double shootP, shootI, shootD, shootF;
 
 
     @Override
     public void runOpMode() throws InterruptedException{
         robot = new RobotScrims(hardwareMap);
+        //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         waitForStart();
 
@@ -53,17 +56,19 @@ public class ScrimTeleOp extends LinearOpMode {
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.startTeleopDrive();
-        robot.limelight3A.start();
+        //robot.limelight3A.start();
 
         while(opModeIsActive()){
 
             telemetryM.update();
             follower.update();
 
+
+
             //drivetrain...I think it works...
             follower.setTeleOpDrive(
+                    gamepad1.left_stick_x,
                     -gamepad1.left_stick_y,
-                    -gamepad1.left_stick_x,
                     -gamepad1.right_stick_x,
                     true
             );
@@ -85,35 +90,52 @@ public class ScrimTeleOp extends LinearOpMode {
                 changedRB = false;
             }
 
+            /*
             //shoot with less velocity (close pos)
-            if(gamepad2.a && !changed2A){
-                robot.shoot(velocityClose);
-                changed2A = true;
+            if(gamepad2.a){
+                robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityFar));
+                //robot.flyRight.setPower(1);
+                robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityFar));
+                //changed2A = true;
             }
             else if(!gamepad2.a){
-                changed2A = false;
-                robot.shoot(0);
+                robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
+                robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
             }
+
+             */
 
             //shoot with more velocity (far pos)
-            if(gamepad2.b && !changed2B){
-                robot.shoot(velocityFar);
-                changed2B = true;
+            if(gamepad2.b){
+                //robot.flyRight.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
+                //robot.flyLeft.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
+                //robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityClose));
+                //robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityClose));
+                robot.flyRight.setPower(1);
+                robot.flyLeft.setPower(1);
+                //changed2B = true;
             }
             else if(!gamepad2.b){
-                changed2B = false;
-                robot.shoot(0);
+                //changed2B = false;
+                //robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
+                //robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
             }
 
-            //Sort change
+            /*
             if(gamepad2.y && !changed2Y){
                 beltTargetPosition += beltIncrement;
                 robot.belt.setTargetPosition(beltTargetPosition);
                 robot.belt.setPower(beltOn);
             }
 
+             */
+
             telemetryM.debug("flywheel close", velocityClose);
             telemetryM.debug("flywheel far", velocityFar);
+            telemetryM.addData("velocity left", robot.flyLeft.getVelocity());
+            telemetryM.addData("velocity right", robot.flyRight.getVelocity());
             telemetryM.debug("belt power", beltOn);
             telemetryM.debug("intake power", intakeOn);
             telemetryM.addData("intake toggle", intakeToggle);
