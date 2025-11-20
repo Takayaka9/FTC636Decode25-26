@@ -20,12 +20,12 @@ public class ScrimTeleOp extends LinearOpMode {
 
     //Velocities for shooters
     //TODO: test values
-    public static int velocityClose = 1000;
-    public static int velocityFar = 2000;
-    public static int beltOn = 0;
-    public static int intakeOn = 0;
+    public static int velocityClose = 3500;
+    public static int velocityFar = 5000;
+    public static double beltOn = 0.5;
+    public static int intakeOn = 1;
     public static int beltTargetPosition = 0;
-    public static int beltIncrement = 0;
+    public static int beltIncrement = 1;
 
     //debouncers: prevents the code from repeating itself until the button is released and pressed again
     public static boolean intakeToggle = false;

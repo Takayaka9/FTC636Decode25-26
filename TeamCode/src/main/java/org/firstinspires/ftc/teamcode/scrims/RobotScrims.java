@@ -34,6 +34,8 @@ public class RobotScrims {
     public static int offRampPassive = 0;
     public static int offRampPush = 0;
     public static int intakePower = 0;
+    double velocity;
+    public double TICKS_PER_REV = 24;
     public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0); //TODO: TUNE PIDF VALUES
     public RobotScrims(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
@@ -95,12 +97,14 @@ public class RobotScrims {
     }
 
     //spins shooter using PIDF control based on the target velocity that is passed through as a parameter
-    public void shoot(double velocity){
+    public double RPMtoVelocity (int targetRPM) {
+        return (targetRPM * TICKS_PER_REV)/60;
+    }
 
-        double power = shootControl.update(velocity, flyRight.getVelocity());
-
-        flyLeft.setPower(power);
-        flyRight.setPower(power);
+    public void shoot(int RPM) {
+        velocity = RPMtoVelocity(RPM);
+        flyRight.setVelocity(velocity);
+        flyLeft.setVelocity(velocity);
     }
 
     //method to push a ball off of the ramp
