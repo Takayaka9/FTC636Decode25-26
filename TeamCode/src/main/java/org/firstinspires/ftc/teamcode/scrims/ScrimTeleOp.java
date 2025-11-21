@@ -8,6 +8,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -34,10 +35,12 @@ public class ScrimTeleOp extends LinearOpMode {
     public static boolean changed1A = false;
     public static boolean changed2A = false;
     public static boolean changed2B = false;
-
     public static boolean changed2Y = false;
+    public static boolean isSorting = false;
     public static double shootP, shootI, shootD, shootF;
-
+    ElapsedTime sortTime = new ElapsedTime();
+    public static double sort1 = 0.3;
+    public static double sort2 = 1;
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -74,20 +77,26 @@ public class ScrimTeleOp extends LinearOpMode {
             );
 
             //move the belt and intake to move the balls
-            if(gamepad2.right_bumper && !intakeToggle && !changedRB){
-                robot.belt.setPower(beltOn);
-                robot.intake.setPower(intakeOn);
-                intakeToggle = true;
-                changedRB = true;
-            }
-            else if(gamepad2.right_bumper && intakeToggle && !changedRB){
-                robot.belt.setPower(0);
-                robot.intake.setPower(0);
-                intakeToggle = false;
-                changedRB = true;
-            }
-            else if(!gamepad2.right_bumper){
-                changedRB = false;
+            if(!isSorting){
+                if(gamepad2.right_bumper && !intakeToggle && !changedRB){
+                    robot.belt.setPower(beltOn);
+                    robot.intake.setPower(intakeOn);
+                    intakeToggle = true;
+                    changedRB = true;
+                }
+                else if(gamepad2.right_bumper && intakeToggle && !changedRB){
+                    robot.belt.setPower(0);
+                    robot.intake.setPower(0);
+                    intakeToggle = false;
+                    changedRB = true;
+                }
+                else if(!gamepad2.right_bumper){
+                    changedRB = false;
+                }
+                else if(gamepad2.x){
+                    robot.belt.setPower(-beltOn);
+                    robot.intake.setPower(-intakeOn);
+                }
             }
 
             /*
@@ -105,7 +114,7 @@ public class ScrimTeleOp extends LinearOpMode {
 
              */
 
-            //shoot with more velocity (far pos)
+            //shoot
             if(gamepad2.b){
                 //robot.flyRight.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
                 //robot.flyLeft.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
@@ -122,12 +131,58 @@ public class ScrimTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
+            /*
+            if(gamepad2.y){
+                robot.pushOff();
+
+            }
+
+             */
 
             /*
             if(gamepad2.y && !changed2Y){
                 beltTargetPosition += beltIncrement;
                 robot.belt.setTargetPosition(beltTargetPosition);
                 robot.belt.setPower(beltOn);
+            }
+             */
+
+            /*
+            switch(sortSteps){
+                case READY:
+                    if(gamepad2.y && !changed2Y){
+                        changed2Y= true;
+                        isSorting = true;
+                        robot.belt.setPower(0);
+                        robot.intake.setPower(0);
+                        sortTime.reset();
+                        sortSteps = SortSteps.PUSH;
+                    }
+                    else if(!gamepad2.y){
+                        changed2Y = false;
+                    }
+                    break;
+                case PUSH:
+                    robot.pushOff();
+                    if(!gamepad2.y){
+                        changed2Y = false;
+                    }
+                    if(sortTime.seconds() > sort1){
+                        sortSteps = SortSteps.UP;
+                        sortTime.reset();
+                    }
+                    break;
+                case UP:
+                    robot.belt.setPower(beltOn);
+                    if(sortTime.seconds() > sort2){
+                        robot.belt.setPower(0);
+                        sortSteps = SortSteps.ON;
+                    }
+                    break;
+                case ON:
+                    robot.pushOn();
+                    isSorting = false;
+                    break;
             }
 
              */
@@ -143,4 +198,11 @@ public class ScrimTeleOp extends LinearOpMode {
             telemetryM.debug("belt increment", beltIncrement);
         }
     }
+
+    public enum SortSteps{
+        READY, PUSH, UP, ON
+    }
+
+    public SortSteps sortSteps;
+
 }

@@ -108,17 +108,24 @@ public class RobotScrims {
         flyLeft.setVelocity(velocity);
     }
 
+    /*
     //method to push a ball off of the ramp
-    /*public void pushOff(){
+    public void pushOff(){
         onRamp.setPosition(onRampPush);
         onRamp.setPosition(onRampPassive);
-    }*/
+    }
 
     //method to push a ball back on the ramp
-    /*public void pushOn(){
+    public void pushOn(){
         offRamp.setPosition(offRampPush);
         offRamp.setPosition(offRampPassive);
-    }*/
+    }
+    
+     */
+
+
+
+
 
     //run intake
     public void intakeRun(){
