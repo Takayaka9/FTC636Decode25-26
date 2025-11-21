@@ -70,9 +70,9 @@ public class ScrimTeleOp extends LinearOpMode {
 
             //drivetrain...I think it works...
             follower.setTeleOpDrive(
-                    gamepad1.left_stick_x,
-                    -gamepad1.left_stick_y,
-                    -gamepad1.right_stick_x,
+                    Math.abs(Math.pow(gamepad1.left_stick_x, 2.75)),
+                    -Math.abs(Math.pow(gamepad1.left_stick_y,2.75)),
+                    (-gamepad1.right_stick_x * 0.5),
                     true
             );
 
