@@ -29,6 +29,7 @@ public class ScrimTeleOp extends LinearOpMode {
     public static int beltTargetPosition = 0;
     public static int beltIncrement = 1;
     public static double beltReverse = -0.4;
+    public static double flyReverse = -0.3;
     //debouncers: prevents the code from repeating itself until the button is released and pressed again
     public static boolean intakeToggle = false;
     public static boolean changedRB = false;
@@ -69,10 +70,20 @@ public class ScrimTeleOp extends LinearOpMode {
 
 
             //drivetrain...I think it works...
+            /*
             follower.setTeleOpDrive(
                     Math.abs(Math.pow(gamepad1.left_stick_x, 2.75)),
                     -Math.abs(Math.pow(gamepad1.left_stick_y,2.75)),
                     (-gamepad1.right_stick_x * 0.5),
+                    true
+            );
+
+             */
+
+            follower.setTeleOpDrive(
+                    gamepad1.left_stick_x*0.75,
+                    -gamepad1.left_stick_y*0.75,
+                    -gamepad1.right_stick_x*0.5,
                     true
             );
 
@@ -109,15 +120,21 @@ public class ScrimTeleOp extends LinearOpMode {
                 }
                 else if(gamepad2.x){
                     robot.belt.setPower(beltReverse);
+                    robot.flyRight.setPower(flyReverse);
+                    robot.flyLeft.setPower(flyReverse);
                     robot.intake.setPower(-0.7);
                 }
                 else if(gamepad2.left_bumper){
                     robot.belt.setPower(beltReverse);
+                    robot.flyRight.setPower(flyReverse);
+                    robot.flyLeft.setPower(flyReverse);
                     robot.intake.setPower(0);
                 }
                 else{
                     robot.belt.setPower(0);
                     robot.intake.setPower(0);
+                    robot.flyRight.setPower(0);
+                    robot.flyLeft.setPower(0);
                 }
             }
 
