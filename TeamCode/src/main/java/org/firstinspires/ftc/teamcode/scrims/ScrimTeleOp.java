@@ -28,7 +28,7 @@ public class ScrimTeleOp extends LinearOpMode {
     public static double intakeOn = 0.7;
     public static int beltTargetPosition = 0;
     public static int beltIncrement = 1;
-
+    public static double beltReverse = -0.4;
     //debouncers: prevents the code from repeating itself until the button is released and pressed again
     public static boolean intakeToggle = false;
     public static boolean changedRB = false;
@@ -77,6 +77,7 @@ public class ScrimTeleOp extends LinearOpMode {
             );
 
             //move the belt and intake to move the balls
+            /*
             if(!isSorting){
                 if(gamepad2.right_bumper && !intakeToggle && !changedRB){
                     robot.belt.setPower(beltOn);
@@ -96,6 +97,27 @@ public class ScrimTeleOp extends LinearOpMode {
                 else if(gamepad2.x){
                     robot.belt.setPower(-beltOn);
                     robot.intake.setPower(-intakeOn);
+                }
+            }
+
+             */
+
+            if(!isSorting){
+                if(gamepad2.right_bumper){
+                    robot.belt.setPower(beltOn);
+                    robot.intake.setPower(intakeOn);
+                }
+                else if(gamepad2.x){
+                    robot.belt.setPower(beltReverse);
+                    robot.intake.setPower(-0.7);
+                }
+                else if(gamepad2.left_bumper){
+                    robot.belt.setPower(beltReverse);
+                    robot.intake.setPower(0);
+                }
+                else{
+                    robot.belt.setPower(0);
+                    robot.intake.setPower(0);
                 }
             }
 
