@@ -22,7 +22,7 @@ public class ScrimTeleOp extends LinearOpMode {
 
     //Velocities for shooters
     //TODO: test values
-    public static int velocityClose = 3000;
+    public static int velocityClose = 8000;
     public static int velocityFar = 5000;
     public static double beltOn = 0.5;
     public static double intakeOn = 0.7;
@@ -38,7 +38,7 @@ public class ScrimTeleOp extends LinearOpMode {
     public static boolean changed2B = false;
     public static boolean changed2Y = false;
     public static boolean isSorting = false;
-    public static double shootP, shootI, shootD, shootF;
+    public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
     ElapsedTime sortTime = new ElapsedTime();
     public static double sort1 = 0.3;
     public static double sort2 = 1;

@@ -1,28 +1,28 @@
-package org.firstinspires.ftc.teamcode.pedroTesting;
+package org.firstinspires.ftc.teamcode.scrims;
 
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "Example Auto", group = "Examples")
-public class AutoTest extends OpMode {
+@Autonomous(name = "Scrim Auto Red", group = "Auto")
+public class ScrimRedAuto extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
 
 //    Poses
-    private final Pose startPose = new Pose(10, 10, Math.toRadians(0));
-    private final Pose Pose1 = new Pose(20, 20, Math.toRadians(0));
-    private final Pose Pose2 = new Pose(20, 40, Math.toRadians(0));
-    private final Pose Pose3 = new Pose(40, 60, /*TI*/ Math.toRadians(90));
+    private final Pose startPose = new Pose(57, 10.2, Math.toRadians(90));
+    private final Pose Pose1 = new Pose(72, 76, Math.toRadians(42));
+    //private final Pose Pose2 = new Pose(20, 40, Math.toRadians(0));
+    //private final Pose Pose3 = new Pose(40, 60, /*TI*/ Math.toRadians(90));
     //// private final Pose Pose4 = new Pose(40, 20, Math.toRadians(45)) ;
     //// private final Pose Pose5 = new Pose(40, 20, Math.toRadians(135));
 
@@ -37,7 +37,7 @@ public class AutoTest extends OpMode {
                 .setLinearHeadingInterpolation(startPose.getHeading(), Pose1.getHeading())
                 .build();
 
-        Line2 = follower.pathBuilder()
+        /*Line2 = follower.pathBuilder()
                 .addPath(new BezierLine(Pose1, Pose2))
                 .setLinearHeadingInterpolation(Pose1.getHeading(), Pose2.getHeading())
                 .build();
@@ -46,6 +46,8 @@ public class AutoTest extends OpMode {
                 .addPath(new BezierCurve(Pose2, Pose3, Pose1))
                 .setLinearHeadingInterpolation(Pose2.getHeading(), Pose3.getHeading(), Pose1.getHeading())
                 .build();
+
+         */
         }
 
 
@@ -55,6 +57,7 @@ public class AutoTest extends OpMode {
                 follower.followPath(Line1);
                 setPathState(1);
                 break;
+                /*
             case 1:
                 follower.followPath(Line2);
                 setPathState(1);
@@ -64,6 +67,8 @@ public class AutoTest extends OpMode {
                 setPathState(1);
                 break;
             case 3:
+
+                 */
 
         }
     }
