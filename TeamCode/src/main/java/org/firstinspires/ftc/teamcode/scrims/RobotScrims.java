@@ -38,7 +38,7 @@ public class RobotScrims {
     public static double beltBackPower = -0.4;
     double velocity;
     public double TICKS_PER_REV = 24;
-    public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0); //TODO: TUNE PIDF VALUES
+    public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(1.19, 2.0, 1.1, 0.0); //HOPEFULLY TUNED RIGHT??? ALL VALUES WERE 0 BEFORE IF ISSUES ARISE
     public RobotScrims(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");

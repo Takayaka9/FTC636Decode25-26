@@ -155,18 +155,18 @@ public class ScrimTeleOp extends LinearOpMode {
 
             //shoot
             if(gamepad2.b){
-                //robot.flyRight.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
-                //robot.flyLeft.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
-                //robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityClose));
-                //robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityClose));
-                robot.flyRight.setPower(1);
-                robot.flyLeft.setPower(1);
+                robot.flyRight.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
+                robot.flyLeft.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
+                robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityClose));
+                robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityClose));
+                //robot.flyRight.setPower(1);
+                //robot.flyLeft.setPower(1);
                 //changed2B = true;
             }
             else if(!gamepad2.b){
                 //changed2B = false;
-                //robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
-                //robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
+                robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
+                robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
