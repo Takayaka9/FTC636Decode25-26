@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.scrims.CommandBase;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Commands {
 
@@ -15,7 +16,7 @@ public class Commands {
         }
 
         @Override
-        public void execute() {
+        public void initialize() {
             m_intakesubsystem.IntakeSubsystemRun();
         }
 
@@ -29,6 +30,22 @@ public class Commands {
         }
 
 
+    }
+
+    public class RunBeltReverse extends CommandBase {
+        private final IntakeSubsystem m_intakesubsystem;
+        public RunBeltReverse(IntakeSubsystem subsystem) {
+            m_intakesubsystem = subsystem;
+            addRequirements(subsystem);
+        }
+        @Override
+        public void initialize(){m_intakesubsystem.IntakeSubsystemReverse();}
+
+        @Override
+        public void end(boolean interrupted) {
+            m_intakesubsystem.IntakeSubsystemStop();
+        }
+        public boolean isFinished() {return true;}
     }
 }
 

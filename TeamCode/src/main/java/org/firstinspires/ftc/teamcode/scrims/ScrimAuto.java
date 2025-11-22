@@ -9,6 +9,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
+import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -35,10 +36,7 @@ public class ScrimAuto extends LinearOpMode {
         while(opModeIsActive()){
             telemetryM.update();
             follower.update();
-
             CommandScheduler commandScheduler;
-
-
         }
     }
 
@@ -48,12 +46,17 @@ public class ScrimAuto extends LinearOpMode {
     public static double scoreY = 90;
     public static double scoreA = 136;
 
-    private final Pose startPose = new Pose(startX, startY, Math.toRadians(90));
+    private final Pose startPose = new Pose(startX, startY, Math.toRadians(270));
     private final Pose scorePose = new Pose(scoreX, scoreY, Math.toRadians(scoreA));
 
     private Path scorePreload;
-    public void buildPaths(){
-        scorePreload = new Path(new BezierLine(startPose, scorePose));
-        scorePreload.setLinearHeadingInterpolation(startPose.getHeading(), scorePose.getHeading());
+
+    private PathChain scorePreloadPATH;
+    public void buildPaths() {
+        scorePreloadPATH = follower.pathBuilder()
+                .addPath(new BezierLine(startPose, scorePose))
+                .setLinearHeadingInterpolation(startPose.getHeading(), scorePose.getHeading())
+                .build();
     }
+
 }

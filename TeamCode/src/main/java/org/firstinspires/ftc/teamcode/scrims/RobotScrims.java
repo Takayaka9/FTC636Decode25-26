@@ -33,7 +33,9 @@ public class RobotScrims {
     public static int onRampPush = 0;
     public static int offRampPassive = 0;
     public static int offRampPush = 0;
-    public static int intakePower = 0;
+    public static double intakePower = 0.7;
+    public static double beltPower = 0.5;
+    public static double beltBackPower = -0.4;
     double velocity;
     public double TICKS_PER_REV = 24;
     public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(0.0, 0.0, 0.0, 0.0); //TODO: TUNE PIDF VALUES
@@ -127,5 +129,10 @@ public class RobotScrims {
     public void intakeRun(){
         intake.setPower(intakePower);
     }
-    
+    public void beltRun() {
+        belt.setPower(beltPower);
+    }
+    public void beltBackRun() {
+        belt.setPower(beltBackPower);
+    }
 }
