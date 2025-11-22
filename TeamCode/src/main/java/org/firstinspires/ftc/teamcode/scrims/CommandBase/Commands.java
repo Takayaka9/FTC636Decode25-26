@@ -47,5 +47,22 @@ public class Commands {
         }
         public boolean isFinished() {return true;}
     }
+
+    public class FlyShoot extends CommandBase {
+        private final FlySubsystem m_flysubsystem;
+        public FlyShoot(FlySubsystem subsystem) {
+            m_flysubsystem = subsystem;
+            addRequirements(subsystem);
+        }
+
+        @Override
+        public void initialize(){m_flysubsystem.FlyRun();}
+
+        @Override
+        public void end(boolean interrupted) {
+            m_flysubsystem.FlySTOP();
+        }
+        public boolean isFinished() {return true;}
+    }
 }
 
