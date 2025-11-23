@@ -6,6 +6,7 @@ import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -16,6 +17,8 @@ You need to mess with Limelight's filters first -- refer to documentation. Check
 game manual to see which apriltag family we are using. If the code doesn't work...you can
 rewrite it. Good luck!
  */
+
+@Disabled
 @Configurable
 @TeleOp(name = "limelight", group = "TeleOp")
 public class LimelightTest extends LinearOpMode {

@@ -8,10 +8,13 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 //什么
 //pray
+
+@Disabled
 @Configurable
 @Autonomous(name = "ScrimAutoBAD", group = "Autonomous")
 public class ScrimAutoBAD extends OpMode {

@@ -1,17 +1,21 @@
-package org.firstinspires.ftc.teamcode.scrims;
+package org.firstinspires.ftc.teamcode.quals;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@Disabled
-public class ScrimColorTester extends OpMode {
-    RobotScrims robot;
+import org.firstinspires.ftc.teamcode.scrims.RobotScrims;
+
+@Configurable
+@TeleOp(name = "ColorSensor Test", group = "TeleOp")
+public class QualsColorTester extends OpMode {
+    RobotQuals robot;
     TelemetryManager telemetryManager;
     @Override
     public void init() {
-        robot = new RobotScrims(hardwareMap);
+        robot = new RobotQuals(hardwareMap);
         telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
     }
 

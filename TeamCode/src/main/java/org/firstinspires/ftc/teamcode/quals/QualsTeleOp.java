@@ -1,25 +1,23 @@
-package org.firstinspires.ftc.teamcode.scrims;
+package org.firstinspires.ftc.teamcode.quals;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.scrims.RobotScrims;
 
-@Disabled
 @Configurable
-@TeleOp(name = "Scrims TeleOP", group = "TeleOp")
-public class ScrimTeleOp extends LinearOpMode {
+@TeleOp(name = "Quals TeleOp", group = "TeleOp")
+public class QualsTeleOp extends LinearOpMode {
     Follower follower;
     TelemetryManager telemetryM;
-    RobotScrims robot;
+    RobotQuals robot;
     public static Pose startingPose;
 
     //Velocities for shooters
@@ -47,7 +45,7 @@ public class ScrimTeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException{
-        robot = new RobotScrims(hardwareMap);
+        robot = new RobotQuals(hardwareMap);
         //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         waitForStart();

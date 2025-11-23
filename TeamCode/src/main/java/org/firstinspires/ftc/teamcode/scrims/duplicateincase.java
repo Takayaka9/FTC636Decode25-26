@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode.scrims;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
 
+@Disabled
 @Configurable
 @TeleOp(name = "FlyWheelTesterDupe", group = "TeleOp")
 public class duplicateincase extends LinearOpMode{
