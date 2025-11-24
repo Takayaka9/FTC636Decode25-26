@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.Sorting;
 //we should print sortData[] to telemetry and find a way to input preload or always preload the same
 public class SortLogic {
     //input array required for function: String[] sortData = new String[3];
-    public String[] sortCycleLogic(String[] sortData) {
+    public Object[] sortCycleLogic(Object[] sortData) {
         //strings to hold data to prevent overwriting
-        String inProgress2;
-        String inProgress0;
+        Object inProgress2;
+        Object inProgress0;
 
         //rotate ball positions
         inProgress2 = sortData[2];
@@ -18,8 +18,7 @@ public class SortLogic {
 
         return sortData;
     }
-    public String[] updateSortData(String newArtifact, String requiredArtifact, String[] sortData) {
-        int cycles = 0;
+    public Object[] updateIntake(String newArtifact, Object[] sortData) {
 
         if (newArtifact.equals("g")) {
             sortData[0] = "g";
@@ -27,7 +26,13 @@ public class SortLogic {
             sortData[0] = "p";
         }
 
+        return sortData;
+    }
+
+    public Object[] updateRequiredArtifact(String requiredArtifact, Object[] sortData) {
         //before calling with requiredArtifact, check required artifact is not already in sortData[1]
+        int cycles = 0;
+
         if (requiredArtifact.equals("g")) {
             while (!sortData[1].equals("g")) {
                 sortData = sortCycleLogic(sortData);
@@ -43,9 +48,15 @@ public class SortLogic {
             sortData[3] = Integer.toString(cycles);
             sortData[1] = "";
         }
-
-
         return sortData;
         //use sortData[3] to rotate the balls the correct amount of times
+    }
+
+    public Object[] updateShotArtifact(String shotArtifact, Object[] sortData) {
+        sortData[1] = "";
+
+
+
+        return  sortData;
     }
 }
