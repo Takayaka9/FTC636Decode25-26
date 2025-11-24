@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.CommandBase;
 
+import static org.firstinspires.ftc.teamcode.quals.RobotQuals.intakePower;
+
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class Commands {
 
@@ -29,6 +32,23 @@ public class Commands {
         }
 
 
+    }
+
+    public static class RunIntake extends CommandBase{
+        private DcMotorEx intake;
+        public RunIntake(DcMotorEx mIntake){
+            intake = mIntake;
+        }
+        @Override
+        public void initialize(){
+            intake.setPower(intakePower);
+        }
+        public void end(boolean interrupted){
+            intake.setPower(0);
+        }
+        public boolean isFinished(){
+            return true;
+        }
     }
 
     public class RunBeltReverse extends CommandBase {

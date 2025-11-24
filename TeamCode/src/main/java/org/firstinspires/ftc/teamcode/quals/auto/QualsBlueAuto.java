@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.quals.auto;
 
 
+import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
@@ -14,15 +17,19 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.CommandBase.Commands;
+import org.firstinspires.ftc.teamcode.CommandBase.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
 @Autonomous(name = "Quals Auto Blue")
 public class QualsBlueAuto extends LinearOpMode {
+    RobotQuals robot;
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
     Commands commands;
+    CommandScheduler commandScheduler;
 
     //Poses
     private final Pose startPose = new Pose(85, 10.2, Math.toRadians(90));
@@ -43,6 +50,7 @@ public class QualsBlueAuto extends LinearOpMode {
         opmodeTimer = new Timer();
         opmodeTimer.resetTimer();
 
+        robot = new RobotQuals(hardwareMap);
 
         follower = Constants.createFollower(hardwareMap);
         buildPaths();
@@ -113,4 +121,10 @@ public class QualsBlueAuto extends LinearOpMode {
 
          */
     }
+
+    SequentialCommandGroup auto = new SequentialCommandGroup(
+            new InstantCommand(() -> {
+                robot.belt.setPower(0.75); //example
+            })
+    );
 }
