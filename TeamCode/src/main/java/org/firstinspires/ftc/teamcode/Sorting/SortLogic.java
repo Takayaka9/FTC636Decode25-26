@@ -34,12 +34,14 @@ public class SortLogic {
                 cycles++;
             }
             sortData[3] = Integer.toString(cycles);
+            sortData[1] = "";
         } else if (requiredArtifact.equals("p")) {
             while (!sortData[1].equals("p")) {
                 sortData = sortCycleLogic(sortData);
                 cycles++;
             }
             sortData[3] = Integer.toString(cycles);
+            sortData[1] = "";
         }
 
 
