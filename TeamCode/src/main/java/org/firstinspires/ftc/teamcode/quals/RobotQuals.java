@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.quals;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -23,7 +24,7 @@ public class RobotQuals {
     public DcMotorEx flyRight, flyLeft, intake; //motor declaration
     public DcMotorEx belt; //idk why this is separate
     public Servo onRamp, offRamp; //servos
-    public NormalizedColorSensor colorSensor; //color sensor
+    public RevColorSensorV3 colorSensor; //color sensor
     //public DistanceSensor distanceSensor; //distance sensor (same as color)
     Limelight3A limelight3A; //limelight
     public static int onRampPassive = 0; //TODO: test values
@@ -59,8 +60,8 @@ public class RobotQuals {
         //belt.setTargetPosition(belt.getCurrentPosition());
 
 
-       // colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
-        //colorSensor.setGain(1);
+        colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
+        colorSensor.setGain(1);
 
         //limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
