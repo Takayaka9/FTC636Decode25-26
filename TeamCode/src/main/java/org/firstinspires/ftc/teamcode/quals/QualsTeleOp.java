@@ -42,6 +42,14 @@ public class QualsTeleOp extends LinearOpMode {
     ElapsedTime sortTime = new ElapsedTime();
     public static double sort1 = 0.3;
     public static double sort2 = 1;
+    //
+    /*
+    String array which holds ball positions [0] to [2] and sort-cycles need to move requiredArtifact to [1]
+    Use method updateSortData
+    inputs:
+    (new artifact color (color sensor) if ball is intake, required artifact color if sorting cycle output desired, sortData[]
+     */
+    String[] sortData = new String[3];
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -83,7 +91,7 @@ public class QualsTeleOp extends LinearOpMode {
             follower.setTeleOpDrive(
                     gamepad1.left_stick_x*0.75,
                     -gamepad1.left_stick_y*0.75,
-                    -gamepad1.right_stick_x*0.5,
+                    -gamepad1.right_stick_x*0.4,
                     true
             );
 
@@ -153,7 +161,7 @@ public class QualsTeleOp extends LinearOpMode {
 
              */
 
-            //shoot
+            //shooting input and motor activation
             if(gamepad2.b){
                 robot.flyRight.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
                 robot.flyLeft.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
@@ -235,6 +243,7 @@ public class QualsTeleOp extends LinearOpMode {
             telemetryM.addData("intake toggle", intakeToggle);
             telemetryM.addData("belt target", beltTargetPosition);
             telemetryM.debug("belt increment", beltIncrement);
+            telemetryM.addData("sortData", sortData);
         }
     }
 

@@ -22,7 +22,7 @@ public class QualsColorTester extends OpMode {
     @Override
     public void loop() {
         telemetryManager.update();
-
         robot.getDetectedColor(telemetryManager);
+        //add something to return a string with "g" or "p" when color is green or purple
     }
 }
