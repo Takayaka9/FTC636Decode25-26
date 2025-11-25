@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.quals;
 
+import org.firstinspires.ftc.teamcode.Sorting.SortLogic;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
@@ -10,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.scrims.RobotScrims;
+
 
 @Configurable
 @TeleOp(name = "Quals TeleOp", group = "TeleOp")
@@ -38,18 +39,19 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean changed2B = false;
     public static boolean changed2Y = false;
     public static boolean isSorting = false;
+    public static boolean isShooting = false;
+    /* old pid constants
     public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
+     */
     ElapsedTime sortTime = new ElapsedTime();
     public static double sort1 = 0.3;
     public static double sort2 = 1;
     //
     /*
-    String array which holds ball positions [0] to [2] and sort-cycles need to move requiredArtifact to [1]
-    Use method updateSortData
-    inputs:
-    (new artifact color (color sensor) if ball is intake, required artifact color if sorting cycle output desired, sortData[]
+    String array which holds ball positions [0] to [2] and sort-cycles [3] need to move requiredArtifact to pos [1]
      */
-    String[] sortData = new String[3];
+    SortLogic sortLogic = new SortLogic();
+    Object[] sortData = new String[4];
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -148,6 +150,7 @@ public class QualsTeleOp extends LinearOpMode {
 
             /*
             //shoot with less velocity (close pos)
+            //gamepad2.a is used to shoot green now
             if(gamepad2.a){
                 robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityFar));
                 //robot.flyRight.setPower(1);
@@ -161,23 +164,53 @@ public class QualsTeleOp extends LinearOpMode {
 
              */
 
-            //shooting input and motor activation
+            //New shooting by emad:
+            //Shoot far
             if(gamepad2.b){
+                isShooting = true;
+                robot.shooterPIDF(velocityClose);
+                //need to have an if statement:
+                sortData = sortLogic.updateShotArtifact(sortData);
+            } else if(!gamepad2.b){
+                //changed2B = false;
+                isShooting = false;
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
+            }
+            //Shoot close
+            if(gamepad2.a){
+                isShooting = true;
+                robot.shooterPIDF(velocityFar);
+                //need to have an if statement:
+                sortData = sortLogic.updateShotArtifact(sortData);
+
+            } else if(!gamepad2.a){
+                //changed2B = false;
+                isShooting = false;
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
+            }
+
+
+            /*shooting input and motor activation
+            if(gamepad2.b){
+                isShooting = true;
                 robot.flyRight.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
                 robot.flyLeft.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
                 robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityClose));
                 robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityClose));
-                //robot.flyRight.setPower(1);
-                //robot.flyLeft.setPower(1);
                 //changed2B = true;
             }
             else if(!gamepad2.b){
                 //changed2B = false;
+                isShooting = false;
                 robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
                 robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
+             */
+
             /*
             if(gamepad2.y){
                 robot.pushOff();
@@ -247,6 +280,7 @@ public class QualsTeleOp extends LinearOpMode {
         }
     }
 
+    //what is going on here and what does it do? -emad
     public enum SortSteps{
         READY, PUSH, UP, ON
     }

@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.quals;
 
 
+import com.arcrobotics.ftclib.controller.PIDFController;
+import com.arcrobotics.ftclib.controller.wpilibcontroller.SimpleMotorFeedforward;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
@@ -36,7 +38,20 @@ public class RobotQuals {
     public static double beltBackPower = -0.4;
     double velocity;
     public double TICKS_PER_REV = 24;
-    public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(1.19, 2.0, 1.1, 0.0); //HOPEFULLY TUNED RIGHT??? ALL VALUES WERE 0 BEFORE IF ISSUES ARISE
+    public double shooterOutput;
+    //Note: values are examples from ftclib docs
+    public static double kP = 0.37;
+    public static double kI = 0.37;
+    public static double kD = 0.37;
+    public static double kF = 0.37;
+    public static double kS = 0;
+    public static double kV = 0;
+    public static double kA = 0;
+
+    PIDFController pidf = new PIDFController(kP, kI, kD, kF);
+
+    //public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(1.19, 2.0, 1.1, 0.0); //HOPEFULLY TUNED RIGHT??? ALL VALUES WERE 0 BEFORE IF ISSUES ARISE
+
     public RobotQuals(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
@@ -50,6 +65,7 @@ public class RobotQuals {
         flyLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
         belt.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
         intake.setDirection(DcMotorEx.Direction.REVERSE);
 
         flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -58,7 +74,6 @@ public class RobotQuals {
         belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         //belt.setTargetPosition(belt.getCurrentPosition());
-
 
         colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
         colorSensor.setGain(1);
@@ -79,6 +94,19 @@ public class RobotQuals {
         UNKNOWN
     }
 
+    //run intake
+    public void intakeRun(){
+        intake.setPower(intakePower);
+    }
+    public void beltRun() {
+        belt.setPower(beltPower);
+    }
+    public void beltBackRun() {
+        belt.setPower(beltBackPower);
+    }
+
+
+    //Color sensor by Taka, -Emad
     public DetectedColor getDetectedColor(TelemetryManager telemetryManager){
         NormalizedRGBA colors = colorSensor.getNormalizedColors();
 
@@ -97,8 +125,31 @@ public class RobotQuals {
         return DetectedColor.UNKNOWN;
     }
 
+//New ftc lib pid:
+public void shooterPIDF(double desiredRPM) {
+    //PIDF
+    pidf.setSetPoint(desiredRPM);
+    double measuredVelocity = flyRight.getVelocity();
+    double outputPIDF = pidf.calculate(measuredVelocity, desiredRPM);
+    //Feedforward:
+    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(kS, kV, kA);
+    double outputFF = feedforward.calculate(desiredRPM);
+
+    //add and set power
+    double output = outputPIDF = outputFF;
+    flyRight.setPower(output);
+    flyLeft.setPower(output);
+}
+
+
+
+
+
+
+    //Code graveyard:
+    /*
     //spins shooter using PIDF control based on the target velocity that is passed through as a parameter
-    public double RPMtoVelocity (int targetRPM) {
+    public double RPMtoVelocity(int targetRPM) {
         return (targetRPM * TICKS_PER_REV)/60;
     }
 
@@ -107,7 +158,7 @@ public class RobotQuals {
         flyRight.setVelocity(velocity);
         flyLeft.setVelocity(velocity);
     }
-
+*/
     /*
     //method to push a ball off of the ramp
     public void pushOff(){
@@ -123,14 +174,5 @@ public class RobotQuals {
     
      */
 
-    //run intake
-    public void intakeRun(){
-        intake.setPower(intakePower);
-    }
-    public void beltRun() {
-        belt.setPower(beltPower);
-    }
-    public void beltBackRun() {
-        belt.setPower(beltBackPower);
-    }
+
 }
