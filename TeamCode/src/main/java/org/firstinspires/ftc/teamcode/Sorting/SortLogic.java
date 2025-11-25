@@ -52,7 +52,7 @@ public class SortLogic {
         //use sortData[3] to rotate the balls the correct amount of times
     }
 
-    public Object[] updateShotArtifact(String shotArtifact, Object[] sortData) {
+    public Object[] updateShotArtifact(Object[] sortData) {
         sortData[1] = "";
 
 
