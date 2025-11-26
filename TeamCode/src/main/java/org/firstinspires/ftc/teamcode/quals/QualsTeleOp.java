@@ -40,15 +40,22 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean changed2Y = false;
     public static boolean isSorting = false;
     public static boolean isShooting = false;
+
     /* old pid constants
     public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
      */
     ElapsedTime sortTime = new ElapsedTime();
     public static double sort1 = 0.3;
     public static double sort2 = 1;
-    //
+
+    public SortSteps sortSteps;
+    public enum SortSteps{
+        READY, PUSH, UP, ON
+    }
+
+
     /*
-    String array which holds ball positions [0] to [2] and sort-cycles [3] need to move requiredArtifact to pos [1]
+    Object array which holds ball positions [0] to [2] and sort-cycles [3] need to move requiredArtifact to pos [1]
      */
     SortLogic sortLogic = new SortLogic();
     Object[] sortData = new String[4];
@@ -76,20 +83,6 @@ public class QualsTeleOp extends LinearOpMode {
 
             telemetryM.update();
             follower.update();
-
-
-
-            //drivetrain...I think it works...
-            /*
-            follower.setTeleOpDrive(
-                    Math.abs(Math.pow(gamepad1.left_stick_x, 2.75)),
-                    -Math.abs(Math.pow(gamepad1.left_stick_y,2.75)),
-                    (-gamepad1.right_stick_x * 0.5),
-                    true
-            );
-
-             */
-
             follower.setTeleOpDrive(
                     gamepad1.left_stick_x*0.75,
                     -gamepad1.left_stick_y*0.75,
@@ -97,32 +90,8 @@ public class QualsTeleOp extends LinearOpMode {
                     true
             );
 
-            //move the belt and intake to move the balls
-            /*
-            if(!isSorting){
-                if(gamepad2.right_bumper && !intakeToggle && !changedRB){
-                    robot.belt.setPower(beltOn);
-                    robot.intake.setPower(intakeOn);
-                    intakeToggle = true;
-                    changedRB = true;
-                }
-                else if(gamepad2.right_bumper && intakeToggle && !changedRB){
-                    robot.belt.setPower(0);
-                    robot.intake.setPower(0);
-                    intakeToggle = false;
-                    changedRB = true;
-                }
-                else if(!gamepad2.right_bumper){
-                    changedRB = false;
-                }
-                else if(gamepad2.x){
-                    robot.belt.setPower(-beltOn);
-                    robot.intake.setPower(-intakeOn);
-                }
-            }
 
-             */
-
+            //belt reverse control logic
             if(!isSorting){
                 if(gamepad2.right_bumper){
                     robot.belt.setPower(beltOn);
@@ -148,86 +117,9 @@ public class QualsTeleOp extends LinearOpMode {
                 }
             }
 
-            /*
-            //shoot with less velocity (close pos)
-            //gamepad2.a is used to shoot green now
-            if(gamepad2.a){
-                robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityFar));
-                //robot.flyRight.setPower(1);
-                robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityFar));
-                //changed2A = true;
-            }
-            else if(!gamepad2.a){
-                robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
-                robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
-            }
 
-             */
-
-            //New shooting by emad:
-            //Shoot far
-            if(gamepad2.b){
-                isShooting = true;
-                robot.shooterPIDF(velocityClose);
-                //need to have an if statement:
-                sortData = sortLogic.updateShotArtifact(sortData);
-            } else if(!gamepad2.b){
-                //changed2B = false;
-                isShooting = false;
-                robot.flyRight.setPower(0);
-                robot.flyLeft.setPower(0);
-            }
-            //Shoot close
-            if(gamepad2.a){
-                isShooting = true;
-                robot.shooterPIDF(velocityFar);
-                //need to have an if statement:
-                sortData = sortLogic.updateShotArtifact(sortData);
-
-            } else if(!gamepad2.a){
-                //changed2B = false;
-                isShooting = false;
-                robot.flyRight.setPower(0);
-                robot.flyLeft.setPower(0);
-            }
-
-
-            /*shooting input and motor activation
-            if(gamepad2.b){
-                isShooting = true;
-                robot.flyRight.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
-                robot.flyLeft.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
-                robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityClose));
-                robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityClose));
-                //changed2B = true;
-            }
-            else if(!gamepad2.b){
-                //changed2B = false;
-                isShooting = false;
-                robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
-                robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
-                robot.flyRight.setPower(0);
-                robot.flyLeft.setPower(0);
-            }
-             */
-
-            /*
-            if(gamepad2.y){
-                robot.pushOff();
-
-            }
-
-             */
-
-            /*
-            if(gamepad2.y && !changed2Y){
-                beltTargetPosition += beltIncrement;
-                robot.belt.setTargetPosition(beltTargetPosition);
-                robot.belt.setPower(beltOn);
-            }
-             */
-
-            /*
+            //physical sort method
+            //maybe should move this to RobotQuals at some point for organization (will be used in auto)
             switch(sortSteps){
                 case READY:
                     if(gamepad2.y && !changed2Y){
@@ -265,6 +157,108 @@ public class QualsTeleOp extends LinearOpMode {
                     break;
             }
 
+            //New shooting by emad:
+            //Still incomplete needs a lot more work - emad
+            //Shoot far
+            if(gamepad2.b){
+                isShooting = true;
+                robot.shooterPIDF(velocityClose);
+                //need to have an if statement:
+                sortData = sortLogic.updateShotArtifact(sortData);
+            } else if(!gamepad2.b){
+                //changed2B = false;
+                isShooting = false;
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
+            }
+            //Shoot close
+            if(gamepad2.a){
+                isShooting = true;
+                robot.shooterPIDF(velocityFar);
+                //need to have an if statement:
+                sortData = sortLogic.updateShotArtifact(sortData);
+
+            } else if(!gamepad2.a){
+                //changed2B = false;
+                isShooting = false;
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
+            }
+
+
+            /*
+            //OLD: move the belt and intake to move the balls
+            if(!isSorting){
+                if(gamepad2.right_bumper && !intakeToggle && !changedRB){
+                    robot.belt.setPower(beltOn);
+                    robot.intake.setPower(intakeOn);
+                    intakeToggle = true;
+                    changedRB = true;
+                }
+                else if(gamepad2.right_bumper && intakeToggle && !changedRB){
+                    robot.belt.setPower(0);
+                    robot.intake.setPower(0);
+                    intakeToggle = false;
+                    changedRB = true;
+                }
+                else if(!gamepad2.right_bumper){
+                    changedRB = false;
+                }
+                else if(gamepad2.x){
+                    robot.belt.setPower(-beltOn);
+                    robot.intake.setPower(-intakeOn);
+                }
+            }
+
+             */
+
+            /* legacy shooting input and motor activation
+            if(gamepad2.b){
+                isShooting = true;
+                robot.flyRight.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
+                robot.flyLeft.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
+                robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityClose));
+                robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityClose));
+                //changed2B = true;
+            }
+            else if(!gamepad2.b){
+                //changed2B = false;
+                isShooting = false;
+                robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
+                robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
+            }
+            //shoot with less velocity (close pos)
+            //gamepad2.a is used to shoot green now
+            if(gamepad2.a){
+                robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityFar));
+                //robot.flyRight.setPower(1);
+                robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityFar));
+                //changed2A = true;
+            }
+            else if(!gamepad2.a){
+                robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
+                robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
+            }
+             */
+
+            /*
+            Don't know what this is - emad
+            if(gamepad2.y){
+                robot.pushOff();
+
+            }
+
+             */
+
+            /*
+            belt pid attempt
+            if(gamepad2.y && !changed2Y){
+                beltTargetPosition += beltIncrement;
+                robot.belt.setTargetPosition(beltTargetPosition);
+                robot.belt.setPower(beltOn);
+            }
              */
 
             telemetryM.debug("flywheel close", velocityClose);
@@ -279,12 +273,5 @@ public class QualsTeleOp extends LinearOpMode {
             telemetryM.addData("sortData", sortData);
         }
     }
-
-    //what is going on here and what does it do? -emad
-    public enum SortSteps{
-        READY, PUSH, UP, ON
-    }
-
-    public SortSteps sortSteps;
 
 }

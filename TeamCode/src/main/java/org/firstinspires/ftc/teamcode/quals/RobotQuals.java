@@ -14,8 +14,6 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
-
 /*
 This file is meant to store all of the information and components on the bot
 so we can simply make an instance of this class in other files (such as auto, teleop)
@@ -50,7 +48,8 @@ public class RobotQuals {
 
     PIDFController pidf = new PIDFController(kP, kI, kD, kF);
 
-    //public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(1.19, 2.0, 1.1, 0.0); //HOPEFULLY TUNED RIGHT??? ALL VALUES WERE 0 BEFORE IF ISSUES ARISE
+    //public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(1.19, 2.0, 1.1, 0.0);
+    // HOPEFULLY TUNED RIGHT??? ALL VALUES WERE 0 BEFORE IF ISSUES ARISE
 
     public RobotQuals(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
@@ -82,10 +81,10 @@ public class RobotQuals {
 
     }
 
-    //initial positions of everything at the start of teleop, as add needed
+    //initial positions of everything at the start of teleop, add as needed
     public void initialTele(){
-        //onRamp.setPosition(onRampPassive);
-        //koffRamp.setPosition(offRampPassive);
+        onRamp.setPosition(onRampPassive);
+        offRamp.setPosition(offRampPassive);
     }
 
     public enum DetectedColor{
@@ -142,6 +141,18 @@ public void shooterPIDF(double desiredRPM) {
 }
 
 
+    //method to push a ball off of the ramp
+    public void pushOff(){
+        onRamp.setPosition(onRampPush);
+        onRamp.setPosition(onRampPassive);
+    }
+
+    //method to push a ball back on the ramp
+    public void pushOn(){
+        offRamp.setPosition(offRampPush);
+        offRamp.setPosition(offRampPassive);
+    }
+
 
 
 
@@ -159,20 +170,5 @@ public void shooterPIDF(double desiredRPM) {
         flyLeft.setVelocity(velocity);
     }
 */
-    /*
-    //method to push a ball off of the ramp
-    public void pushOff(){
-        onRamp.setPosition(onRampPush);
-        onRamp.setPosition(onRampPassive);
-    }
-
-    //method to push a ball back on the ramp
-    public void pushOn(){
-        offRamp.setPosition(offRampPush);
-        offRamp.setPosition(offRampPassive);
-    }
-    
-     */
-
 
 }
