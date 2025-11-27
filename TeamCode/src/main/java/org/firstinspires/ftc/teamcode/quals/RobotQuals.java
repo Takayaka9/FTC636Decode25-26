@@ -1,18 +1,25 @@
 package org.firstinspires.ftc.teamcode.quals;
 
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.arcrobotics.ftclib.controller.wpilibcontroller.SimpleMotorFeedforward;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.TelemetryManager;
+import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
 /*
 This file is meant to store all of the information and components on the bot
@@ -26,7 +33,6 @@ public class RobotQuals {
     public Servo onRamp, offRamp; //servos
     public RevColorSensorV3 colorSensor; //color sensor
     //public DistanceSensor distanceSensor; //distance sensor (same as color)
-    Limelight3A limelight3A; //limelight
     public static int onRampPassive = 0; //TODO: test values
     public static int onRampPush = 0;
     public static int offRampPassive = 0;
@@ -47,8 +53,7 @@ public class RobotQuals {
     public static double kA = 0;
 
     PIDFController pidf = new PIDFController(kP, kI, kD, kF);
-
-    //public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(1.19, 2.0, 1.1, 0.0);
+    //old: public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(1.19, 2.0, 1.1, 0.0);
     // HOPEFULLY TUNED RIGHT??? ALL VALUES WERE 0 BEFORE IF ISSUES ARISE
 
     public RobotQuals(HardwareMap hardwareMap){
@@ -77,8 +82,10 @@ public class RobotQuals {
         colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
         colorSensor.setGain(1);
 
-        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
-
+        Limelight3A limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        telemetry.setMsTransmissionInterval(11);
+        limelight.pipelineSwitch(0);
+        IMU imu = hardwareMap.get(IMU.class, "imu");
     }
 
     //initial positions of everything at the start of teleop, add as needed

@@ -1,13 +1,19 @@
 package org.firstinspires.ftc.teamcode.quals;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Sorting.SortLogic;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -19,12 +25,14 @@ public class QualsTeleOp extends LinearOpMode {
     Follower follower;
     TelemetryManager telemetryM;
     RobotQuals robot;
+    Limelight3A limelight;
+
+    IMU imu;
     public static Pose startingPose;
 
     //Velocities for shooters
     //TODO: test values
-    public static int velocityClose = 8000;
-    public static int velocityFar = 5000;
+    public int Velocity = 8000;
     public static double beltOn = 0.5;
     public static double intakeOn = 0.7;
     public static int beltTargetPosition = 0;
@@ -63,7 +71,6 @@ public class QualsTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
         robot = new RobotQuals(hardwareMap);
-        //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         waitForStart();
 
@@ -77,7 +84,7 @@ public class QualsTeleOp extends LinearOpMode {
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.startTeleopDrive();
-        robot.limelight3A.start();
+        limelight.start();
 
         while(opModeIsActive()){
 
@@ -91,7 +98,29 @@ public class QualsTeleOp extends LinearOpMode {
             );
 
 
+            //limelight localization
+            LLResult result = limelight.getLatestResult();
+            if (result != null) {
+                if (result.isValid()) {
+                    Pose3D botpose = result.getBotpose();
+                    telemetry.addData("tx", result.getTx());
+                    telemetry.addData("ty", result.getTy());
+                    telemetry.addData("Botpose", botpose.toString());
+                }
+            }
+
+            YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+            limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
+            result = limelight.getLatestResult();
+            if (result != null) {
+                if (result.isValid()) {
+                    Pose3D botpose = result.getBotpose_MT2();
+                }
+            }
+
+
             //belt reverse control logic
+            //also needs to go to RobotQuals
             if(!isSorting){
                 if(gamepad2.right_bumper){
                     robot.belt.setPower(beltOn);
@@ -159,10 +188,10 @@ public class QualsTeleOp extends LinearOpMode {
 
             //New shooting by emad:
             //Still incomplete needs a lot more work - emad
-            //Shoot far
+            //Shoot green
             if(gamepad2.b){
                 isShooting = true;
-                robot.shooterPIDF(velocityClose);
+                robot.shooterPIDF(Velocity);
                 //need to have an if statement:
                 sortData = sortLogic.updateShotArtifact(sortData);
             } else if(!gamepad2.b){
@@ -171,10 +200,12 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
-            //Shoot close
+            //shoot purple
+
+            //Shoot any
             if(gamepad2.a){
                 isShooting = true;
-                robot.shooterPIDF(velocityFar);
+                robot.shooterPIDF(Velocity);
                 //need to have an if statement:
                 sortData = sortLogic.updateShotArtifact(sortData);
 
@@ -261,8 +292,7 @@ public class QualsTeleOp extends LinearOpMode {
             }
              */
 
-            telemetryM.debug("flywheel close", velocityClose);
-            telemetryM.debug("flywheel far", velocityFar);
+            telemetryM.debug("Auto Velocity", Velocity);
             telemetryM.addData("velocity left", robot.flyLeft.getVelocity());
             telemetryM.addData("velocity right", robot.flyRight.getVelocity());
             telemetryM.debug("belt power", beltOn);
