@@ -77,7 +77,7 @@ public class RobotQuals {
         colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
         colorSensor.setGain(1);
 
-        //limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
     }
 
@@ -125,7 +125,7 @@ public class RobotQuals {
     }
 
 //New ftc lib pid:
-public void shooterPIDF(double desiredRPM) {
+public double shooterPIDF(double desiredRPM) {
     //PIDF
     pidf.setSetPoint(desiredRPM);
     double measuredVelocity = flyRight.getVelocity();
@@ -138,6 +138,8 @@ public void shooterPIDF(double desiredRPM) {
     double output = outputPIDF = outputFF;
     flyRight.setPower(output);
     flyLeft.setPower(output);
+
+    return output;
 }
 
 

@@ -77,7 +77,7 @@ public class QualsTeleOp extends LinearOpMode {
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.startTeleopDrive();
-        //robot.limelight3A.start();
+        robot.limelight3A.start();
 
         while(opModeIsActive()){
 
@@ -271,6 +271,7 @@ public class QualsTeleOp extends LinearOpMode {
             telemetryM.addData("belt target", beltTargetPosition);
             telemetryM.debug("belt increment", beltIncrement);
             telemetryM.addData("sortData", sortData);
+            telemetryM.addData("PIDF+FF Output", robot.shooterOutput);
         }
     }
 
