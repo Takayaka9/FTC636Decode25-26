@@ -162,10 +162,6 @@ public double shooterPIDF(double desiredRPM) {
         offRamp.setPosition(offRampPassive);
     }
 
-
-
-
-
     //Code graveyard:
     /*
     //spins shooter using PIDF control based on the target velocity that is passed through as a parameter
