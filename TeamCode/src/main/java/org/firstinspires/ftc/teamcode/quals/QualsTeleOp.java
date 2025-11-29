@@ -14,6 +14,7 @@ import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -303,6 +304,30 @@ public class QualsTeleOp extends LinearOpMode {
             telemetryM.addData("sortData", sortData);
             telemetryM.addData("PIDF+FF Output", robot.shooterOutput);
         }
+    }
+
+    public enum DetectedColor{
+        GREEN,
+        PURPLE,
+        UNKNOWN
+    }
+
+    public DetectedColor getDetectedColor(TelemetryManager telemetryManager){
+        NormalizedRGBA colors = robot.colorSensor.getNormalizedColors();
+
+        float normRed, normGreen, normBlue;
+
+        normRed = colors.red / colors.alpha;
+        normGreen = colors.green / colors.alpha;
+        normBlue = colors.blue / colors.alpha;
+
+        //TODO: calibrate the thresholds and add if statements
+
+        telemetryManager.addData("Red", normRed);
+        telemetryManager.addData("Green", normGreen);
+        telemetryManager.addData("Blue", normBlue);
+
+        return DetectedColor.UNKNOWN;
     }
 
 }

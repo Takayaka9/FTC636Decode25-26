@@ -94,11 +94,15 @@ public class RobotQuals {
         offRamp.setPosition(offRampPassive);
     }
 
+
+    /*
     public enum DetectedColor{
         GREEN,
         PURPLE,
         UNKNOWN
     }
+
+     */
 
     //run intake
     public void intakeRun(){
@@ -113,6 +117,8 @@ public class RobotQuals {
 
 
     //Color sensor by Taka, -Emad
+    //moved to the actual teleop since I think that's better
+    /*
     public DetectedColor getDetectedColor(TelemetryManager telemetryManager){
         NormalizedRGBA colors = colorSensor.getNormalizedColors();
 
@@ -131,6 +137,8 @@ public class RobotQuals {
         return DetectedColor.UNKNOWN;
     }
 
+     */
+
 //New ftc lib pid:
 public double shooterPIDF(double desiredRPM) {
     //PIDF
@@ -142,7 +150,7 @@ public double shooterPIDF(double desiredRPM) {
     double outputFF = feedforward.calculate(desiredRPM);
 
     //add and set power
-    double output = outputPIDF = outputFF;
+    double output = outputPIDF + outputFF;
     flyRight.setPower(output);
     flyLeft.setPower(output);
 
