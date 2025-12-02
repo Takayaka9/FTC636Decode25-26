@@ -78,8 +78,6 @@ public class RobotQuals {
         intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        //belt.setTargetPosition(belt.getCurrentPosition());
-
         colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
         colorSensor.setGain(1);
 
