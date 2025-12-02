@@ -194,6 +194,7 @@ public class QualsTeleOp extends LinearOpMode {
                     break;
             }
 
+            */
             //New shooting by emad:
             //Still incomplete needs a lot more work - emad
             //Shoot green
@@ -208,8 +209,12 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
-            //shoot purple
 
+
+
+
+            //shoot purple
+/*
             //Shoot any
             if(gamepad2.a){
                 isShooting = true;
