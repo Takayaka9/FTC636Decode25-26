@@ -62,7 +62,7 @@ public class RobotQuals {
         intake = hardwareMap.get(DcMotorEx.class, "intakeMotor");
         belt = hardwareMap.get(DcMotorEx.class, "beltMotor");
 
-        //onRamp = hardwareMap.get(Servo.class, "onRamp");
+        onRamp = hardwareMap.get(Servo.class, "onRamp");
         //offRamp = hardwareMap.get(Servo.class, "offRamp");
 
         flyRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -71,6 +71,7 @@ public class RobotQuals {
         belt.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         intake.setDirection(DcMotorEx.Direction.REVERSE);
+        flyLeft.setDirection(DcMotorEx.Direction.REVERSE);
 
         flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -82,17 +83,20 @@ public class RobotQuals {
         colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
         colorSensor.setGain(1);
 
-        Limelight3A limelight = hardwareMap.get(Limelight3A.class, "limelight");
-        telemetry.setMsTransmissionInterval(11);
-        limelight.pipelineSwitch(0);
-        IMU imu = hardwareMap.get(IMU.class, "imu");
+        //Limelight3A limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        //telemetry.setMsTransmissionInterval(11);
+        //limelight.pipelineSwitch(0);
+        //IMU imu = hardwareMap.get(IMU.class, "imu");
     }
 
     //initial positions of everything at the start of teleop, add as needed
+    /*
     public void initialTele(){
         onRamp.setPosition(onRampPassive);
         offRamp.setPosition(offRampPassive);
     }
+
+     */
 
 
     /*
@@ -159,6 +163,7 @@ public double shooterPIDF(double desiredRPM) {
 
 
     //method to push a ball off of the ramp
+    /*
     public void pushOff(){
         onRamp.setPosition(onRampPush);
         onRamp.setPosition(onRampPassive);
@@ -169,6 +174,8 @@ public double shooterPIDF(double desiredRPM) {
         offRamp.setPosition(offRampPush);
         offRamp.setPosition(offRampPassive);
     }
+
+     */
 
     //Code graveyard:
     /*

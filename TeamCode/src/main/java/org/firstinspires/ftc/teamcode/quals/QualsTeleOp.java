@@ -75,7 +75,7 @@ public class QualsTeleOp extends LinearOpMode {
 
         waitForStart();
 
-        robot.initialTele();
+        //robot.initialTele();
 
         if (isStopRequested()) return;
 
@@ -85,7 +85,7 @@ public class QualsTeleOp extends LinearOpMode {
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.startTeleopDrive();
-        limelight.start();
+        //limelight.start();
 
         while(opModeIsActive()){
 
@@ -100,6 +100,7 @@ public class QualsTeleOp extends LinearOpMode {
 
 
             //limelight localization
+            /*
             LLResult result = limelight.getLatestResult();
             if (result != null) {
                 if (result.isValid()) {
@@ -118,6 +119,8 @@ public class QualsTeleOp extends LinearOpMode {
                     Pose3D botpose = result.getBotpose_MT2();
                 }
             }
+
+             */
 
 
             //belt reverse control logic
@@ -150,6 +153,7 @@ public class QualsTeleOp extends LinearOpMode {
 
             //physical sort method
             //maybe should move this to RobotQuals at some point for organization (will be used in auto)
+            /*
             switch(sortSteps){
                 case READY:
                     if(gamepad2.y && !changed2Y){
@@ -216,6 +220,8 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
+
+             */
 
 
             /*
