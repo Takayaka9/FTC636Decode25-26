@@ -33,6 +33,7 @@ public class RobotQuals {
     public Servo onRamp, offRamp; //servos
     public RevColorSensorV3 colorSensor; //color sensor
     //public DistanceSensor distanceSensor; //distance sensor (same as color)
+    public Limelight3A limelight;
     public static int onRampPassive = 0; //TODO: test values
     public static int onRampPush = 0;
     public static int offRampPassive = 0;
@@ -78,14 +79,12 @@ public class RobotQuals {
         intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        //belt.setTargetPosition(belt.getCurrentPosition());
-
         colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
         colorSensor.setGain(1);
 
-        //Limelight3A limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
         //telemetry.setMsTransmissionInterval(11);
-        //limelight.pipelineSwitch(0);
+        limelight.pipelineSwitch(0);
         //IMU imu = hardwareMap.get(IMU.class, "imu");
     }
 

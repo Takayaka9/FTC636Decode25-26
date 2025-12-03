@@ -13,6 +13,8 @@ import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -72,6 +74,8 @@ public class QualsTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
         robot = new RobotQuals(hardwareMap);
+        robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
+        robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         waitForStart();
 
@@ -88,7 +92,6 @@ public class QualsTeleOp extends LinearOpMode {
         //limelight.start();
 
         while(opModeIsActive()){
-
             telemetryM.update();
             follower.update();
             follower.setTeleOpDrive(
@@ -191,6 +194,7 @@ public class QualsTeleOp extends LinearOpMode {
                     break;
             }
 
+            */
             //New shooting by emad:
             //Still incomplete needs a lot more work - emad
             //Shoot green
@@ -205,8 +209,12 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
-            //shoot purple
 
+
+
+
+            //shoot purple
+/*
             //Shoot any
             if(gamepad2.a){
                 isShooting = true;
