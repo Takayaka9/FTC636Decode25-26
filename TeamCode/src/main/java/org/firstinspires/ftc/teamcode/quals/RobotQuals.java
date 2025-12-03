@@ -162,7 +162,7 @@ public double shooterPIDF(double desiredRPM) {
 
 
     //method to push a ball off of the ramp
-    /*
+
     public void pushOff(){
         if(onRamp.getPosition() == onRampPassive){
             onRamp.setPosition(onRampPush);
@@ -178,7 +178,7 @@ public double shooterPIDF(double desiredRPM) {
         offRamp.setPosition(offRampPassive);
     }
 
-     */
+
 
     //Code graveyard:
     /*

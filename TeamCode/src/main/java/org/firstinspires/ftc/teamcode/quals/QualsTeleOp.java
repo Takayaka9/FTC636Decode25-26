@@ -123,7 +123,6 @@ public class QualsTeleOp extends LinearOpMode {
              */
 
             //belt reverse control logic
-            //also needs to go to RobotQuals
             if(!isSorting){
                 if(gamepad2.right_bumper){
                     robot.belt.setPower(beltOn);
@@ -158,7 +157,6 @@ public class QualsTeleOp extends LinearOpMode {
 
             //physical sort method
             //maybe should move this to RobotQuals at some point for organization (will be used in auto)
-            /*
             switch(sortSteps){
                 case READY:
                     if(gamepad2.y && !changed2Y){
@@ -196,7 +194,7 @@ public class QualsTeleOp extends LinearOpMode {
                     break;
             }
 
-            */
+
             //New shooting by emad:
             //Still incomplete needs a lot more work - emad
             //Shoot green
@@ -214,14 +212,16 @@ public class QualsTeleOp extends LinearOpMode {
 
 
 
-            //belt logic
+            //belt logic?:
+            /*
             if(gamepad2.y){
                 robot.onRamp.setPosition(onRampPassive);
-                robot.belt.setPower(1);
             }
             else if(gamepad2.dpad_down){
                 robot.onRamp.setPosition(onRampPush);
             }
+
+             */
             if(gamepad2.y){
                 robot.onRamp.setPosition(onRampPush);
             }
