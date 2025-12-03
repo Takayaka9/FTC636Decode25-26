@@ -30,7 +30,7 @@ public class QualsTeleOp extends LinearOpMode {
 
     //Velocities for shooters
     //TODO: test values
-    public int velocity = 8000;
+    public int velocity = 4500;
     public static double beltOn = 1;
     public static double intakeOn = 1;
     public static int beltTargetPosition = 0;
@@ -71,8 +71,8 @@ public class QualsTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
         robot = new RobotQuals(hardwareMap);
-        robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
-        robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        //robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
+        //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         waitForStart();
 
@@ -92,8 +92,8 @@ public class QualsTeleOp extends LinearOpMode {
             telemetryM.update();
             follower.update();
             follower.setTeleOpDrive(
-                    gamepad1.left_stick_x*0.75,
                     -gamepad1.left_stick_y*0.75,
+                    -gamepad1.left_stick_x*0.75,
                     -gamepad1.right_stick_x*0.4,
                     true
             );
@@ -121,7 +121,6 @@ public class QualsTeleOp extends LinearOpMode {
             }
 
              */
-
 
             //belt reverse control logic
             //also needs to go to RobotQuals
@@ -213,12 +212,25 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyLeft.setPower(0);
             }
 
+
+
+            //belt logic
             if(gamepad2.y){
                 robot.onRamp.setPosition(onRampPassive);
+                robot.belt.setPower(1);
             }
             else if(gamepad2.dpad_down){
                 robot.onRamp.setPosition(onRampPush);
             }
+            if(gamepad2.y){
+                robot.onRamp.setPosition(onRampPush);
+            }
+            else if(!gamepad2.y){
+                robot.onRamp.setPosition(onRampPassive);
+            }
+
+            // && robot.onRamp.getPosition() == onRampPassive
+            // && robot.onRamp.getPosition() == onRampPush
 
 
             //shoot purple
