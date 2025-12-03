@@ -43,6 +43,14 @@ public class QualsColorTester extends OpMode {
 
         //TODO: calibrate the thresholds and add if statements
 
+        if (normRed < 0.016 && normRed > 0.015) {
+            return DetectedColor.PURPLE;
+        }
+        if (normGreen < 0.029 && normGreen > 0.027) {
+            return DetectedColor.GREEN;
+        }
+
+
         telemetryManager.addData("Red", normRed);
         telemetryManager.addData("Green", normGreen);
         telemetryManager.addData("Blue", normBlue);
