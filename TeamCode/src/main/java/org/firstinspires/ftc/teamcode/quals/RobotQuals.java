@@ -64,7 +64,7 @@ public class RobotQuals {
         belt = hardwareMap.get(DcMotorEx.class, "beltMotor");
 
         onRamp = hardwareMap.get(Servo.class, "onRamp");
-        //offRamp = hardwareMap.get(Servo.class, "offRamp");
+        offRamp = hardwareMap.get(Servo.class, "offRamp");
 
         flyRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         flyLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);

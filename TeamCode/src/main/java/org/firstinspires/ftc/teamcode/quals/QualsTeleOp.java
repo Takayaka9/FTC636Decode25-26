@@ -51,6 +51,8 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean changed2Y = false;
     public static boolean isSorting = false;
     public static boolean isShooting = false;
+    public static double onRampPassive = 0;
+    public static double onRampPush = 0.5;
 
     /* old pid constants
     public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
@@ -154,6 +156,8 @@ public class QualsTeleOp extends LinearOpMode {
             }
 
 
+
+
             //physical sort method
             //maybe should move this to RobotQuals at some point for organization (will be used in auto)
             /*
@@ -210,7 +214,12 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyLeft.setPower(0);
             }
 
-
+            if(gamepad2.y){
+                robot.onRamp.setPosition(onRampPassive);
+            }
+            else if(gamepad2.dpad_down){
+                robot.onRamp.setPosition(onRampPush);
+            }
 
 
             //shoot purple
