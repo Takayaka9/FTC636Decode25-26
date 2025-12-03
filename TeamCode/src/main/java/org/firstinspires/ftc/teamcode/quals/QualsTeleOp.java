@@ -1,19 +1,14 @@
 package org.firstinspires.ftc.teamcode.quals;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Sorting.SortLogic;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
-import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
@@ -35,9 +30,9 @@ public class QualsTeleOp extends LinearOpMode {
 
     //Velocities for shooters
     //TODO: test values
-    public int Velocity = 8000;
-    public static double beltOn = 0.5;
-    public static double intakeOn = 0.7;
+    public int velocity = 8000;
+    public static double beltOn = 1;
+    public static double intakeOn = 1;
     public static int beltTargetPosition = 0;
     public static int beltIncrement = 1;
     public static double beltReverse = -0.4;
@@ -137,17 +132,21 @@ public class QualsTeleOp extends LinearOpMode {
                 }
                 else if(gamepad2.x){
                     robot.belt.setPower(beltReverse);
-                    robot.flyRight.setPower(flyReverse);
-                    robot.flyLeft.setPower(flyReverse);
+                    robot.flyRight.setDirection(DcMotorEx.Direction.FORWARD);
+                    robot.flyLeft.setDirection(DcMotorEx.Direction.REVERSE);
+                    robot.shooterPIDF(velocity);
                     robot.intake.setPower(-0.7);
                 }
                 else if(gamepad2.left_bumper){
                     robot.belt.setPower(beltReverse);
-                    robot.flyRight.setPower(flyReverse);
-                    robot.flyLeft.setPower(flyReverse);
+                    robot.flyRight.setDirection(DcMotorEx.Direction.FORWARD);
+                    robot.flyLeft.setDirection(DcMotorEx.Direction.REVERSE);
+                    robot.shooterPIDF(velocity);
                     robot.intake.setPower(0);
                 }
                 else{
+                    robot.flyRight.setDirection(DcMotorEx.Direction.REVERSE);
+                    robot.flyLeft.setDirection(DcMotorEx.Direction.FORWARD);
                     robot.belt.setPower(0);
                     robot.intake.setPower(0);
                     robot.flyRight.setPower(0);
@@ -204,7 +203,7 @@ public class QualsTeleOp extends LinearOpMode {
             //Shoot green
             if(gamepad2.b){
                 isShooting = true;
-                robot.shooterPIDF(Velocity);
+                robot.shooterPIDF(velocity);
                 //need to have an if statement:
                 sortData = sortLogic.updateShotArtifact(sortData);
             } else if(!gamepad2.b){
@@ -316,7 +315,7 @@ public class QualsTeleOp extends LinearOpMode {
             }
              */
 
-            telemetryM.debug("Auto Velocity", Velocity);
+            telemetryM.debug("Auto Velocity", velocity);
             telemetryM.addData("velocity left", robot.flyLeft.getVelocity());
             telemetryM.addData("velocity right", robot.flyRight.getVelocity());
             telemetryM.debug("belt power", beltOn);

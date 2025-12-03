@@ -72,7 +72,7 @@ public class RobotQuals {
         belt.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         intake.setDirection(DcMotorEx.Direction.REVERSE);
-        flyLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        flyRight.setDirection(DcMotorEx.Direction.REVERSE);
 
         flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
