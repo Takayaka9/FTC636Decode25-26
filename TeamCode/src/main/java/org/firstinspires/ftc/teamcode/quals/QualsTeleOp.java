@@ -97,12 +97,24 @@ public class QualsTeleOp extends LinearOpMode {
         while(opModeIsActive()){
             telemetryM.update();
             follower.update();
-            follower.setTeleOpDrive(
-                    -gamepad1.left_stick_y*0.75,
-                    -gamepad1.left_stick_x*0.75,
-                    -gamepad1.right_stick_x*0.4,
-                    true
-            );
+
+            if (gamepad1.left_trigger > 0.3) {
+                follower.setTeleOpDrive(
+                        -gamepad1.left_stick_y*1,
+                        -gamepad1.left_stick_x*1,
+                        -gamepad1.right_stick_x*0.55,
+                        true
+                );
+            }
+            if (gamepad1.left_trigger < 0.3) {
+                follower.setTeleOpDrive(
+                        -gamepad1.left_stick_y*0.5,
+                        -gamepad1.left_stick_x*0.5,
+                        -gamepad1.right_stick_x*0.3,
+                        true
+                );
+            }
+
 
             //intake and reverse intake
             if(!isSorting){
@@ -139,6 +151,8 @@ public class QualsTeleOp extends LinearOpMode {
 
             //physical sort method
             //TODO: FIGURE OUT WHAT TO DO WITH THE FIRST BALL...THIS CYCLES ASSUMING ONE IS ALREADY IN THE BACK RAMP
+                //SortData[] holds other ball positions which could be used in an if,
+                //I think we should move first ball to pos 1
             //TODO: UNCOMMENT ONCE SERVO POSITIONS ARE GOOD
             /// THE "//" commented out code has to do with the belt motor...
             /// ...running to position, aka need to test
