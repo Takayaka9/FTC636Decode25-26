@@ -98,7 +98,7 @@ public class QualsTeleOp extends LinearOpMode {
             telemetryM.update();
             follower.update();
 
-            if (gamepad1.left_trigger > 0.3) {
+            if (gamepad1.left_trigger < 0.3) {
                 follower.setTeleOpDrive(
                         -gamepad1.left_stick_y*1,
                         -gamepad1.left_stick_x*1,
@@ -106,7 +106,7 @@ public class QualsTeleOp extends LinearOpMode {
                         true
                 );
             }
-            if (gamepad1.left_trigger < 0.3) {
+            if (gamepad1.left_trigger > 0.3) {
                 follower.setTeleOpDrive(
                         -gamepad1.left_stick_y*0.5,
                         -gamepad1.left_stick_x*0.5,
