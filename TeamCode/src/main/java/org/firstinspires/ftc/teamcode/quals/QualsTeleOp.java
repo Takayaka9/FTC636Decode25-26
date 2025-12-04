@@ -9,6 +9,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
@@ -34,9 +35,9 @@ public class QualsTeleOp extends LinearOpMode {
     public static double beltOn = 1;
     public static double intakeOn = 1;
     public static int beltTargetPosition = 0;
-    public static int beltIncrement = 1;
+    public static int beltIncrement = 100;
     public static double beltReverse = -0.4;
-    public static double flyReverse = -0.3;
+    //public static double flyReverse = -0.3;
     //debouncers: prevents the code from repeating itself until the button is released and pressed again
     public static boolean intakeToggle = false;
     public static boolean changedRB = false;
@@ -46,8 +47,10 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean changed2Y = false;
     public static boolean isSorting = false;
     public static boolean isShooting = false;
-    public static double onRampPassive = 0;
-    public static double onRampPush = 0.5;
+    public static double onRampPassive = 0.81;
+    public static double onRampPush = 1;
+    public static double offRampPush = 0.5;
+    public static double offRampPassive = 0;
 
     /* old pid constants
     public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
@@ -58,7 +61,7 @@ public class QualsTeleOp extends LinearOpMode {
 
     public SortSteps sortSteps;
     public enum SortSteps{
-        READY, PUSH, UP, ON
+        READY, PUSHOFF, PUSHBACK, UP, PUSHON, BACKOFF
     }
 
 
@@ -156,43 +159,71 @@ public class QualsTeleOp extends LinearOpMode {
 
 
             //physical sort method
-            //maybe should move this to RobotQuals at some point for organization (will be used in auto)
+            //TODO: FIGURE OUT WHAT TO DO WITH THE FIRST BALL...THIS CYCLES ASSUMING ONE IS ALREADY IN THE BACK RAMP
+            //TODO: UNCOMMENT ONCE SERVO POSITIONS ARE GOOD
+            /// THE "//" commented out code has to do with the belt motor...
+            /// ...running to position, aka need to test
+            /*
             switch(sortSteps){
                 case READY:
                     if(gamepad2.y && !changed2Y){
                         changed2Y= true;
                         isSorting = true;
                         robot.belt.setPower(0);
+                        //robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
+                        //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                         robot.intake.setPower(0);
+                        robot.offRamp.setPosition(offRampPassive);
+                        robot.onRamp.setPosition(onRampPassive);
                         sortTime.reset();
-                        sortSteps = SortSteps.PUSH;
+                        sortSteps = SortSteps.PUSHOFF;
                     }
                     else if(!gamepad2.y){
                         changed2Y = false;
                     }
                     break;
-                case PUSH:
-                    robot.pushOff();
+                case PUSHOFF:
                     if(!gamepad2.y){
                         changed2Y = false;
                     }
                     if(sortTime.seconds() > sort1){
-                        sortSteps = SortSteps.UP;
+                        robot.onRamp.setPosition(onRampPush);
                         sortTime.reset();
+                        sortSteps = SortSteps.PUSHBACK;
+                    }
+                    break;
+                case PUSHBACK:
+                    if(Math.abs(robot.onRamp.getPosition() - onRampPush) < 0.01){
+                        robot.onRamp.setPosition(onRampPassive);
+                        sortSteps = SortSteps.UP;
                     }
                     break;
                 case UP:
-                    robot.belt.setPower(beltOn);
-                    if(sortTime.seconds() > sort2){
-                        robot.belt.setPower(0);
-                        sortSteps = SortSteps.ON;
+                    if(Math.abs(robot.onRamp.getPosition() - onRampPassive) < 0.01){
+                        robot.belt.setPower(1);
+                        //robot.belt.setTargetPosition(robot.belt.getCurrentPosition() + beltIncrement);
+                        sortTime.reset();
+                        sortSteps = SortSteps.PUSHON;
                     }
                     break;
-                case ON:
-                    robot.pushOn();
-                    isSorting = false;
+                case PUSHON:
+                    if(sortTime.seconds() >= sort2){
+                        robot.belt.setPower(0);
+                        robot.offRamp.setPosition(offRampPush);
+                        sortSteps = SortSteps.BACKOFF;
+                    }
+                    break;
+                case BACKOFF:
+                    if(Math.abs(robot.offRamp.getPosition() - offRampPush) < 0.01){
+                        robot.offRamp.setPosition(offRampPassive);
+                        //robot.belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+                        isSorting = false;
+                        sortSteps = SortSteps.READY;
+                    }
                     break;
             }
+
+             */
 
 
             //New shooting by emad:
@@ -328,7 +359,7 @@ public class QualsTeleOp extends LinearOpMode {
              */
 
             telemetryM.debug("Auto Velocity", velocity);
-            telemetryM.addData("velocity left", robot.flyLeft.getVelocity());
+            //telemetryM.addData("velocity left", robot.flyLeft.getVelocity());
             telemetryM.addData("velocity right", robot.flyRight.getVelocity());
             telemetryM.debug("belt power", beltOn);
             telemetryM.debug("intake power", intakeOn);
