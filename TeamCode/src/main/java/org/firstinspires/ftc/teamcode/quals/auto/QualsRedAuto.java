@@ -20,6 +20,7 @@ import com.sun.tools.javac.comp.Todo;
 import org.firstinspires.ftc.teamcode.CommandBase.Commands;
 import org.firstinspires.ftc.teamcode.CommandBase.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.quals.QualsTeleOp;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
@@ -71,9 +72,14 @@ public class QualsRedAuto extends LinearOpMode{
         setPathState(0);
 
         runPath(Line1);
+        sleep(500);
+        robot.shooterPIDF(QualsTeleOp.velocity);
+        sleep(4000);
+        robot.belt.setPower(QualsTeleOp.beltOn);
+        sleep(5000);
+        robot.shooterPIDF(0);
+        robot.belt.setPower(0);
         runPath(Curve2);
-
-
     }
 
     public void setPathState(int pState) {
