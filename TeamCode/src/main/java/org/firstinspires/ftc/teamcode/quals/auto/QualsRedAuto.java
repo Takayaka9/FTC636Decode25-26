@@ -70,24 +70,24 @@ public class QualsRedAuto extends LinearOpMode{
         opmodeTimer.resetTimer();
         setPathState(0);
 
-        while(opModeIsActive()){
-            // These loop the movements of the robot, these must be called continuously in order to work
-            follower.update();
-            autonomousPathUpdate();
+        runPath(Line1);
+        runPath(Curve2);
 
-            // Feedback to Driver Hub for debugging
-            telemetry.addData("path state", pathState);
-            telemetry.addData("x", follower.getPose().getX());
-            telemetry.addData("y", follower.getPose().getY());
-            telemetry.addData("heading", follower.getPose().getHeading());
-            telemetry.update();
-        }
+
     }
 
     public void setPathState(int pState) {
         pathState = pState;
         pathTimer.resetTimer();
     }
+
+    private void runPath(PathChain p) {
+        follower.followPath(p);
+        while (opModeIsActive() && follower.isBusy()) {
+            follower.update();
+        }
+    }
+
 
 
     // USE COMMAND SYSTEM IN THE NEXT BIT I HAVEN'T DONE IT YET

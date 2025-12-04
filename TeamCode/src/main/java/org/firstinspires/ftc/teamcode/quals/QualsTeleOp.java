@@ -26,7 +26,7 @@ public class QualsTeleOp extends LinearOpMode {
     RobotQuals robot;
     Limelight3A limelight;
 
-    IMU imu;
+    //IMU imu;
     public static Pose startingPose;
 
     //Velocities for shooters
@@ -58,6 +58,9 @@ public class QualsTeleOp extends LinearOpMode {
     ElapsedTime sortTime = new ElapsedTime();
     public static double sort1 = 0.3;
     public static double sort2 = 1;
+    public static double sort3 = 1;
+    public static double sort4 = 1;
+    public static double sort5 = 1;
 
     public SortSteps sortSteps;
     public enum SortSteps{
@@ -101,31 +104,7 @@ public class QualsTeleOp extends LinearOpMode {
                     true
             );
 
-
-            //limelight localization
-            /*
-            LLResult result = limelight.getLatestResult();
-            if (result != null) {
-                if (result.isValid()) {
-                    Pose3D botpose = result.getBotpose();
-                    telemetry.addData("tx", result.getTx());
-                    telemetry.addData("ty", result.getTy());
-                    telemetry.addData("Botpose", botpose.toString());
-                }
-            }
-
-            YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
-            limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
-            result = limelight.getLatestResult();
-            if (result != null) {
-                if (result.isValid()) {
-                    Pose3D botpose = result.getBotpose_MT2();
-                }
-            }
-
-             */
-
-            //belt reverse control logic
+            //intake and reverse intake
             if(!isSorting){
                 if(gamepad2.right_bumper){
                     robot.belt.setPower(beltOn);
@@ -186,20 +165,21 @@ public class QualsTeleOp extends LinearOpMode {
                     if(!gamepad2.y){
                         changed2Y = false;
                     }
-                    if(sortTime.seconds() > sort1){
+                    if(sortTime.seconds() >= sort1){
                         robot.onRamp.setPosition(onRampPush);
                         sortTime.reset();
                         sortSteps = SortSteps.PUSHBACK;
                     }
                     break;
                 case PUSHBACK:
-                    if(Math.abs(robot.onRamp.getPosition() - onRampPush) < 0.01){
+                    if(sortTime.seconds() >= sort2){
                         robot.onRamp.setPosition(onRampPassive);
+                        sortTime.reset();
                         sortSteps = SortSteps.UP;
                     }
                     break;
                 case UP:
-                    if(Math.abs(robot.onRamp.getPosition() - onRampPassive) < 0.01){
+                    if(sortTime.seconds() >= sort3){
                         robot.belt.setPower(1);
                         //robot.belt.setTargetPosition(robot.belt.getCurrentPosition() + beltIncrement);
                         sortTime.reset();
@@ -207,24 +187,25 @@ public class QualsTeleOp extends LinearOpMode {
                     }
                     break;
                 case PUSHON:
-                    if(sortTime.seconds() >= sort2){
+                    if(sortTime.seconds() >= sort4){
                         robot.belt.setPower(0);
                         robot.offRamp.setPosition(offRampPush);
+                        sortTime.reset();
                         sortSteps = SortSteps.BACKOFF;
                     }
                     break;
                 case BACKOFF:
-                    if(Math.abs(robot.offRamp.getPosition() - offRampPush) < 0.01){
+                    if(sortTime.seconds() >= sort4){
                         robot.offRamp.setPosition(offRampPassive);
                         //robot.belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
                         isSorting = false;
+                        sortTime.reset();
                         sortSteps = SortSteps.READY;
                     }
                     break;
             }
 
              */
-
 
             //New shooting by emad:
             //Still incomplete needs a lot more work - emad
@@ -241,27 +222,12 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyLeft.setPower(0);
             }
 
-
-
-            //belt logic?:
-            /*
-            if(gamepad2.y){
-                robot.onRamp.setPosition(onRampPassive);
-            }
-            else if(gamepad2.dpad_down){
-                robot.onRamp.setPosition(onRampPush);
-            }
-
-             */
             if(gamepad2.y){
                 robot.onRamp.setPosition(onRampPush);
             }
             else if(!gamepad2.y){
                 robot.onRamp.setPosition(onRampPassive);
             }
-
-            // && robot.onRamp.getPosition() == onRampPassive
-            // && robot.onRamp.getPosition() == onRampPush
 
 
             //shoot purple
@@ -280,82 +246,6 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyLeft.setPower(0);
             }
 
-             */
-
-
-            /*
-            //OLD: move the belt and intake to move the balls
-            if(!isSorting){
-                if(gamepad2.right_bumper && !intakeToggle && !changedRB){
-                    robot.belt.setPower(beltOn);
-                    robot.intake.setPower(intakeOn);
-                    intakeToggle = true;
-                    changedRB = true;
-                }
-                else if(gamepad2.right_bumper && intakeToggle && !changedRB){
-                    robot.belt.setPower(0);
-                    robot.intake.setPower(0);
-                    intakeToggle = false;
-                    changedRB = true;
-                }
-                else if(!gamepad2.right_bumper){
-                    changedRB = false;
-                }
-                else if(gamepad2.x){
-                    robot.belt.setPower(-beltOn);
-                    robot.intake.setPower(-intakeOn);
-                }
-            }
-
-             */
-
-            /* legacy shooting input and motor activation
-            if(gamepad2.b){
-                isShooting = true;
-                robot.flyRight.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
-                robot.flyLeft.setVelocityPIDFCoefficients(shootP, shootI, shootD, shootF);
-                robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityClose));
-                robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityClose));
-                //changed2B = true;
-            }
-            else if(!gamepad2.b){
-                //changed2B = false;
-                isShooting = false;
-                robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
-                robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
-                robot.flyRight.setPower(0);
-                robot.flyLeft.setPower(0);
-            }
-            //shoot with less velocity (close pos)
-            //gamepad2.a is used to shoot green now
-            if(gamepad2.a){
-                robot.flyRight.setVelocity(robot.RPMtoVelocity(velocityFar));
-                //robot.flyRight.setPower(1);
-                robot.flyLeft.setVelocity(robot.RPMtoVelocity(velocityFar));
-                //changed2A = true;
-            }
-            else if(!gamepad2.a){
-                robot.flyRight.setVelocity(robot.RPMtoVelocity(0));
-                robot.flyLeft.setVelocity(robot.RPMtoVelocity(0));
-            }
-             */
-
-            /*
-            Don't know what this is - emad
-            if(gamepad2.y){
-                robot.pushOff();
-
-            }
-
-             */
-
-            /*
-            belt pid attempt
-            if(gamepad2.y && !changed2Y){
-                beltTargetPosition += beltIncrement;
-                robot.belt.setTargetPosition(beltTargetPosition);
-                robot.belt.setPower(beltOn);
-            }
              */
 
             telemetryM.debug("Auto Velocity", velocity);
