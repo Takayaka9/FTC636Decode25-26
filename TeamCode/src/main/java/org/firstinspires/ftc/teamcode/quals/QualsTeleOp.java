@@ -47,10 +47,10 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean changed2Y = false;
     public static boolean isSorting = false;
     public static boolean isShooting = false;
-    public static double onRampPassive = 0.81;
-    public static double onRampPush = 1;
-    public static double offRampPush = 0.5;
-    public static double offRampPassive = 0;
+    public static double onRampPassive = 0.44;
+    public static double onRampPush = 0.8;
+    public static double offRampPush = 1;
+    public static double offRampPassive = 0.75;
 
     /* old pid constants
     public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
@@ -59,13 +59,12 @@ public class QualsTeleOp extends LinearOpMode {
     public static double sort1 = 0.3;
     public static double sort2 = 1;
     public static double sort3 = 1;
-    public static double sort4 = 1;
+    public static double sort4 = 0.4;
     public static double sort5 = 1;
-
-    public SortSteps sortSteps;
     public enum SortSteps{
         READY, PUSHOFF, PUSHBACK, UP, PUSHON, BACKOFF
     }
+    public SortSteps sortSteps = SortSteps.READY;
 
 
     /*
@@ -108,9 +107,9 @@ public class QualsTeleOp extends LinearOpMode {
             }
             if (gamepad1.left_trigger > 0.3) {
                 follower.setTeleOpDrive(
-                        -gamepad1.left_stick_y*0.5,
-                        -gamepad1.left_stick_x*0.5,
-                        -gamepad1.right_stick_x*0.3,
+                        -gamepad1.left_stick_y*0.35,
+                        -gamepad1.left_stick_x*0.35,
+                        -gamepad1.right_stick_x*0.2,
                         true
                 );
             }
@@ -122,7 +121,7 @@ public class QualsTeleOp extends LinearOpMode {
                     robot.belt.setPower(beltOn);
                     robot.intake.setPower(intakeOn);
                 }
-                else if(gamepad2.x){
+                else if(gamepad2.left_trigger > 0.5){
                     robot.belt.setPower(beltReverse);
                     robot.flyRight.setDirection(DcMotorEx.Direction.FORWARD);
                     robot.flyLeft.setDirection(DcMotorEx.Direction.REVERSE);
@@ -156,7 +155,7 @@ public class QualsTeleOp extends LinearOpMode {
             //TODO: UNCOMMENT ONCE SERVO POSITIONS ARE GOOD
             /// THE "//" commented out code has to do with the belt motor...
             /// ...running to position, aka need to test
-            /*
+
             switch(sortSteps){
                 case READY:
                     if(gamepad2.y && !changed2Y){
@@ -176,11 +175,11 @@ public class QualsTeleOp extends LinearOpMode {
                     }
                     break;
                 case PUSHOFF:
+                    robot.onRamp.setPosition(onRampPush);
                     if(!gamepad2.y){
                         changed2Y = false;
                     }
                     if(sortTime.seconds() >= sort1){
-                        robot.onRamp.setPosition(onRampPush);
                         sortTime.reset();
                         sortSteps = SortSteps.PUSHBACK;
                     }
@@ -209,7 +208,7 @@ public class QualsTeleOp extends LinearOpMode {
                     }
                     break;
                 case BACKOFF:
-                    if(sortTime.seconds() >= sort4){
+                    if(sortTime.seconds() >= sort5){
                         robot.offRamp.setPosition(offRampPassive);
                         //robot.belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
                         isSorting = false;
@@ -219,7 +218,7 @@ public class QualsTeleOp extends LinearOpMode {
                     break;
             }
 
-             */
+
 
             //New shooting by emad:
             //Still incomplete needs a lot more work - emad
@@ -236,11 +235,13 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyLeft.setPower(0);
             }
 
-            if(gamepad2.y){
-                robot.onRamp.setPosition(onRampPush);
-            }
-            else if(!gamepad2.y){
-                robot.onRamp.setPosition(onRampPassive);
+            if(!isSorting){
+                if(gamepad2.x){
+                    robot.onRamp.setPosition(onRampPush);
+                }
+                else if(!gamepad2.x){
+                    robot.onRamp.setPosition(onRampPassive);
+                }
             }
 
 
@@ -272,6 +273,7 @@ public class QualsTeleOp extends LinearOpMode {
             telemetryM.debug("belt increment", beltIncrement);
             telemetryM.addData("sortData", sortData);
             telemetryM.addData("PIDF+FF Output", robot.shooterOutput);
+            telemetryM.addData("Sort Step", sortSteps);
         }
     }
 

@@ -34,13 +34,13 @@ public class RobotQuals {
     public RevColorSensorV3 colorSensor; //color sensor
     //public DistanceSensor distanceSensor; //distance sensor (same as color)
     public Limelight3A limelight;
-    public static int onRampPassive = 0; //TODO: test values
-    public static int onRampPush = 0;
-    public static int offRampPassive = 0;
-    public static int offRampPush = 0;
-    public static double intakePower = 0.7;
-    public static double beltPower = 0.5;
-    public static double beltBackPower = -0.4;
+    //public static int onRampPassive = 0; //TODO: test values
+    //public static int onRampPush = 0;
+    //public static int offRampPassive = 0;
+    //public static int offRampPush = 0;
+    //public static double intakePower = 0.7;
+    //public static double beltPower = 0.5;
+    //public static double beltBackPower = -0.4;
     double velocity;
     public double TICKS_PER_REV = 24;
     public double shooterOutput;
@@ -108,6 +108,7 @@ public class RobotQuals {
      */
 
     //run intake
+    /*
     public void intakeRun(){
         intake.setPower(intakePower);
     }
@@ -117,6 +118,8 @@ public class RobotQuals {
     public void beltBackRun() {
         belt.setPower(beltBackPower);
     }
+
+     */
 
 
     //Color sensor by Taka, -Emad
@@ -163,6 +166,7 @@ public double shooterPIDF(double desiredRPM) {
 
     //method to push a ball off of the ramp
 
+    /*
     public void pushOff(){
         if(onRamp.getPosition() == onRampPassive){
             onRamp.setPosition(onRampPush);
@@ -177,6 +181,8 @@ public double shooterPIDF(double desiredRPM) {
         offRamp.setPosition(offRampPush);
         offRamp.setPosition(offRampPassive);
     }
+
+     */
 
 
 
