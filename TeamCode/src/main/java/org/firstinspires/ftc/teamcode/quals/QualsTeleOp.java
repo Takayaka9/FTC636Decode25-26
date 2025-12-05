@@ -47,8 +47,8 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean isShooting = false;
     public static double onRampPassive = 0.44;
     public static double onRampPush = 0.8;
-    public static double offRampPush = 1;
-    public static double offRampPassive = 0.75;
+    public static double offRampPush = 0.8;
+    public static double offRampPassive = 0.41;
 
     /* old pid constants
     public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
@@ -165,6 +165,7 @@ public class QualsTeleOp extends LinearOpMode {
             /// THE "//" commented out code has to do with the belt motor...
             /// ...running to position, aka need to test
 
+
             switch(sortSteps){
                 case READY:
                     if(gamepad2.y && !changed2Y){
@@ -226,6 +227,8 @@ public class QualsTeleOp extends LinearOpMode {
                     }
                     break;
             }
+
+
 
 
 
