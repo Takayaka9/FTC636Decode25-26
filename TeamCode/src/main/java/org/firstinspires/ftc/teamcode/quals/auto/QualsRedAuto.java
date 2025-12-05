@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 public class QualsRedAuto extends LinearOpMode{
     RobotQuals robot;
     private Follower follower;
-    private Timer pathTimer, actionTimer, opmodeTimer;
+    private Timer pathTimer, autoTimer, opmodeTimer;
     private int pathState;
     Commands commands;
     CommandScheduler commandScheduler;
@@ -71,16 +71,25 @@ public class QualsRedAuto extends LinearOpMode{
         opmodeTimer.resetTimer();
         setPathState(0);
 
-        runPath(Line1);
-        sleep(500);
-        robot.shooterPIDF(QualsTeleOp.velocity);
-        sleep(4000);
-        robot.belt.setPower(QualsTeleOp.beltOn);
-        sleep(5000);
-        robot.shooterPIDF(0);
-        robot.belt.setPower(0);
-        runPath(Curve2);
+        while(opModeIsActive()){
+            switch(autoSteps){
+                case READY:
+                    robot.passivePositions();
+                case MOVE_SHOOT_1:
+                    follower.followPath(Line1);
+                case SHOOT_1:
+                    if(!follower.isBusy()){
+
+                    }
+            }
+        }
     }
+
+    public enum AutoSteps{
+        MOVE_SHOOT_1, SHOOT_1, READY
+    }
+
+    public AutoSteps autoSteps = AutoSteps.READY;
 
     public void setPathState(int pState) {
         pathState = pState;

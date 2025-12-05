@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.quals;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.offRampPassive;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.onRampPassive;
 
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.arcrobotics.ftclib.controller.wpilibcontroller.SimpleMotorFeedforward;
@@ -96,6 +98,15 @@ public class RobotQuals {
     }
 
      */
+
+    public void passivePositions(){
+        onRamp.setPosition(onRampPassive);
+        offRamp.setPosition(offRampPassive);
+        belt.setPower(0);
+        flyRight.setPower(0);
+        flyLeft.setPower(0);
+        intake.setPower(0);
+    }
 
 
     /*
