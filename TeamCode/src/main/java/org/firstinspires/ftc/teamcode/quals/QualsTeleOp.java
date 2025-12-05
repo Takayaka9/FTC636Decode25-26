@@ -9,9 +9,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -45,7 +43,7 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean changed2A = false;
     public static boolean changed2B = false;
     public static boolean changed2Y = false;
-    public static boolean isSorting = false;
+    public static boolean isMacroing = false;
     public static boolean isShooting = false;
     public static double onRampPassive = 0.44;
     public static double onRampPush = 0.8;
@@ -55,6 +53,7 @@ public class QualsTeleOp extends LinearOpMode {
     /* old pid constants
     public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
      */
+    //timer values etc. for sorting macro
     ElapsedTime sortTime = new ElapsedTime();
     public static double sort1 = 0.3;
     public static double sort2 = 1;
@@ -65,8 +64,18 @@ public class QualsTeleOp extends LinearOpMode {
         READY, PUSHOFF, PUSHBACK, UP, PUSHON, BACKOFF
     }
     public SortSteps sortSteps = SortSteps.READY;
-
-
+    //timer values etc. for shooting macro
+    ElapsedTime shootTime = new ElapsedTime();
+    public static double shoot1 = 1;
+    public static double shoot2 = 0.4;
+    public static double shoot3 = 1;
+    public static double shoot4 = 0.4;
+    public static double shoot5 = 1;
+    public static double shoot6 = 1;
+    public enum ShootSteps{
+        READY, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH
+    }
+    public ShootSteps shootSteps = ShootSteps.READY;
     /*
     Object array which holds ball positions [0] to [2] and sort-cycles [3] need to move requiredArtifact to pos [1]
      */
@@ -116,7 +125,7 @@ public class QualsTeleOp extends LinearOpMode {
 
 
             //intake and reverse intake
-            if(!isSorting){
+            if(!isMacroing){
                 if(gamepad2.right_bumper){
                     robot.belt.setPower(beltOn);
                     robot.intake.setPower(intakeOn);
@@ -160,7 +169,7 @@ public class QualsTeleOp extends LinearOpMode {
                 case READY:
                     if(gamepad2.y && !changed2Y){
                         changed2Y= true;
-                        isSorting = true;
+                        isMacroing = true;
                         robot.belt.setPower(0);
                         //robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
                         //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -211,7 +220,7 @@ public class QualsTeleOp extends LinearOpMode {
                     if(sortTime.seconds() >= sort5){
                         robot.offRamp.setPosition(offRampPassive);
                         //robot.belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-                        isSorting = false;
+                        isMacroing = false;
                         sortTime.reset();
                         sortSteps = SortSteps.READY;
                     }
@@ -235,7 +244,95 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyLeft.setPower(0);
             }
 
-            if(!isSorting){
+            //macro to shoot three with one button press...hopefully
+            switch(shootSteps){
+                case READY:
+                    if(gamepad2.a && !changed2A){
+                        changed2A = true;
+                        isMacroing = true;
+                        isShooting = true;
+                        robot.flyRight.setPower(0);
+                        robot.flyLeft.setPower(0);
+                        robot.belt.setPower(0);
+                        //robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
+                        //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                        robot.intake.setPower(0);
+                        robot.offRamp.setPosition(offRampPassive);
+                        robot.onRamp.setPosition(onRampPassive);
+                        shootTime.reset();
+                        shootSteps = ShootSteps.REV_1;
+                    }
+                    else if(!gamepad2.a){
+                        changed2A = false;
+                    }
+                    break;
+                case REV_1:
+                    robot.shooterPIDF(velocity);
+                    shootTime.reset();
+                    shootSteps = ShootSteps.SHOOT_1;
+                    if(!gamepad2.a){
+                        changed2A = false;
+                    }
+                    break;
+                case SHOOT_1:
+                    if(robot.flyRight.getVelocity() >= velocity){
+                        robot.belt.setPower(1);
+                        robot.shooterPIDF(velocity);
+                        //robot.belt.setTargetPosition(robot.belt.getCurrentPosition() + beltIncrement);
+                        shootTime.reset();
+                        shootSteps = ShootSteps.REV_2;
+                    }
+                    if(!gamepad2.a){
+                        changed2A = false;
+                    }
+                    break;
+                case REV_2:
+                    if(shootTime.seconds() >= shoot2){
+                        robot.belt.setPower(0);
+                        robot.offRamp.setPosition(offRampPush);
+                        robot.shooterPIDF(velocity);
+                        shootTime.reset();
+                        shootSteps = ShootSteps.SHOOT_2;
+                    }
+                    break;
+                case SHOOT_2:
+                    if(robot.flyRight.getVelocity() >= velocity){
+                        robot.offRamp.setPosition(offRampPassive);
+                        robot.shooterPIDF(velocity);
+                        robot.belt.setPower(1);
+                        shootTime.reset();
+                        shootSteps = ShootSteps.REV_3;
+                    }
+                    break;
+                case REV_3:
+                    if (shootTime.seconds() >= shoot4) {
+                        robot.belt.setPower(0);
+                        robot.shooterPIDF(velocity);
+                        shootTime.reset();
+                        shootSteps = ShootSteps.SHOOT_3;
+                    }
+                    break;
+                case SHOOT_3:
+                    if(robot.flyRight.getVelocity() >= velocity){
+                        robot.belt.setPower(1);
+                        robot.shooterPIDF(velocity);
+                        shootTime.reset();
+                        shootSteps = ShootSteps.FINISH;
+                    }
+                    break;
+                case FINISH:
+                    if(shootTime.seconds()>= shoot6){
+                        robot.belt.setPower(0);
+                        robot.flyLeft.setPower(0);
+                        robot.flyRight.setPower(0);
+                        shootSteps = ShootSteps.READY;
+                        isMacroing = false;
+                        isShooting = false;
+                    }
+                    break;
+            }
+
+            if(!isMacroing){
                 if(gamepad2.x){
                     robot.onRamp.setPosition(onRampPush);
                 }
