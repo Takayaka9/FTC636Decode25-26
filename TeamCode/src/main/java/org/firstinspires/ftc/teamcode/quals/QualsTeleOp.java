@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.quals;
 
+import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
 import org.firstinspires.ftc.teamcode.Sorting.SortLogic;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
@@ -29,7 +30,7 @@ public class QualsTeleOp extends LinearOpMode {
 
     //Velocities for shooters
     //TODO: test values
-    public static int velocity = 4500;
+    public static double velocity = 4500;
     public static double beltOn = 1;
     public static double intakeOn = 1;
     public static int beltTargetPosition = 0;
@@ -55,11 +56,11 @@ public class QualsTeleOp extends LinearOpMode {
      */
     //timer values etc. for sorting macro
     ElapsedTime sortTime = new ElapsedTime();
-    public static double sort1 = 0.3;
-    public static double sort2 = 1;
-    public static double sort3 = 1;
-    public static double sort4 = 0.4;
-    public static double sort5 = 1;
+    public static double sort1 = 0;
+    public static double sort2 = 0.3;
+    public static double sort3 = 0.1;
+    public static double sort4 = 0.3;
+    public static double sort5 = 0.5;
     public enum SortSteps{
         READY, PUSHOFF, PUSHBACK, UP, PUSHON, BACKOFF
     }
@@ -81,6 +82,11 @@ public class QualsTeleOp extends LinearOpMode {
      */
     SortLogic sortLogic = new SortLogic();
     Object[] sortData = new String[4];
+    public static double kP = 0;
+    public static double kI = 0;
+    public static double kD = 0;
+    public static double kF = 0;
+    PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(kP, kI, kD, kF);
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -235,12 +241,27 @@ public class QualsTeleOp extends LinearOpMode {
             //New shooting by emad:
             //Still incomplete needs a lot more work - emad
             //Shoot green
+            /*
             if(gamepad2.b){
                 isShooting = true;
                 robot.shooterPIDF(velocity);
                 //need to have an if statement:
                 sortData = sortLogic.updateShotArtifact(sortData);
             } else if(!gamepad2.b){
+                //changed2B = false;
+                isShooting = false;
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
+            }
+
+             */
+
+            if(gamepad2.b){
+                double power = control.update(velocity, robot.flyRight.getVelocity());
+                robot.flyRight.setPower(power);
+                robot.flyLeft.setPower(power);
+            }
+            else if(!gamepad2.b){
                 //changed2B = false;
                 isShooting = false;
                 robot.flyRight.setPower(0);
@@ -342,6 +363,12 @@ public class QualsTeleOp extends LinearOpMode {
                 else if(!gamepad2.x){
                     robot.onRamp.setPosition(onRampPassive);
                 }
+                if(gamepad2.dpad_right){
+                    robot.offRamp.setPosition(offRampPush);
+                }
+                else if(!gamepad2.dpad_right){
+                    robot.offRamp.setPosition(offRampPassive);
+                }
             }
 
 
@@ -364,6 +391,7 @@ public class QualsTeleOp extends LinearOpMode {
              */
 
             telemetryM.debug("Auto Velocity", velocity);
+            telemetryM.addData("target", velocity);
             //telemetryM.addData("velocity left", robot.flyLeft.getVelocity());
             telemetryM.addData("velocity right", robot.flyRight.getVelocity());
             telemetryM.debug("belt power", beltOn);
@@ -372,7 +400,7 @@ public class QualsTeleOp extends LinearOpMode {
             telemetryM.addData("belt target", beltTargetPosition);
             telemetryM.debug("belt increment", beltIncrement);
             telemetryM.addData("sortData", sortData);
-            telemetryM.addData("PIDF+FF Output", robot.shooterOutput);
+            telemetryM.addData("PIDF+FF Output", robot.output);
             telemetryM.addData("Sort Step", sortSteps);
         }
     }

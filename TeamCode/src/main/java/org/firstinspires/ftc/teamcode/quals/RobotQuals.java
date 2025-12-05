@@ -54,8 +54,10 @@ public class RobotQuals {
     public static double kS = 0;
     public static double kV = 0;
     public static double kA = 0;
+    public static double output = 0;
+    public static double acceleration = 10;
 
-    PIDFController pidf = new PIDFController(kP, kI, kD, kF);
+
     //old: public static PIDFControl_ForVelocity shootControl = new PIDFControl_ForVelocity(1.19, 2.0, 1.1, 0.0);
     // HOPEFULLY TUNED RIGHT??? ALL VALUES WERE 0 BEFORE IF ISSUES ARISE
 
@@ -155,24 +157,23 @@ public class RobotQuals {
     }
 
      */
-
-//New ftc lib pid:
-public double shooterPIDF(double desiredRPM) {
-    //PIDF
-    pidf.setSetPoint(desiredRPM);
-    double measuredVelocity = flyRight.getVelocity();
-    double outputPIDF = pidf.calculate(measuredVelocity, desiredRPM);
-    //Feedforward:
-    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(kS, kV, kA);
-    double outputFF = feedforward.calculate(desiredRPM);
-
-    //add and set power
-    double output = outputPIDF + outputFF;
-    flyRight.setPower(output);
-    flyLeft.setPower(output);
-
-    return output;
-}
+    PIDFController pidf = new PIDFController(kP, kI, kD, kF);
+    //New ftc lib pid:
+    public double shooterPIDF(double desiredRPM) {
+        //PIDF
+        pidf.setSetPoint(desiredRPM);
+        double measuredVelocity = flyRight.getVelocity();
+        double outputPIDF = pidf.calculate(measuredVelocity, desiredRPM);
+        //Feedforward:
+        //SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(kS, kV, kA);
+        //double outputFF = feedforward.calculate(desiredRPM, acceleration);
+        //add and set power
+        output = outputPIDF;
+        // + outputFF
+        flyRight.setPower(output);
+        flyLeft.setPower(output);
+        return output;
+    }
 
 
     //method to push a ball off of the ramp
