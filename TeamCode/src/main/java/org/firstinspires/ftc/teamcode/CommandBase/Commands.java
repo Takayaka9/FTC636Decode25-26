@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.CommandBase;
 //import static org.firstinspires.ftc.teamcode.quals.RobotQuals.intakePower;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class Commands {
 
@@ -78,11 +77,11 @@ public class Commands {
         }
 
         @Override
-        public void initialize(){m_flysubsystem.FlyRun();}
+        public void initialize(){m_flysubsystem.flyRun(4500);}
 
         @Override
         public void end(boolean interrupted) {
-            m_flysubsystem.FlySTOP();
+            m_flysubsystem.flySTOP();
         }
         public boolean isFinished() {return true;}
     }

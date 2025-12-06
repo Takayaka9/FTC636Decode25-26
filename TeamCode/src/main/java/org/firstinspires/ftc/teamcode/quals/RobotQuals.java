@@ -119,7 +119,7 @@ public class RobotQuals {
      */
 
     //run intake
-    /*
+  /*
     public void intakeRun(){
         intake.setPower(intakePower);
     }
@@ -130,7 +130,7 @@ public class RobotQuals {
         belt.setPower(beltBackPower);
     }
 
-     */
+    */
 
 
     //Color sensor by Taka, -Emad
