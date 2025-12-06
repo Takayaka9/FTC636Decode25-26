@@ -12,27 +12,23 @@ import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.sun.tools.javac.comp.Todo;
 
 import org.firstinspires.ftc.teamcode.CommandBase.Commands;
-import org.firstinspires.ftc.teamcode.CommandBase.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.quals.QualsTeleOp;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
+
+//THIS ONE IS FOR TAKA TO EDIT SO EMAD CAN EDIT THE ORIGINAL
 @Configurable
 @Autonomous(name = "Quals Auto Red")
-public class QualsRedAuto extends LinearOpMode{
+public class QualsRedAuto_FSM extends LinearOpMode{
     RobotQuals robot;
     private Follower follower;
     private Timer pathTimer, autoTimer, opmodeTimer;
     private int pathState;
     Commands commands;
     CommandScheduler commandScheduler;
-
 
     //Poses
     private final Pose startPose = new Pose(117, 129, Math.toRadians(37));
@@ -48,7 +44,6 @@ public class QualsRedAuto extends LinearOpMode{
     private final Pose pickupControl1 = new Pose(85, 85, Math.toRadians(0));
     private final Pose shootControl = new Pose(90, 90, Math.toRadians(0));
     private final Pose pickupControl2 = new Pose(75, 57, Math.toRadians(0));
-
 
     private Path scorePreload;
     private PathChain Line1, Curve2, Line3, Curve4, Curve5, Line6, Curve7;
@@ -72,10 +67,24 @@ public class QualsRedAuto extends LinearOpMode{
         setPathState(0);
 
         while(opModeIsActive()){
+            switch(autoSteps){
+                case READY:
+                    robot.passivePositions();
+                case MOVE_SHOOT_1:
+                    follower.followPath(Line1);
+                case SHOOT_1:
+                    if(!follower.isBusy()){
 
+                    }
+            }
         }
     }
 
+    public enum AutoSteps{
+        MOVE_SHOOT_1, SHOOT_1, READY
+    }
+
+    public AutoSteps autoSteps = AutoSteps.READY;
 
     public void setPathState(int pState) {
         pathState = pState;
@@ -157,6 +166,4 @@ public class QualsRedAuto extends LinearOpMode{
                 robot.belt.setPower(0.75); //example
             })
     );
-
-
 }
