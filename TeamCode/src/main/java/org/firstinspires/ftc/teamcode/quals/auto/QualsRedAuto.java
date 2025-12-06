@@ -171,4 +171,6 @@ public class QualsRedAuto extends LinearOpMode{
                 robot.belt.setPower(0.75); //example
             })
     );
+
+
 }

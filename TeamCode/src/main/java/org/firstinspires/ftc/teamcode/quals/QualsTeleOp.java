@@ -414,7 +414,7 @@ public class QualsTeleOp extends LinearOpMode {
 
              */
 
-            telemetryM.debug("Auto Velocity", velocity);
+            telemetryM.debug("target", velocity);
             telemetryM.addData("target", velocity);
             //telemetryM.addData("velocity left", robot.flyLeft.getVelocity());
             telemetryM.addData("velocity right", robot.flyRight.getVelocity());
