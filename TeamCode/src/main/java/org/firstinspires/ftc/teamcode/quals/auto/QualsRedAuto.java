@@ -72,24 +72,10 @@ public class QualsRedAuto extends LinearOpMode{
         setPathState(0);
 
         while(opModeIsActive()){
-            switch(autoSteps){
-                case READY:
-                    robot.passivePositions();
-                case MOVE_SHOOT_1:
-                    follower.followPath(Line1);
-                case SHOOT_1:
-                    if(!follower.isBusy()){
 
-                    }
-            }
         }
     }
 
-    public enum AutoSteps{
-        MOVE_SHOOT_1, SHOOT_1, READY
-    }
-
-    public AutoSteps autoSteps = AutoSteps.READY;
 
     public void setPathState(int pState) {
         pathState = pState;
