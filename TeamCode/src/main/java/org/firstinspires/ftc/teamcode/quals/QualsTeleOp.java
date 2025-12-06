@@ -50,6 +50,13 @@ public class QualsTeleOp extends LinearOpMode {
     public static double onRampPush = 0.8;
     public static double offRampPush = 0.8;
     public static double offRampPassive = 0.41;
+    public double integralSum;
+    public double lastError;
+    ElapsedTime pidTime = new ElapsedTime();
+    public static double kP = 0;
+    public static double kI = 0;
+    public static double kD = 0;
+    public static double kF = 0;
 
     /* old pid constants
     public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
@@ -82,10 +89,10 @@ public class QualsTeleOp extends LinearOpMode {
      */
     SortLogic sortLogic = new SortLogic();
     Object[] sortData = new String[4];
-    public static double kP = 0;
-    public static double kI = 0;
-    public static double kD = 0;
-    public static double kF = 0;
+    public static double Kp = 0;
+    public static double Ki = 0;
+    public static double Kd = 0;
+    public static double Kf = 0;
     PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(kP, kI, kD, kF);
 
     @Override
@@ -255,16 +262,35 @@ public class QualsTeleOp extends LinearOpMode {
              */
 
             if(gamepad2.b){
-                double power = control.update(velocity, robot.flyRight.getVelocity());
-                robot.flyRight.setPower(power);
-                robot.flyLeft.setPower(power);
+                if(!changed2B){
+                    integralSum = 0;
+                    lastError = 0;
+                    isShooting = true;
+                    changed2B = true;
+                    pidTime.reset();
+                }
+                double error = velocity-robot.flyRight.getVelocity();
+                integralSum += error* pidTime.seconds();
+                double derivative = (error- lastError)/ pidTime.seconds();
+                lastError = error;
+
+                pidTime.reset();
+
+                double output; // basically the same as the normal PIDControl
+                output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
+
+                robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
+                robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
             }
             else if(!gamepad2.b){
                 //changed2B = false;
                 isShooting = false;
+                changed2B = false;
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
+
+
 
             //macro to shoot three with one button press...hopefully
             switch(shootSteps){
