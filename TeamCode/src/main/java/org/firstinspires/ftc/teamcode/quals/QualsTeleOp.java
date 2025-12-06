@@ -164,10 +164,8 @@ public class QualsTeleOp extends LinearOpMode {
 
 
             //physical sort method
-            //TODO: FIGURE OUT WHAT TO DO WITH THE FIRST BALL...THIS CYCLES ASSUMING ONE IS ALREADY IN THE BACK RAMP
                 //SortData[] holds other ball positions which could be used in an if,
                 //I think we should move first ball to pos 1
-            //TODO: UNCOMMENT ONCE SERVO POSITIONS ARE GOOD
             /// THE "//" commented out code has to do with the belt motor...
             /// ...running to position, aka need to test
 
