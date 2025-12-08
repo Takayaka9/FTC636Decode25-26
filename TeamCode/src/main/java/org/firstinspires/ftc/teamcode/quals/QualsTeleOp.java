@@ -76,7 +76,7 @@ public class QualsTeleOp extends LinearOpMode {
     //timer values etc. for shooting macro
     ElapsedTime shootTime = new ElapsedTime();
     public static double shoot1 = 1;
-    public static double shoot2 = 0.4;
+    public static double shoot2 = 0.3;
     public static double shoot3 = 1;
     public static double shoot4 = 0.4;
     public static double shoot5 = 1;
@@ -90,7 +90,7 @@ public class QualsTeleOp extends LinearOpMode {
      */
     SortLogic sortLogic = new SortLogic();
     Object[] sortData = new String[4];
-    public static double Kp = 0;
+    public static double Kp = 0.1;
     public static double Ki = 0;
     public static double Kd = 0;
     public static double Kf = 0;
