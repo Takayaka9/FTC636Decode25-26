@@ -46,6 +46,7 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean changed2Y = false;
     public static boolean isMacroing = false;
     public static boolean isShooting = false;
+    public boolean shootToggle = false;
     public static double onRampPassive = 0.44;
     public static double onRampPush = 0.8;
     public static double offRampPush = 0.8;
@@ -136,7 +137,6 @@ public class QualsTeleOp extends LinearOpMode {
                 );
             }
 
-
             //intake and reverse intake
             if(!isMacroing){
                 if(gamepad2.right_bumper){
@@ -167,15 +167,11 @@ public class QualsTeleOp extends LinearOpMode {
                 }
             }
 
-
-
-
             //physical sort method
                 //SortData[] holds other ball positions which could be used in an if,
                 //I think we should move first ball to pos 1
             /// THE "//" commented out code has to do with the belt motor...
             /// ...running to position, aka need to test
-
 
             switch(sortSteps){
                 case READY:
@@ -239,10 +235,6 @@ public class QualsTeleOp extends LinearOpMode {
                     break;
             }
 
-
-
-
-
             //New shooting by emad:
             //Still incomplete needs a lot more work - emad
             //Shoot green
@@ -258,9 +250,9 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
-
              */
-
+            //changed to toggle
+            /*
             if(gamepad2.b){
                 if(!changed2B){
                     integralSum = 0;
@@ -289,8 +281,43 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
+             */
 
+            if(gamepad2.b && !shootToggle && !changed2B){
+                integralSum = 0;
+                lastError = 0;
+                isShooting = true;
+                changed2B = true;
+                pidTime.reset();
+                shootToggle = true;
+                changed2B = true;
+            }
+            else if(gamepad2.b && shootToggle && !changed2B){
+                shootToggle = false;
+                changed2B = true;
+            }
+            else if(!gamepad2.b){
+                changed2B = false;
+            }
 
+            if(shootToggle){
+                double error = velocity-robot.flyRight.getVelocity();
+                integralSum += error* pidTime.seconds();
+                double derivative = (error- lastError)/ pidTime.seconds();
+                lastError = error;
+
+                pidTime.reset();
+
+                double output; // basically the same as the normal PIDControl
+                output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
+
+                robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
+                robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
+            }
+            else{
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
+            }
 
             //macro to shoot three with one button press...hopefully
             //TODO: make dependant on upper color sensor distance data
@@ -300,9 +327,9 @@ public class QualsTeleOp extends LinearOpMode {
                     if(gamepad2.a && !changed2A){
                         changed2A = true;
                         isMacroing = true;
-                        isShooting = true;
-                        robot.flyRight.setPower(0);
-                        robot.flyLeft.setPower(0);
+                        //isShooting = true;
+                        //robot.flyRight.setPower(0);
+                        //robot.flyLeft.setPower(0);
                         robot.belt.setPower(0);
                         //robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
                         //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -310,28 +337,18 @@ public class QualsTeleOp extends LinearOpMode {
                         robot.offRamp.setPosition(offRampPassive);
                         robot.onRamp.setPosition(onRampPassive);
                         shootTime.reset();
-                        shootSteps = ShootSteps.REV_1;
+                        shootSteps = ShootSteps.SHOOT_1;
                     }
                     else if(!gamepad2.a){
                         changed2A = false;
                     }
                     break;
-                case REV_1:
-                    robot.shooterPIDF(velocity);
-                    shootTime.reset();
-                    shootSteps = ShootSteps.SHOOT_1;
-                    if(!gamepad2.a){
-                        changed2A = false;
-                    }
-                    break;
                 case SHOOT_1:
-                    if(robot.flyRight.getVelocity() >= velocity){
-                        robot.belt.setPower(1);
-                        robot.shooterPIDF(velocity);
-                        //robot.belt.setTargetPosition(robot.belt.getCurrentPosition() + beltIncrement);
-                        shootTime.reset();
-                        shootSteps = ShootSteps.REV_2;
-                    }
+                    robot.belt.setPower(1);
+                    //robot.shooterPIDF(velocity);
+                    //robot.belt.setTargetPosition(robot.belt.getCurrentPosition() + beltIncrement);
+                    shootTime.reset();
+                    shootSteps = ShootSteps.REV_2;
                     if(!gamepad2.a){
                         changed2A = false;
                     }
@@ -340,15 +357,18 @@ public class QualsTeleOp extends LinearOpMode {
                     if(shootTime.seconds() >= shoot2){
                         robot.belt.setPower(0);
                         robot.offRamp.setPosition(offRampPush);
-                        robot.shooterPIDF(velocity);
+                        //robot.shooterPIDF(velocity);
                         shootTime.reset();
                         shootSteps = ShootSteps.SHOOT_2;
                     }
+                    if(!gamepad2.a){
+                        changed2A = false;
+                    }
                     break;
                 case SHOOT_2:
-                    if(robot.flyRight.getVelocity() >= velocity){
+                    if(shootTime.seconds() >= shoot3){
                         robot.offRamp.setPosition(offRampPassive);
-                        robot.shooterPIDF(velocity);
+                        //robot.shooterPIDF(velocity);
                         robot.belt.setPower(1);
                         shootTime.reset();
                         shootSteps = ShootSteps.REV_3;
@@ -357,15 +377,15 @@ public class QualsTeleOp extends LinearOpMode {
                 case REV_3:
                     if (shootTime.seconds() >= shoot4) {
                         robot.belt.setPower(0);
-                        robot.shooterPIDF(velocity);
+                        //robot.shooterPIDF(velocity);
                         shootTime.reset();
                         shootSteps = ShootSteps.SHOOT_3;
                     }
                     break;
                 case SHOOT_3:
-                    if(robot.flyRight.getVelocity() >= velocity){
+                    if(shootTime.seconds() >= shoot5){
                         robot.belt.setPower(1);
-                        robot.shooterPIDF(velocity);
+                        //robot.shooterPIDF(velocity);
                         shootTime.reset();
                         shootSteps = ShootSteps.FINISH;
                     }
@@ -373,11 +393,11 @@ public class QualsTeleOp extends LinearOpMode {
                 case FINISH:
                     if(shootTime.seconds()>= shoot6){
                         robot.belt.setPower(0);
-                        robot.flyLeft.setPower(0);
-                        robot.flyRight.setPower(0);
-                        shootSteps = ShootSteps.READY;
+                        //robot.flyLeft.setPower(0);
+                        //robot.flyRight.setPower(0);
                         isMacroing = false;
-                        isShooting = false;
+                        //isShooting = false;
+                        shootSteps = ShootSteps.READY;
                     }
                     break;
             }
@@ -396,7 +416,6 @@ public class QualsTeleOp extends LinearOpMode {
                     robot.offRamp.setPosition(offRampPassive);
                 }
             }
-
 
             //shoot purple
 /*
