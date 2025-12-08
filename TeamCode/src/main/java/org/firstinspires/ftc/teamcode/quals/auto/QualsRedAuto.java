@@ -53,11 +53,12 @@ public class QualsRedAuto extends LinearOpMode{
     //back to shoot pose again
 
     //control point poses
-    private final Pose pickupControl1 = new Pose(85, 85, Math.toRadians(0));
-    private final Pose shootControl = new Pose(90, 90, Math.toRadians(0));
-    private final Pose pickupControl2 = new Pose(75, 57, Math.toRadians(0));
+    private final Pose pickupControl1 = new Pose(85, 85);
+    private final Pose shootControl = new Pose(90, 90);
+    private final Pose pickupControl2 = new Pose(75, 57);
+    private final Pose leave = new Pose(72, 55);
     private Path scorePreload;
-    private PathChain Line1, Curve2, Line3, Curve4, Curve5, Line6, Curve7;
+    private PathChain Line1, Curve2, Line3, Curve4, Curve5, Line6, Curve7, Line8;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -122,9 +123,13 @@ public class QualsRedAuto extends LinearOpMode{
                 .setConstantHeadingInterpolation(Pickup2.getHeading())
                 .build();
 
-        Curve4 = follower.pathBuilder()
+        Curve7 = follower.pathBuilder()
                 .addPath(new BezierCurve(Pickup2, shootControl, shootPose))
                 .setLinearHeadingInterpolation(Pickup2.getHeading(), shootPose.getHeading())
+                .build();
+        Line8 = follower.pathBuilder()
+                .addPath(new BezierLine(prePickup2, Pickup2))
+                .setConstantHeadingInterpolation(Pickup2.getHeading())
                 .build();
     }
 
@@ -188,6 +193,13 @@ public class QualsRedAuto extends LinearOpMode{
                 if (!follower.isBusy()) {
                     shootMacro.schedule();
                 }
+                if (shootMacro.isFinished == true) {
+                    shootMacro.end();
+                    setPathState(7);
+                }
+                break;
+            case 7:
+                follower.followPath(Line8);
                 break;
         }
     }
