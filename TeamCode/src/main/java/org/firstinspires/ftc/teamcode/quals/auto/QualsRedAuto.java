@@ -17,11 +17,19 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.sun.tools.javac.comp.Todo;
 
+import org.firstinspires.ftc.teamcode.CommandBase.BeltSubsystem;
 import org.firstinspires.ftc.teamcode.CommandBase.Commands;
+import org.firstinspires.ftc.teamcode.CommandBase.FlySubsystem;
 import org.firstinspires.ftc.teamcode.CommandBase.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.CommandBase.RunBelt;
+import org.firstinspires.ftc.teamcode.CommandBase.RunIntake;
+import org.firstinspires.ftc.teamcode.CommandBase.ShootMacro;
+import org.firstinspires.ftc.teamcode.CommandBase.SortMacro;
+import org.firstinspires.ftc.teamcode.CommandBase.SortSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.quals.QualsTeleOp;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
+
 
 @Configurable
 @Autonomous(name = "Quals Auto Red")
@@ -48,8 +56,6 @@ public class QualsRedAuto extends LinearOpMode{
     private final Pose pickupControl1 = new Pose(85, 85, Math.toRadians(0));
     private final Pose shootControl = new Pose(90, 90, Math.toRadians(0));
     private final Pose pickupControl2 = new Pose(75, 57, Math.toRadians(0));
-
-
     private Path scorePreload;
     private PathChain Line1, Curve2, Line3, Curve4, Curve5, Line6, Curve7;
 
@@ -75,45 +81,15 @@ public class QualsRedAuto extends LinearOpMode{
 
         }
     }
-
-
-    public void setPathState(int pState) {
-        pathState = pState;
-        pathTimer.resetTimer();
-    }
-
+/*
+    //TODO: what is this? -emad
     private void runPath(PathChain p) {
         follower.followPath(p);
         while (opModeIsActive() && follower.isBusy()) {
             follower.update();
         }
     }
-
-
-
-    // USE COMMAND SYSTEM IN THE NEXT BIT I HAVEN'T DONE IT YET
-    public void autonomousPathUpdate() {
-        switch (pathState) {
-            case 0:
-                follower.followPath(Line1);
-                setPathState(1);
-                break;
-                /*
-            case 1:
-                follower.followPath(Line2);
-                setPathState(1);
-                break;
-            case 2:
-                follower.followPath(Curve3);
-                setPathState(1);
-                break;
-            case 3:
-
-                 */
-
-        }
-    }
-
+*/
     public void buildPaths() {
 
         Line1 = follower.pathBuilder()
@@ -152,11 +128,82 @@ public class QualsRedAuto extends LinearOpMode{
                 .build();
     }
 
+    // USE COMMAND SYSTEM IN THE NEXT BIT I HAVEN'T DONE IT YET
+    FlySubsystem flySubsystem;
+    BeltSubsystem beltSubsystem;
+    IntakeSubsystem intakeSubsystem;
+    SortSubsystem sortSubsystem;
+    ShootMacro shootMacro = new ShootMacro(beltSubsystem, sortSubsystem,flySubsystem,intakeSubsystem);
+    SortMacro sortMacro = new SortMacro(beltSubsystem, sortSubsystem,intakeSubsystem);
+    RunBelt runBelt = new RunBelt(beltSubsystem);
+    RunIntake runIntake = new RunIntake(intakeSubsystem);
+
+    public void autonomousPathUpdate() {
+        switch (pathState) {
+            case 0:
+                follower.followPath(Line1);
+                setPathState(1);
+                break;
+            case 1:
+                shootMacro.schedule();
+                if (shootMacro.isFinished == true) {
+                    shootMacro.end();
+                    follower.followPath(Curve2);
+                    setPathState(2);
+                    //TODO: does break go inside the if?
+                    break;
+                }
+            case 2:
+                follower.followPath(Line3);
+                setPathState(3);
+                if (!follower.isBusy()){
+                    runIntake.schedule();
+                }
+                break;
+            case 3:
+                follower.followPath(Curve4);
+                setPathState(4);
+                break;
+            case 4:
+                runIntake.end();
+                if (!follower.isBusy()) {
+                    shootMacro.schedule();
+                }
+                if (shootMacro.isFinished == true){
+                    shootMacro.end();
+                    follower.followPath(Curve5);
+                    setPathState(5);
+                }
+                if (!follower.isBusy()) {
+                    runIntake.schedule();
+                    break;
+                }
+            case 5:
+                follower.followPath(Line6);
+                setPathState(6);
+                break;
+            case 6:
+                runIntake.end();
+                follower.followPath(Curve7);
+                if (!follower.isBusy()) {
+                    shootMacro.schedule();
+                }
+                break;
+        }
+    }
+
+    public void setPathState(int pState) {
+        pathState = pState;
+        pathTimer.resetTimer();
+    }
+
+/*
+    //TODO: again, what is this? -emad
     SequentialCommandGroup auto = new SequentialCommandGroup(
             new InstantCommand(() -> {
                 robot.belt.setPower(0.75); //example
             })
     );
-
+*/
 
 }

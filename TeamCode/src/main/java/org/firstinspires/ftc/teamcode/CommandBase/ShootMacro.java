@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.CommandBase;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot1;
+
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot2;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot3;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot4;
@@ -16,6 +16,7 @@ public class ShootMacro extends CommandBase {
     private final IntakeSubsystem m_intakeSubsystem;
 
     private final ElapsedTime timer = new ElapsedTime();
+    public boolean isFinished;
 
     public enum ShootingSteps{
         READY, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH, END
@@ -43,6 +44,7 @@ public class ShootMacro extends CommandBase {
     public void execute() {
         switch(shootingSteps){
             case READY:
+                    isFinished = false;
                     //isShooting = true;
                     //robot.flyRight.setPower(0);
                     //robot.flyLeft.setPower(0);
@@ -105,10 +107,11 @@ public class ShootMacro extends CommandBase {
                     shootingSteps = ShootMacro.ShootingSteps.END;
                 }
                 break;
+            case END:
+                isFinished = true;
         }
     }
 
-    @Override
-    public void end(boolean interrupted) {}
+    public void end() {}
     public boolean isFinished() {return true;}
 }
