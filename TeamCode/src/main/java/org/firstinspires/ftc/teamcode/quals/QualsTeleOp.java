@@ -101,10 +101,8 @@ public class QualsTeleOp extends LinearOpMode {
         robot = new RobotQuals(hardwareMap);
         //robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
         //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        shootToggle = false;
-
         waitForStart();
-
+        shootToggle = false;
 
         //robot.initialTele();
 
@@ -159,13 +157,13 @@ public class QualsTeleOp extends LinearOpMode {
                     robot.shooterPIDF(velocity);
                     robot.intake.setPower(0);
                 }
-                else{
+                else if(!gamepad2.left_bumper && gamepad2.left_trigger < 0.5 && !gamepad2.right_bumper){
                     robot.flyRight.setDirection(DcMotorEx.Direction.REVERSE);
                     robot.flyLeft.setDirection(DcMotorEx.Direction.FORWARD);
                     robot.belt.setPower(0);
                     robot.intake.setPower(0);
-                    robot.flyRight.setPower(0);
-                    robot.flyLeft.setPower(0);
+                    //robot.flyRight.setPower(0);
+                    //robot.flyLeft.setPower(0);
                 }
             }
 
@@ -314,10 +312,10 @@ public class QualsTeleOp extends LinearOpMode {
                 output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
                 telemetryM.addData("output", output);
 
-                //robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
-                //robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
-                robot.flyRight.setPower(1);
-                robot.flyLeft.setPower(1);
+                robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
+                robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
+                //robot.flyRight.setPower(1);
+                //robot.flyLeft.setPower(1);
                 telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
             }
             else{

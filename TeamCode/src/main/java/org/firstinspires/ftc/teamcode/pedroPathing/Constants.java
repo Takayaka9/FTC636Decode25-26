@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
-            .mass(11.03)
+            .mass(11.62)
             .forwardZeroPowerAcceleration(-34.590873)
             .lateralZeroPowerAcceleration(-59.170642)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.1, 0, 0.01, 0))
