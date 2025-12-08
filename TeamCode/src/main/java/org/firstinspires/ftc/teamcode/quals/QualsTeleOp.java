@@ -137,7 +137,6 @@ public class QualsTeleOp extends LinearOpMode {
                 );
             }
 
-
             //intake and reverse intake
             if(!isMacroing){
                 if(gamepad2.right_bumper){
@@ -168,15 +167,11 @@ public class QualsTeleOp extends LinearOpMode {
                 }
             }
 
-
-
-
             //physical sort method
                 //SortData[] holds other ball positions which could be used in an if,
                 //I think we should move first ball to pos 1
             /// THE "//" commented out code has to do with the belt motor...
             /// ...running to position, aka need to test
-
 
             switch(sortSteps){
                 case READY:
@@ -240,10 +235,6 @@ public class QualsTeleOp extends LinearOpMode {
                     break;
             }
 
-
-
-
-
             //New shooting by emad:
             //Still incomplete needs a lot more work - emad
             //Shoot green
@@ -259,9 +250,8 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
-
              */
-
+            //changed to toggle
             /*
             if(gamepad2.b){
                 if(!changed2B){
@@ -291,9 +281,7 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
-
              */
-
 
             if(gamepad2.b && !shootToggle && !changed2B){
                 integralSum = 0;
@@ -330,8 +318,6 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
-
-
 
             //macro to shoot three with one button press...hopefully
             switch(shootSteps){
@@ -428,7 +414,6 @@ public class QualsTeleOp extends LinearOpMode {
                     robot.offRamp.setPosition(offRampPassive);
                 }
             }
-
 
             //shoot purple
 /*
