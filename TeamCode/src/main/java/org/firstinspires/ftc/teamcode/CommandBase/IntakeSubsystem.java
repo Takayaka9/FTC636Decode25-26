@@ -24,6 +24,6 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void IntakeSubsystemReverse() {
-        robot.intake.setPower(intakeOn);
+        robot.intake.setPower(-intakeOn);
     }
 }

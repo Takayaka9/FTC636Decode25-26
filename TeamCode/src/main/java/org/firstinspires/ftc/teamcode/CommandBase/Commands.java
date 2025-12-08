@@ -1,17 +1,18 @@
 package org.firstinspires.ftc.teamcode.CommandBase;
 
-//import static org.firstinspires.ftc.teamcode.quals.RobotQuals.intakePower;
-
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.quals.QualsTeleOp;
 
 public class Commands {
 
     /* RunIntake Command */
-    public class RunIntakeCommand extends CommandBase {
+    public class RunIntake extends CommandBase {
         @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
         private final IntakeSubsystem m_intakesubsystem;
 
-        public RunIntakeCommand(IntakeSubsystem subsystem) {
+        public RunIntake(IntakeSubsystem subsystem) {
             m_intakesubsystem = subsystem;
             addRequirements(subsystem);
         }
@@ -33,29 +34,9 @@ public class Commands {
 
     }
 
-    /*
-    public static class RunIntake extends CommandBase{
-        private DcMotorEx intake;
-        public RunIntake(DcMotorEx mIntake){
-            intake = mIntake;
-        }
-        @Override
-        public void initialize(){
-            intake.setPower(intakePower);
-        }
-        public void end(boolean interrupted){
-            intake.setPower(0);
-        }
-        public boolean isFinished(){
-            return true;
-        }
-    }
-
-     */
-
-    public class RunBeltReverse extends CommandBase {
+    public class RunIntakeReverse extends CommandBase {
         private final IntakeSubsystem m_intakesubsystem;
-        public RunBeltReverse(IntakeSubsystem subsystem) {
+        public RunIntakeReverse(IntakeSubsystem subsystem) {
             m_intakesubsystem = subsystem;
             addRequirements(subsystem);
         }
@@ -65,6 +46,39 @@ public class Commands {
         @Override
         public void end(boolean interrupted) {
             m_intakesubsystem.IntakeSubsystemStop();
+        }
+        public boolean isFinished() {return true;}
+    }
+
+    public class RunBelt extends CommandBase {
+        private final BeltSubsystem m_beltsubsystem;
+        public RunBelt(BeltSubsystem subsystem) {
+            m_beltsubsystem = subsystem;
+            addRequirements(subsystem);
+        }
+        @Override
+        public void initialize(){m_beltsubsystem.beltRun();}
+
+        @Override
+        public void end(boolean interrupted) {
+            m_beltsubsystem.beltPassive();
+        }
+        public boolean isFinished() {return true;}
+    }
+
+
+    public class RunBeltReverse extends CommandBase {
+        private final BeltSubsystem m_beltsubsystem;
+        public RunBeltReverse(BeltSubsystem subsystem) {
+            m_beltsubsystem = subsystem;
+            addRequirements(subsystem);
+        }
+        @Override
+        public void initialize(){m_beltsubsystem.beltReverse();}
+
+        @Override
+        public void end(boolean interrupted) {
+            m_beltsubsystem.beltPassive();
         }
         public boolean isFinished() {return true;}
     }
@@ -85,5 +99,7 @@ public class Commands {
         }
         public boolean isFinished() {return true;}
     }
+
 }
+
 

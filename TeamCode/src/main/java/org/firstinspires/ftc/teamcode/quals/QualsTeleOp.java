@@ -293,6 +293,8 @@ public class QualsTeleOp extends LinearOpMode {
 
 
             //macro to shoot three with one button press...hopefully
+            //TODO: make dependant on upper color sensor distance data
+            //I dont think it will work otherwise because it just wont be consistent
             switch(shootSteps){
                 case READY:
                     if(gamepad2.a && !changed2A){
