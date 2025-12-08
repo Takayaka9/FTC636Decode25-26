@@ -19,8 +19,9 @@ public class SortMacro extends CommandBase {
 
     private SortingSteps sortingSteps = SortingSteps.READY;
 
+
     public enum SortingSteps{
-        READY, PUSHOFF, PUSHBACK, UP, PUSHON, BACKOFF
+        READY, PUSHOFF, PUSHBACK, UP, PUSHON, BACKOFF, END
     }
 
     public SortMacro(BeltSubsystem beltSubsystem, SortSubsystem sortSubsystem, IntakeSubsystem intakeSubsystem) {
@@ -86,9 +87,13 @@ public class SortMacro extends CommandBase {
                     m_sortSubsystem.setOffRampPassive();
                     //robot.belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
                     timer.reset();
-                    sortingSteps = SortingSteps.READY;
+                    sortingSteps = SortingSteps.END;
                 }
                 break;
         }
     }
+
+    @Override
+    public void end(boolean interrupted) {}
+    public boolean isFinished() {return true;}
 }
