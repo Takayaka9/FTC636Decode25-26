@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 //THIS ONE IS FOR TAKA TO EDIT SO EMAD CAN EDIT THE ORIGINAL
 @Configurable
-@Autonomous(name = "Quals Auto Red")
+@Autonomous(name = "Quals Auto Red FSM")
 public class QualsRedAuto_FSM extends LinearOpMode{
     RobotQuals robot;
     private Follower follower;

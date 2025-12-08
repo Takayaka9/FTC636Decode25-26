@@ -46,7 +46,7 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean changed2Y = false;
     public static boolean isMacroing = false;
     public static boolean isShooting = false;
-    public boolean shootToggle = false;
+    public static boolean shootToggle = false;
     public static double onRampPassive = 0.44;
     public static double onRampPush = 0.8;
     public static double offRampPush = 0.8;
@@ -101,8 +101,10 @@ public class QualsTeleOp extends LinearOpMode {
         robot = new RobotQuals(hardwareMap);
         //robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
         //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        shootToggle = false;
 
         waitForStart();
+
 
         //robot.initialTele();
 
@@ -301,7 +303,7 @@ public class QualsTeleOp extends LinearOpMode {
             }
 
             if(shootToggle){
-                double error = velocity-robot.flyRight.getVelocity();
+                double error = velocity-(robot.flyRight.getVelocity());
                 integralSum += error* pidTime.seconds();
                 double derivative = (error- lastError)/ pidTime.seconds();
                 lastError = error;
@@ -310,9 +312,13 @@ public class QualsTeleOp extends LinearOpMode {
 
                 double output; // basically the same as the normal PIDControl
                 output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
+                telemetryM.addData("output", output);
 
-                robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
-                robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
+                //robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
+                //robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
+                robot.flyRight.setPower(1);
+                robot.flyLeft.setPower(1);
+                telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
             }
             else{
                 robot.flyRight.setPower(0);
@@ -445,7 +451,8 @@ public class QualsTeleOp extends LinearOpMode {
             telemetryM.addData("belt target", beltTargetPosition);
             telemetryM.debug("belt increment", beltIncrement);
             telemetryM.addData("sortData", sortData);
-            telemetryM.addData("PIDF+FF Output", robot.output);
+            telemetryM.addData("shoot toggle", shootToggle);
+            //telemetryM.addData("PIDF+FF Output", output);
             telemetryM.addData("Sort Step", sortSteps);
         }
     }
