@@ -33,7 +33,7 @@ import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
 @Autonomous(name = "Quals Auto Red")
-public class QualsBlueAuto extends LinearOpMode{
+public class QualsBlueAuto extends OpMode{
     RobotQuals robot;
     private Follower follower;
     private Timer pathTimer, autoTimer, opmodeTimer;
@@ -60,28 +60,6 @@ public class QualsBlueAuto extends LinearOpMode{
     private Path scorePreload;
     private PathChain Line1, Curve2, Line3, Curve4, Curve5, Line6, Curve7, Line8;
 
-    @Override
-    public void runOpMode() throws InterruptedException {
-
-        pathTimer = new Timer();
-        opmodeTimer = new Timer();
-        opmodeTimer.resetTimer();
-
-        robot = new RobotQuals(hardwareMap);
-
-        follower = Constants.createFollower(hardwareMap);
-        buildPaths();
-        follower.setStartingPose(startPose);
-
-        waitForStart();
-
-        opmodeTimer.resetTimer();
-        setPathState(0);
-
-        while(opModeIsActive()){
-
-        }
-    }
     /*
         //TODO: what is this? -emad
         private void runPath(PathChain p) {
@@ -209,6 +187,42 @@ public class QualsBlueAuto extends LinearOpMode{
         pathTimer.resetTimer();
     }
 
+    @Override
+    public void loop() {
+        // These loop the movements of the robot, these must be called continuously in order to work
+        follower.update();
+        autonomousPathUpdate();
+        CommandScheduler.getInstance().run();
+        // Feedback to Driver Hub for debugging
+        telemetry.addData("path state", pathState);
+        telemetry.addData("x", follower.getPose().getX());
+        telemetry.addData("y", follower.getPose().getY());
+        telemetry.addData("heading", follower.getPose().getHeading());
+        telemetry.update();
+    }
+    /** This method is called once at the init of the OpMode. **/
+    @Override
+    public void init() {
+        pathTimer = new Timer();
+        opmodeTimer = new Timer();
+        opmodeTimer.resetTimer();
+        follower = Constants.createFollower(hardwareMap);
+        buildPaths();
+        follower.setStartingPose(startPose);
+    }
+    /** This method is called continuously after Init while waiting for "play". **/
+    @Override
+    public void init_loop() {}
+    /** This method is called once at the start of the OpMode.
+     * It runs all the setup actions, including building paths and starting the path system **/
+    @Override
+    public void start() {
+        opmodeTimer.resetTimer();
+        setPathState(0);
+    }
+    /** We do not use this because everything should automatically disable **/
+    @Override
+    public void stop() {}
 /*
     //TODO: again, what is this? -emad
     SequentialCommandGroup auto = new SequentialCommandGroup(
