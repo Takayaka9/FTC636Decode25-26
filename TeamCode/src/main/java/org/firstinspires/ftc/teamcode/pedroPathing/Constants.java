@@ -16,13 +16,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
-            .mass(11.62)
-            .forwardZeroPowerAcceleration(-34.590873)
-            .lateralZeroPowerAcceleration(-59.170642)
-            .translationalPIDFCoefficients(new PIDFCoefficients(0.1, 0, 0.01, 0))
-            .headingPIDFCoefficients(new PIDFCoefficients(1, 0, 0.048, 0.01))
-            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.11, 0.0, 0.0003, 0.6, 0.0))
-            .centripetalScaling(0.0007);
+            .mass(11.62);
+            //.forwardZeroPowerAcceleration(-34.590873)
+           // .lateralZeroPowerAcceleration(-59.170642)
+            // .translationalPIDFCoefficients(new PIDFCoefficients(0.1, 0, 0.01, 0))
+            //.headingPIDFCoefficients(new PIDFCoefficients(1, 0, 0.048, 0.01))
+            //.drivePIDFCoefficients(new FilteredPIDFCoefficients(0.11, 0.0, 0.0003, 0.6, 0.0))
+           // .centripetalScaling(0.0007);
 
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
@@ -34,9 +34,9 @@ public class Constants {
             .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .useBrakeModeInTeleOp(true)
-            .xVelocity(59.4568784)
-            .yVelocity(47.0753130);
+            .useBrakeModeInTeleOp(true);
+            //.xVelocity(59.4568784)
+           // .yVelocity(47.0753130);
     public static PinpointConstants localizerConstants = new PinpointConstants()
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("pinpoint")
