@@ -14,7 +14,6 @@ import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.onRampPush;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -29,8 +28,8 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
-@Autonomous(name = "Red Auto 2")
-public class QualsRedAutoAttempt2 extends LinearOpMode {
+@Autonomous(name = "Blue Auto 2")
+public class QualsBlueAutoAttempt2 extends LinearOpMode {
     RobotQuals robot;
     private Follower follower;
     private Timer pathTimer, autoTimer, opmodeTimer;
