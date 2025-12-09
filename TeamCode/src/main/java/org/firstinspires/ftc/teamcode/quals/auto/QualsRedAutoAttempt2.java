@@ -1,5 +1,16 @@
 package org.firstinspires.ftc.teamcode.quals.auto;
 
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.Kd;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.Kf;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.Ki;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.Kp;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.beltOn;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.intakeOn;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.offRampPassive;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.offRampPush;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.onRampPassive;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.onRampPush;
+
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
@@ -11,6 +22,7 @@ import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.CommandBase.Commands;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -28,13 +40,14 @@ public class QualsRedAutoAttempt2 extends LinearOpMode {
 
 
     //Poses
-    private final Pose startPose = new Pose(117, 129, Math.toRadians(37));
-    private final Pose shootPose = new Pose(75, 75, Math.toRadians(45));
-    private final Pose prePickup1 = new Pose(100, 80, Math.toRadians(0));
-    private final Pose Pickup1 = new Pose(120, 80, Math.toRadians(0));
+    private final Pose startPose = new Pose(59.8, 8.5, Math.toRadians(90));
+    private final Pose shootPose = new Pose(59, 103.7, Math.toRadians(141));
+    private final Pose prePickup1 = new Pose(38.2, 87.3, Math.toRadians(180));
+    private final Pose Pickup1 = new Pose(18.1, 87.3, Math.toRadians(0));
     //back to shoot pose
     private final Pose prePickup2 = new Pose(100, 57, Math.toRadians(0));
     private final Pose Pickup2 = new Pose(120, 57, Math.toRadians(0));
+    private final Pose end = new Pose(59.8, 55.5, Math.toRadians(180));
     //back to shoot pose again
 
     //control point poses
@@ -42,7 +55,13 @@ public class QualsRedAutoAttempt2 extends LinearOpMode {
     private final Pose shootControl = new Pose(90, 90, Math.toRadians(0));
     private final Pose pickupControl2 = new Pose(75, 57, Math.toRadians(0));
     private Path scorePreload;
-    private PathChain Line1, Curve2, Line3, Curve4, Curve5, Line6, Curve7;
+    private PathChain Line1, Line2, Line3, Line4, Line5, Line6, Curve7;
+    ElapsedTime autoTime = new ElapsedTime();
+    ElapsedTime pidTime = new ElapsedTime();
+    public double integralSum;
+    public double lastError;
+    public boolean shooting = false;
+    public static int velocity = 4500;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -50,13 +69,57 @@ public class QualsRedAutoAttempt2 extends LinearOpMode {
         follower = Constants.createFollower(hardwareMap);
         buildPaths();
         follower.setStartingPose(startPose);
+        shooting = false;
 
         waitForStart();
         follower.followPath(Line1);
         while(follower.isBusy()){
+            activateFly();
         }
-
-
+        shootAllThree();
+        while(shooting){
+        }
+        follower.followPath(Line2);
+        while(follower.isBusy()){
+            robot.intake.setPower(intakeOn);
+            robot.flyRight.setPower(0);
+            robot.flyLeft.setPower(0);
+        }
+        autoTime.reset();
+        robot.belt.setPower(beltOn);
+        while(autoTime.seconds() < 0.3){
+        }
+        robot.belt.setPower(0);
+        robot.intake.setPower(0);
+        robot.onRamp.setPosition(onRampPush);
+        autoTime.reset();
+        while(autoTime.seconds() < 0.7){
+        }
+        robot.onRamp.setPosition(onRampPassive);
+        robot.intake.setPower(intakeOn);
+        robot.belt.setPower(beltOn);
+        follower.followPath(Line3);
+        while(follower.isBusy()){
+        }
+        autoTime.reset();
+        while(autoTime.seconds() < 0.5){
+        }
+        robot.intake.setPower(0);
+        robot.belt.setPower(-1);
+        autoTime.reset();
+        while(autoTime.seconds() < 0.2){
+        }
+        robot.belt.setPower(0);
+        follower.followPath(Line4);
+        while(follower.isBusy()){
+            activateFly();
+        }
+        shootAllThree();
+        while(shooting){
+        }
+        follower.followPath(Line5);
+        while(follower.isBusy()){
+        }
     }
 
     public void buildPaths() {
@@ -66,8 +129,8 @@ public class QualsRedAutoAttempt2 extends LinearOpMode {
                 .setLinearHeadingInterpolation(startPose.getHeading(), shootPose.getHeading())
                 .build();
 
-        Curve2 = follower.pathBuilder()
-                .addPath(new BezierCurve(shootPose, pickupControl1, prePickup1))
+        Line2 = follower.pathBuilder()
+                .addPath(new BezierLine(shootPose, prePickup1))
                 .setLinearHeadingInterpolation(shootPose.getHeading(), prePickup1.getHeading())
                 .build();
 
@@ -76,14 +139,14 @@ public class QualsRedAutoAttempt2 extends LinearOpMode {
                 .setConstantHeadingInterpolation(Pickup1.getHeading())
                 .build();
 
-        Curve4 = follower.pathBuilder()
-                .addPath(new BezierCurve(Pickup1, shootControl, shootPose))
+        Line4 = follower.pathBuilder()
+                .addPath(new BezierLine(Pickup1, shootPose))
                 .setLinearHeadingInterpolation(Pickup1.getHeading(), shootPose.getHeading())
                 .build();
 
-        Curve5 = follower.pathBuilder()
-                .addPath(new BezierCurve(shootPose, pickupControl2,  prePickup2))
-                .setLinearHeadingInterpolation(shootPose.getHeading(), prePickup2.getHeading())
+        Line5 = follower.pathBuilder()
+                .addPath(new BezierLine(shootPose, end))
+                .setLinearHeadingInterpolation(shootPose.getHeading(), end.getHeading())
                 .build();
 
         Line6 = follower.pathBuilder()
@@ -91,9 +154,55 @@ public class QualsRedAutoAttempt2 extends LinearOpMode {
                 .setConstantHeadingInterpolation(Pickup2.getHeading())
                 .build();
 
+        /*
         Curve4 = follower.pathBuilder()
                 .addPath(new BezierCurve(Pickup2, shootControl, shootPose))
                 .setLinearHeadingInterpolation(Pickup2.getHeading(), shootPose.getHeading())
                 .build();
+
+         */
+    }
+
+    public void shootAllThree(){
+        shooting = true;
+        robot.belt.setPower(1);
+        autoTime.reset();
+        while(autoTime.seconds() < 0.3){
+        }
+        robot.belt.setPower(0);
+        autoTime.reset();
+        robot.offRamp.setPosition(offRampPush);
+        while(autoTime.seconds() < 1){
+        }
+        robot.offRamp.setPosition(offRampPassive);
+        robot.belt.setPower(1);
+        autoTime.reset();
+        while(autoTime.seconds() < 0.3){
+        }
+        robot.belt.setPower(0);
+        autoTime.reset();
+        while(autoTime.seconds() < 1){
+        }
+        robot.belt.setPower(1);
+        while(autoTime.seconds() < 0.3){
+        }
+        robot.belt.setPower(0);
+        shooting = false;
+    }
+
+    public void activateFly(){
+        double error = velocity-(robot.flyRight.getVelocity());
+        integralSum += error* pidTime.seconds();
+        double derivative = (error- lastError)/ pidTime.seconds();
+        lastError = error;
+
+        pidTime.reset();
+
+        double output; // basically the same as the normal PIDControl
+        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
+        //telemetryM.addData("output", output);
+
+        robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
+        robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
     }
 }
