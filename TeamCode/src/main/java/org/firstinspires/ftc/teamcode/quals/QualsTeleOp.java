@@ -54,10 +54,6 @@ public class QualsTeleOp extends LinearOpMode {
     public double integralSum;
     public double lastError;
     ElapsedTime pidTime = new ElapsedTime();
-    public static double kP = 0;
-    public static double kI = 0;
-    public static double kD = 0;
-    public static double kF = 0;
 
     /* old pid constants
     public static double shootP = 1.2, shootI = 2.0, shootD = 0.001, shootF = 0;
@@ -94,7 +90,7 @@ public class QualsTeleOp extends LinearOpMode {
     public static double Ki = 0;
     public static double Kd = 0;
     public static double Kf = 0;
-    PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(kP, kI, kD, kF);
+    //PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(kP, kI, kD, kF);
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -144,22 +140,20 @@ public class QualsTeleOp extends LinearOpMode {
                     robot.intake.setPower(intakeOn);
                 }
                 else if(gamepad2.left_trigger > 0.5){
-                    robot.belt.setPower(beltReverse);
-                    robot.flyRight.setDirection(DcMotorEx.Direction.FORWARD);
-                    robot.flyLeft.setDirection(DcMotorEx.Direction.REVERSE);
-                    robot.shooterPIDF(velocity);
+                    robot.belt.setPower(-1);
+                    robot.flyLeft.setPower(-1);
+                    robot.flyRight.setPower(-1);
                     robot.intake.setPower(-0.7);
                 }
                 else if(gamepad2.left_bumper){
                     robot.belt.setPower(beltReverse);
-                    robot.flyRight.setDirection(DcMotorEx.Direction.FORWARD);
-                    robot.flyLeft.setDirection(DcMotorEx.Direction.REVERSE);
-                    robot.shooterPIDF(velocity);
+                    robot.flyLeft.setPower(-1);
+                    robot.flyRight.setPower(-1);
                     robot.intake.setPower(0);
                 }
                 else if(!gamepad2.left_bumper && gamepad2.left_trigger < 0.5 && !gamepad2.right_bumper){
-                    robot.flyRight.setDirection(DcMotorEx.Direction.REVERSE);
-                    robot.flyLeft.setDirection(DcMotorEx.Direction.FORWARD);
+                    robot.flyRight.setPower(0);
+                    robot.flyLeft.setPower(0);
                     robot.belt.setPower(0);
                     robot.intake.setPower(0);
                     //robot.flyRight.setPower(0);

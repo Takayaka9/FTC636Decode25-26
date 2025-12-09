@@ -56,6 +56,7 @@ public class QualsRedAutoAttempt2 extends LinearOpMode {
         while(follower.isBusy()){
         }
 
+
     }
 
     public void buildPaths() {
