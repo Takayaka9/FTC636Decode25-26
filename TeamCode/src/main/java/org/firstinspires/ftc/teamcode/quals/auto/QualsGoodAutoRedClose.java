@@ -38,13 +38,16 @@ public class QualsGoodAutoRedClose extends OpMode {
     private final Pose startPose = new Pose(120.1, 125.7, Math.toRadians(36));
     private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
     //far: x85.4, y80.2, angle 44
-
+    private final Pose endPose = new Pose(endX, endY, Math.toRadians(endA));
+    public static double endX = 123;
+    public static double endY = 102;
+    public static double endA = 90;
     public static double shootY = 111.2;
     public static double shootX = 103.1;
     public static double shootA = 36;
     public static double pickupY = 87.3;
     public static double firstPickX = -38.2;
-    private PathChain Line1, Line2, Line3, Line4, Line5;
+    private PathChain Line1, Line2, Line3, Line4, Line5, Line6;
     ElapsedTime autoTime = new ElapsedTime();
     public static double auto1 = 0.3;
     public static double auto2 = 0.67;
@@ -205,12 +208,7 @@ public class QualsGoodAutoRedClose extends OpMode {
                 }
                 break;
             case FINISH:
-                if(shootTime.seconds()>= shoot6 && firstTime){
-                    robot.belt.setPower(0);
-                    firstTime = false;
-                    autoSteps = AutoSteps.TO_PICKUP1;
-                }
-                if(shootTime.seconds()>= shoot6 && !firstTime){
+                if(true){
                     robot.belt.setPower(0);
                     autoSteps = AutoSteps.END;
                 }
@@ -267,7 +265,7 @@ public class QualsGoodAutoRedClose extends OpMode {
                 }
                 break;
             case END:
-                follower.followPath(Line5);
+                follower.followPath(Line6);
                 if(autoTime.seconds() >= path5){
                     stopMove();
                 }
@@ -283,13 +281,13 @@ public class QualsGoodAutoRedClose extends OpMode {
                 .build();
 
 
-        /*
+
         Line6 = follower.pathBuilder()
-                .addPath(new BezierLine(prePickup2, Pickup2))
-                .setConstantHeadingInterpolation(Pickup2.getHeading())
+                .addPath(new BezierLine(shootPose, endPose))
+                .setLinearHeadingInterpolation(shootPose.getHeading(), endPose.getHeading())
                 .build();
 
-         */
+
 
         /*
         Curve4 = follower.pathBuilder()
