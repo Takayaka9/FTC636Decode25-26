@@ -117,8 +117,6 @@ public class QualsRedAuto extends OpMode{
     IntakeSubsystem intakeSubsystem;
     SortSubsystem sortSubsystem;
     ShootMacro shootMacro = new ShootMacro(beltSubsystem, sortSubsystem,flySubsystem,intakeSubsystem);
-    SortMacro sortMacro = new SortMacro(beltSubsystem, sortSubsystem,intakeSubsystem);
-    RunBelt runBelt = new RunBelt(beltSubsystem);
     RunIntake runIntake = new RunIntake(intakeSubsystem);
 
     public void autonomousPathUpdate() {
@@ -133,9 +131,8 @@ public class QualsRedAuto extends OpMode{
                     shootMacro.end();
                     follower.followPath(Curve2);
                     setPathState(2);
-                    //TODO: does break go inside the if?
-                    break;
                 }
+                break;
             case 2:
                 follower.followPath(Line3);
                 setPathState(3);
