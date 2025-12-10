@@ -8,12 +8,15 @@ import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.sort3;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.sort4;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.sort5;
 
+import org.firstinspires.ftc.teamcode.quals.RobotQuals;
+
 public class SortMacro extends CommandBase {
 
     private final BeltSubsystem m_beltSubsystem;
     private final SortSubsystem m_sortSubsystem;
     private final IntakeSubsystem m_intakeSubsystem;
 
+    RobotQuals robot;
 
     private final ElapsedTime timer = new ElapsedTime();
 
@@ -43,7 +46,8 @@ public class SortMacro extends CommandBase {
     public void execute() {
         switch (sortingSteps) {
             case READY:
-                m_beltSubsystem.beltPassive();
+                robot.belt.setPower(0);
+                //m_beltSubsystem.beltPassive();
                 //robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
                 //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 m_intakeSubsystem.IntakeSubsystemStop();
@@ -76,7 +80,8 @@ public class SortMacro extends CommandBase {
                 break;
             case PUSHON:
                 if(timer.seconds() >= sort4){
-                    m_beltSubsystem.beltPassive();
+                    robot.belt.setPower(0);
+                    //m_beltSubsystem.beltPassive();
                     m_sortSubsystem.setOffRampPush();
                     timer.reset();
                     sortingSteps = SortingSteps.BACKOFF;

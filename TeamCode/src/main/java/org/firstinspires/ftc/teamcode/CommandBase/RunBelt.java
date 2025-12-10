@@ -2,8 +2,11 @@ package org.firstinspires.ftc.teamcode.CommandBase;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.teamcode.quals.RobotQuals;
+
 public class RunBelt extends CommandBase {
     private final BeltSubsystem m_beltsubsystem;
+    RobotQuals robot;
     public RunBelt(BeltSubsystem subsystem) {
         m_beltsubsystem = subsystem;
         addRequirements(subsystem);
@@ -13,7 +16,7 @@ public class RunBelt extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_beltsubsystem.beltPassive();
+        robot.belt.setPower(0);
     }
     public boolean isFinished() {return true;}
 }

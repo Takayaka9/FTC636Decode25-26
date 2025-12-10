@@ -60,7 +60,8 @@ public class ShootMacro extends CommandBase {
                     shootingSteps = ShootMacro.ShootingSteps.SHOOT_1;
                 break;
             case SHOOT_1:
-                m_beltSubsystem.beltPassive();
+                robot.belt.setPower(0);
+                //m_beltSubsystem.beltPassive();
                 //robot.shooterPIDF(velocity);
                 //robot.belt.setTargetPosition(robot.belt.getCurrentPosition() + beltIncrement);
                 timer.reset();
@@ -68,7 +69,8 @@ public class ShootMacro extends CommandBase {
                 break;
             case REV_2:
                 if(timer.seconds() >= shoot2){
-                    m_beltSubsystem.beltPassive();
+                    robot.belt.setPower(0);
+                    //m_beltSubsystem.beltPassive();
                     m_sortSubsystem.setOffRampPush();
                     //robot.shooterPIDF(velocity);
                     timer.reset();
@@ -79,14 +81,16 @@ public class ShootMacro extends CommandBase {
                 if(timer.seconds() >= shoot3){
                     m_sortSubsystem.setOffRampPassive();
                     //robot.shooterPIDF(velocity);
-                    m_beltSubsystem.beltPassive();
+                    robot.belt.setPower(0);
+                    //m_beltSubsystem.beltPassive();
                     timer.reset();
                     shootingSteps = ShootMacro.ShootingSteps.REV_3;
                 }
                 break;
             case REV_3:
                 if (timer.seconds() >= shoot4) {
-                    m_beltSubsystem.beltPassive();
+                    robot.belt.setPower(0);
+                    //m_beltSubsystem.beltPassive();
                     //robot.shooterPIDF(velocity);
                     timer.reset();
                     shootingSteps = ShootMacro.ShootingSteps.SHOOT_3;
@@ -94,7 +98,8 @@ public class ShootMacro extends CommandBase {
                 break;
             case SHOOT_3:
                 if(timer.seconds() >= shoot5){
-                    m_beltSubsystem.beltPassive();
+                    robot.belt.setPower(0);
+                    //m_beltSubsystem.beltPassive();
                     //robot.shooterPIDF(velocity);
                     timer.reset();
                     shootingSteps = ShootMacro.ShootingSteps.FINISH;
@@ -102,7 +107,8 @@ public class ShootMacro extends CommandBase {
                 break;
             case FINISH:
                 if(timer.seconds()>= shoot6){
-                    m_beltSubsystem.beltPassive();
+                    robot.belt.setPower(0);
+                    //m_beltSubsystem.beltPassive();
                     //robot.flyLeft.setPower(0);
                     //robot.flyRight.setPower(0);
                     //isShooting = false;

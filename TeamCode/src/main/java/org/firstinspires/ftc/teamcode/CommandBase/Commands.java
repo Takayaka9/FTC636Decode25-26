@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.CommandBase;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
+import org.firstinspires.ftc.teamcode.quals.RobotQuals;
+
 public class Commands {
 
     public class RunIntakeReverse extends CommandBase {
@@ -24,6 +26,7 @@ public class Commands {
 
     public class RunBeltReverse extends CommandBase {
         private final BeltSubsystem m_beltsubsystem;
+        RobotQuals robot;
         public RunBeltReverse(BeltSubsystem subsystem) {
             m_beltsubsystem = subsystem;
             addRequirements(subsystem);
@@ -33,7 +36,7 @@ public class Commands {
 
         @Override
         public void end(boolean interrupted) {
-            m_beltsubsystem.beltPassive();
+            robot.belt.setPower(0);
         }
         public boolean isFinished() {return true;}
     }
