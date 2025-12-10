@@ -17,7 +17,6 @@ import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot5;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot6;
 
 import com.bylazar.configurables.annotations.Configurable;
-import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -31,24 +30,31 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
-@Autonomous(name = "Blue Auto Attempt 2_FSM")
-public class QualsBlueAutoAttempt2_FSM extends OpMode {
+@Autonomous(name = "Red Auto Attempt 2_FSM")
+public class QualsRedAutoAttempt2_FSM extends OpMode {
     RobotQuals robot;
     private Follower follower;
     //TelemetryManager telemetryManager;
-    private final Pose startPose = new Pose(59.8, 9.228, Math.toRadians(90));
-    private final Pose shootPose = new Pose(shootX, 75, Math.toRadians(141));
-    private final Pose prePickup1 = new Pose(firstPickX, pickupY, Math.toRadians(180));
-    private final Pose Pickup1 = new Pose(18.1, pickupY, Math.toRadians(180));
-    private final Pose end = new Pose(59.8, 55.5, Math.toRadians(180));
-    private PathChain Line1, Line2, Line3, Line4, Line5;
-    public static double shootX = 59;
+    private final Pose startPose = new Pose(-59.8, 9.228, Math.toRadians(90));
+    private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
+    private final Pose prePickup1 = new Pose(firstPickX, pickupY, Math.toRadians(0));
+    private final Pose Pickup1 = new Pose(-18.1, pickupY, Math.toRadians(0));
+    private final Pose end = new Pose(-59.8, 55.5, Math.toRadians(0));
+    public static double shootY = 75;
+    public static double shootX = -70;
+    public static double shootA = 49;
     public static double pickupY = 87.3;
-    public static double firstPickX = 38.2;
+    public static double firstPickX = -38.2;
+    private PathChain Line1, Line2, Line3, Line4, Line5;
     ElapsedTime autoTime = new ElapsedTime();
     public static double auto1 = 0.3;
     public static double auto2 = 0.67;
     public static double auto3 = 0.2;
+    public static double path1 = 5;
+    public static double path2 = 5;
+    public static double path3 = 5;
+    public static double path4 = 5;
+    public static double path5 = 5;
     ElapsedTime pidTime = new ElapsedTime();
     Timer pathTimer;
     private int pathState;
@@ -118,6 +124,13 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
         //robot.flyLeft.setPower(Math.max(-1, Math.min(1, outputLeft)));
     }
 
+    public void stopMove(){
+        robot.rightBack.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftBack.setPower(0);
+        robot.leftFront.setPower(0);
+    }
+
     @Override
     public void stop() {
         super.stop();
@@ -137,8 +150,11 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 break;
             case TO_SHOOT1:
                 follower.followPath(Line1);
+                autoTime.reset();
                 pathTimer.resetTimer();
-                if(!follower.isBusy()){
+                activateFly();
+                if(autoTime.seconds() >= path1){
+                    stopMove();
                     activateFly();
                     autoSteps = AutoSteps.REV_1;
                 }
@@ -199,13 +215,15 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 break;
             case TO_PICKUP1:
                 follower.followPath(Line2);
+                autoTime.reset();
                 pathTimer.resetTimer();
                 robot.intake.setPower(intakeOn);
                 robot.belt.setPower(beltOn);
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
-                if(!follower.isBusy()){
+                if(autoTime.seconds() >= path2){
                     autoTime.reset();
+                    stopMove();
                     autoSteps = AutoSteps.PICKUP1;
                 }
                 break;
@@ -220,11 +238,13 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 break;
             case PICKUP23:
                 follower.followPath(Line3);
+                autoTime.reset();
                 pathTimer.resetTimer();
                 robot.intake.setPower(intakeOn);
                 robot.belt.setPower(beltOn);
                 robot.onRamp.setPosition(onRampPassive);
-                if(autoTime.seconds() >= auto2){
+                if(autoTime.seconds() >= path3){
+                    stopMove();
                     robot.intake.setPower(0);
                     robot.belt.setPower(-1);
                     autoTime.reset();
@@ -239,12 +259,16 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                     robot.belt.setPower(0);
                     activateFly();
                 }
-                if(!follower.isBusy()){
+                if(autoTime.seconds() >= path4){
+                    stopMove();
                     autoSteps = AutoSteps.REV_1;
                 }
                 break;
             case END:
                 follower.followPath(Line5);
+                if(autoTime.seconds() >= path5){
+                    stopMove();
+                }
                 break;
         }
     }

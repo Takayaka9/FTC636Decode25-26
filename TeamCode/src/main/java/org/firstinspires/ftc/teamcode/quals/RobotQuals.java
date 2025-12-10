@@ -32,6 +32,7 @@ and call each component.
 public class RobotQuals {
     public DcMotorEx flyRight, flyLeft, intake; //motor declaration
     public DcMotorEx belt; //idk why this is separate
+    public DcMotorEx rightBack, rightFront, leftFront, leftBack;
     public Servo onRamp, offRamp; //servos
     public RevColorSensorV3 colorSensor; //color sensor
     //public DistanceSensor distanceSensor; //distance sensor (same as color)
@@ -66,6 +67,17 @@ public class RobotQuals {
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
         intake = hardwareMap.get(DcMotorEx.class, "intakeMotor");
         belt = hardwareMap.get(DcMotorEx.class, "beltMotor");
+
+        //comment ts out if it tweaks
+        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         onRamp = hardwareMap.get(Servo.class, "onRamp");
         offRamp = hardwareMap.get(Servo.class, "offRamp");
