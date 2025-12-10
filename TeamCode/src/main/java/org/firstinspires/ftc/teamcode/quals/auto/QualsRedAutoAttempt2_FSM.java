@@ -40,9 +40,9 @@ public class QualsRedAutoAttempt2_FSM extends OpMode {
     private final Pose prePickup1 = new Pose(firstPickX, pickupY, Math.toRadians(0));
     private final Pose Pickup1 = new Pose(-18.1, pickupY, Math.toRadians(0));
     private final Pose end = new Pose(-59.8, 55.5, Math.toRadians(0));
-    public static double shootY = 75;
-    public static double shootX = -70;
-    public static double shootA = 49;
+    public static double shootY = 90;
+    public static double shootX = -60;
+    public static double shootA = 40;
     public static double pickupY = 87.3;
     public static double firstPickX = -38.2;
     private PathChain Line1, Line2, Line3, Line4, Line5;
@@ -50,6 +50,7 @@ public class QualsRedAutoAttempt2_FSM extends OpMode {
     public static double auto1 = 0.3;
     public static double auto2 = 0.67;
     public static double auto3 = 0.2;
+    public static double auto4 = 2;
     public static double path1 = 5;
     public static double path2 = 5;
     public static double path3 = 5;
@@ -168,9 +169,11 @@ public class QualsRedAutoAttempt2_FSM extends OpMode {
                 autoSteps = AutoSteps.SHOOT_1;
                 break;
             case SHOOT_1:
-                robot.belt.setPower(1);
-                shootTime.reset();
-                autoSteps = AutoSteps.REV_2;
+                if(autoTime.seconds() >= auto4){
+                    robot.belt.setPower(1);
+                    shootTime.reset();
+                    autoSteps = AutoSteps.REV_2;
+                }
                 break;
             case REV_2:
                 if(shootTime.seconds() >= shoot2){

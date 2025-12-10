@@ -61,7 +61,7 @@ public class QualsTeleOp extends LinearOpMode {
     //timer values etc. for sorting macro
     ElapsedTime sortTime = new ElapsedTime();
     public static double sort1 = 0;
-    public static double sort2 = 0.3;
+    public static double sort2 = 0.6;
     public static double sort3 = 0.1;
     public static double sort4 = 0.3;
     public static double sort5 = 0.5;
