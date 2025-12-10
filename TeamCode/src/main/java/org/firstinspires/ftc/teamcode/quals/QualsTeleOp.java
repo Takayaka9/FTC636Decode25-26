@@ -29,8 +29,7 @@ public class QualsTeleOp extends LinearOpMode {
     public static Pose startingPose;
 
     //Velocities for shooters
-    //TODO: test values
-    public static double velocity = 4500;
+    public static double velocity = 40; //TODO: test ts
     public static double beltOn = 1;
     public static double intakeOn = 1;
     public static int beltTargetPosition = 0;

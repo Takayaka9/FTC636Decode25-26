@@ -30,19 +30,18 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
-@Autonomous(name = "Red Auto Attempt 2_FSM")
-public class QualsRedAutoAttempt2_FSM extends OpMode {
+@Autonomous(name = "Quals Red Auto Close")
+public class QualsGoodAutoRedClose extends OpMode {
     RobotQuals robot;
     private Follower follower;
     //TelemetryManager telemetryManager;
-    private final Pose startPose = new Pose(-59.8, 9.228, Math.toRadians(90));
+    private final Pose startPose = new Pose(120.1, 125.7, Math.toRadians(36));
     private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
-    private final Pose prePickup1 = new Pose(firstPickX, pickupY, Math.toRadians(0));
-    private final Pose Pickup1 = new Pose(-18.1, pickupY, Math.toRadians(0));
-    private final Pose end = new Pose(-59.8, 55.5, Math.toRadians(0));
-    public static double shootY = 90;
-    public static double shootX = -60;
-    public static double shootA = 40;
+    //far: x85.4, y80.2, angle 44
+
+    public static double shootY = 111.2;
+    public static double shootX = 103.1;
+    public static double shootA = 36;
     public static double pickupY = 87.3;
     public static double firstPickX = -38.2;
     private PathChain Line1, Line2, Line3, Line4, Line5;
@@ -51,7 +50,7 @@ public class QualsRedAutoAttempt2_FSM extends OpMode {
     public static double auto2 = 0.67;
     public static double auto3 = 0.2;
     public static double auto4 = 5;
-    public static double path1 = 7;
+    public static double path1 = 5;
     public static double path2 = 5;
     public static double path3 = 5;
     public static double path4 = 5;
@@ -283,25 +282,7 @@ public class QualsRedAutoAttempt2_FSM extends OpMode {
                 .setLinearHeadingInterpolation(startPose.getHeading(), shootPose.getHeading())
                 .build();
 
-        Line2 = follower.pathBuilder()
-                .addPath(new BezierLine(shootPose, prePickup1))
-                .setLinearHeadingInterpolation(shootPose.getHeading(), prePickup1.getHeading())
-                .build();
 
-        Line3 = follower.pathBuilder()
-                .addPath(new BezierLine(prePickup1, Pickup1))
-                .setConstantHeadingInterpolation(Pickup1.getHeading())
-                .build();
-
-        Line4 = follower.pathBuilder()
-                .addPath(new BezierLine(Pickup1, shootPose))
-                .setLinearHeadingInterpolation(Pickup1.getHeading(), shootPose.getHeading())
-                .build();
-
-        Line5 = follower.pathBuilder()
-                .addPath(new BezierLine(shootPose, end))
-                .setLinearHeadingInterpolation(shootPose.getHeading(), end.getHeading())
-                .build();
         /*
         Line6 = follower.pathBuilder()
                 .addPath(new BezierLine(prePickup2, Pickup2))

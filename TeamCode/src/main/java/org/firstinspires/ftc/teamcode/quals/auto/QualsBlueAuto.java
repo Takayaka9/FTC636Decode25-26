@@ -30,7 +30,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.quals.QualsTeleOp;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
-
+@Disabled
 @Configurable
 @Autonomous(name = "Quals Auto Blue")
 public class QualsBlueAuto extends OpMode{
