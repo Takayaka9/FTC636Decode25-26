@@ -50,7 +50,7 @@ public class QualsTeleOp extends LinearOpMode {
     public static double onRampPassive = 0.44;
     public static double onRampPush = 0.8;
     public static double offRampPush = 0.8;
-    public static double offRampPassive = 0.41;
+    public static double offRampPassive = 0.45;
     public double integralSum;
     public double lastError;
     ElapsedTime pidTime = new ElapsedTime();
@@ -152,8 +152,10 @@ public class QualsTeleOp extends LinearOpMode {
                     robot.intake.setPower(0);
                 }
                 else if(!gamepad2.left_bumper && gamepad2.left_trigger < 0.5 && !gamepad2.right_bumper){
-                    robot.flyRight.setPower(0);
-                    robot.flyLeft.setPower(0);
+                    if(!shootToggle){
+                        robot.flyRight.setPower(0);
+                        robot.flyLeft.setPower(0);
+                    }
                     robot.belt.setPower(0);
                     robot.intake.setPower(0);
                     //robot.flyRight.setPower(0);
