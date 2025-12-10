@@ -20,7 +20,7 @@ public class BeltSubsystem extends SubsystemBase {
         public void beltRun() {
             robot.belt.setPower(1);
         }
-        public void beltPassive() {
+       public void beltPassive() {
             robot.belt.setPower(0);
         }
         public void beltReverse() {

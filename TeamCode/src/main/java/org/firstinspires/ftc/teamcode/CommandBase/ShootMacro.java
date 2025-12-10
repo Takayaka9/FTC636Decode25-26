@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.CommandBase;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot2;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot3;
@@ -10,6 +11,7 @@ import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot5;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot6;
 
 public class ShootMacro extends CommandBase {
+    RobotQuals robot;
     private final BeltSubsystem m_beltSubsystem;
     private final SortSubsystem m_sortSubsystem;
     private final FlySubsystem m_flySubsystem;
@@ -48,7 +50,7 @@ public class ShootMacro extends CommandBase {
                     //isShooting = true;
                     //robot.flyRight.setPower(0);
                     //robot.flyLeft.setPower(0);
-                    m_beltSubsystem.beltPassive();
+                    robot.belt.setPower(0);
                     //robot.belt.setTargetPosition(robot.belt.getCurrentPosition());
                     //robot.belt.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     m_intakeSubsystem.IntakeSubsystemStop();
