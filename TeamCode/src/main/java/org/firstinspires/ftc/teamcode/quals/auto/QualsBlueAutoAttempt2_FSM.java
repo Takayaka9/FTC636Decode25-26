@@ -22,6 +22,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
+import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -34,7 +35,7 @@ import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 public class QualsBlueAutoAttempt2_FSM extends OpMode {
     RobotQuals robot;
     private Follower follower;
-    TelemetryManager telemetryManager;
+    //TelemetryManager telemetryManager;
     private final Pose startPose = new Pose(59.8, 8.5, Math.toRadians(90));
     private final Pose shootPose = new Pose(59, 103.7, Math.toRadians(141));
     private final Pose prePickup1 = new Pose(38.2, 87.3, Math.toRadians(180));
@@ -46,6 +47,8 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
     public static double auto2 = 0.67;
     public static double auto3 = 0.2;
     ElapsedTime pidTime = new ElapsedTime();
+    Timer pathTimer;
+    private int pathState;
     ElapsedTime shootTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
@@ -57,17 +60,67 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
         robot = new RobotQuals(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
         buildPaths();
+        pathTimer = new Timer();
         follower.setStartingPose(startPose);
         firstTime = true;
     }
 
     @Override
     public void start() {
-        super.start();
+        autoSteps = AutoSteps.READY;
+        pathTimer.resetTimer();
     }
 
     @Override
     public void loop() {
+        follower.update();
+        auto();
+    }
+
+    public enum AutoSteps{
+        READY, TO_SHOOT1, TO_PICKUP1, PICKUP1, PICKUP23, READY_SHOOT, TO_SHOOT2, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH, END
+    }
+    AutoSteps autoSteps = AutoSteps.READY;
+
+    public void prepFly(){
+        integralSum = 0;
+        //integralSumLeft = 0;
+        pidTime.reset();
+        lastError = 0;
+        //lastErrorLeft = 0;
+    }
+    public double integralSumLeft;
+    public double lastErrorLeft;
+    public void activateFly(){
+        double error = velocity-(robot.flyRight.getVelocity());
+        //double errorLeft = velocity-(robot.flyLeft.getVelocity());
+        integralSum += error* pidTime.seconds();
+        //integralSumLeft += errorLeft*pidTime.seconds();
+        double derivative = (error- lastError)/ pidTime.seconds();
+        //double derivativeLeft = (errorLeft - lastErrorLeft) / pidTime.seconds();
+        lastError = error;
+        lastErrorLeft = error;
+
+        pidTime.reset();
+
+        double output; // basically the same as the normal PIDControl
+        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
+        //telemetryM.addData("output", output);
+
+        //double outputLeft;
+        //outputLeft = (errorLeft * Kp) + (derivativeLeft * Kd) + (integralSumLeft * Ki) + (velocity * Kf);
+
+        robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
+        robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
+        //robot.flyLeft.setPower(Math.max(-1, Math.min(1, outputLeft)));
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+    }
+
+    public void auto(){
         switch(autoSteps){
             case READY:
                 robot.onRamp.setPosition(onRampPassive);
@@ -81,8 +134,9 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 break;
             case TO_SHOOT1:
                 follower.followPath(Line1);
-                activateFly();
+                pathTimer.resetTimer();
                 if(!follower.isBusy()){
+                    activateFly();
                     autoSteps = AutoSteps.REV_1;
                 }
                 break;
@@ -142,6 +196,7 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 break;
             case TO_PICKUP1:
                 follower.followPath(Line2);
+                pathTimer.resetTimer();
                 robot.intake.setPower(intakeOn);
                 robot.belt.setPower(beltOn);
                 robot.flyRight.setPower(0);
@@ -162,6 +217,7 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 break;
             case PICKUP23:
                 follower.followPath(Line3);
+                pathTimer.resetTimer();
                 robot.intake.setPower(intakeOn);
                 robot.belt.setPower(beltOn);
                 robot.onRamp.setPosition(onRampPassive);
@@ -175,6 +231,7 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 break;
             case READY_SHOOT:
                 follower.followPath(Line4);
+                pathTimer.resetTimer();
                 if(autoTime.seconds() >= auto3){
                     robot.belt.setPower(0);
                     activateFly();
@@ -187,51 +244,6 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 follower.followPath(Line5);
                 break;
         }
-        telemetryManager.addData("Auto Steps", autoSteps);
-        telemetryManager.addData("Follower Busy", follower.isBusy());
-    }
-
-    public enum AutoSteps{
-        READY, TO_SHOOT1, TO_PICKUP1, PICKUP1, PICKUP23, READY_SHOOT, TO_SHOOT2, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH, END
-    }
-    AutoSteps autoSteps = AutoSteps.READY;
-
-    public void prepFly(){
-        integralSum = 0;
-        //integralSumLeft = 0;
-        pidTime.reset();
-        lastError = 0;
-        //lastErrorLeft = 0;
-    }
-    public double integralSumLeft;
-    public double lastErrorLeft;
-    public void activateFly(){
-        double error = velocity-(robot.flyRight.getVelocity());
-        //double errorLeft = velocity-(robot.flyLeft.getVelocity());
-        integralSum += error* pidTime.seconds();
-        //integralSumLeft += errorLeft*pidTime.seconds();
-        double derivative = (error- lastError)/ pidTime.seconds();
-        //double derivativeLeft = (errorLeft - lastErrorLeft) / pidTime.seconds();
-        lastError = error;
-        lastErrorLeft = error;
-
-        pidTime.reset();
-
-        double output; // basically the same as the normal PIDControl
-        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
-        //telemetryM.addData("output", output);
-
-        //double outputLeft;
-        //outputLeft = (errorLeft * Kp) + (derivativeLeft * Kd) + (integralSumLeft * Ki) + (velocity * Kf);
-
-        robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
-        robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
-        //robot.flyLeft.setPower(Math.max(-1, Math.min(1, outputLeft)));
-    }
-
-    @Override
-    public void stop() {
-        super.stop();
     }
 
     public void buildPaths() {
