@@ -98,7 +98,7 @@ public class QualsRedAutoAttempt2_FSM extends OpMode {
         lastError = 0;
         //lastErrorLeft = 0;
     }
-    public double integralSumLeft;
+    public double integralSumLeft;j
     public double lastErrorLeft;
     public void activateFly(){
         double error = velocity-(robot.flyRight.getVelocity());
@@ -108,7 +108,7 @@ public class QualsRedAutoAttempt2_FSM extends OpMode {
         double derivative = (error- lastError)/ pidTime.seconds();
         //double derivativeLeft = (errorLeft - lastErrorLeft) / pidTime.seconds();
         lastError = error;
-        lastErrorLeft = error;
+        //lastErrorLeft = error;
 
         pidTime.reset();
 
