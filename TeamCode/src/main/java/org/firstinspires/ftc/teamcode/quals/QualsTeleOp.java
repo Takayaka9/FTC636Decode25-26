@@ -29,7 +29,7 @@ public class QualsTeleOp extends LinearOpMode {
     public static Pose startingPose;
 
     //Velocities for shooters
-    public static double velocity = 40; //TODO: test ts
+    public static double velocity = 2100; //TODO: test ts
     public static double beltOn = 1;
     public static double intakeOn = 1;
     public static int beltTargetPosition = 0;
@@ -48,7 +48,7 @@ public class QualsTeleOp extends LinearOpMode {
     public static boolean shootToggle = false;
     public static double onRampPassive = 0.44;
     public static double onRampPush = 0.8;
-    public static double offRampPush = 0.8;
+    public static double offRampPush = 0.7;
     public static double offRampPassive = 0.45;
     public double integralSum;
     public double lastError;
@@ -62,8 +62,8 @@ public class QualsTeleOp extends LinearOpMode {
     public static double sort1 = 0;
     public static double sort2 = 0.6;
     public static double sort3 = 0.1;
-    public static double sort4 = 0.3;
-    public static double sort5 = 0.5;
+    public static double sort4 = 0.4;
+    public static double sort5 = 0.4;
     public enum SortSteps{
         READY, PUSHOFF, PUSHBACK, UP, PUSHON, BACKOFF
     }

@@ -42,9 +42,9 @@ public class QualsGoodAutoRedClose extends OpMode {
     public static double endX = 123;
     public static double endY = 102;
     public static double endA = 90;
-    public static double shootY = 111.2;
-    public static double shootX = 103.1;
-    public static double shootA = 36;
+    public static double shootY = 80.2;
+    public static double shootX = 70;
+    public static double shootA = 44;
     public static double pickupY = 87.3;
     public static double firstPickX = -38.2;
     private PathChain Line1, Line2, Line3, Line4, Line5, Line6;
@@ -52,7 +52,7 @@ public class QualsGoodAutoRedClose extends OpMode {
     public static double auto1 = 0.3;
     public static double auto2 = 0.67;
     public static double auto3 = 0.2;
-    public static double auto4 = 5;
+    public static double auto4 = 3;
     public static double path1 = 5;
     public static double path2 = 5;
     public static double path3 = 5;
@@ -64,7 +64,7 @@ public class QualsGoodAutoRedClose extends OpMode {
     ElapsedTime shootTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
-    public static int velocity = 40;
+    public static int velocity = 1000;
     public static boolean firstTime = false;
 
     @Override
@@ -168,6 +168,7 @@ public class QualsGoodAutoRedClose extends OpMode {
                 robot.offRamp.setPosition(offRampPassive);
                 robot.onRamp.setPosition(onRampPassive);
                 shootTime.reset();
+                autoTime.reset();
                 autoSteps = AutoSteps.SHOOT_1;
                 break;
             case SHOOT_1:

@@ -62,7 +62,7 @@ public class QualsRedAutoAttempt2_FSM extends OpMode {
     ElapsedTime shootTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
-    public static int velocity = 40;
+    public static int velocity = 2100;
     public static boolean firstTime = false;
 
     @Override
