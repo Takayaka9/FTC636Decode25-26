@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.quals;
 
-import org.firstinspires.ftc.teamcode.PIDFControl_ForVelocity;
 import org.firstinspires.ftc.teamcode.Sorting.SortLogic;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
@@ -10,7 +9,6 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -30,7 +28,7 @@ public class QualsTeleOp extends LinearOpMode {
 
     //Velocities for shooters
     public static double velocity = 2100; //TODO: test ts
-    public static double velocityclose = 1500;
+    public static double velocityclose = 2100;
     public static double beltOn = 1;
     public static double intakeOn = 1;
     public static int beltTargetPosition = 0;
@@ -84,6 +82,9 @@ public class QualsTeleOp extends LinearOpMode {
         READY, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH
     }
     public ShootSteps shootSteps = ShootSteps.READY;
+    ElapsedTime servoTime = new ElapsedTime();
+    public static boolean firstReleaseX = false;
+    public static boolean firstReleaseD = false;
     /*
     Object array which holds ball positions [0] to [2] and sort-cycles [3] need to move requiredArtifact to pos [1]
      */
@@ -308,8 +309,7 @@ public class QualsTeleOp extends LinearOpMode {
                 pidTime.reset();
 
                 double output; // basically the same as the normal PIDControl
-                output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
-                telemetryM.addData("output", output);
+                output = (error * Kp) + (derivative * Kd) + (integralSum * Ki);// + (velocity * K ,
 
                 robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
                 robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
@@ -448,14 +448,16 @@ public class QualsTeleOp extends LinearOpMode {
             if(!isMacroing){
                 if(gamepad2.x){
                     robot.onRamp.setPosition(onRampPush);
+                    servoTime.reset();
                 }
-                else if(!gamepad2.x){
+                else if(!gamepad2.x && servoTime.seconds() >= 0.5){
                     robot.onRamp.setPosition(onRampPassive);
                 }
                 if(gamepad2.dpad_right){
                     robot.offRamp.setPosition(offRampPush);
+                    servoTime.reset();
                 }
-                else if(!gamepad2.dpad_right){
+                else if(!gamepad2.dpad_right && servoTime.seconds() >= 0.5){
                     robot.offRamp.setPosition(offRampPassive);
                 }
             }
