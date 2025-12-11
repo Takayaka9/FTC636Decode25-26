@@ -155,7 +155,7 @@ public class QualsGoodAutoRedClose2 extends OpMode {
                 prepFly();
                 break;
             case TO_SHOOT1:
-                follower.followPath(InitialShoot);
+                follower.followPath(InitialShoot, true);
                 //activateFly();
                 if(autoTime.seconds() >= path1){
                     stopMove();
@@ -251,7 +251,7 @@ public class QualsGoodAutoRedClose2 extends OpMode {
                 }
                 break;
             case PICKUP23:
-                follower.followPath(BackToShoot);
+                follower.followPath(BackToShoot, true);
                 robot.intake.setPower(intakeOn);
                 robot.belt.setPower(beltOn);
                 robot.onRamp.setPosition(onRampPassive);
@@ -284,7 +284,7 @@ public class QualsGoodAutoRedClose2 extends OpMode {
                  */
                 break;
             case END:
-                follower.followPath(Park);
+                follower.followPath(Park, true);
                 if(autoTime.seconds() >= path5){
                     stopMove();
                 }
