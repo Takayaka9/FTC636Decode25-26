@@ -34,27 +34,30 @@ public class QualsGoodAutoBlueClose extends OpMode {
     RobotQuals robot;
     private Follower follower;
     //TelemetryManager telemetryManager;
-    private final Pose startPose = new Pose(120.1, 125.7, Math.toRadians(36));
+    private final Pose startPose = new Pose(23.7, 125.7, Math.toRadians(143));
     private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
     //TODO: FIX THESE POSES THEY'RE WRONG
     private final Pose endPose = new Pose(endX, endY, Math.toRadians(endA));
-    public static double endX = 123;
-    public static double endY = 102;
-    public static double endA = 90;
+    private final Pose pickUp1 = new Pose(firstPickX, pickupY, Math.toRadians(180));
+    private final Pose pickUp23 = new Pose(pickUpX, pickupY, Math.toRadians(180));
+    public static double endX = 45.7;
+    public static double endY = 72.5;
+    public static double endA = 180;
     public static double shootY = 80.2;
-    public static double shootX = 70;
-    public static double shootA = 44;
-    public static double pickupY = 87.3;
-    public static double firstPickX = -38.2;
-    private PathChain Line1, Line2, Line3, Line4, Line5, Line6;
+    public static double shootX = 61.5;
+    public static double shootA = 143;
+    public static double pickupY = 87.7;
+    public static double firstPickX = 35.7;
+    public static double pickUpX = 16.2;
+    private PathChain InitialShoot, Line2, Line3, Line4, Line5, Park, PickUp1, BackToShoot;
     ElapsedTime autoTime = new ElapsedTime();
     public static double auto1 = 0.3;
     public static double auto2 = 0.67;
-    public static double auto3 = 0.2;
+    public static double auto3 = 0.1;
     public static double auto4 = 3;
     public static double path1 = 5;
     public static double path2 = 5;
-    public static double path3 = 5;
+    public static double path3 = 10;
     public static double path4 = 5;
     public static double path5 = 5;
     ElapsedTime pidTime = new ElapsedTime();
@@ -149,15 +152,16 @@ public class QualsGoodAutoBlueClose extends OpMode {
                 robot.intake.setPower(0);
                 autoSteps = AutoSteps.TO_SHOOT1;
                 autoTime.reset();
+                pathTimer.resetTimer();
                 prepFly();
                 break;
             case TO_SHOOT1:
-                follower.followPath(Line1);
-                pathTimer.resetTimer();
+                follower.followPath(InitialShoot);
                 //activateFly();
                 if(autoTime.seconds() >= path1){
                     stopMove();
                     activateFly();
+                    pathTimer.resetTimer();
                     autoSteps = AutoSteps.REV_1;
                 }
                 break;
@@ -208,21 +212,31 @@ public class QualsGoodAutoBlueClose extends OpMode {
                 }
                 break;
             case FINISH:
+                /*
+                if(firstTime){
+                    robot.belt.setPower(0);
+                    pathTimer.resetTimer();
+                    autoTime.reset();
+                    autoSteps = AutoSteps.TO_PICKUP1;
+                }
+                 */
+                //!firstTime
                 if(true){
                     robot.belt.setPower(0);
+                    autoTime.reset();
+                    pathTimer.resetTimer();
                     autoSteps = AutoSteps.END;
                 }
                 break;
             case TO_PICKUP1:
-                follower.followPath(Line2);
-                autoTime.reset();
-                pathTimer.resetTimer();
+                follower.followPath(PickUp1);
                 robot.intake.setPower(intakeOn);
                 robot.belt.setPower(beltOn);
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
                 if(autoTime.seconds() >= path2){
                     autoTime.reset();
+                    pathTimer.resetTimer();
                     stopMove();
                     autoSteps = AutoSteps.PICKUP1;
                 }
@@ -233,13 +247,12 @@ public class QualsGoodAutoBlueClose extends OpMode {
                     robot.belt.setPower(0);
                     robot.onRamp.setPosition(onRampPush);
                     autoTime.reset();
+                    pathTimer.resetTimer();
                     autoSteps = AutoSteps.PICKUP23;
                 }
                 break;
             case PICKUP23:
-                follower.followPath(Line3);
-                autoTime.reset();
-                pathTimer.resetTimer();
+                follower.followPath(BackToShoot);
                 robot.intake.setPower(intakeOn);
                 robot.belt.setPower(beltOn);
                 robot.onRamp.setPosition(onRampPassive);
@@ -248,24 +261,31 @@ public class QualsGoodAutoBlueClose extends OpMode {
                     robot.intake.setPower(0);
                     robot.belt.setPower(-1);
                     autoTime.reset();
+                    pathTimer.resetTimer();
                     prepFly();
                     autoSteps = AutoSteps.READY_SHOOT;
                 }
                 break;
             case READY_SHOOT:
-                follower.followPath(Line4);
-                pathTimer.resetTimer();
+                //ollower.followPath(BackToShoot);
                 if(autoTime.seconds() >= auto3){
                     robot.belt.setPower(0);
                     activateFly();
+                    autoTime.reset();
+                    shootTime.reset();
+                    pathTimer.resetTimer();
+                    autoSteps = AutoSteps.REV_1;
                 }
+                /*
                 if(autoTime.seconds() >= path4){
                     stopMove();
                     autoSteps = AutoSteps.REV_1;
                 }
+
+                 */
                 break;
             case END:
-                follower.followPath(Line6);
+                follower.followPath(Park);
                 if(autoTime.seconds() >= path5){
                     stopMove();
                 }
@@ -275,26 +295,33 @@ public class QualsGoodAutoBlueClose extends OpMode {
 
     public void buildPaths() {
 
-        Line1 = follower.pathBuilder()
+        InitialShoot = follower.pathBuilder()
                 .addPath(new BezierLine(startPose, shootPose))
                 .setLinearHeadingInterpolation(startPose.getHeading(), shootPose.getHeading())
                 .build();
 
 
 
-        Line6 = follower.pathBuilder()
+        Park = follower.pathBuilder()
                 .addPath(new BezierLine(shootPose, endPose))
                 .setLinearHeadingInterpolation(shootPose.getHeading(), endPose.getHeading())
                 .build();
 
 
 
-        /*
-        Curve4 = follower.pathBuilder()
-                .addPath(new BezierCurve(Pickup2, shootControl, shootPose))
-                .setLinearHeadingInterpolation(Pickup2.getHeading(), shootPose.getHeading())
+
+        PickUp1 = follower.pathBuilder()
+                .addPath(new BezierLine(shootPose, pickUp1))
+                .setLinearHeadingInterpolation(shootPose.getHeading(), pickUp1.getHeading())
                 .build();
 
-         */
+
+        BackToShoot = follower.pathBuilder()
+                .addPath(new BezierLine(pickUp1, pickUp23))
+                .setConstantHeadingInterpolation(pickUp1.getHeading())
+                .addPath(new BezierLine(pickUp23, shootPose))
+                .setLinearHeadingInterpolation(pickUp23.getHeading(), shootPose.getHeading())
+                .build();
+
     }
 }

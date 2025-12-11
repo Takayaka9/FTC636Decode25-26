@@ -38,6 +38,8 @@ public class QualsGoodAutoRedClose extends OpMode {
     private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
     //far: x85.4, y80.2, angle 44
     private final Pose endPose = new Pose(endX, endY, Math.toRadians(endA));
+    private final Pose pickUp1 = new Pose(firstPickX, pickupY, Math.toRadians(180));
+    private final Pose pickUp23 = new Pose(pickUpX, pickupY, Math.toRadians(180));
     public static double endX = 123;
     public static double endY = 102;
     public static double endA = 90;
@@ -45,7 +47,8 @@ public class QualsGoodAutoRedClose extends OpMode {
     public static double shootX = 70;
     public static double shootA = 44;
     public static double pickupY = 87.3;
-    public static double firstPickX = -38.2;
+    public static double firstPickX = 61.5;
+    public static double pickUpX = 30; //TODO: WRONG
     private PathChain Line1, Line2, Line3, Line4, Line5, Line6;
     ElapsedTime autoTime = new ElapsedTime();
     public static double auto1 = 0.3;
