@@ -45,7 +45,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
     public static double endA = 180;
     public static double shootY = 80.2;
     public static double shootX = 61.5;
-    public static double shootA = 143;
+    public static double shootA = 136;
     public static double pickupY = 87.7;
     public static double firstPickX = 35.7;
     public static double pickUpX = 16.2;
