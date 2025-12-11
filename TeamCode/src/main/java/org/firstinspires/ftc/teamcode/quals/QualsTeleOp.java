@@ -30,6 +30,7 @@ public class QualsTeleOp extends LinearOpMode {
 
     //Velocities for shooters
     public static double velocity = 2100; //TODO: test ts
+    public static double velocityclose = 1500;
     public static double beltOn = 1;
     public static double intakeOn = 1;
     public static int beltTargetPosition = 0;
@@ -50,6 +51,9 @@ public class QualsTeleOp extends LinearOpMode {
     public static double onRampPush = 0.8;
     public static double offRampPush = 0.7;
     public static double offRampPassive = 0.45;
+
+    public  static boolean closeToggle = false;
+    public static boolean changed2RT = false;
     public double integralSum;
     public double lastError;
     ElapsedTime pidTime = new ElapsedTime();
@@ -119,7 +123,7 @@ public class QualsTeleOp extends LinearOpMode {
                 follower.setTeleOpDrive(
                         -gamepad1.left_stick_y*1,
                         -gamepad1.left_stick_x*1,
-                        -gamepad1.right_stick_x*0.55,
+                        -gamepad1.right_stick_x*0.45,
                         true
                 );
             }
@@ -127,7 +131,7 @@ public class QualsTeleOp extends LinearOpMode {
                 follower.setTeleOpDrive(
                         -gamepad1.left_stick_y*0.35,
                         -gamepad1.left_stick_x*0.35,
-                        -gamepad1.right_stick_x*0.2,
+                        -gamepad1.right_stick_x*0.25,
                         true
                 );
             }
@@ -278,7 +282,7 @@ public class QualsTeleOp extends LinearOpMode {
             }
              */
 
-            if(gamepad2.b && !shootToggle && !changed2B){
+            if(gamepad2.b && !shootToggle && !changed2B && !closeToggle){
                 integralSum = 0;
                 lastError = 0;
                 isShooting = true;
@@ -313,10 +317,50 @@ public class QualsTeleOp extends LinearOpMode {
                 //robot.flyLeft.setPower(1);
                 telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
             }
-            else{
+            else if (!closeToggle){
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
+
+            if(gamepad2.right_trigger > 0.3 && !shootToggle && !changed2B && !closeToggle){
+                integralSum = 0;
+                lastError = 0;
+                isShooting = true;
+                changed2RT = true;
+                pidTime.reset();
+                shootToggle = false;
+            }
+            else if(gamepad2.right_trigger > 0.3 && shootToggle && !changed2B){
+                closeToggle = false;
+                changed2RT = true;
+            }
+            else if(gamepad2.right_trigger < 0.3){
+                changed2RT = false;
+            }
+
+            if(closeToggle){
+                double error = velocityclose-(robot.flyRight.getVelocity());
+                integralSum += error* pidTime.seconds();
+                double derivative = (error- lastError)/ pidTime.seconds();
+                lastError = error;
+
+                pidTime.reset();
+
+                double output; // basically the same as the normal PIDControl
+                output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocityclose * Kf);
+                telemetryM.addData("output", output);
+
+                robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
+                robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
+                //robot.flyRight.setPower(1);
+                //robot.flyLeft.setPower(1);
+                telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
+            }
+            else if (!shootToggle){
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
+            }
+
 
             //macro to shoot three with one button press...hopefully
             //TODO: make dependant on upper color sensor distance data
