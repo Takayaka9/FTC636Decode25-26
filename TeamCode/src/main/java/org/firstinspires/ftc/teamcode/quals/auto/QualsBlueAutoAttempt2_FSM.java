@@ -31,7 +31,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
-@Autonomous(name = "Blue Auto Attempt 2_FSM")
+@Autonomous(name = "Quals Blue Far")
 public class QualsBlueAutoAttempt2_FSM extends OpMode {
     RobotQuals robot;
     private Follower follower;
