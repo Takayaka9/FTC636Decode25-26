@@ -14,8 +14,11 @@ import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot2;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot3;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot4;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot5;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot6;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -32,29 +35,31 @@ import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 @Autonomous(name = "Quals Red Close 2.0")
 public class QualsGoodAutoRedClose2 extends OpMode {
     RobotQuals robot;
+    TelemetryManager telemetryManager;
     private Follower follower;
     //TelemetryManager telemetryManager;
     private final Pose startPose = new Pose(124.723, 121.253, Math.toRadians(36));
     private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
     private final Pose endPose = new Pose(endX, endY, Math.toRadians(endA));
-    private final Pose pickUp1 = new Pose(firstPickX, pickupY, Math.toRadians(0));
-    private final Pose pickUp23 = new Pose(pickUpX, pickupY, Math.toRadians(0));
+    private final Pose pickUp1 = new Pose(firstPickX, pickupY, Math.toRadians(pickUpA));
+    private final Pose pickUp23 = new Pose(pickUpX, pickupY, Math.toRadians(pickUpA));
+    public static double pickUpA = -10;
     public static double endX = 123;
     public static double endY = 102;
     public static double endA = 90;
-    public static double shootY = 80.2;
-    public static double shootX = 70;
-    public static double shootA = 44;
+    public static double shootY = 80;
+    public static double shootX = 80;
+    public static double shootA = 37;
     public static double pickupY = 80;
     public static double firstPickX = 108;
-    public static double pickUpX = 129.3;
+    public static double pickUpX = 10;
     private PathChain InitialShoot, Line2, Line3, Line4, Line5, Park, PickUp1, BackToShoot;
     ElapsedTime autoTime = new ElapsedTime();
     public static double auto1 = 0.3;
     public static double auto2 = 0.67;
     public static double auto3 = 0.1;
     public static double auto4 = 3;
-    public static double path1 = 5;
+    public static double path1 = 3;
     public static double path2 = 5;
     public static double path3 = 10;
     public static double path4 = 5;
@@ -76,6 +81,7 @@ public class QualsGoodAutoRedClose2 extends OpMode {
         pathTimer = new Timer();
         follower.setStartingPose(startPose);
         firstTime = true;
+        telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
     }
 
     @Override
@@ -88,10 +94,13 @@ public class QualsGoodAutoRedClose2 extends OpMode {
     public void loop() {
         follower.update();
         auto();
+        telemetryManager.update();
+
+        telemetryManager.addData("State", autoSteps);
     }
 
     public enum AutoSteps{
-        READY, TO_SHOOT1, TO_PICKUP1, PICKUP1, PICKUP23, READY_SHOOT, TO_SHOOT2, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH, END
+        READY, TO_SHOOT1, TO_PICKUP1, PICKUP1, PICKUP23, READY_SHOOT, TO_SHOOT2, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH, END, ENDEND
     }
     AutoSteps autoSteps = AutoSteps.READY;
 
@@ -211,16 +220,15 @@ public class QualsGoodAutoRedClose2 extends OpMode {
                 }
                 break;
             case FINISH:
-                /*
-                if(firstTime){
+
+                if(shootTime.seconds() > shoot6 && firstTime){
                     robot.belt.setPower(0);
                     pathTimer.resetTimer();
                     autoTime.reset();
                     autoSteps = AutoSteps.TO_PICKUP1;
                 }
-                 */
                 //!firstTime
-                if(true){
+                if(shootTime.seconds() > shoot6 && !firstTime){
                     robot.belt.setPower(0);
                     autoTime.reset();
                     pathTimer.resetTimer();
@@ -230,6 +238,7 @@ public class QualsGoodAutoRedClose2 extends OpMode {
             case TO_PICKUP1:
                 follower.followPath(PickUp1);
                 robot.intake.setPower(intakeOn);
+                firstTime = false;
                 robot.belt.setPower(beltOn);
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
@@ -241,15 +250,17 @@ public class QualsGoodAutoRedClose2 extends OpMode {
                 }
                 break;
             case PICKUP1:
+                robot.belt.setPower(-1);
                 robot.intake.setPower(0);
                 if(autoTime.seconds() >= auto1){
+                    //robot.onRamp.setPosition(onRampPush);
                     robot.belt.setPower(0);
-                    robot.onRamp.setPosition(onRampPush);
                     autoTime.reset();
                     pathTimer.resetTimer();
-                    autoSteps = AutoSteps.PICKUP23;
+                    autoSteps = AutoSteps.READY_SHOOT;
                 }
                 break;
+                /*
             case PICKUP23:
                 follower.followPath(BackToShoot, true);
                 robot.intake.setPower(intakeOn);
@@ -265,8 +276,10 @@ public class QualsGoodAutoRedClose2 extends OpMode {
                     autoSteps = AutoSteps.READY_SHOOT;
                 }
                 break;
+
+                 */
             case READY_SHOOT:
-                //ollower.followPath(BackToShoot);
+                follower.followPath(BackToShoot);
                 if(autoTime.seconds() >= auto3){
                     robot.belt.setPower(0);
                     activateFly();
@@ -286,9 +299,11 @@ public class QualsGoodAutoRedClose2 extends OpMode {
             case END:
                 follower.followPath(Park, true);
                 if(autoTime.seconds() >= path5){
-                    stopMove();
+                    autoSteps = AutoSteps.ENDEND;
                 }
                 break;
+            case ENDEND:
+                stopMove();
         }
     }
 
@@ -316,10 +331,10 @@ public class QualsGoodAutoRedClose2 extends OpMode {
 
 
         BackToShoot = follower.pathBuilder()
-                .addPath(new BezierLine(pickUp1, pickUp23))
-                .setConstantHeadingInterpolation(pickUp1.getHeading())
-                .addPath(new BezierLine(pickUp23, shootPose))
-                .setLinearHeadingInterpolation(pickUp23.getHeading(), shootPose.getHeading())
+                //.addPath(new BezierLine(pickUp1, shootPose))
+                //.setConstantHeadingInterpolation(pickUp1.getHeading())
+                .addPath(new BezierLine(pickUp1, shootPose))
+                .setLinearHeadingInterpolation(pickUp1.getHeading(), shootPose.getHeading())
                 .build();
 
     }

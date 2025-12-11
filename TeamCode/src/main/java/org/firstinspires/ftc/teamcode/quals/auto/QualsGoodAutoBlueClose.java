@@ -14,6 +14,7 @@ import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot2;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot3;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot4;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot5;
+import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot6;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
@@ -43,8 +44,8 @@ public class QualsGoodAutoBlueClose extends OpMode {
     public static double endX = 45.7;
     public static double endY = 72.5;
     public static double endA = 180;
-    public static double shootY = 80.2;
-    public static double shootX = 61.5;
+    public static double shootY = 76;
+    public static double shootX = 65;
     public static double shootA = 136;
     public static double pickupY = 87.7;
     public static double firstPickX = 35.7;
@@ -55,11 +56,11 @@ public class QualsGoodAutoBlueClose extends OpMode {
     public static double auto2 = 0.67;
     public static double auto3 = 0.1;
     public static double auto4 = 3;
-    public static double path1 = 5;
+    public static double path1 = 3;
     public static double path2 = 5;
     public static double path3 = 10;
     public static double path4 = 5;
-    public static double path5 = 5;
+    public static double path5 = 3;
     ElapsedTime pidTime = new ElapsedTime();
     Timer pathTimer;
     private int pathState;
@@ -92,7 +93,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
     }
 
     public enum AutoSteps{
-        READY, TO_SHOOT1, TO_PICKUP1, PICKUP1, PICKUP23, READY_SHOOT, TO_SHOOT2, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH, END
+        READY, TO_SHOOT1, TO_PICKUP1, PICKUP1, PICKUP23, READY_SHOOT, TO_SHOOT2, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH, END, ENDEND
     }
     AutoSteps autoSteps = AutoSteps.READY;
 
@@ -221,7 +222,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
                 }
                  */
                 //!firstTime
-                if(true){
+                if(shootTime.seconds() > shoot6){
                     robot.belt.setPower(0);
                     autoTime.reset();
                     pathTimer.resetTimer();
@@ -287,9 +288,11 @@ public class QualsGoodAutoBlueClose extends OpMode {
             case END:
                 follower.followPath(Park);
                 if(autoTime.seconds() >= path5){
-                    stopMove();
+                    autoSteps = AutoSteps.ENDEND;
                 }
                 break;
+            case ENDEND:
+                stopMove();
         }
     }
 
