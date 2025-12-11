@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.quals.auto;
+package org.firstinspires.ftc.teamcode.quals.auto.trash;
 
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.Kd;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.Kf;

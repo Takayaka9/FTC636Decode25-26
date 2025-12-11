@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.quals.auto;
+package org.firstinspires.ftc.teamcode.quals.auto.trash;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;

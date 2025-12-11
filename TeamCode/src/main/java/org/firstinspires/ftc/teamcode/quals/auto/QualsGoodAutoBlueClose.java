@@ -29,14 +29,14 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
-@Autonomous(name = "Quals Red Auto Close")
-public class QualsGoodAutoRedClose extends OpMode {
+@Autonomous(name = "Quals Red Blue Close")
+public class QualsGoodAutoBlueClose extends OpMode {
     RobotQuals robot;
     private Follower follower;
     //TelemetryManager telemetryManager;
     private final Pose startPose = new Pose(120.1, 125.7, Math.toRadians(36));
     private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
-    //far: x85.4, y80.2, angle 44
+    //TODO: FIX THESE POSES THEY'RE WRONG
     private final Pose endPose = new Pose(endX, endY, Math.toRadians(endA));
     public static double endX = 123;
     public static double endY = 102;
