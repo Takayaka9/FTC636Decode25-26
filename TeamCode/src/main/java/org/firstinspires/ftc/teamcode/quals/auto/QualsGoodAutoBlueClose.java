@@ -34,7 +34,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
     RobotQuals robot;
     private Follower follower;
     //TelemetryManager telemetryManager;
-    private final Pose startPose = new Pose(23.7, 125.7, Math.toRadians(143));
+    private final Pose startPose = new Pose(23.1325, 126.265, Math.toRadians(143));
     private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
     //TODO: FIX THESE POSES THEY'RE WRONG
     private final Pose endPose = new Pose(endX, endY, Math.toRadians(endA));

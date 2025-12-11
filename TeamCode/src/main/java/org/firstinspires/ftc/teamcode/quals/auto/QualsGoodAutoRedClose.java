@@ -34,7 +34,7 @@ public class QualsGoodAutoRedClose extends OpMode {
     RobotQuals robot;
     private Follower follower;
     //TelemetryManager telemetryManager;
-    private final Pose startPose = new Pose(120.1, 125.7, Math.toRadians(36));
+    private final Pose startPose = new Pose(124.723, 121.253, Math.toRadians(36));
     private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
     //far: x85.4, y80.2, angle 44
     private final Pose endPose = new Pose(endX, endY, Math.toRadians(endA));
@@ -43,6 +43,7 @@ public class QualsGoodAutoRedClose extends OpMode {
     public static double endX = 123;
     public static double endY = 102;
     public static double endA = 90;
+    //TODO: TEST VALUES FOR SHOOT
     public static double shootY = 80.2;
     public static double shootX = 70;
     public static double shootA = 44;
