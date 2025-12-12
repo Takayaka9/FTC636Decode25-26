@@ -9,7 +9,6 @@ import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.intakeOn;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.offRampPassive;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.offRampPush;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.onRampPassive;
-import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.onRampPush;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot2;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot3;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot4;
@@ -32,8 +31,8 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
-@Autonomous(name = "Quals Red Close Pickup Attempt")
-public class QualsGoodAutoRedClose2 extends OpMode {
+@Autonomous(name = "Quals Red Close Park")
+public class QualsGoodAutoRedClose3 extends OpMode {
     RobotQuals robot;
     TelemetryManager telemetryManager;
     private Follower follower;
@@ -215,84 +214,15 @@ public class QualsGoodAutoRedClose2 extends OpMode {
                 }
                 break;
             case FINISH:
-
-                if(shootTime.seconds() > shoot6 && firstTime){
-                    robot.belt.setPower(0);
-                    pathTimer.resetTimer();
-                    autoTime.reset();
-                    autoSteps = AutoSteps.TO_PICKUP1;
-                }
-                //!firstTime
-                if(shootTime.seconds() > shoot6 && !firstTime){
+                if(shootTime.seconds() > shoot6){
                     robot.belt.setPower(0);
                     autoTime.reset();
                     pathTimer.resetTimer();
                     autoSteps = AutoSteps.END;
                 }
                 break;
-            case TO_PICKUP1:
-                follower.followPath(PickUp1);
-                robot.intake.setPower(intakeOn);
-                firstTime = false;
-                robot.belt.setPower(beltOn);
-                robot.flyRight.setPower(0);
-                robot.flyLeft.setPower(0);
-                if(autoTime.seconds() >= path2){
-                    autoTime.reset();
-                    pathTimer.resetTimer();
-                    stopMove();
-                    autoSteps = AutoSteps.PICKUP1;
-                }
-                break;
-            case PICKUP1:
-                robot.belt.setPower(-1);
-                robot.intake.setPower(0);
-                if(autoTime.seconds() >= auto1){
-                    //robot.onRamp.setPosition(onRampPush);
-                    robot.belt.setPower(0);
-                    autoTime.reset();
-                    pathTimer.resetTimer();
-                    autoSteps = AutoSteps.READY_SHOOT;
-                }
-                break;
-                /*
-            case PICKUP23:
-                follower.followPath(BackToShoot, true);
-                robot.intake.setPower(intakeOn);
-                robot.belt.setPower(beltOn);
-                robot.onRamp.setPosition(onRampPassive);
-                if(autoTime.seconds() >= path3){
-                    stopMove();
-                    robot.intake.setPower(0);
-                    robot.belt.setPower(-1);
-                    autoTime.reset();
-                    pathTimer.resetTimer();
-                    prepFly();
-                    autoSteps = AutoSteps.READY_SHOOT;
-                }
-                break;
-
-                 */
-            case READY_SHOOT:
-                follower.followPath(BackToShoot);
-                if(autoTime.seconds() >= auto3){
-                    robot.belt.setPower(0);
-                    activateFly();
-                    autoTime.reset();
-                    shootTime.reset();
-                    pathTimer.resetTimer();
-                    autoSteps = AutoSteps.REV_1;
-                }
-                /*
-                if(autoTime.seconds() >= path4){
-                    stopMove();
-                    autoSteps = AutoSteps.REV_1;
-                }
-
-                 */
-                break;
             case END:
-                follower.followPath(Park, true);
+                follower.followPath(Park);
                 if(autoTime.seconds() >= path5){
                     autoSteps = AutoSteps.ENDEND;
                 }
