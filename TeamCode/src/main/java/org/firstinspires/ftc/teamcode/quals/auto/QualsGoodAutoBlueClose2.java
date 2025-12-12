@@ -17,6 +17,8 @@ import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot5;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot6;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -30,9 +32,10 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.quals.RobotQuals;
 
 @Configurable
-@Autonomous(name = "Quals Blue Close Pickup Attempt")
-public class QualsGoodAutoBlueClose extends OpMode {
+@Autonomous(name = "Quals Blue Close Park")
+public class QualsGoodAutoBlueClose2 extends OpMode {
     RobotQuals robot;
+    TelemetryManager telemetryManager;
     private Follower follower;
     //TelemetryManager telemetryManager;
     private final Pose startPose = new Pose(23.1325, 126.265, Math.toRadians(143));
@@ -60,7 +63,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
     public static double path2 = 5;
     public static double path3 = 10;
     public static double path4 = 5;
-    public static double path5 = 3;
+    public static double path5 = 5;
     ElapsedTime pidTime = new ElapsedTime();
     Timer pathTimer;
     private int pathState;
@@ -78,6 +81,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
         pathTimer = new Timer();
         follower.setStartingPose(startPose);
         firstTime = true;
+        telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
     }
 
     @Override
@@ -90,6 +94,9 @@ public class QualsGoodAutoBlueClose extends OpMode {
     public void loop() {
         follower.update();
         auto();
+        telemetryManager.update();
+
+        telemetryManager.addData("State", autoSteps);
     }
 
     public enum AutoSteps{
@@ -208,77 +215,12 @@ public class QualsGoodAutoBlueClose extends OpMode {
                 }
                 break;
             case FINISH:
-                /*
-                if(firstTime){
-                    robot.belt.setPower(0);
-                    pathTimer.resetTimer();
-                    autoTime.reset();
-                    autoSteps = AutoSteps.TO_PICKUP1;
-                }
-                 */
-                //!firstTime
                 if(shootTime.seconds() > shoot6){
                     robot.belt.setPower(0);
                     autoTime.reset();
                     pathTimer.resetTimer();
                     autoSteps = AutoSteps.END;
                 }
-                break;
-            case TO_PICKUP1:
-                follower.followPath(PickUp1);
-                robot.intake.setPower(intakeOn);
-                robot.belt.setPower(beltOn);
-                robot.flyRight.setPower(0);
-                robot.flyLeft.setPower(0);
-                if(autoTime.seconds() >= path2){
-                    autoTime.reset();
-                    pathTimer.resetTimer();
-                    stopMove();
-                    autoSteps = AutoSteps.PICKUP1;
-                }
-                break;
-            case PICKUP1:
-                robot.intake.setPower(0);
-                if(autoTime.seconds() >= auto1){
-                    robot.belt.setPower(0);
-                    robot.onRamp.setPosition(onRampPush);
-                    autoTime.reset();
-                    pathTimer.resetTimer();
-                    autoSteps = AutoSteps.PICKUP23;
-                }
-                break;
-            case PICKUP23:
-                follower.followPath(BackToShoot);
-                robot.intake.setPower(intakeOn);
-                robot.belt.setPower(beltOn);
-                robot.onRamp.setPosition(onRampPassive);
-                if(autoTime.seconds() >= path3){
-                    stopMove();
-                    robot.intake.setPower(0);
-                    robot.belt.setPower(-1);
-                    autoTime.reset();
-                    pathTimer.resetTimer();
-                    prepFly();
-                    autoSteps = AutoSteps.READY_SHOOT;
-                }
-                break;
-            case READY_SHOOT:
-                //ollower.followPath(BackToShoot);
-                if(autoTime.seconds() >= auto3){
-                    robot.belt.setPower(0);
-                    activateFly();
-                    autoTime.reset();
-                    shootTime.reset();
-                    pathTimer.resetTimer();
-                    autoSteps = AutoSteps.REV_1;
-                }
-                /*
-                if(autoTime.seconds() >= path4){
-                    stopMove();
-                    autoSteps = AutoSteps.REV_1;
-                }
-
-                 */
                 break;
             case END:
                 follower.followPath(Park);
@@ -315,10 +257,8 @@ public class QualsGoodAutoBlueClose extends OpMode {
 
 
         BackToShoot = follower.pathBuilder()
-                .addPath(new BezierLine(pickUp1, pickUp23))
-                .setConstantHeadingInterpolation(pickUp1.getHeading())
-                .addPath(new BezierLine(pickUp23, shootPose))
-                .setLinearHeadingInterpolation(pickUp23.getHeading(), shootPose.getHeading())
+                .addPath(new BezierLine(pickUp1, shootPose))
+                .setLinearHeadingInterpolation(pickUp1.getHeading(), shootPose.getHeading())
                 .build();
 
     }
