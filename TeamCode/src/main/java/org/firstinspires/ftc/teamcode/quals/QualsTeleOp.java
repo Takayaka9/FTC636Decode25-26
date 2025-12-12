@@ -28,7 +28,7 @@ public class QualsTeleOp extends LinearOpMode {
 
     //Velocities for shooters
     public static double velocity = 1650; //TODO: test ts
-    //public static double velocityclose = 2100;
+    public static double otherVelocity = 2100;
     public static double beltOn = 1;
     public static double intakeOn = 1;
     public static int beltTargetPosition = 0;
@@ -300,7 +300,13 @@ public class QualsTeleOp extends LinearOpMode {
                 changed2B = false;
             }
 
-            double targetTicks = velocity * 28.0 / 60.0;
+            double targetTicks;
+            if(gamepad2.right_trigger > 0.3){
+                targetTicks = otherVelocity * 28.0 / 60.0;
+            }
+            else{
+                targetTicks = velocity * 28.0 / 60.0;
+            }
             if(shootToggle){
                 double error = targetTicks-(robot.flyRight.getVelocity());
                 double dt = pidTime.seconds();
