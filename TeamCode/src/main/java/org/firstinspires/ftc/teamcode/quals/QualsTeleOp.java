@@ -27,8 +27,8 @@ public class QualsTeleOp extends LinearOpMode {
     public static Pose startingPose;
 
     //Velocities for shooters
-    public static double velocity = 2100; //TODO: test ts
-    public static double velocityclose = 2100;
+    public static double velocity = 1650; //TODO: test ts
+    //public static double velocityclose = 2100;
     public static double beltOn = 1;
     public static double intakeOn = 1;
     public static int beltTargetPosition = 0;
@@ -50,7 +50,7 @@ public class QualsTeleOp extends LinearOpMode {
     public static double offRampPush = 0.7;
     public static double offRampPassive = 0.45;
 
-    public  static boolean closeToggle = false;
+    //public  static boolean closeToggle = false;
     public static boolean changed2RT = false;
     public double integralSum;
     public double lastError;
@@ -90,10 +90,10 @@ public class QualsTeleOp extends LinearOpMode {
      */
     SortLogic sortLogic = new SortLogic();
     Object[] sortData = new String[4];
-    public static double Kp = 0.1;
+    public static double Kp = 0.004;
     public static double Ki = 0;
     public static double Kd = 0;
-    public static double Kf = 0;
+    public static double Kf = 0.006;
     //PIDFControl_ForVelocity control = new PIDFControl_ForVelocity(kP, kI, kD, kF);
 
     @Override
@@ -283,7 +283,7 @@ public class QualsTeleOp extends LinearOpMode {
             }
              */
 
-            if(gamepad2.b && !shootToggle && !changed2B && !closeToggle){
+            if(gamepad2.b && !shootToggle && !changed2B){
                 integralSum = 0;
                 lastError = 0;
                 isShooting = true;
@@ -300,28 +300,35 @@ public class QualsTeleOp extends LinearOpMode {
                 changed2B = false;
             }
 
+            double targetTicks = velocity * 28.0 / 60.0;
             if(shootToggle){
-                double error = velocity-(robot.flyRight.getVelocity());
-                integralSum += error* pidTime.seconds();
-                double derivative = (error- lastError)/ pidTime.seconds();
+                double error = targetTicks-(robot.flyRight.getVelocity());
+                double dt = pidTime.seconds();
+                if (dt < 0.0001) dt = 0.0001;
+                integralSum += error* dt;
+                double derivative = (error- lastError)/ dt;
                 lastError = error;
 
                 pidTime.reset();
 
                 double output; // basically the same as the normal PIDControl
-                output = (error * Kp) + (derivative * Kd) + (integralSum * Ki);// + (velocity * K ,
+                output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (targetTicks * Kf);
 
-                robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
-                robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
+                robot.flyRight.setPower(output); //clamping so values do not exceed 1 or -1
+                robot.flyLeft.setPower(output);
                 //robot.flyRight.setPower(1);
                 //robot.flyLeft.setPower(1);
                 telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
             }
+            /*
             else if (!closeToggle){
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
 
+             */
+
+            /*
             if(gamepad2.right_trigger > 0.3 && !shootToggle && !changed2B && !closeToggle){
                 integralSum = 0;
                 lastError = 0;
@@ -360,6 +367,8 @@ public class QualsTeleOp extends LinearOpMode {
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
             }
+
+             */
 
 
             //macro to shoot three with one button press...hopefully

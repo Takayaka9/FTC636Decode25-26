@@ -67,7 +67,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
     ElapsedTime shootTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
-    public static int velocity = 1000;
+    public static int velocity = 1650;
     public static boolean firstTime = false;
 
     @Override
@@ -106,27 +106,22 @@ public class QualsGoodAutoBlueClose extends OpMode {
     }
     public double integralSumLeft;
     public double lastErrorLeft;
+    double targetTicks = velocity * 28.0 / 60.0;
     public void activateFly(){
-        double error = velocity-(robot.flyRight.getVelocity());
-        //double errorLeft = velocity-(robot.flyLeft.getVelocity());
-        integralSum += error* pidTime.seconds();
-        //integralSumLeft += errorLeft*pidTime.seconds();
-        double derivative = (error- lastError)/ pidTime.seconds();
-        //double derivativeLeft = (errorLeft - lastErrorLeft) / pidTime.seconds();
+        double error = targetTicks-(robot.flyRight.getVelocity());
+        double dt = pidTime.seconds();
+        if (dt < 0.0001) dt = 0.0001;
+        integralSum += error* dt;
+        double derivative = (error- lastError)/ dt;
         lastError = error;
-        //lastErrorLeft = error;
 
         pidTime.reset();
 
         double output; // basically the same as the normal PIDControl
-        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
-        //telemetryM.addData("output", output);
+        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (targetTicks * Kf);
 
-        //double outputLeft;
-        //outputLeft = (errorLeft * Kp) + (derivativeLeft * Kd) + (integralSumLeft * Ki) + (velocity * Kf);
-
-        robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
-        robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
+        robot.flyRight.setPower(output); //clamping so values do not exceed 1 or -1
+        robot.flyLeft.setPower(output);
         //robot.flyLeft.setPower(Math.max(-1, Math.min(1, outputLeft)));
     }
 
