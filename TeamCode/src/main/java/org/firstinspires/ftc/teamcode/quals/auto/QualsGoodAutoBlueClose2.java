@@ -47,8 +47,8 @@ public class QualsGoodAutoBlueClose2 extends OpMode {
     public static double endX = 45.7;
     public static double endY = 72.5;
     public static double endA = 180;
-    public static double shootY = 76;
-    public static double shootX = 65;
+    public static double shootY = 100;
+    public static double shootX = 45;
     public static double shootA = 136;
     public static double pickupY = 87.7;
     public static double firstPickX = 35.7;
@@ -70,7 +70,7 @@ public class QualsGoodAutoBlueClose2 extends OpMode {
     ElapsedTime shootTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
-    public static int velocity = 1650;
+    public static int velocity = 200;
     public static boolean firstTime = false;
 
     @Override
@@ -230,6 +230,8 @@ public class QualsGoodAutoBlueClose2 extends OpMode {
                 break;
             case ENDEND:
                 stopMove();
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
         }
     }
 

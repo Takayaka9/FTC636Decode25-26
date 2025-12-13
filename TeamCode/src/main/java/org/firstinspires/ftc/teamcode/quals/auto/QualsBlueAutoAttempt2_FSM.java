@@ -15,6 +15,9 @@ import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot3;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot4;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot5;
 import static org.firstinspires.ftc.teamcode.quals.QualsTeleOp.shoot6;
+import static org.firstinspires.ftc.teamcode.quals.auto.QualsGoodAutoBlueClose2.auto4;
+import static org.firstinspires.ftc.teamcode.quals.auto.QualsGoodAutoBlueClose2.path1;
+import static org.firstinspires.ftc.teamcode.quals.auto.QualsGoodAutoBlueClose2.path5;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.TelemetryManager;
@@ -37,25 +40,28 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
     private Follower follower;
     //TelemetryManager telemetryManager;
     private final Pose startPose = new Pose(59.8, 9.228, Math.toRadians(90));
-    private final Pose shootPose = new Pose(shootX, 75, Math.toRadians(141));
+    private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
     private final Pose prePickup1 = new Pose(firstPickX, pickupY, Math.toRadians(180));
     private final Pose Pickup1 = new Pose(18.1, pickupY, Math.toRadians(180));
     private final Pose end = new Pose(59.8, 55.5, Math.toRadians(180));
     private PathChain Line1, Line2, Line3, Line4, Line5;
-    public static double shootX = 59;
+    public static double shootX = 59.8;
+    public static double shootA = 110;
+    public static double shootY = 20;
     public static double pickupY = 87.3;
     public static double firstPickX = 38.2;
     ElapsedTime autoTime = new ElapsedTime();
     public static double auto1 = 0.3;
     public static double auto2 = 0.67;
     public static double auto3 = 0.2;
+    public static double path1 = 2;
     ElapsedTime pidTime = new ElapsedTime();
     Timer pathTimer;
     private int pathState;
     ElapsedTime shootTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
-    public static int velocity = 4500;
+    public static int velocity = 2100;
     public static boolean firstTime = false;
 
     @Override
@@ -81,7 +87,7 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
     }
 
     public enum AutoSteps{
-        READY, TO_SHOOT1, TO_PICKUP1, PICKUP1, PICKUP23, READY_SHOOT, TO_SHOOT2, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH, END
+        READY, TO_SHOOT1, TO_PICKUP1, PICKUP1, PICKUP23, READY_SHOOT, TO_SHOOT2, REV_1, SHOOT_1, REV_2, SHOOT_2, REV_3, SHOOT_3, FINISH, END, ENDEND
     }
     AutoSteps autoSteps = AutoSteps.READY;
 
@@ -94,27 +100,22 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
     }
     public double integralSumLeft;
     public double lastErrorLeft;
+    double targetTicks = velocity * 28.0 / 60.0;
     public void activateFly(){
-        double error = velocity-(robot.flyRight.getVelocity());
-        //double errorLeft = velocity-(robot.flyLeft.getVelocity());
-        integralSum += error* pidTime.seconds();
-        //integralSumLeft += errorLeft*pidTime.seconds();
-        double derivative = (error- lastError)/ pidTime.seconds();
-        //double derivativeLeft = (errorLeft - lastErrorLeft) / pidTime.seconds();
+        double error = targetTicks-(robot.flyRight.getVelocity());
+        double dt = pidTime.seconds();
+        if (dt < 0.0001) dt = 0.0001;
+        integralSum += error* dt;
+        double derivative = (error- lastError)/ dt;
         lastError = error;
-        lastErrorLeft = error;
 
         pidTime.reset();
 
         double output; // basically the same as the normal PIDControl
-        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (velocity * Kf);
-        //telemetryM.addData("output", output);
+        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (targetTicks * Kf);
 
-        //double outputLeft;
-        //outputLeft = (errorLeft * Kp) + (derivativeLeft * Kd) + (integralSumLeft * Ki) + (velocity * Kf);
-
-        robot.flyRight.setPower(Math.max(-1, Math.min(1, output))); //clamping so values do not exceed 1 or -1
-        robot.flyLeft.setPower(Math.max(-1, Math.min(1, output)));
+        robot.flyRight.setPower(output); //clamping so values do not exceed 1 or -1
+        robot.flyLeft.setPower(output);
         //robot.flyLeft.setPower(Math.max(-1, Math.min(1, outputLeft)));
     }
 
@@ -133,13 +134,17 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 robot.flyLeft.setPower(0);
                 robot.intake.setPower(0);
                 autoSteps = AutoSteps.TO_SHOOT1;
+                autoTime.reset();
+                pathTimer.resetTimer();
                 prepFly();
                 break;
             case TO_SHOOT1:
                 follower.followPath(Line1);
-                pathTimer.resetTimer();
-                if(!follower.isBusy()){
+                //activateFly();
+                if(autoTime.seconds() >= path1){
+                    stopMove();
                     activateFly();
+                    pathTimer.resetTimer();
                     autoSteps = AutoSteps.REV_1;
                 }
                 break;
@@ -149,12 +154,15 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 robot.offRamp.setPosition(offRampPassive);
                 robot.onRamp.setPosition(onRampPassive);
                 shootTime.reset();
+                autoTime.reset();
                 autoSteps = AutoSteps.SHOOT_1;
                 break;
             case SHOOT_1:
-                robot.belt.setPower(1);
-                shootTime.reset();
-                autoSteps = AutoSteps.REV_2;
+                if(autoTime.seconds() >= auto4){
+                    robot.belt.setPower(1);
+                    shootTime.reset();
+                    autoSteps = AutoSteps.REV_2;
+                }
                 break;
             case REV_2:
                 if(shootTime.seconds() >= shoot2){
@@ -187,66 +195,33 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 }
                 break;
             case FINISH:
-                if(shootTime.seconds()>= shoot6 && firstTime){
+                if(shootTime.seconds() > shoot6){
                     robot.belt.setPower(0);
-                    firstTime = false;
-                    autoSteps = AutoSteps.TO_PICKUP1;
-                }
-                if(shootTime.seconds()>= shoot6 && !firstTime){
-                    robot.belt.setPower(0);
+                    autoTime.reset();
+                    pathTimer.resetTimer();
                     autoSteps = AutoSteps.END;
-                }
-                break;
-            case TO_PICKUP1:
-                follower.followPath(Line2);
-                pathTimer.resetTimer();
-                robot.intake.setPower(intakeOn);
-                robot.belt.setPower(beltOn);
-                robot.flyRight.setPower(0);
-                robot.flyLeft.setPower(0);
-                if(!follower.isBusy()){
-                    autoTime.reset();
-                    autoSteps = AutoSteps.PICKUP1;
-                }
-                break;
-            case PICKUP1:
-                robot.intake.setPower(0);
-                if(autoTime.seconds() >= auto1){
-                    robot.belt.setPower(0);
-                    robot.onRamp.setPosition(onRampPush);
-                    autoTime.reset();
-                    autoSteps = AutoSteps.PICKUP23;
-                }
-                break;
-            case PICKUP23:
-                follower.followPath(Line3);
-                pathTimer.resetTimer();
-                robot.intake.setPower(intakeOn);
-                robot.belt.setPower(beltOn);
-                robot.onRamp.setPosition(onRampPassive);
-                if(autoTime.seconds() >= auto2){
-                    robot.intake.setPower(0);
-                    robot.belt.setPower(-1);
-                    autoTime.reset();
-                    prepFly();
-                    autoSteps = AutoSteps.READY_SHOOT;
-                }
-                break;
-            case READY_SHOOT:
-                follower.followPath(Line4);
-                pathTimer.resetTimer();
-                if(autoTime.seconds() >= auto3){
-                    robot.belt.setPower(0);
-                    activateFly();
-                }
-                if(!follower.isBusy()){
-                    autoSteps = AutoSteps.REV_1;
                 }
                 break;
             case END:
                 follower.followPath(Line5);
+                if(autoTime.seconds() >= path5){
+                    autoSteps = AutoSteps.ENDEND;
+                }
                 break;
+            case ENDEND:
+                stopMove();
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
         }
+    }
+
+    public void stopMove(){
+        robot.rightBack.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftBack.setPower(0);
+        robot.leftFront.setPower(0);
+        robot.flyRight.setPower(0);
+        robot.flyLeft.setPower(0);
     }
 
     public void buildPaths() {
