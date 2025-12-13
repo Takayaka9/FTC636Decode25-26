@@ -63,13 +63,14 @@ public class QualsGoodAutoRedClose3 extends OpMode {
     public static double path3 = 10;
     public static double path4 = 5;
     public static double path5 = 5;
+    public static boolean autoShoot = false;
     ElapsedTime pidTime = new ElapsedTime();
     Timer pathTimer;
     private int pathState;
     ElapsedTime shootTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
-    public static int velocity = 175;
+    public static int velocity = 1650;
     public static boolean firstTime = false;
 
     @Override
@@ -81,6 +82,7 @@ public class QualsGoodAutoRedClose3 extends OpMode {
         follower.setStartingPose(startPose);
         firstTime = true;
         telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
+        autoShoot = false;
     }
 
     @Override
@@ -94,6 +96,13 @@ public class QualsGoodAutoRedClose3 extends OpMode {
         follower.update();
         auto();
         telemetryManager.update();
+        if(autoShoot){
+            activateFly();
+        }
+        if(!autoShoot){
+            robot.flyRight.setPower(0);
+            robot.flyLeft.setPower(0);
+        }
 
         telemetryManager.addData("State", autoSteps);
     }
@@ -159,10 +168,10 @@ public class QualsGoodAutoRedClose3 extends OpMode {
                 break;
             case TO_SHOOT1:
                 follower.followPath(InitialShoot, true);
-                //activateFly();
                 if(autoTime.seconds() >= path1){
                     stopMove();
-                    activateFly();
+                    autoShoot = true;
+                    //activateFly();
                     pathTimer.resetTimer();
                     autoSteps = AutoSteps.REV_1;
                 }
@@ -229,8 +238,7 @@ public class QualsGoodAutoRedClose3 extends OpMode {
                 break;
             case ENDEND:
                 stopMove();
-                robot.flyRight.setPower(0);
-                robot.flyLeft.setPower(0);
+                autoShoot = false;
         }
     }
 

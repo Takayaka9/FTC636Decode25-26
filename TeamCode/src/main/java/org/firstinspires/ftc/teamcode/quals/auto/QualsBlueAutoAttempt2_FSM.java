@@ -43,10 +43,13 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
     private final Pose shootPose = new Pose(shootX, shootY, Math.toRadians(shootA));
     private final Pose prePickup1 = new Pose(firstPickX, pickupY, Math.toRadians(180));
     private final Pose Pickup1 = new Pose(18.1, pickupY, Math.toRadians(180));
-    private final Pose end = new Pose(59.8, 55.5, Math.toRadians(180));
+    private final Pose end = new Pose(endX, endY, Math.toRadians(endA));
+    public static double endX = 59.8;
+    public static double endY = 55.5;
+    public static double endA = 180;
     private PathChain Line1, Line2, Line3, Line4, Line5;
     public static double shootX = 59.8;
-    public static double shootA = 110;
+    public static double shootA = 113;
     public static double shootY = 20;
     public static double pickupY = 87.3;
     public static double firstPickX = 38.2;
@@ -55,6 +58,7 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
     public static double auto2 = 0.67;
     public static double auto3 = 0.2;
     public static double path1 = 2;
+    public static boolean autoShoot;
     ElapsedTime pidTime = new ElapsedTime();
     Timer pathTimer;
     private int pathState;
@@ -72,6 +76,7 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
         pathTimer = new Timer();
         follower.setStartingPose(startPose);
         firstTime = true;
+        autoShoot = false;
     }
 
     @Override
@@ -84,6 +89,13 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
     public void loop() {
         follower.update();
         auto();
+        if(autoShoot){
+            activateFly();
+        }
+        if(!autoShoot){
+            robot.flyLeft.setPower(0);
+            robot.flyRight.setPower(0);
+        }
     }
 
     public enum AutoSteps{
@@ -140,10 +152,10 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 break;
             case TO_SHOOT1:
                 follower.followPath(Line1);
-                //activateFly();
                 if(autoTime.seconds() >= path1){
                     stopMove();
-                    activateFly();
+                    //activateFly();
+                    autoShoot = true;
                     pathTimer.resetTimer();
                     autoSteps = AutoSteps.REV_1;
                 }
@@ -210,8 +222,7 @@ public class QualsBlueAutoAttempt2_FSM extends OpMode {
                 break;
             case ENDEND:
                 stopMove();
-                robot.flyRight.setPower(0);
-                robot.flyLeft.setPower(0);
+                autoShoot = false;
         }
     }
 

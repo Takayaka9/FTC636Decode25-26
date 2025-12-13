@@ -44,8 +44,8 @@ public class QualsGoodAutoBlueClose extends OpMode {
     public static double endX = 45.7;
     public static double endY = 72.5;
     public static double endA = 180;
-    public static double shootY = 76;
-    public static double shootX = 65;
+    public static double shootY = 100;
+    public static double shootX = 45;
     public static double shootA = 136;
     public static double pickupY = 87.7;
     public static double firstPickX = 35.7;
@@ -60,14 +60,14 @@ public class QualsGoodAutoBlueClose extends OpMode {
     public static double path2 = 5;
     public static double path3 = 10;
     public static double path4 = 5;
-    public static double path5 = 3;
+    public static double path5 = 5;
     ElapsedTime pidTime = new ElapsedTime();
     Timer pathTimer;
     private int pathState;
     ElapsedTime shootTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
-    public static int velocity = 1650;
+    public static int velocity = 200;
     public static boolean firstTime = false;
 
     @Override
@@ -208,16 +208,16 @@ public class QualsGoodAutoBlueClose extends OpMode {
                 }
                 break;
             case FINISH:
-                /*
-                if(firstTime){
+
+                if(shootTime.seconds() > shoot6 && firstTime){
                     robot.belt.setPower(0);
                     pathTimer.resetTimer();
                     autoTime.reset();
                     autoSteps = AutoSteps.TO_PICKUP1;
                 }
-                 */
+
                 //!firstTime
-                if(shootTime.seconds() > shoot6){
+                if(shootTime.seconds() > shoot6 && !firstTime){
                     robot.belt.setPower(0);
                     autoTime.reset();
                     pathTimer.resetTimer();
@@ -227,6 +227,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
             case TO_PICKUP1:
                 follower.followPath(PickUp1);
                 robot.intake.setPower(intakeOn);
+                firstTime = false;
                 robot.belt.setPower(beltOn);
                 robot.flyRight.setPower(0);
                 robot.flyLeft.setPower(0);
@@ -238,6 +239,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
                 }
                 break;
             case PICKUP1:
+                robot.belt.setPower(-1);
                 robot.intake.setPower(0);
                 if(autoTime.seconds() >= auto1){
                     robot.belt.setPower(0);
@@ -263,7 +265,7 @@ public class QualsGoodAutoBlueClose extends OpMode {
                 }
                 break;
             case READY_SHOOT:
-                //ollower.followPath(BackToShoot);
+                follower.followPath(BackToShoot);
                 if(autoTime.seconds() >= auto3){
                     robot.belt.setPower(0);
                     activateFly();
@@ -288,6 +290,8 @@ public class QualsGoodAutoBlueClose extends OpMode {
                 break;
             case ENDEND:
                 stopMove();
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
         }
     }
 

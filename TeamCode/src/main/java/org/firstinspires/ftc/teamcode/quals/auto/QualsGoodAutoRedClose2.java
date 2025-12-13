@@ -45,7 +45,7 @@ public class QualsGoodAutoRedClose2 extends OpMode {
     private final Pose pickUp23 = new Pose(pickUpX, pickupY, Math.toRadians(pickUpA));
     public static double pickUpA = -10;
     public static double endX = 123;
-    public static double endY = 102;
+    public static double endY = 85;
     public static double endA = 90;
     public static double shootY = 90;
     public static double shootX = 90;
@@ -70,7 +70,7 @@ public class QualsGoodAutoRedClose2 extends OpMode {
     ElapsedTime shootTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
-    public static int velocity = 1650;
+    public static int velocity = 175;
     public static boolean firstTime = false;
 
     @Override
@@ -292,13 +292,15 @@ public class QualsGoodAutoRedClose2 extends OpMode {
                  */
                 break;
             case END:
-                follower.followPath(Park, true);
+                follower.followPath(Park);
                 if(autoTime.seconds() >= path5){
                     autoSteps = AutoSteps.ENDEND;
                 }
                 break;
             case ENDEND:
                 stopMove();
+                robot.flyRight.setPower(0);
+                robot.flyLeft.setPower(0);
         }
     }
 
