@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.zquals;
 import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.offRampPassive;
 import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.onRampPassive;
 
-import com.arcrobotics.ftclib.controller.PIDFController;
+import com.seattlesolvers.solverslib.controller.PIDFController;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevColorSensorV3;

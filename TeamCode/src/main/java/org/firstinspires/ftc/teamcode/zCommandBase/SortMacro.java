@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.zCommandBase;
 
-import com.arcrobotics.ftclib.command.CommandBase;
+import com.seattlesolvers.solverslib.command.CommandBase;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.sort1;
 import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.sort2;

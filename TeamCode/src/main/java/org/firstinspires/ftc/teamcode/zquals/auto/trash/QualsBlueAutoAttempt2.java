@@ -11,7 +11,7 @@ import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.offRampPush;
 import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.onRampPassive;
 import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.onRampPush;
 
-import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.seattlesolvers.solverslib.command.CommandScheduler;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;

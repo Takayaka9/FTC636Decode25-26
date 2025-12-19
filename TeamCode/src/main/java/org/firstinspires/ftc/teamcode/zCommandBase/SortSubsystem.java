@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.zCommandBase;
 
-import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.seattlesolvers.solverslib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.zquals.RobotQuals;
 import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.onRampPush;
