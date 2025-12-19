@@ -13,13 +13,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.zCommandBase.BeltSubsystem;
-import org.firstinspires.ftc.teamcode.zCommandBase.Commands;
-import org.firstinspires.ftc.teamcode.zCommandBase.FlySubsystem;
-import org.firstinspires.ftc.teamcode.zCommandBase.IntakeSubsystem;
-import org.firstinspires.ftc.teamcode.zCommandBase.RunIntake;
-import org.firstinspires.ftc.teamcode.zCommandBase.ShootMacro;
-import org.firstinspires.ftc.teamcode.zCommandBase.SortSubsystem;
+import org.firstinspires.ftc.teamcode.zOldCommandBase.BeltSubsystem;
+import org.firstinspires.ftc.teamcode.zOldCommandBase.Commands;
+import org.firstinspires.ftc.teamcode.zOldCommandBase.FlySubsystem;
+import org.firstinspires.ftc.teamcode.zOldCommandBase.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.zOldCommandBase.RunIntake;
+import org.firstinspires.ftc.teamcode.zOldCommandBase.ShootMacro;
+import org.firstinspires.ftc.teamcode.zOldCommandBase.SortSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.zquals.RobotQuals;
 
