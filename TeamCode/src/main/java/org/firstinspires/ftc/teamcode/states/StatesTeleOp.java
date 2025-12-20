@@ -84,6 +84,8 @@ public class StatesTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
         robot = new RobotQuals(hardwareMap);
+        follower.update();
+
         waitForStart();
         shootToggle = false;
 
@@ -388,6 +390,57 @@ public class StatesTeleOp extends LinearOpMode {
         telemetryManager.addData("Blue", normBlue);
 
         return DetectedColor.UNKNOWN;
+    }
+
+    //turret code!
+    private final double TICKS_PER_REV = 28;
+    private final double BLUE_GOAL_Y = 144;
+    private final double BLUE_GOAL_X = 0;
+    private final double RED_GOAL_Y = 144;
+    private final double RED_GOAL_X = 144;
+    double goalAngle;
+    //TODO: create an FSM that changes tracking color by toggle: off(0), blue(1), red(2)
+    public void trackGoal(int color){
+
+        if(color == 0){
+            return;
+        }
+        if(color == 1){
+            goalAngle = Math.atan2(BLUE_GOAL_Y - follower.getPose().getY(), BLUE_GOAL_X - follower.getPose().getX());
+        }
+        if(color == 2){
+            goalAngle = Math.atan2(RED_GOAL_Y - follower.getPose().getY(), RED_GOAL_X - follower.getPose().getX());
+        }
+        double robotHeading = follower.getHeading();
+        double turretAngle = goalAngle - robotHeading;
+
+        //add code that uses turretAngle to move motor using turnTurret
+        //turnTurret(something);
+    }
+
+    ElapsedTime turretTime = new ElapsedTime();
+    double lastTurretError;
+    double turretIntegral;
+    public static double turretKp = 0;
+    public static double turretKd = 0;
+    public static double turretKi = 0;
+    public void turnTurret(double position){
+        double error = position-(0); //TODO: change 0 to getPosition
+        double dt = turretTime.seconds();
+        if (dt < 0.0001) dt = 0.0001;
+        turretIntegral += error* dt;
+        double derivative = (error- lastTurretError)/ dt;
+        lastTurretError = error;
+
+        turretTime.reset();
+
+        double output;
+        output = (error * turretKp) + (derivative * turretKd) + (turretIntegral * turretKi) ;
+
+        //TODO: need to change these to whatever we name the motor
+        //robot.flyRight.setPower(output);
+        //robot.flyLeft.setPower(output);
+        telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
     }
 
 }
