@@ -24,7 +24,7 @@ public class StatesTeleOp extends LinearOpMode {
     RobotQuals robot;
     Limelight3A limelight;
     //Velocities for shooters
-    public static double velocity = 1650; //TODO: test ts
+    public static double velocity = 1650;
     public static double otherVelocity = 2100;
     public static double beltOn = 1;
     public static double intakeOn = 1;
@@ -41,6 +41,7 @@ public class StatesTeleOp extends LinearOpMode {
     public static boolean changed2Y = false;
     public static boolean isMacroing = false;
     public static boolean isShooting = false;
+    public static boolean changed2X = false;
     public static boolean shootToggle = false;
     public static double onRampPassive = 0.44;
     public static double onRampPush = 0.8;
@@ -75,7 +76,10 @@ public class StatesTeleOp extends LinearOpMode {
     }
     public ShootSteps shootSteps = ShootSteps.READY;
     ElapsedTime servoTime = new ElapsedTime();
-
+    public enum TurretModes{
+        OFF, BLUE, RED
+    }
+    TurretModes turretModes = TurretModes.OFF;
     public static double Kp = 0.004;
     public static double Ki = 0;
     public static double Kd = 0;
@@ -255,8 +259,6 @@ public class StatesTeleOp extends LinearOpMode {
                 telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
             }
 
-            //macro to shoot three with one button press...hopefully
-            //TODO: make dependant on upper color sensor distance data
             //I dont think it will work otherwise because it just wont be consistent
             switch(shootSteps){
                 case READY:
@@ -338,6 +340,7 @@ public class StatesTeleOp extends LinearOpMode {
                     break;
             }
 
+            /*
             if(!isMacroing){
                 if(gamepad2.x){
                     robot.onRamp.setPosition(onRampPush);
@@ -353,6 +356,42 @@ public class StatesTeleOp extends LinearOpMode {
                 else if(!gamepad2.dpad_right && servoTime.seconds() >= 0.5){
                     robot.offRamp.setPosition(offRampPassive);
                 }
+            }
+
+             */
+
+            switch(turretModes){
+                case OFF:
+                    //something.setPower(0);
+                    //trackGoal(0);
+                    if(!gamepad2.x){
+                        changed2X = false;
+                    }
+                    if(gamepad2.x && !changed2X){
+                        turretModes = TurretModes.BLUE;
+                        changed2X = true;
+                    }
+                    break;
+                case BLUE:
+                    //trackGoal(1);
+                    if(!gamepad2.x){
+                        changed2X = false;
+                    }
+                    if(gamepad2.x && !changed2X){
+                        turretModes = TurretModes.RED;
+                        changed2X = true;
+                    }
+                    break;
+                case RED:
+                    //trackGoal(2);
+                    if(!gamepad2.x){
+                        changed2X = false;
+                    }
+                    if(gamepad2.x && !changed2X){
+                        turretModes = TurretModes.OFF;
+                        changed2X = true;
+                    }
+                    break;
             }
 
             telemetryM.debug("target", velocity);
@@ -393,15 +432,14 @@ public class StatesTeleOp extends LinearOpMode {
     }
 
     //turret code!
-    private final double TICKS_PER_REV = 28;
-    private final double BLUE_GOAL_Y = 144;
-    private final double BLUE_GOAL_X = 0;
-    private final double RED_GOAL_Y = 144;
-    private final double RED_GOAL_X = 144;
+    public static final double TICKS_PER_REV = 28;
+    public static final double BLUE_GOAL_Y = 144;
+    public static final double BLUE_GOAL_X = 0;
+    public static final double RED_GOAL_Y = 144;
+    public static final double RED_GOAL_X = 144;
     double goalAngle;
     //TODO: create an FSM that changes tracking color by toggle: off(0), blue(1), red(2)
     public void trackGoal(int color){
-
         if(color == 0){
             return;
         }
@@ -414,8 +452,8 @@ public class StatesTeleOp extends LinearOpMode {
         double robotHeading = follower.getHeading();
         double turretAngle = goalAngle - robotHeading;
 
-        //add code that uses turretAngle to move motor using turnTurret
-        //turnTurret(something);
+        double ticksToMove = turretAngle*(TICKS_PER_REV/6.2832);
+        turnTurret(ticksToMove);
     }
 
     ElapsedTime turretTime = new ElapsedTime();
