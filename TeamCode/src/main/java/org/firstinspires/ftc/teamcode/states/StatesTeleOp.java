@@ -454,10 +454,10 @@ public class StatesTeleOp extends LinearOpMode {
     //turret code!
     //TODO: Ticks per Rev incorrect, thats for a 6000
     public static final double TICKS_PER_REV = 28;
-    public static final double BLUE_GOAL_Y = 144;
+    public static final double BLUE_GOAL_Y = 138;
     public static final double BLUE_GOAL_X = 0;
-    public static final double RED_GOAL_Y = 144;
-    public static final double RED_GOAL_X = 144;
+    public static final double RED_GOAL_Y = 138;
+    public static final double RED_GOAL_X = 138;
     double goalAngle;
     //TODO: create an FSM that changes tracking color by toggle: off(0), blue(1), red(2)
     public void trackGoal(int color){

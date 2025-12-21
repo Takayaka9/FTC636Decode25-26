@@ -25,9 +25,9 @@ public class Hood {
     call once in opmode before using methods requiring 'targetDistance' then pass into method
      */
     int blueGoalX = 0;
-    int blueGoalY = 0;
-    int redGoalX = 0;
-    int redGoalY = 0;
+    int blueGoalY = 138;
+    int redGoalX = 138;
+    int redGoalY = 138;
     Translation2d blueGoal = new Translation2d(blueGoalX, blueGoalY);
     Translation2d redGoal = new Translation2d(redGoalX, redGoalY);
 
