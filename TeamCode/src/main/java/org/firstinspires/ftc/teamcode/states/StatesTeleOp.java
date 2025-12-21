@@ -23,6 +23,7 @@ public class StatesTeleOp extends LinearOpMode {
     TelemetryManager telemetryM;
     RobotStates robot;
     Turret turret;
+    Color color;
     Limelight3A limelight;
     //Velocities for shooters
     public static double velocity = 1650;
@@ -55,6 +56,7 @@ public class StatesTeleOp extends LinearOpMode {
 
     //timer values etc. for sorting macro
     ElapsedTime sortTime = new ElapsedTime();
+
     public static double sort1 = 0;
     public static double sort2 = 0.6;
     public static double sort3 = 0.1;
@@ -85,6 +87,12 @@ public class StatesTeleOp extends LinearOpMode {
     public static double Ki = 0;
     public static double Kd = 0;
     public static double Kf = 0.006;
+
+    public enum allianceColor {
+        RED, BLUE, NS
+    }
+    public allianceColor alliance = allianceColor.NS;
+    boolean selectingColor = false;
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -126,7 +134,16 @@ public class StatesTeleOp extends LinearOpMode {
                 );
             }
 
-
+            //select alliance color
+            if (gamepad2.right_bumper && gamepad2.left_bumper) {
+                if (!gamepad2.b & !gamepad2.x) {}
+                else if (gamepad2.b) {
+                    alliance = allianceColor.RED;
+                }
+                else if (gamepad2.x) {
+                    alliance = allianceColor.BLUE;
+                }
+            }
 
             //intake and reverse intake
             if(!isMacroing){
@@ -159,7 +176,96 @@ public class StatesTeleOp extends LinearOpMode {
             }
 
 
+//Turret
 
+            //turret cases
+            switch(turretModes){
+                case OFF:
+                    //something.setPower(0);
+                    turret.trackGoal(0, follower, hardwareMap);
+                    if(!gamepad2.x){
+                        changed2X = false;
+                    }
+                    if(alliance == allianceColor.BLUE && gamepad2.x && !changed2X){
+                        turretModes = TurretModes.BLUE;
+                        changed2X = true;
+                    }
+                    else if(alliance == allianceColor.RED && gamepad2.x && !changed2X){
+                        turretModes = TurretModes.RED;
+                        changed2X = true;
+                    }
+                case BLUE:
+                    turret.trackGoal(1, follower, hardwareMap);
+                    if(!gamepad2.x){
+                        changed2X = false;
+                    }
+                    if(gamepad2.x && !changed2X){
+                        turretModes = TurretModes.OFF;
+                        changed2X = true;
+                    }
+                    break;
+                case RED:
+                    turret.trackGoal(2, follower, hardwareMap);
+                    if(!gamepad2.x){
+                        changed2X = false;
+                    }
+                    if(gamepad2.x && !changed2X){
+                        turretModes = TurretModes.OFF;
+                        changed2X = true;
+                    }
+                    break;
+            }
+
+
+            //Shooter
+            if(gamepad2.b && !shootToggle && !changed2B){
+                integralSum = 0;
+                lastError = 0;
+                isShooting = true;
+                changed2B = true;
+                pidTime.reset();
+                shootToggle = true;
+                changed2B = true;
+            }
+            else if(gamepad2.b && shootToggle && !changed2B){
+                shootToggle = false;
+                changed2B = true;
+            }
+            else if(!gamepad2.b){
+                changed2B = false;
+            }
+
+            double targetTicks;
+            if(gamepad2.right_trigger > 0.3){
+                targetTicks = otherVelocity * 28.0 / 60.0;
+            }
+            else{
+                targetTicks = velocity * 28.0 / 60.0;
+            }
+
+            //Shooter on/off
+            if(shootToggle){
+                double error = targetTicks-(robot.flyRight.getVelocity());
+                double dt = pidTime.seconds();
+                if (dt < 0.0001) dt = 0.0001;
+                integralSum += error* dt;
+                double derivative = (error- lastError)/ dt;
+                lastError = error;
+
+                pidTime.reset();
+
+                double output; // basically the same as the normal PIDControl
+                output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (targetTicks * Kf);
+
+                robot.flyRight.setPower(output); //clamping so values do not exceed 1 or -1
+                robot.flyLeft.setPower(output);
+                //robot.flyRight.setPower(1);
+                //robot.flyLeft.setPower(1);
+                telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
+            }
+
+
+            /*
             //Sorting
             //TODO: sorting needs to work better, probably have to change this system for new bot
             switch(sortSteps){
@@ -226,53 +332,7 @@ public class StatesTeleOp extends LinearOpMode {
 
 
 
-        //Shooter
-            //PID for Shooter
-            if(gamepad2.b && !shootToggle && !changed2B){
-                integralSum = 0;
-                lastError = 0;
-                isShooting = true;
-                changed2B = true;
-                pidTime.reset();
-                shootToggle = true;
-                changed2B = true;
-            }
-            else if(gamepad2.b && shootToggle && !changed2B){
-                shootToggle = false;
-                changed2B = true;
-            }
-            else if(!gamepad2.b){
-                changed2B = false;
-            }
 
-            double targetTicks;
-            if(gamepad2.right_trigger > 0.3){
-                targetTicks = otherVelocity * 28.0 / 60.0;
-            }
-            else{
-                targetTicks = velocity * 28.0 / 60.0;
-            }
-
-            //Shooter on/off
-            if(shootToggle){
-                double error = targetTicks-(robot.flyRight.getVelocity());
-                double dt = pidTime.seconds();
-                if (dt < 0.0001) dt = 0.0001;
-                integralSum += error* dt;
-                double derivative = (error- lastError)/ dt;
-                lastError = error;
-
-                pidTime.reset();
-
-                double output; // basically the same as the normal PIDControl
-                output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (targetTicks * Kf);
-
-                robot.flyRight.setPower(output); //clamping so values do not exceed 1 or -1
-                robot.flyLeft.setPower(output);
-                //robot.flyRight.setPower(1);
-                //robot.flyLeft.setPower(1);
-                telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
-            }
 
             //Shoot Macro
             switch(shootSteps){
@@ -354,7 +414,7 @@ public class StatesTeleOp extends LinearOpMode {
                     }
                     break;
             }
-
+*/
 
             /*
             if(!isMacroing){
@@ -376,42 +436,7 @@ public class StatesTeleOp extends LinearOpMode {
 
              */
 
-        //Turret
-            //turret cases
-            switch(turretModes){
-                case OFF:
-                    //something.setPower(0);
-                    //trackGoal(0);
-                    if(!gamepad2.x){
-                        changed2X = false;
-                    }
-                    if(gamepad2.x && !changed2X){
-                        turretModes = TurretModes.BLUE;
-                        changed2X = true;
-                    }
-                    break;
-                case BLUE:
-                    //trackGoal(1);
-                    if(!gamepad2.x){
-                        changed2X = false;
-                    }
-                    if(gamepad2.x && !changed2X){
-                        turretModes = TurretModes.RED;
-                        changed2X = true;
-                    }
-                    break;
-                case RED:
-                    //trackGoal(2);
-                    if(!gamepad2.x){
-                        changed2X = false;
-                    }
-                    if(gamepad2.x && !changed2X){
-                        turretModes = TurretModes.OFF;
-                        changed2X = true;
-                    }
-                    break;
-            }
-
+            //telemetry
             telemetryM.debug("target", velocity);
             telemetryM.addData("target", velocity);
             telemetryM.addData("velocity right", robot.flyRight.getVelocity());
@@ -427,53 +452,8 @@ public class StatesTeleOp extends LinearOpMode {
 
 
     //TODO: should this stuff be inside run opmode?
-    public enum DetectedColor{
-        GREEN,
-        PURPLE,
-        UNKNOWN
-    }
 
-    public DetectedColor getDetectedColor(TelemetryManager telemetryManager){
-        NormalizedRGBA colors = robot.colorSensor.getNormalizedColors();
 
-        float normRed, normGreen, normBlue;
 
-        normRed = colors.red / colors.alpha;
-        normGreen = colors.green / colors.alpha;
-        normBlue = colors.blue / colors.alpha;
 
-        //TODO: calibrate the thresholds and add if statements
-
-        telemetryManager.addData("Red", normRed);
-        telemetryManager.addData("Green", normGreen);
-        telemetryManager.addData("Blue", normBlue);
-
-        return DetectedColor.UNKNOWN;
-    }
-
-    //turret code!
-    //TODO: Ticks per Rev incorrect, thats for a 6000
-    public static final double TICKS_PER_REV = 28;
-    public static final double BLUE_GOAL_Y = 144;
-    public static final double BLUE_GOAL_X = 0;
-    public static final double RED_GOAL_Y = 144;
-    public static final double RED_GOAL_X = 144;
-    double goalAngle;
-    //TODO: create an FSM that changes tracking color by toggle: off(0), blue(1), red(2)
-    public void trackGoal(int color){
-        if(color == 0){
-            return;
-        }
-        if(color == 1){
-            goalAngle = Math.atan2(BLUE_GOAL_Y - follower.getPose().getY(), BLUE_GOAL_X - follower.getPose().getX());
-        }
-        if(color == 2){
-            goalAngle = Math.atan2(RED_GOAL_Y - follower.getPose().getY(), RED_GOAL_X - follower.getPose().getX());
-        }
-        double robotHeading = follower.getHeading();
-        double turretAngle = goalAngle - robotHeading;
-
-        double ticksToMove = turretAngle*(TICKS_PER_REV/6.2832);
-        turret.turnTurret(ticksToMove);
-    }
 }

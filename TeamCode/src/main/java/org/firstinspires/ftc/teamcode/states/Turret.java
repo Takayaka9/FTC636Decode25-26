@@ -2,20 +2,62 @@ package org.firstinspires.ftc.teamcode.states;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.follower.Follower;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Configurable
 public class Turret {
-    //TODO: make sure panels stuff is done correctly
     TelemetryManager telemetryM;
+
+    //turret code!
+    //TODO: Ticks per Rev incorrect, thats for a 6000
+    public static final double TICKS_PER_REV = 28;
+    public static final double BLUE_GOAL_Y = 144;
+    public static final double BLUE_GOAL_X = 0;
+    public static final double RED_GOAL_Y = 144;
+    public static final double RED_GOAL_X = 144;
+    double goalAngle;
+    //TODO: create an FSM that changes tracking color by toggle: off(0), blue(1), red(2)
+
+    public void trackGoal(int color, Follower follower, HardwareMap hardwareMap){
+        follower = Constants.createFollower(hardwareMap);
+        follower.update();
+        if(color == 0){
+            return;
+        }
+        if(color == 1){
+            goalAngle = Math.atan2(BLUE_GOAL_Y - follower.getPose().getY(), BLUE_GOAL_X - follower.getPose().getX());
+        }
+        if(color == 2){
+            goalAngle = Math.atan2(RED_GOAL_Y - follower.getPose().getY(), RED_GOAL_X - follower.getPose().getX());
+        }
+        double robotHeading = follower.getHeading();
+        double turretAngle = goalAngle - robotHeading;
+
+        double ticksToMove = turretAngle*(TICKS_PER_REV/6.2832);
+        turnTurret(ticksToMove);
+    }
+
+
     ElapsedTime turretTime = new ElapsedTime();
     double lastTurretError;
     double turretIntegral;
     public static double turretKp = 0;
     public static double turretKd = 0;
     public static double turretKi = 0;
-    public void turnTurret(double position){
-        double error = position-(0); //TODO: change 0 to getPosition
+
+    /*
+   turnTurret is a method to move the turret using PID + FF(?)
+   inputs: tPosition (desired turret position in encoder ticks)
+   outputs: targetDistance (also printed to panels)
+   call once in opmode before using methods requiring 'targetDistance' then pass into method
+    */
+    public void turnTurret(double tPosition){
+        double cPosition = 0; //TODO: change 0 to getPosition
+        double error = tPosition -cPosition;
         double dt = turretTime.seconds();
         if (dt < 0.0001) dt = 0.0001;
         turretIntegral += error* dt;
@@ -30,6 +72,9 @@ public class Turret {
         //TODO: need to change these to whatever we name the motor
         //robot.flyRight.setPower(output);
         //robot.flyLeft.setPower(output);
+
+        telemetryM.addData("current position", cPosition);
+        telemetryM.addData("turret desired position", tPosition);
         telemetryM.addData("turret motor power", Math.max(-1, Math.min(1, output)));
     }
 
