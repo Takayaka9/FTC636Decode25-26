@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.zSorting.SortLogic;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.zquals.RobotQuals;
+import org.firstinspires.ftc.teamcode.states.RobotStates;
 
 
 @Configurable
@@ -21,7 +21,8 @@ import org.firstinspires.ftc.teamcode.zquals.RobotQuals;
 public class StatesTeleOp extends LinearOpMode {
     Follower follower;
     TelemetryManager telemetryM;
-    RobotQuals robot;
+    RobotStates robot;
+    Turret turret;
     Limelight3A limelight;
     //Velocities for shooters
     public static double velocity = 1650;
@@ -87,9 +88,9 @@ public class StatesTeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException{
-        robot = new RobotQuals(hardwareMap);
+        robot = new RobotStates(hardwareMap);
         follower.update();
-
+        turret = new Turret();
         waitForStart();
         shootToggle = false;
 
@@ -106,6 +107,8 @@ public class StatesTeleOp extends LinearOpMode {
             telemetryM.update();
             follower.update();
 
+
+            //Drive stuff
             if (gamepad1.left_trigger < 0.3) {
                 follower.setTeleOpDrive(
                         -gamepad1.left_stick_y*1,
@@ -122,6 +125,8 @@ public class StatesTeleOp extends LinearOpMode {
                         true
                 );
             }
+
+
 
             //intake and reverse intake
             if(!isMacroing){
@@ -153,6 +158,10 @@ public class StatesTeleOp extends LinearOpMode {
                 }
             }
 
+
+
+            //Sorting
+            //TODO: sorting needs to work better, probably have to change this system for new bot
             switch(sortSteps){
                 case READY:
                     if(gamepad2.y && !changed2Y){
@@ -215,6 +224,10 @@ public class StatesTeleOp extends LinearOpMode {
                     break;
             }
 
+
+
+        //Shooter
+            //PID for Shooter
             if(gamepad2.b && !shootToggle && !changed2B){
                 integralSum = 0;
                 lastError = 0;
@@ -239,6 +252,8 @@ public class StatesTeleOp extends LinearOpMode {
             else{
                 targetTicks = velocity * 28.0 / 60.0;
             }
+
+            //Shooter on/off
             if(shootToggle){
                 double error = targetTicks-(robot.flyRight.getVelocity());
                 double dt = pidTime.seconds();
@@ -259,7 +274,7 @@ public class StatesTeleOp extends LinearOpMode {
                 telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
             }
 
-            //I dont think it will work otherwise because it just wont be consistent
+            //Shoot Macro
             switch(shootSteps){
                 case READY:
                     if(gamepad2.a && !changed2A){
@@ -340,6 +355,7 @@ public class StatesTeleOp extends LinearOpMode {
                     break;
             }
 
+
             /*
             if(!isMacroing){
                 if(gamepad2.x){
@@ -360,6 +376,8 @@ public class StatesTeleOp extends LinearOpMode {
 
              */
 
+        //Turret
+            //turret cases
             switch(turretModes){
                 case OFF:
                     //something.setPower(0);
@@ -407,6 +425,8 @@ public class StatesTeleOp extends LinearOpMode {
         }
     }
 
+
+    //TODO: should this stuff be inside run opmode?
     public enum DetectedColor{
         GREEN,
         PURPLE,
@@ -432,6 +452,7 @@ public class StatesTeleOp extends LinearOpMode {
     }
 
     //turret code!
+    //TODO: Ticks per Rev incorrect, thats for a 6000
     public static final double TICKS_PER_REV = 28;
     public static final double BLUE_GOAL_Y = 144;
     public static final double BLUE_GOAL_X = 0;
@@ -453,32 +474,6 @@ public class StatesTeleOp extends LinearOpMode {
         double turretAngle = goalAngle - robotHeading;
 
         double ticksToMove = turretAngle*(TICKS_PER_REV/6.2832);
-        turnTurret(ticksToMove);
+        turret.turnTurret(ticksToMove);
     }
-
-    ElapsedTime turretTime = new ElapsedTime();
-    double lastTurretError;
-    double turretIntegral;
-    public static double turretKp = 0;
-    public static double turretKd = 0;
-    public static double turretKi = 0;
-    public void turnTurret(double position){
-        double error = position-(0); //TODO: change 0 to getPosition
-        double dt = turretTime.seconds();
-        if (dt < 0.0001) dt = 0.0001;
-        turretIntegral += error* dt;
-        double derivative = (error- lastTurretError)/ dt;
-        lastTurretError = error;
-
-        turretTime.reset();
-
-        double output;
-        output = (error * turretKp) + (derivative * turretKd) + (turretIntegral * turretKi) ;
-
-        //TODO: need to change these to whatever we name the motor
-        //robot.flyRight.setPower(output);
-        //robot.flyLeft.setPower(output);
-        telemetryM.addData("motor power", Math.max(-1, Math.min(1, output)));
-    }
-
 }

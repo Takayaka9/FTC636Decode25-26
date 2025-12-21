@@ -42,7 +42,7 @@ dependencies {
     //default:
     implementation project(':FtcRobotController')
     // Bylazar: panels:
-    implementation ("com.bylazar:fullpanels:1.0.11")
+    implementation("com.bylazar:fullpanels:1.0.11")
     //FTCLib:
     implementation("org.solverslib:core:0.3.3")
     implementation("org.solverslib:pedroPathing:0.3.3")
