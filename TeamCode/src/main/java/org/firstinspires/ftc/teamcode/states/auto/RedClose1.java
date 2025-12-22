@@ -18,14 +18,14 @@ public class RedClose1 extends OpMode {
     private int pathState;
 
 //    Poses
-    private Pose startPose = new Pose(120, 129, 37);
-    private Pose shootPose = new Pose(97,96,53);
-    private Pose preIntake1 = new Pose(100, 84, 0);
-    private Pose intake1 = new Pose(126, 84, 0);
-    private Pose preIntake2 = new Pose(100, 58, 0);
-    private Pose intake2 = new Pose(133, 58, 0);
-    private Pose shootControl2 = new Pose(90, 58, 0);
-    private Pose leave = new Pose();
+    private final Pose startPose = new Pose(120, 129, 37);
+    private final Pose shootPose = new Pose(97,96,53);
+    private final Pose preIntake1 = new Pose(100, 84, 0);
+    private final Pose intake1 = new Pose(126, 84, 0);
+    private final Pose preIntake2 = new Pose(100, 58, 0);
+    private final Pose intake2 = new Pose(133, 58, 0);
+    private final Pose shootControl2 = new Pose(90, 58, 0);
+    private final Pose leave = new Pose();
 
 //    Path Initializing
     private PathChain s0, pi1, i1, s1, pi2, i2, s2, l;

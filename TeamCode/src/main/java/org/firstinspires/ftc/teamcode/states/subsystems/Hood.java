@@ -5,6 +5,8 @@ import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.RED
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.TelemetryManager;
+import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 import com.seattlesolvers.solverslib.geometry.Translation2d;
@@ -26,21 +28,19 @@ public class Hood {
     outputs: targetDistance (also printed to panels)
     call once in opmode before using methods requiring 'targetDistance' then pass into method
      */
-    int blueGoalX = 0;
-    int blueGoalY = 138;
-    int redGoalX = 138;
-    int redGoalY = 138;
-    Translation2d blueGoal = new Translation2d(blueGoalX, blueGoalY);
-    Translation2d redGoal = new Translation2d(redGoalX, redGoalY);
+    private final Pose blueGoal = new Pose(0, 138);
+    private final Pose redGoal = new Pose(138, 138);
 
-    public int getTargetDistance(Translation2d robotPose, StatesTeleOp.TurretModes mode){
-        int targetDistance = 0;
+    public double getTargetDistance(Follower follower, StatesTeleOp.TurretModes mode){
+        double targetDistance = 0;
 
         if (mode == BLUE){
-            robotPose.getDistance(blueGoal);
+            Pose currentPose = follower.getPose();
+            targetDistance = currentPose.distanceFrom(blueGoal);
         }
         else if (mode == RED){
-            robotPose.getDistance(redGoal);
+            Pose currentPose = follower.getPose();
+            targetDistance = currentPose.distanceFrom(redGoal);
         }
 
         return targetDistance;
