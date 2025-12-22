@@ -21,9 +21,9 @@ public class Turret {
     double goalAngle;
     //TODO: create an FSM that changes tracking color by toggle: off(0), blue(1), red(2)
 
-    public void trackGoal(int color, Follower follower, HardwareMap hardwareMap){
-        follower = Constants.createFollower(hardwareMap);
-        follower.update();
+    public void trackGoal(int color, Follower follower){
+        //follower = Constants.createFollower(hardwareMap);
+        //follower.update();
         if(color == 0){
             return;
         }
@@ -40,7 +40,6 @@ public class Turret {
         turnTurret(ticksToMove);
     }
 
-
     ElapsedTime turretTime = new ElapsedTime();
     double lastTurretError;
     double turretIntegral;
@@ -56,7 +55,7 @@ public class Turret {
     */
     public void turnTurret(double tPosition){
         double cPosition = 0; //TODO: change 0 to getPosition
-        double error = tPosition -cPosition;
+        double error = tPosition - cPosition;
         double dt = turretTime.seconds();
         if (dt < 0.0001) dt = 0.0001;
         turretIntegral += error* dt;
@@ -68,9 +67,8 @@ public class Turret {
         double output;
         output = (error * turretKp) + (derivative * turretKd) + (turretIntegral * turretKi) ;
 
-        //TODO: need to change these to whatever we name the motor
+        //TODO: need to change this to whatever we name the motor
         //robot.flyRight.setPower(output);
-        //robot.flyLeft.setPower(output);
 
         telemetryM.addData("current position", cPosition);
         telemetryM.addData("turret desired position", tPosition);

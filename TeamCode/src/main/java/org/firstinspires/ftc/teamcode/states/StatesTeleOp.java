@@ -180,7 +180,7 @@ public class StatesTeleOp extends LinearOpMode {
             switch(turretModes){
                 case OFF:
                     //something.setPower(0);
-                    turret.trackGoal(0, follower, hardwareMap);
+                    turret.trackGoal(0, follower);
                     if(!gamepad2.x){
                         changed2X = false;
                     }
@@ -193,7 +193,7 @@ public class StatesTeleOp extends LinearOpMode {
                         changed2X = true;
                     }
                 case BLUE:
-                    turret.trackGoal(1, follower, hardwareMap);
+                    turret.trackGoal(1, follower);
                     if(!gamepad2.x){
                         changed2X = false;
                     }
@@ -203,7 +203,7 @@ public class StatesTeleOp extends LinearOpMode {
                     }
                     break;
                 case RED:
-                    turret.trackGoal(2, follower, hardwareMap);
+                    turret.trackGoal(2, follower);
                     if(!gamepad2.x){
                         changed2X = false;
                     }
