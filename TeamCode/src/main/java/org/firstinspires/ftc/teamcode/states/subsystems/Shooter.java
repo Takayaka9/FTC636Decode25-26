@@ -65,6 +65,7 @@ public class Shooter {
         output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (reference * Kf);
 
         //flyRight.setPower(output);
+        //flyLeft.setPower(output); //in case we switch back to one pid
     }
     ElapsedTime pidLeft = new ElapsedTime();
     double lastErrorLeft;
