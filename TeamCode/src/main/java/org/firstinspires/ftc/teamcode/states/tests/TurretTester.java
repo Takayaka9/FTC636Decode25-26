@@ -19,7 +19,7 @@ public class TurretTester extends OpMode {
     @Override
     public void init() {
         robot = new RobotStates(hardwareMap);
-        turret = new Turret();
+        turret = new Turret(hardwareMap, "turret");
         follower = Constants.createFollower(hardwareMap);
         telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.startTeleopDrive();

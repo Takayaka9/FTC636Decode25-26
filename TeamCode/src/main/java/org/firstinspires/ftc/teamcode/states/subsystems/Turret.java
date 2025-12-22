@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.states.subsystems;
 import com.bylazar.telemetry.TelemetryManager;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -10,7 +11,10 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 @Configurable
 public class Turret {
     TelemetryManager telemetryM;
-
+    DcMotorEx turret;
+    public Turret(HardwareMap hardwareMap, String name){
+        turret = hardwareMap.get(DcMotorEx.class, name);
+    }
     //turret code!
     //TODO: Ticks per Rev incorrect, thats for a 6000
     public static final double TICKS_PER_REV = 28;
@@ -19,7 +23,6 @@ public class Turret {
     public static final double RED_GOAL_Y = 138;
     public static final double RED_GOAL_X = 138;
     double goalAngle;
-    //TODO: create an FSM that changes tracking color by toggle: off(0), blue(1), red(2)
 
     public void trackGoal(int color, Follower follower){
         //follower = Constants.createFollower(hardwareMap);
@@ -54,7 +57,7 @@ public class Turret {
    call once in opmode before using methods requiring 'targetDistance' then pass into method
     */
     public void turnTurret(double tPosition){
-        double cPosition = 0; //TODO: change 0 to getPosition
+        double cPosition = turret.getCurrentPosition(); //TODO: change 0 to getPosition
         double error = tPosition - cPosition;
         double dt = turretTime.seconds();
         if (dt < 0.0001) dt = 0.0001;
@@ -68,7 +71,7 @@ public class Turret {
         output = (error * turretKp) + (derivative * turretKd) + (turretIntegral * turretKi) ;
 
         //TODO: need to change this to whatever we name the motor
-        //robot.flyRight.setPower(output);
+        //turret.setPower(output);
 
         telemetryM.addData("current position", cPosition);
         telemetryM.addData("turret desired position", tPosition);

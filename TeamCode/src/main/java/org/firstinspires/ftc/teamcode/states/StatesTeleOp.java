@@ -111,10 +111,10 @@ public class StatesTeleOp extends LinearOpMode {
         follower = Constants.createFollower(hardwareMap);
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.update();
-        turret = new Turret();
+        turret = new Turret(hardwareMap, "turret");
         shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
         hood = new Hood(hardwareMap, "servo");
-        shootControl = new ShooterController(shooter, hood, follower);
+        shootControl = new ShooterController(shooter, hood, turret, follower);
 
         waitForStart();
         shootToggle = false;

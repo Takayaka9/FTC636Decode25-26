@@ -11,11 +11,13 @@ import org.firstinspires.ftc.teamcode.states.StatesTeleOp;
 public class ShooterController {
     private final Shooter shooter;
     private final Hood hood;
+    private final Turret turret;
     private final Follower follower;
-    public ShooterController(Shooter shooter, Hood hood, Follower follower){
+    public ShooterController(Shooter shooter, Hood hood, Turret turret, Follower follower){
         this.shooter = shooter;
         this.hood = hood;
         this.follower = follower;
+        this.turret = turret;
     }
 
     public void shoot(int alliance){
@@ -23,6 +25,7 @@ public class ShooterController {
 
         shooter.shoot(targetDistance);
         hood.angleHood(targetDistance);
+        turret.trackGoal(alliance, follower);
     }
 
     public void off(){
