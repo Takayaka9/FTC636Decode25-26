@@ -10,6 +10,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.states.subsystems.Color;
+import org.firstinspires.ftc.teamcode.states.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.states.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.states.subsystems.ShooterController;
 import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -21,6 +24,9 @@ public class StatesTeleOp extends LinearOpMode {
     TelemetryManager telemetryM;
     RobotStates robot;
     Turret turret;
+    Hood hood;
+    Shooter shooter;
+    ShooterController shootControl;
     Color color;
     Limelight3A limelight;
     //Velocities for shooters
@@ -86,27 +92,38 @@ public class StatesTeleOp extends LinearOpMode {
     public static double Kd = 0;
     public static double Kf = 0.006;
 
+    /*
     public enum allianceColor {
         RED, BLUE, NS
     }
-    public allianceColor alliance = allianceColor.NS;
+
+     */
+    private int alliance;
+    public int getAlliance(){
+        return alliance;
+    }
+    //public allianceColor alliance = allianceColor.NS;
     boolean selectingColor = false;
 
     @Override
     public void runOpMode() throws InterruptedException{
         robot = new RobotStates(hardwareMap);
+        follower = Constants.createFollower(hardwareMap);
+        telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.update();
         turret = new Turret();
+        shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
+        hood = new Hood(hardwareMap, "servo");
+        shootControl = new ShooterController(shooter, hood, follower);
+
         waitForStart();
         shootToggle = false;
 
-        follower.startTeleopDrive();
         if (isStopRequested()) return;
 
         //Pedro follower
-        follower = Constants.createFollower(hardwareMap);
+
         follower.update();
-        telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.startTeleopDrive();
         //limelight.start();
 
@@ -132,14 +149,16 @@ public class StatesTeleOp extends LinearOpMode {
                 );
             }
 
+
             //select alliance color
+            //TODO: lights? to indicate.
             if (gamepad2.right_bumper && gamepad2.left_bumper) {
                 if (!gamepad2.b & !gamepad2.x) {}
                 else if (gamepad2.b) {
-                    alliance = allianceColor.RED;
+                    alliance = 1;
                 }
                 else if (gamepad2.x) {
-                    alliance = allianceColor.BLUE;
+                    alliance = 2;
                 }
             }
 
@@ -174,8 +193,8 @@ public class StatesTeleOp extends LinearOpMode {
             }
 
 
-//Turret
 
+            //Turret
             //turret cases
             switch(turretModes){
                 case OFF:
@@ -184,14 +203,15 @@ public class StatesTeleOp extends LinearOpMode {
                     if(!gamepad2.x){
                         changed2X = false;
                     }
-                    if(alliance == allianceColor.BLUE && gamepad2.x && !changed2X){
+                    if(alliance == 1 && gamepad2.x && !changed2X){
                         turretModes = TurretModes.BLUE;
                         changed2X = true;
                     }
-                    else if(alliance == allianceColor.RED && gamepad2.x && !changed2X){
+                    else if(alliance == 2 && gamepad2.x && !changed2X){
                         turretModes = TurretModes.RED;
                         changed2X = true;
                     }
+                    break;
                 case BLUE:
                     turret.trackGoal(1, follower);
                     if(!gamepad2.x){
@@ -213,6 +233,17 @@ public class StatesTeleOp extends LinearOpMode {
                     }
                     break;
             }
+
+            //shooter maybe
+            /*
+            if(gamepad2.b){
+                shootControl.shoot(alliance);
+            }
+            else if(!gamepad2.b){
+                shootControl.off();
+            }
+
+             */
 
 
             //Shooter
