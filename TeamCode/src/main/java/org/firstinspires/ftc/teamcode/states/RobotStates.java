@@ -36,10 +36,10 @@ public class RobotStates {
         belt = hardwareMap.get(DcMotorEx.class, "beltMotor");
 
         //comment ts out if it tweaks
-        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        //rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+        //leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+        //rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        //leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
 
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
