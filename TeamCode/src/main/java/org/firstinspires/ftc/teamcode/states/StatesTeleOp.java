@@ -4,16 +4,14 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.zSorting.SortLogic;
+import org.firstinspires.ftc.teamcode.states.subsystems.Color;
+import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.states.RobotStates;
 
 
 @Configurable
@@ -102,6 +100,7 @@ public class StatesTeleOp extends LinearOpMode {
         waitForStart();
         shootToggle = false;
 
+        follower.startTeleopDrive();
         if (isStopRequested()) return;
 
         //Pedro follower
@@ -121,8 +120,7 @@ public class StatesTeleOp extends LinearOpMode {
                 follower.setTeleOpDrive(
                         -gamepad1.left_stick_y*1,
                         -gamepad1.left_stick_x*1,
-                        -gamepad1.right_stick_x*0.45,
-                        true
+                        -gamepad1.right_stick_x*0.45, false
                 );
             }
             if (gamepad1.left_trigger > 0.3) {
@@ -130,7 +128,7 @@ public class StatesTeleOp extends LinearOpMode {
                         -gamepad1.left_stick_y*0.35,
                         -gamepad1.left_stick_x*0.35,
                         -gamepad1.right_stick_x*0.25,
-                        true
+                        false
                 );
             }
 

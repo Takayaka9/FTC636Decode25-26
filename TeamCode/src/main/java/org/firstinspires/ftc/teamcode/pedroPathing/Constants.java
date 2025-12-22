@@ -34,7 +34,7 @@ public class Constants {
             .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .useBrakeModeInTeleOp(true)
+            //.useBrakeModeInTeleOp(true)
             .xVelocity(72.6066627)
             .yVelocity(63.8361884);
     public static PinpointConstants localizerConstants = new PinpointConstants()
@@ -46,7 +46,7 @@ public class Constants {
             .forwardPodY(-1)
             .strafePodX(-2.5);
 
-    public static PathConstraints pathConstraints = new PathConstraints(0.99, 0.1, 0.1, 0.1, 50, 2, 10, 5);
+    public static PathConstraints pathConstraints = new PathConstraints(0.99, 0.1, 0.1, 0.01, 50, 2, 10, 1.5);
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)
                 .pathConstraints(pathConstraints)

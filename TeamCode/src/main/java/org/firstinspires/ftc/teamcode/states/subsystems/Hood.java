@@ -1,14 +1,16 @@
-package org.firstinspires.ftc.teamcode.states;
+package org.firstinspires.ftc.teamcode.states.subsystems;
 
 import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.BLUE;
 import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.RED;
 
 import com.bylazar.configurables.annotations.Configurable;
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 import com.seattlesolvers.solverslib.geometry.Translation2d;
+
+import org.firstinspires.ftc.teamcode.states.RobotStates;
+import org.firstinspires.ftc.teamcode.states.StatesTeleOp;
 
 
 @Configurable
