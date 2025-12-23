@@ -41,7 +41,7 @@ public class Shooter {
     public int shooterRPM(double targetDistance){
 
         int calcRPM = (int) Math.round(lut.get(targetDistance));
-        telemetryM.addData("Calculated RPM", calcRPM);
+        //telemetryM.addData("Calculated RPM", calcRPM);
 
         return calcRPM;
     }

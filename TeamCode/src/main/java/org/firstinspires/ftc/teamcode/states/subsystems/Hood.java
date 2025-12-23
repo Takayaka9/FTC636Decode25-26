@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.states.StatesTeleOp;
 
 @Configurable
 public class Hood {
-    TelemetryManager telemetryM;
+    //TelemetryManager telemetryM;
     private final InterpLUT lut = new InterpLUT();
     private ServoImplEx servo;
     public Hood(HardwareMap hardwareMap, String name){
@@ -49,11 +49,20 @@ public class Hood {
         double angle = lut.get(targetDistance);
         //TODO: figure out what we call this servo
         //servo.setPosition(angle);
-        telemetryM.addData("angle", angle);
+        //telemetryM.addData("angle", angle);
     }
 
     public void passive(){
         //servo.setPosition(passive);
+    }
+
+    public void increment(boolean positive){
+        if(positive){
+            servo.setPosition(servo.getPosition() + 0.03);
+        }
+        else{
+            servo.setPosition(servo.getPosition() - 0.03);
+        }
     }
 
 

@@ -98,7 +98,7 @@ public class StatesTeleOp extends LinearOpMode {
     }
 
      */
-    private int alliance;
+    public static int alliance;
     public int getAlliance(){
         return alliance;
     }
@@ -151,7 +151,8 @@ public class StatesTeleOp extends LinearOpMode {
 
 
             //select alliance color
-            //TODO: lights? to indicate.
+            /*
+            //TODO: lights? to indicate. commented out until turret/hood/shooter is tested
             if (gamepad2.right_bumper && gamepad2.left_bumper) {
                 if (!gamepad2.b & !gamepad2.x) {}
                 else if (gamepad2.b) {
@@ -160,6 +161,14 @@ public class StatesTeleOp extends LinearOpMode {
                 else if (gamepad2.x) {
                     alliance = 2;
                 }
+            }
+
+             */
+            if(gamepad1.x){
+                hood.increment(true);
+            }
+            if(gamepad1.y){
+                hood.increment(false);
             }
 
             //intake and reverse intake
@@ -194,8 +203,9 @@ public class StatesTeleOp extends LinearOpMode {
 
 
 
-            //Turret
             //turret cases
+            //TODO: test turret and uncomment when done!
+            /*
             switch(turretModes){
                 case OFF:
                     //something.setPower(0);
@@ -363,7 +373,7 @@ public class StatesTeleOp extends LinearOpMode {
 
 
 
-            //Shoot Macro
+            //Shoot Macro...my beautiful shoot macro...
             switch(shootSteps){
                 case READY:
                     if(gamepad2.a && !changed2A){
@@ -472,10 +482,11 @@ public class StatesTeleOp extends LinearOpMode {
             telemetryM.debug("belt power", beltOn);
             telemetryM.debug("intake power", intakeOn);
             telemetryM.addData("intake toggle", intakeToggle);
-            telemetryM.addData("belt target", beltTargetPosition);
-            telemetryM.debug("belt increment", beltIncrement);
             telemetryM.addData("shoot toggle", shootToggle);
             telemetryM.addData("Sort Step", sortSteps);
+            //telemetryM.addData("blue distance", shootControl.getTargetDistance(follower, 1));
+            //telemetryM.addData("red distance", shootControl.getTargetDistance(follower, 2));
+            //telemetryM.addData("turret pos", turret.turretPosition());
         }
     }
 

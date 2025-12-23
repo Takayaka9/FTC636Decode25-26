@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.states.tests;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -10,19 +11,21 @@ import org.firstinspires.ftc.teamcode.states.RobotStates;
 import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
 
 public class TurretTester extends OpMode {
-    RobotStates robot;
+    //RobotStates robot;
     Follower follower;
     TelemetryManager telemetryManager;
     Turret turret;
+    Pose startPose = new Pose(0, 0, Math.toRadians(90));
     boolean changedX = false;
     boolean isRed = true;
     @Override
     public void init() {
-        robot = new RobotStates(hardwareMap);
+        //robot = new RobotStates(hardwareMap);
         turret = new Turret(hardwareMap, "turret");
         follower = Constants.createFollower(hardwareMap);
         telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.startTeleopDrive();
+        follower.setPose(startPose);
     }
 
     @Override
