@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Configurable
 public class Turret {
-    TelemetryManager telemetryM;
+    //TelemetryManager telemetryM;
     DcMotorEx turret;
     public Turret(HardwareMap hardwareMap, String name){
         turret = hardwareMap.get(DcMotorEx.class, name);
@@ -46,9 +46,10 @@ public class Turret {
     ElapsedTime turretTime = new ElapsedTime();
     double lastTurretError;
     double turretIntegral;
-    public static double turretKp = 0;
+    public static double turretKp = 0.01;
     public static double turretKd = 0;
     public static double turretKi = 0;
+    public static double I_MAX = 500;
 
     /*
    turnTurret is a method to move the turret using PID + FF(?)
@@ -62,6 +63,7 @@ public class Turret {
         double dt = turretTime.seconds();
         if (dt < 0.0001) dt = 0.0001;
         turretIntegral += error* dt;
+        //turretIntegral = Math.max(-I_MAX, Math.min(I_MAX, turretIntegral));
         double derivative = (error- lastTurretError)/ dt;
         lastTurretError = error;
 
@@ -73,9 +75,13 @@ public class Turret {
         //TODO: need to change this to whatever we name the motor
         //turret.setPower(output);
 
-        telemetryM.addData("current position", cPosition);
-        telemetryM.addData("turret desired position", tPosition);
-        telemetryM.addData("turret motor power", Math.max(-1, Math.min(1, output)));
+        //telemetryM.addData("current position", cPosition);
+        //telemetryM.addData("turret desired position", tPosition);
+        //telemetryM.addData("turret motor power", Math.max(-1, Math.min(1, output)));
+    }
+
+    public double turretPosition(){
+        return turret.getCurrentPosition();
     }
 
 }

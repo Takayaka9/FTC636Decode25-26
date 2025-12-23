@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode.states.subsystems;
 import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.BLUE;
 import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.RED;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 
 import org.firstinspires.ftc.teamcode.states.StatesTeleOp;
 
+@Configurable
 public class ShooterController {
     private final Shooter shooter;
     private final Hood hood;
