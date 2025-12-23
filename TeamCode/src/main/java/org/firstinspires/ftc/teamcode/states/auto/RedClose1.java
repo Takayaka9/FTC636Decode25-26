@@ -25,7 +25,7 @@ public class RedClose1 extends OpMode {
     private final Pose preIntake2 = new Pose(100, 58, 0);
     private final Pose intake2 = new Pose(133, 58, 0);
     private final Pose shootControl2 = new Pose(90, 58, 0);
-    private final Pose leave = new Pose();
+    private final Pose leave = new Pose(120, 96, 53);
 
 //    Path Initializing
     private PathChain s0, pi1, i1, s1, pi2, i2, s2, l;
