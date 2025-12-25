@@ -10,6 +10,7 @@ import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.states.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.states.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.states.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.states.subsystems.ShooterController;
 import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
@@ -26,6 +27,7 @@ public class BlueClose1 extends OpMode {
     private Hood hood;
     private Turret turret;
     private ShooterController shooterController;
+    private Intake intake;
     private final int alliance = 2;
     private final double closeTime = 0;
     private final double farTime = 0;
@@ -96,11 +98,12 @@ public class BlueClose1 extends OpMode {
                 setPathState(2);
                 break;
             case 2:
+                intake.run();
                 follower.followPath(i1);
-                //run intake
                 setPathState(3);
                 break;
             case 3:
+                intake.stop();
                 follower.followPath(s1, true);
                 if(!follower.isBusy()) {
                     shooterController.shootTimeStart();
@@ -114,11 +117,12 @@ public class BlueClose1 extends OpMode {
                 setPathState(5);
                 break;
             case 5:
+                intake.run();
                 follower.followPath(i2);
-                //intake
                 setPathState(6);
                 break;
             case 6:
+                intake.stop();
                 follower.followPath(s2, true);
                 if(!follower.isBusy()) {
                     shooterController.shootTimeStart();
@@ -154,6 +158,7 @@ public class BlueClose1 extends OpMode {
         shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
         hood = new Hood(hardwareMap, "servo");
         turret = new Turret(hardwareMap, "turret");
+        intake = new Intake(hardwareMap, "intake");
         shooterController = new ShooterController(shooter, hood, turret, follower);
     }
     /** This method is called once at the init of the OpMode. **/

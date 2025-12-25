@@ -8,6 +8,8 @@ import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
+import org.firstinspires.ftc.teamcode.states.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.states.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.states.subsystems.Hood;
 import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
@@ -27,6 +29,7 @@ public class RedClose1 extends OpMode {
     private Hood hood;
     private Turret turret;
     private ShooterController shooterController;
+    private Intake intake;
     private final int alliance = 2;
     private final double closeTime = 0;
     private final double farTime = 0;
@@ -116,11 +119,12 @@ public class RedClose1 extends OpMode {
                     setPathState(5);
                     break;
             case 5:
+                    intake.run();
                     follower.followPath(i2);
-                    //intake
                     setPathState(6);
                     break;
             case 6:
+                    intake.stop();
                     follower.followPath(s2, true);
                     if(!follower.isBusy()) {
                         shooterController.shootTimeStart();
@@ -158,6 +162,7 @@ public class RedClose1 extends OpMode {
         hood = new Hood(hardwareMap, "servo");
         turret = new Turret(hardwareMap, "turret");
         shooterController = new ShooterController(shooter, hood, turret, follower);
+        intake = new Intake(hardwareMap, "intake");
     }
     /** This method is called once at the init of the OpMode. **/
     @Override
