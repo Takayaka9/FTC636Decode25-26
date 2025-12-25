@@ -491,7 +491,6 @@ public class StatesTeleOp extends LinearOpMode {
     }
 
 
-    //TODO: should this stuff be inside run opmode?
 
 
 
