@@ -28,7 +28,7 @@ public class BlueClose1 extends OpMode {
     private Turret turret;
     private ShooterController shooterController;
     private Intake intake;
-    private final int alliance = 2;
+    private final int alliance = 1;
     private final double closeTime = 0;
     private final double farTime = 0;
 

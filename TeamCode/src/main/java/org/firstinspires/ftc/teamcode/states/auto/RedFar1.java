@@ -9,6 +9,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.states.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.states.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.states.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.states.subsystems.ShooterController;
+import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
 
 //12  ball red far auto with conflict in close shooting position
 //all spike marks
@@ -18,6 +23,16 @@ public class RedFar1 extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
+
+    //subs
+    private Shooter shooter;
+    private Hood hood;
+    private Turret turret;
+    private ShooterController shooterController;
+    private Intake intake;
+    private final int alliance = 2;
+    private final double closeTime = 0;
+    private final double farTime = 0;
 
     //    Poses
     private final Pose startPose = new Pose(87.5, 8.7, 90);
@@ -86,7 +101,75 @@ public class RedFar1 extends OpMode {
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-
+                follower.followPath(fs0, true);
+                if (!follower.isBusy()) {
+                    shooterController.shootTimeStart();
+                    shooterController.shoot(alliance);
+                }
+                if (shooterController.shootTimeCheck(farTime)) {
+                    setPathState(1);
+                }
+                break;
+            case 1:
+                follower.followPath(pi1);
+                setPathState(2);
+                break;
+            case 2:
+                follower.followPath(i1);
+                intake.run();
+                setPathState(3);
+            case 3:
+                follower.followPath(cs1, true);
+                if (!follower.isBusy()) {
+                    shooterController.shootTimeStart();
+                    shooterController.shoot(alliance);
+                }
+                if (shooterController.shootTimeCheck(farTime)) {
+                    setPathState(4);
+                }
+            case 4:
+                follower.followPath(pi2);
+                setPathState(5);
+                break;
+            case 5:
+                follower.followPath(i2);
+                intake.run();
+                setPathState(6);
+                break;
+            case 6:
+                follower.followPath(cs2, true);
+                intake.stop();
+                if (!follower.isBusy()) {
+                    shooterController.shootTimeStart();
+                    shooterController.shoot(alliance);
+                }
+                if (shooterController.shootTimeCheck(farTime)) {
+                    setPathState(7);
+                }
+                break;
+            case 7:
+                follower.followPath(pi3);
+                setPathState(8);
+                break;
+            case 8:
+                follower.followPath(i3);
+                intake.run();
+                setPathState(9);
+                break;
+            case 9:
+                follower.followPath(fs3, true);
+                intake.stop();
+                if (!follower.isBusy()) {
+                    shooterController.shootTimeStart();
+                    shooterController.shoot(alliance);
+                }
+                if (shooterController.shootTimeCheck(farTime)) {
+                    setPathState(10);
+                }
+                break;
+            case 10:
+                follower.followPath(l);
+                break;
         }
     }
 
@@ -106,6 +189,12 @@ public class RedFar1 extends OpMode {
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
         telemetry.update();
+        //subs
+        shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
+        hood = new Hood(hardwareMap, "servo");
+        turret = new Turret(hardwareMap, "turret");
+        shooterController = new ShooterController(shooter, hood, turret, follower);
+        intake = new Intake(hardwareMap, "intake");
     }
     /** This method is called once at the init of the OpMode. **/
     @Override
