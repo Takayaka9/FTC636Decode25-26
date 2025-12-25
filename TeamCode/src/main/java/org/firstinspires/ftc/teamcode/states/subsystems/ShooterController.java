@@ -6,6 +6,7 @@ import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.RED
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.states.StatesTeleOp;
 
@@ -22,12 +23,22 @@ public class ShooterController {
         this.turret = turret;
     }
 
-    public void shoot(int alliance){
+    ElapsedTime timer = new ElapsedTime();
+    public void shoot(int alliance) {
         double targetDistance = getTargetDistance(follower, alliance);
-
         shooter.shoot(targetDistance);
         hood.angleHood(targetDistance);
         turret.trackGoal(alliance, follower);
+    }
+
+    public void shootTimeStart(){
+        timer.reset();
+    }
+    public boolean shootTimeCheck(double time){
+        if (timer.milliseconds() >= time) {
+            return true;
+        }
+        return false;
     }
 
     public void off(){
@@ -39,7 +50,7 @@ public class ShooterController {
     Get Target Distance is a method to retrieve target distance
     inputs: robotPose, (turret) mode
     outputs: targetDistance (also printed to panels)
-    call once in opmode before using methods requiring 'targetDistance' then pass into method
+    !! It is never needed to call this method - it is called in shoot !!
      */
     private final Pose blueGoal = new Pose(0, 138);
     private final Pose redGoal = new Pose(138, 138);

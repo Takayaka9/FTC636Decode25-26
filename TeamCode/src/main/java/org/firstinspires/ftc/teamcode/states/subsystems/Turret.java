@@ -24,6 +24,10 @@ public class Turret {
     public static final double RED_GOAL_X = 138;
     double goalAngle;
 
+    /* Function to move the turret to a certain angle
+    Requires color (1 for blue, 2 for red) and follower object
+    Calls turnTurret with required inputs to move the turret
+     */
     public void trackGoal(int color, Follower follower){
         //follower = Constants.createFollower(hardwareMap);
         //follower.update();
@@ -55,7 +59,7 @@ public class Turret {
    turnTurret is a method to move the turret using PID + FF(?)
    inputs: tPosition (desired turret position in encoder ticks)
    outputs: targetDistance (also printed to panels)
-   call once in opmode before using methods requiring 'targetDistance' then pass into method
+   !! It is never needed to call this method - it is called in trackGoal !!
     */
     public void turnTurret(double tPosition){
         double cPosition = turret.getCurrentPosition(); //TODO: change 0 to getPosition

@@ -37,6 +37,7 @@ public class Hood {
     angleHood uses InterpLut to calculate angle of hood based on target distance
     inputs: targetDistance, hardwareMap
     output: panels telemetry and servo position
+    !! it is never needed to call this method - it is called by shoot !!
      */
     double d1 = 0; double p1 = 0;
     double d2 = 0; double p2 = 0;

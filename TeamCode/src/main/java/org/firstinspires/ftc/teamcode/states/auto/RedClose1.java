@@ -8,14 +8,29 @@ import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.firstinspires.ftc.teamcode.states.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.states.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
+import org.firstinspires.ftc.teamcode.states.subsystems.ShooterController;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-
+//9 ball blue spike mark 1 and 2 (counting downward from goal)
 @Autonomous(name = "Red Close 1")
 public class RedClose1 extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
+
+    //subsystems
+    private Shooter shooter;
+    private Hood hood;
+    private Turret turret;
+    private ShooterController shooterController;
+    private final int alliance = 2;
+    private final double closeTime = 0;
+    private final double farTime = 0;
+
 
 //    Poses
     private final Pose startPose = new Pose(120, 129, 37);
@@ -69,6 +84,54 @@ public class RedClose1 extends OpMode {
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
+                    follower.followPath(s0, true);
+                    if(!follower.isBusy()) {
+                        shooterController.shootTimeStart();
+                        shooterController.shoot(alliance);
+                    }
+                    if(shooterController.shootTimeCheck(closeTime)) {
+                        setPathState(1);
+                    }
+                    break;
+            case 1:
+                    follower.followPath(pi1);
+                    setPathState(2);
+                    break;
+            case 2:
+                    follower.followPath(i1);
+                    //run intake
+                    setPathState(3);
+                    break;
+            case 3:
+                    follower.followPath(s1, true);
+                    if(!follower.isBusy()) {
+                        shooterController.shootTimeStart();
+                        shooterController.shoot(alliance);
+                    }
+                    if(shooterController.shootTimeCheck(closeTime)) {
+                        setPathState(4);
+                    }
+            case 4:
+                    follower.followPath(pi2);
+                    setPathState(5);
+                    break;
+            case 5:
+                    follower.followPath(i2);
+                    //intake
+                    setPathState(6);
+                    break;
+            case 6:
+                    follower.followPath(s2, true);
+                    if(!follower.isBusy()) {
+                        shooterController.shootTimeStart();
+                        shooterController.shoot(alliance);
+                    }
+                    if(shooterController.shootTimeCheck(closeTime)) {
+                        setPathState(7);
+                    }
+                    break;
+            case 7:
+                    follower.followPath(l);
 
         }
     }
@@ -89,6 +152,12 @@ public class RedClose1 extends OpMode {
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
         telemetry.update();
+
+        //subsystems
+        shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
+        hood = new Hood(hardwareMap, "servo");
+        turret = new Turret(hardwareMap, "turret");
+        shooterController = new ShooterController(shooter, hood, turret, follower);
     }
     /** This method is called once at the init of the OpMode. **/
     @Override
