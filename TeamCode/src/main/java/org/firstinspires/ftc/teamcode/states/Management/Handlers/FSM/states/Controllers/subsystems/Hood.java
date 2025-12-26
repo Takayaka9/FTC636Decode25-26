@@ -1,20 +1,9 @@
-package org.firstinspires.ftc.teamcode.states.subsystems;
-
-import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.BLUE;
-import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.RED;
+package org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems;
 
 import com.bylazar.configurables.annotations.Configurable;
-import com.bylazar.telemetry.TelemetryManager;
-import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.seattlesolvers.solverslib.util.InterpLUT;
-import com.seattlesolvers.solverslib.geometry.Translation2d;
-
-import org.firstinspires.ftc.teamcode.states.RobotStates;
-import org.firstinspires.ftc.teamcode.states.StatesTeleOp;
 
 
 @Configurable
@@ -75,7 +64,7 @@ public class Hood {
 
     public int shooterRPM(double targetDistance, HardwareMap hardwareMap){
 
-        robot = new RobotStates(hardwareMap);
+        robot = new HardwareDependencies(hardwareMap);
         lut.add(d1, r1);
         lut.add(d2, r2);
         lut.add(d3, r3);

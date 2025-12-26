@@ -3,18 +3,16 @@ package org.firstinspires.ftc.teamcode.states.auto;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.states.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.states.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.states.subsystems.Hood;
-import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
-import org.firstinspires.ftc.teamcode.states.subsystems.ShooterController;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Turret;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.ShooterController;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 //9 ball blue spike mark 1 and 2 (counting downward from goal)

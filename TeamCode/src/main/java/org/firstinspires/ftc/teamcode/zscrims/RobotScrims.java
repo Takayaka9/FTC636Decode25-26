@@ -107,7 +107,7 @@ public class RobotScrims {
     }
 
     /*
-    //method to push a ball off of the ramp
+    //method to push a ball stop of the ramp
     public void pushOff(){
         onRamp.setPosition(onRampPush);
         onRamp.setPosition(onRampPassive);

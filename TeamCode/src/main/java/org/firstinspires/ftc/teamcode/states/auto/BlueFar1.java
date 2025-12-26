@@ -9,11 +9,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.states.subsystems.Hood;
-import org.firstinspires.ftc.teamcode.states.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.states.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.states.subsystems.ShooterController;
-import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.ShooterController;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Turret;
 
 //12  ball red far auto with conflict in close shooting position
 //all spike marks

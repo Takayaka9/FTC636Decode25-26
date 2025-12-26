@@ -1,13 +1,11 @@
-package org.firstinspires.ftc.teamcode.states.subsystems;
+package org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems;
 
 import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
-import org.firstinspires.ftc.teamcode.states.RobotStates;
-
 public class Color {
-    RobotStates robot;
+    HardwareDependencies robot;
     public enum DetectedColor{
         GREEN,
         PURPLE,
@@ -15,7 +13,7 @@ public class Color {
     }
 
     public DetectedColor getDetectedColor(TelemetryManager telemetryManager, HardwareMap hardwareMap){
-        robot = new RobotStates(hardwareMap);
+        robot = new HardwareDependencies(hardwareMap);
 
         NormalizedRGBA colors = robot.colorSensor.getNormalizedColors();
 

@@ -178,7 +178,7 @@ public class RobotQuals {
     }
 
 
-    //method to push a ball off of the ramp
+    //method to push a ball stop of the ramp
 
     /*
     public void pushOff(){

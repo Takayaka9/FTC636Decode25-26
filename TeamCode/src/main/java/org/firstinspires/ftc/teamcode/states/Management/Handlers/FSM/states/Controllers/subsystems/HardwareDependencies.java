@@ -1,10 +1,6 @@
-package org.firstinspires.ftc.teamcode.states;
+package org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems;
 
 
-import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.offRampPassive;
-import static org.firstinspires.ftc.teamcode.zquals.QualsTeleOp.onRampPassive;
-
-import com.seattlesolvers.solverslib.controller.PIDFController;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
@@ -20,7 +16,7 @@ and call each component.
  */
 //TODO: ts is just copy and paste rn
 @Configurable
-public class RobotStates {
+public class HardwareDependencies {
     public DcMotorEx flyRight, flyLeft, intake; //motor declaration
     public DcMotorEx belt; //idk why this is separate
     public DcMotorEx rightBack, rightFront, leftFront, leftBack;
@@ -29,7 +25,7 @@ public class RobotStates {
     public Limelight3A limelight;
     //TODO: try to put ALL values here...so we can use in both tele/auto!
 
-    public RobotStates(HardwareMap hardwareMap){
+    public HardwareDependencies(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
         intake = hardwareMap.get(DcMotorEx.class, "intakeMotor");

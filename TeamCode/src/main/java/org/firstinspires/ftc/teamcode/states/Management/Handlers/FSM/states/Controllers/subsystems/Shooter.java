@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.states.subsystems;
+package org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.TelemetryManager;
@@ -46,7 +46,7 @@ public class Shooter {
         return calcRPM;
     }
 
-    public void off(){
+    public void stop(){
         flyRight.setPower(0);
         flyLeft.setPower(0);
     }
@@ -89,5 +89,10 @@ public class Shooter {
     public void shoot(double distance){
         updateRight(shooterRPM(distance));
         updateLeft(shooterRPM(distance));
+    }
+
+    public void reverse() {
+        flyRight.setPower(-1);
+        flyLeft.setPower(-1);
     }
 }

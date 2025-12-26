@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.states.subsystems;
+package org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -14,6 +14,10 @@ public class Intake {
     double intakePower = 1;
     public void run(){
         intake.setPower(intakePower);
+    }
+    double reverseIntakePower = -1;
+    public void reverse(){
+        intake.setPower(reverseIntakePower);
     }
 
     public void stop(){

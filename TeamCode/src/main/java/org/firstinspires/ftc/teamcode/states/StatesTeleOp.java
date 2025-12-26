@@ -9,11 +9,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.states.subsystems.Color;
-import org.firstinspires.ftc.teamcode.states.subsystems.Hood;
-import org.firstinspires.ftc.teamcode.states.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.states.subsystems.ShooterController;
-import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Color;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.HardwareDependencies;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.ShooterController;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
@@ -22,7 +23,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 public class StatesTeleOp extends LinearOpMode {
     Follower follower;
     TelemetryManager telemetryM;
-    RobotStates robot;
+    HardwareDependencies robot;
     Turret turret;
     Hood hood;
     Shooter shooter;
@@ -107,7 +108,7 @@ public class StatesTeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException{
-        robot = new RobotStates(hardwareMap);
+        robot = new HardwareDependencies(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.update();
@@ -250,7 +251,7 @@ public class StatesTeleOp extends LinearOpMode {
                 shootControl.shoot(alliance);
             }
             else if(!gamepad2.b){
-                shootControl.off();
+                shootControl.stop();
             }
 
              */
@@ -282,7 +283,7 @@ public class StatesTeleOp extends LinearOpMode {
                 targetTicks = velocity * 28.0 / 60.0;
             }
 
-            //Shooter on/off
+            //Shooter on/stop
             if(shootToggle){
                 double error = targetTicks-(robot.flyRight.getVelocity());
                 double dt = pidTime.seconds();

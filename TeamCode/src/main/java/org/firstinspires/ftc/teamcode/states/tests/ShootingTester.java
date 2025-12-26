@@ -6,12 +6,9 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.states.subsystems.Hood;
-import org.firstinspires.ftc.teamcode.states.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.states.subsystems.ShooterController;
-import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Shooter;
 
 public class ShootingTester extends OpMode {
     Hood hood;

@@ -1,14 +1,13 @@
-package org.firstinspires.ftc.teamcode.states.subsystems;
-
-import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.BLUE;
-import static org.firstinspires.ftc.teamcode.states.StatesTeleOp.TurretModes.RED;
+package org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.states.StatesTeleOp;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Turret;
 
 @Configurable
 public class ShooterController {
@@ -42,7 +41,7 @@ public class ShooterController {
     }
 
     public void off(){
-        shooter.off();
+        shooter.stop();
         hood.passive();
     }
 

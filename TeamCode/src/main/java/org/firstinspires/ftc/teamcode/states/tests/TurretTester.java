@@ -7,11 +7,10 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.states.RobotStates;
-import org.firstinspires.ftc.teamcode.states.subsystems.Turret;
+import org.firstinspires.ftc.teamcode.states.Management.Handlers.FSM.states.Controllers.subsystems.Turret;
 
 public class TurretTester extends OpMode {
-    //RobotStates robot;
+    //HardwareDependencies robot;
     Follower follower;
     TelemetryManager telemetryManager;
     Turret turret;
@@ -20,7 +19,7 @@ public class TurretTester extends OpMode {
     boolean isRed = true;
     @Override
     public void init() {
-        //robot = new RobotStates(hardwareMap);
+        //robot = new HardwareDependencies(hardwareMap);
         turret = new Turret(hardwareMap, "turret");
         follower = Constants.createFollower(hardwareMap);
         telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
