@@ -46,7 +46,7 @@ public class SystemManager {
         shooterController = new ShooterController(shooter, hood, turret, follower);
         driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
 
-        teleOpFSM = new TeleOpFSM(SystemManager.this);
+        teleOpFSM = new TeleOpFSM(SystemManager.this, gamepad2);
 
         teleOpHandler = new TeleOpHandler(teleOpFSM, gamepad1, gamepad2);
     }
@@ -55,5 +55,10 @@ public class SystemManager {
         follower.update();
         telemetryM.update();
         teleOpHandler.update();
+    }
+
+    public int alliance = 0;
+    public void setAlliance(int newAlliance) {
+        alliance = newAlliance;
     }
 }

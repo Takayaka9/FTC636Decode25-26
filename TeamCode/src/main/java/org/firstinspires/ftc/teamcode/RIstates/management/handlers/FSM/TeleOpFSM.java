@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
+
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.AllianceSelectorState;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.BackoutState;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.IntakeState;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.NormState;
@@ -15,20 +18,27 @@ public class TeleOpFSM {
         Intake,
         Backout,
         //FollowerError,
+        AllianceSelect,
         Norm
     }
     private final EnumMap<StateName, State> stateMap;
     private State currentState = null;
 
     private final SystemManager manager;
+    private final Gamepad gamepad;
 
-    public TeleOpFSM(SystemManager manager) {
+
+
+    public TeleOpFSM(SystemManager manager, Gamepad gamepad) {
         this.manager = manager;
+        this.gamepad = gamepad;
+
         stateMap = new EnumMap<>(StateName.class);
         stateMap.put(StateName.Norm, new NormState());
         stateMap.put(StateName.Shoot, new ShootState());
         stateMap.put(StateName.Intake, new IntakeState());
         stateMap.put(StateName.Backout, new BackoutState());
+        stateMap.put(StateName.AllianceSelect, new AllianceSelectorState());
         //stateMap.put(StateName.FollowerError, new FollowerErrorState());
 
 
@@ -36,7 +46,7 @@ public class TeleOpFSM {
 
     public void update() {
         if (currentState != null) {
-            currentState.update(manager, this);
+            currentState.update(manager, this, gamepad);
         }
 
     }

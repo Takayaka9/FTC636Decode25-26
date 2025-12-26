@@ -17,6 +17,8 @@ public class TeleOpHandler {
 
 
     private boolean changedA = false;
+    public boolean changedB = false;
+    public boolean changedX = false;
     private boolean changedRT = false;
     private boolean changedLT = false;
 
