@@ -28,31 +28,36 @@ public class TeleOpHandler {
         if (gamepad2.right_trigger > 0.3 && gamepad2.left_trigger > 0.3 && !allianceSelecting) {
             fsm.runNew(TeleOpFSM.StateName.AllianceSelect);
             allianceSelecting = true;
-        }
-        else {
+        } else {
             allianceSelecting = false;
         }
-        if (!gamepad2.a && !gamepad2.right_bumper && !gamepad2.left_bumper) {
+
+        if (gamepad2.a && !changedA) {
+            changedA = true;
+            fsm.runNew(TeleOpFSM.StateName.Shoot);
+        }
+
+        if (gamepad2.right_bumper && !changedRT) {
+            changedRT = true;
+            fsm.runNew(TeleOpFSM.StateName.Intake);
+        }
+
+        if (gamepad2.left_bumper && !changedLT) {
+            changedLT = true;
+            fsm.runNew(TeleOpFSM.StateName.Backout);
+        }
+
+        else if (!changedA && !allianceSelecting) {
+            fsm.runNew(TeleOpFSM.StateName.Norm);
+        }
+
+        if (!changedA && !changedB && !changedLT && !changedRT && !allianceSelecting) {
             fsm.update();
             changedA = false;
             changedRT = false;
             changedLT = false;
         }
-        if (gamepad2.a && !changedA) {
-            changedA = true;
-            fsm.runNew(TeleOpFSM.StateName.Shoot);
-        }
-        if (gamepad2.right_bumper && !changedRT) {
-            changedRT = true;
-            fsm.runNew(TeleOpFSM.StateName.Intake);
-        }
-        if (gamepad2.left_bumper && !changedLT) {
-            changedLT = true;
-            fsm.runNew(TeleOpFSM.StateName.Backout);
-        }
-        else if (!changedA && !allianceSelecting) {
-            fsm.runNew(TeleOpFSM.StateName.Norm);
-        }
+
     }
 }
 
