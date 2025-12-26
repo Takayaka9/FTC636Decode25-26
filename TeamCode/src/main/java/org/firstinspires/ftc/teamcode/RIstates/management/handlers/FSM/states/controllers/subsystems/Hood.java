@@ -64,7 +64,7 @@ public class Hood {
 
     public int shooterRPM(double targetDistance, HardwareMap hardwareMap){
 
-        robot = new HardwareDependencies(hardwareMap);
+        robot = new Config(hardwareMap);
         lut.add(d1, r1);
         lut.add(d2, r2);
         lut.add(d3, r3);

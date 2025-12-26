@@ -16,7 +16,7 @@ and call each component.
  */
 //TODO: ts is just copy and paste rn
 @Configurable
-public class HardwareDependencies {
+public class Config {
     public DcMotorEx flyRight, flyLeft, intake; //motor declaration
     public DcMotorEx belt; //idk why this is separate
     public DcMotorEx rightBack, rightFront, leftFront, leftBack;
@@ -24,8 +24,9 @@ public class HardwareDependencies {
     public RevColorSensorV3 colorSensor; //color sensor
     public Limelight3A limelight;
     //TODO: try to put ALL values here...so we can use in both tele/auto!
+    //TODO: we should put them in the subsystem classes themselves, i think we've been doing that though
 
-    public HardwareDependencies(HardwareMap hardwareMap){
+    public Config(HardwareMap hardwareMap){
         flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
         flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
         intake = hardwareMap.get(DcMotorEx.class, "intakeMotor");

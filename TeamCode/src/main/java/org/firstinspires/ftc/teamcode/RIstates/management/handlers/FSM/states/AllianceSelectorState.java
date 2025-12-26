@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.State;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.TeleOpFSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 
 public class AllianceSelectorState implements State {
@@ -14,8 +12,8 @@ public class AllianceSelectorState implements State {
 
     TeleOpHandler TeleOpHandler;
     @Override
-    public void update(SystemManager manager, TeleOpFSM TeleOpfsm) {
-        if (TeleOpfsm != null && TeleOpHandler != null){
+    public void update(SystemManager manager, FSM teleOpfsm) {
+        if (teleOpfsm != null && TeleOpHandler != null){
             if (manager.gamepad1.x && !TeleOpHandler.changedX && !TeleOpHandler.changedB) {
                 manager.setAlliance(1);
                 TeleOpHandler.changedX = true;

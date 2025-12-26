@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Color;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.HardwareDependencies;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Config;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.ShooterController;
@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 public class StatesTeleOp extends LinearOpMode {
     Follower follower;
     TelemetryManager telemetryM;
-    HardwareDependencies robot;
+    Config robot;
     Turret turret;
     Hood hood;
     Shooter shooter;
@@ -108,7 +108,7 @@ public class StatesTeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException{
-        robot = new HardwareDependencies(hardwareMap);
+        robot = new Config(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower.update();

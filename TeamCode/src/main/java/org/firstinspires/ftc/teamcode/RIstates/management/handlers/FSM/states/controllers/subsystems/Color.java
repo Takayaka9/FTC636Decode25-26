@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 public class Color {
-    HardwareDependencies robot;
+    Config robot;
     public enum DetectedColor{
         GREEN,
         PURPLE,
@@ -13,7 +13,7 @@ public class Color {
     }
 
     public DetectedColor getDetectedColor(TelemetryManager telemetryManager, HardwareMap hardwareMap){
-        robot = new HardwareDependencies(hardwareMap);
+        robot = new Config(hardwareMap);
 
         NormalizedRGBA colors = robot.colorSensor.getNormalizedColors();
 

@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Turret;
 
 public class TurretTester extends OpMode {
-    //HardwareDependencies robot;
+    //Config robot;
     Follower follower;
     TelemetryManager telemetryManager;
     Turret turret;
@@ -19,7 +19,7 @@ public class TurretTester extends OpMode {
     boolean isRed = true;
     @Override
     public void init() {
-        //robot = new HardwareDependencies(hardwareMap);
+        //robot = new Config(hardwareMap);
         turret = new Turret(hardwareMap, "turret");
         follower = Constants.createFollower(hardwareMap);
         telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();

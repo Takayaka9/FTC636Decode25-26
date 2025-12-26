@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.TeleOpFSM;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.HardwareDependencies;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Config;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.co
 public class SystemManager {
     public final Follower follower;
     public final TelemetryManager telemetryM;
-    public final HardwareDependencies hardware;
+    public final Config config;
     public final Turret turret;
     public final Hood hood;
     public final Shooter shooter;
@@ -28,7 +28,7 @@ public class SystemManager {
     public final ShooterController shooterController;
     public final TeleOpDriveController driveController;
 
-    public final TeleOpFSM teleOpFSM;
+    public final FSM FSM;
 
     public final TeleOpHandler teleOpHandler;
 
@@ -43,7 +43,7 @@ public class SystemManager {
     public SystemManager(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Boolean isTeleOp) {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = Constants.createFollower(hardwareMap);
-        hardware = new HardwareDependencies(hardwareMap);
+        config = new Config(hardwareMap);
         turret = new Turret(hardwareMap, "turret");
         shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
         hood = new Hood(hardwareMap, "servo");
@@ -54,8 +54,8 @@ public class SystemManager {
             this.gamepad1 = gamepad1;
             this.gamepad2 = gamepad2;
             driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
-            teleOpFSM = new TeleOpFSM(SystemManager.this);
-            teleOpHandler = new TeleOpHandler(teleOpFSM, gamepad1, gamepad2);
+            FSM = new FSM(SystemManager.this);
+            teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2);
     }
 
     public void teleUpdate() {

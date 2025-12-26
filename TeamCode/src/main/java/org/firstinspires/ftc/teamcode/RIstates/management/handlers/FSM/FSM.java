@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.AllianceSelectorState;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.BackoutState;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.IntakeState;
@@ -12,7 +10,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import java.util.EnumMap;
 
 
-public class TeleOpFSM {
+public class FSM {
     public enum StateName {
         Shoot,
         Intake,
@@ -28,7 +26,7 @@ public class TeleOpFSM {
 
 
 
-    public TeleOpFSM(SystemManager manager) {
+    public FSM(SystemManager manager) {
         this.manager = manager;
         stateMap = new EnumMap<>(StateName.class);
         stateMap.put(StateName.Norm, new NormState());
