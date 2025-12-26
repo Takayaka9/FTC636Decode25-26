@@ -16,7 +16,7 @@ public class StatesTeleop2 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
 //        Subs init
-        manager = new SystemManager(hardwareMap, gamepad1,gamepad2);
+        manager = new SystemManager(hardwareMap, gamepad1, gamepad2, true);
 
         waitForStart();
         if (isStopRequested()) return;

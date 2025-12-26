@@ -25,14 +25,11 @@ public class TeleOpFSM {
     private State currentState = null;
 
     private final SystemManager manager;
-    private final Gamepad gamepad;
 
 
 
-    public TeleOpFSM(SystemManager manager, Gamepad gamepad) {
+    public TeleOpFSM(SystemManager manager) {
         this.manager = manager;
-        this.gamepad = gamepad;
-
         stateMap = new EnumMap<>(StateName.class);
         stateMap.put(StateName.Norm, new NormState());
         stateMap.put(StateName.Shoot, new ShootState());
@@ -46,7 +43,7 @@ public class TeleOpFSM {
 
     public void update() {
         if (currentState != null) {
-            currentState.update(manager, this, gamepad);
+            currentState.update(manager, this);
         }
 
     }

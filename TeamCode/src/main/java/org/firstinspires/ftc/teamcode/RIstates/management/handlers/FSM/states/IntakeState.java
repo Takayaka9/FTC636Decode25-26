@@ -14,7 +14,7 @@ public class IntakeState implements State {
     }
 
     @Override
-    public void update(SystemManager manager, TeleOpFSM fsm, Gamepad gamepad) {
+    public void update(SystemManager manager, TeleOpFSM fsm) {
     }
 
     @Override

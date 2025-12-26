@@ -13,7 +13,7 @@ public class ShootState implements State {
     }
 
     @Override
-    public void update(SystemManager manager, TeleOpFSM fsm, Gamepad gamepad) {
+    public void update(SystemManager manager, TeleOpFSM fsm) {
         //TODO: make alliance happen
         manager.shooterController.shoot(manager.alliance);
     }

@@ -19,7 +19,7 @@ public class BackoutState implements State {
     }
 
     @Override
-    public void update(SystemManager manager, TeleOpFSM fsm, Gamepad gamepad) {
+    public void update(SystemManager manager, TeleOpFSM fsm) {
     }
 
     @Override

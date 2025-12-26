@@ -32,9 +32,15 @@ public class SystemManager {
 
     public final TeleOpHandler teleOpHandler;
 
+    public Gamepad gamepad1;
+    public Gamepad gamepad2;
 
 
-    public SystemManager(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2) {
+
+
+
+
+    public SystemManager(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Boolean isTeleOp) {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = Constants.createFollower(hardwareMap);
         hardware = new HardwareDependencies(hardwareMap);
@@ -42,13 +48,14 @@ public class SystemManager {
         shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
         hood = new Hood(hardwareMap, "servo");
         intake = new Intake(hardwareMap, "intake");
-
         shooterController = new ShooterController(shooter, hood, turret, follower);
-        driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
 
-        teleOpFSM = new TeleOpFSM(SystemManager.this, gamepad2);
-
-        teleOpHandler = new TeleOpHandler(teleOpFSM, gamepad1, gamepad2);
+        //TODO: potentially only init in teleop?
+            this.gamepad1 = gamepad1;
+            this.gamepad2 = gamepad2;
+            driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
+            teleOpFSM = new TeleOpFSM(SystemManager.this);
+            teleOpHandler = new TeleOpHandler(teleOpFSM, gamepad1, gamepad2);
     }
 
     public void teleUpdate() {

@@ -14,14 +14,16 @@ public class AllianceSelectorState implements State {
 
     TeleOpHandler TeleOpHandler;
     @Override
-    public void update(SystemManager manager, TeleOpFSM TeleOpfsm, Gamepad gamepad) {
-        if (gamepad.x && !TeleOpHandler.changedX && !TeleOpHandler.changedB) {
-            manager.setAlliance(1);
-            TeleOpHandler.changedX = true;
-        }
-        if (gamepad.b && !TeleOpHandler.changedB && !TeleOpHandler.changedX) {
-            manager.setAlliance(2);
-            TeleOpHandler.changedB = true;
+    public void update(SystemManager manager, TeleOpFSM TeleOpfsm) {
+        if (TeleOpfsm != null && TeleOpHandler != null){
+            if (manager.gamepad1.x && !TeleOpHandler.changedX && !TeleOpHandler.changedB) {
+                manager.setAlliance(1);
+                TeleOpHandler.changedX = true;
+            }
+            if (manager.gamepad1.b && !TeleOpHandler.changedB && !TeleOpHandler.changedX) {
+                manager.setAlliance(2);
+                TeleOpHandler.changedB = true;
+            }
         }
     }
 
