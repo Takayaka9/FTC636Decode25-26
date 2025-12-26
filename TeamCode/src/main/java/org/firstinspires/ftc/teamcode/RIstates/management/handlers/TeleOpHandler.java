@@ -21,9 +21,17 @@ public class TeleOpHandler {
     public boolean changedX = false;
     private boolean changedRT = false;
     private boolean changedLT = false;
+    private boolean allianceSelecting = false;
 
 
     public void update() {
+        if (gamepad2.right_trigger > 0.3 && gamepad2.left_trigger > 0.3 && !allianceSelecting) {
+            fsm.runNew(TeleOpFSM.StateName.AllianceSelect);
+            allianceSelecting = true;
+        }
+        else {
+            allianceSelecting = false;
+        }
         if (!gamepad2.a && !gamepad2.right_bumper && !gamepad2.left_bumper) {
             fsm.update();
             changedA = false;
@@ -41,6 +49,9 @@ public class TeleOpHandler {
         if (gamepad2.left_bumper && !changedLT) {
             changedLT = true;
             fsm.runNew(TeleOpFSM.StateName.Backout);
+        }
+        else if (!changedA && !allianceSelecting) {
+            fsm.runNew(TeleOpFSM.StateName.Norm);
         }
     }
 }
