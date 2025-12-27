@@ -64,6 +64,12 @@ public class SystemManager {
         teleOpHandler.update();
     }
 
+    public void autoUpdate() {
+        follower.update();
+        telemetryM.update();
+    }
+
+
     public int alliance = 0;
     public void setAlliance(int newAlliance) {
         alliance = newAlliance;

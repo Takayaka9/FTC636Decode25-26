@@ -1,5 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.auto;
-
+package org.firstinspires.ftc.teamcode.RIstates.auto.simple;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -8,42 +7,41 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.ShooterController;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Turret;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-//9 ball blue spike mark 1 and 2 (counting downward from goal)
+//9 ball red spike mark 1 and 2 (counting downward from goal)
 @Autonomous(name = "Red Close 1")
-public class RedClose1 extends OpMode {
+public class BlueClose1 extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
 
-    //subsystems
+    //subs
     private Shooter shooter;
     private Hood hood;
     private Turret turret;
     private ShooterController shooterController;
     private Intake intake;
-    private final int alliance = 2;
+    private final int alliance = 1;
     private final double closeTime = 0;
     private final double farTime = 0;
 
+    //    Poses
+    private final Pose startPose = new Pose(24, 129, 143);
+    private final Pose shootPose = new Pose(47,96,127);
+    private final Pose preIntake1 = new Pose(44, 84, 180);
+    private final Pose intake1 = new Pose(18, 84, 180);
+    private final Pose preIntake2 = new Pose(44, 58, 180);
+    private final Pose intake2 = new Pose(11, 58, 180);
+    private final Pose shootControl2 = new Pose(54, 58, 180);
+    private final Pose leave = new Pose(24, 96, 127);
 
-//    Poses
-    private final Pose startPose = new Pose(120, 129, 37);
-    private final Pose shootPose = new Pose(97,96,53);
-    private final Pose preIntake1 = new Pose(100, 84, 0);
-    private final Pose intake1 = new Pose(126, 84, 0);
-    private final Pose preIntake2 = new Pose(100, 58, 0);
-    private final Pose intake2 = new Pose(133, 58, 0);
-    private final Pose shootControl2 = new Pose(90, 58, 0);
-    private final Pose leave = new Pose(120, 96, 53);
-
-//    Path Initializing
+    //    Path Initializing
     private PathChain s0, pi1, i1, s1, pi2, i2, s2, l;
 
     public void buildPaths() {
@@ -81,59 +79,60 @@ public class RedClose1 extends OpMode {
                 .build();
     }
 
-//    path state FSM
+    //    path state FSM
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-                    follower.followPath(s0, true);
-                    if(!follower.isBusy()) {
-                        shooterController.shootTimeStart();
-                        shooterController.shoot(alliance);
-                    }
-                    if(shooterController.shootTimeCheck(closeTime)) {
-                        setPathState(1);
-                    }
-                    break;
+                follower.followPath(s0, true);
+                if(!follower.isBusy()) {
+                    shooterController.shootTimeStart();
+                    shooterController.shoot(alliance);
+                }
+                if(shooterController.shootTimeCheck(closeTime)) {
+                    setPathState(1);
+                }
+                break;
             case 1:
-                    follower.followPath(pi1);
-                    setPathState(2);
-                    break;
+                follower.followPath(pi1);
+                setPathState(2);
+                break;
             case 2:
-                    follower.followPath(i1);
-                    //run intake
-                    setPathState(3);
-                    break;
+                intake.run();
+                follower.followPath(i1);
+                setPathState(3);
+                break;
             case 3:
-                    follower.followPath(s1, true);
-                    if(!follower.isBusy()) {
-                        shooterController.shootTimeStart();
-                        shooterController.shoot(alliance);
-                    }
-                    if(shooterController.shootTimeCheck(closeTime)) {
-                        setPathState(4);
-                    }
+                intake.stop();
+                follower.followPath(s1, true);
+                if(!follower.isBusy()) {
+                    shooterController.shootTimeStart();
+                    shooterController.shoot(alliance);
+                }
+                if(shooterController.shootTimeCheck(closeTime)) {
+                    setPathState(4);
+                }
             case 4:
-                    follower.followPath(pi2);
-                    setPathState(5);
-                    break;
+                follower.followPath(pi2);
+                setPathState(5);
+                break;
             case 5:
-                    intake.run();
-                    follower.followPath(i2);
-                    setPathState(6);
-                    break;
+                intake.run();
+                follower.followPath(i2);
+                setPathState(6);
+                break;
             case 6:
-                    intake.stop();
-                    follower.followPath(s2, true);
-                    if(!follower.isBusy()) {
-                        shooterController.shootTimeStart();
-                        shooterController.shoot(alliance);
-                    }
-                    if(shooterController.shootTimeCheck(closeTime)) {
-                        setPathState(7);
-                    }
-                    break;
+                intake.stop();
+                follower.followPath(s2, true);
+                if(!follower.isBusy()) {
+                    shooterController.shootTimeStart();
+                    shooterController.shoot(alliance);
+                }
+                if(shooterController.shootTimeCheck(closeTime)) {
+                    setPathState(7);
+                }
+                break;
             case 7:
-                    follower.followPath(l);
+                follower.followPath(l);
 
         }
     }
@@ -154,13 +153,12 @@ public class RedClose1 extends OpMode {
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
         telemetry.update();
-
-        //subsystems
+        //subs
         shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
         hood = new Hood(hardwareMap, "servo");
         turret = new Turret(hardwareMap, "turret");
-        shooterController = new ShooterController(shooter, hood, turret, follower);
         intake = new Intake(hardwareMap, "intake");
+        shooterController = new ShooterController(shooter, hood, turret, follower);
     }
     /** This method is called once at the init of the OpMode. **/
     @Override

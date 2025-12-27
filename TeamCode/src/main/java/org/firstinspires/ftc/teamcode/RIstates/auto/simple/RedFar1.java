@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.auto;
+package org.firstinspires.ftc.teamcode.RIstates.auto.simple;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.co
 //all spike marks
 //use for if other team has no auto (should be fully revised for comp with more efficient route)
 @Autonomous(name = "Red Close 1")
-public class BlueFar1 extends OpMode {
+public class RedFar1 extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;

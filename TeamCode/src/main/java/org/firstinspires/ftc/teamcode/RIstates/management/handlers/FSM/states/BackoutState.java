@@ -5,10 +5,6 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 
 public class BackoutState implements State {
-//    public void BackoutState(HardwareMap hardwareMap, SystemManager manager){
-//        this.hardwareMap = new HardwareMap();
-//        this.manager =
-//    }
 
     @Override
     public void initiate(SystemManager manager) {
