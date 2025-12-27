@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.PathingController;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.pedro.PoseLib;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
@@ -43,6 +44,7 @@ public class SystemManager {
     public Timer pathTimer, actionTimer, opmodeTimer;
     public int pathState;
     public final PoseLib poseLib;
+    public final RF12Paths rf12Paths;
 
 
 
@@ -54,21 +56,23 @@ public class SystemManager {
         shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
         hood = new Hood(hardwareMap, "servo");
         intake = new Intake(hardwareMap, "intake");
-        shooterController = new ShooterController(shooter, hood, turret, follower);
+        shooterController = new ShooterController(SystemManager.this);
         pathingController = new PathingController(SystemManager.this);
         poseLib = new PoseLib();
         pathTimer = new Timer();
         actionTimer = new Timer();
         opmodeTimer = new Timer();
         pathState = 0;
+        rf12Paths = new RF12Paths(SystemManager.this);
+
 
 
         //TODO: potentially only init in teleop? :
-            this.gamepad1 = gamepad1;
-            this.gamepad2 = gamepad2;
-            driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
-            FSM = new FSM(SystemManager.this);
-            teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2);
+        this.gamepad1 = gamepad1;
+        this.gamepad2 = gamepad2;
+        driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
+        FSM = new FSM(SystemManager.this);
+        teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2);
     }
 
     public void teleUpdate() {
@@ -82,9 +86,13 @@ public class SystemManager {
         telemetryM.update();
     }
 
-
     public int alliance = 0;
     public void setAlliance(int newAlliance) {
         alliance = newAlliance;
+    }
+
+    public void setPathState(int pState) {
+        pathState = pState;
+        pathTimer.resetTimer();
     }
 }

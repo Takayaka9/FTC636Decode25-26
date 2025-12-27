@@ -16,6 +16,9 @@ public class PoseLib {
     public static int PIntake1X = 100; public static int PIntake1Y = 84; public static int PIntake1R = 0;
     public static int Intake1X = 126; public static int Intake1Y = 84; public static int Intake1R = 0;
     public static int emptyX = 131; public static int emptyY = 60; public static int emptyR = 30;
+    public static int farLeaveX = 93; public static int farLeaveY = 23; public static int farLeaveR = 45;
+    public static int closeLeaveX = 111; public static int closeLeaveY = 96; public static int closeLeaveR = 45;
+
     // TODO: add leave poses, close and far
 
     public final Pose farStartPose = new Pose(farStartX, farStartY, farStartR);
@@ -29,6 +32,8 @@ public class PoseLib {
     public final Pose pIntake1Pose = new Pose(PIntake1X, PIntake1Y, PIntake1R);
     public final Pose intake1Pose = new Pose(Intake1X, Intake1Y, Intake1R);
     public final Pose emptyPose = new Pose(emptyX, emptyY, emptyR);
-    
+    public final Pose farLeavePose = new Pose(farLeaveX, farLeaveY, farLeaveR);
+    public final Pose closeLeavePose = new Pose(closeLeaveX, closeLeaveY, closeLeaveR);
+
 
 }

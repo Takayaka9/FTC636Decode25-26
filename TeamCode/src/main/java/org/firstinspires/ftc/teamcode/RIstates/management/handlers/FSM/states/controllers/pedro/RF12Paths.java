@@ -11,7 +11,7 @@ public class RF12Paths {
     public RF12Paths(SystemManager manager) {
         this.manager = manager;
     }
-    private PathChain fs0, pi1, i1, cs1, pi2, i2, cs2, pi3, i3, fs3, l;
+    public PathChain fs0, pi1, i1, cs1, pi2, i2, cs2, pi3, i3, fs3, l;
 
     public void buildPaths() {
 
@@ -57,9 +57,8 @@ public class RF12Paths {
                 .setLinearHeadingInterpolation(manager.poseLib.intake3Pose.getHeading(), manager.poseLib.farShootPose.getHeading())
                 .build();
 
-        //TODO: far leave pose needs to be done in pose lib
-//        l = manager.follower.pathBuilder().addPath(new BezierLine(manager.poseLib.nearShootPose, leave))
-//                .setLinearHeadingInterpolation(manager.poseLib.nearShootPose.getHeading(), leave.getHeading())
-//                .build();
+        l = manager.follower.pathBuilder().addPath(new BezierLine(manager.poseLib.farShootPose, manager.poseLib.farLeavePose))
+                .setLinearHeadingInterpolation(manager.poseLib.farShootPose.getHeading(), manager.poseLib.farLeavePose.getHeading())
+                .build();
     }
 }

@@ -5,31 +5,53 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Turret;
 
 @Configurable
 public class ShooterController {
-    private final Shooter shooter;
-    private final Hood hood;
-    private final Turret turret;
-    private final Follower follower;
-    public ShooterController(Shooter shooter, Hood hood, Turret turret, Follower follower){
-        this.shooter = shooter;
-        this.hood = hood;
-        this.follower = follower;
-        this.turret = turret;
+    private final SystemManager manager;
+    public ShooterController(SystemManager manager){
+        this.manager = manager;
     }
 
-    ElapsedTime timer = new ElapsedTime();
-    public void shoot(int alliance) {
-        double targetDistance = getTargetDistance(follower, alliance);
-        shooter.shoot(targetDistance);
-        hood.angleHood(targetDistance);
-        turret.trackGoal(alliance, follower);
+    private static int farDistance = 20;
+    private static int farTime = 5000;
+    private static int closeTime = 4000;
+    
+    public void shoot() {
+        shootTimeStart();
+        if (!shooterRunning){
+            manager.shooterController.enableHardware(false);
+        }
+        if (shooterRunning){
+            manager.shooterController.enableHardware(true);
+        }
+        if (targetDistance < 20) {
+            if (shootTimeCheck(farTime)) {
+                shooterRunning = false;
+            }
+        }
+        else {
+            if (shootTimeCheck(closeTime)) {
+                shooterRunning = false;
+            }
+        }
+    }
+    public boolean shooterRunning;
+    public void enableHardware(boolean checking) {
+        if (!checking) {
+            double targetDistance = getTargetDistance(manager.follower, manager.alliance);
+            manager.shooter.shoot(targetDistance);
+            manager.hood.angleHood(targetDistance);
+            manager.turret.trackGoal(manager.alliance, manager.follower);
+            shooterRunning = true;
+        }
     }
 
+    private ElapsedTime timer = new ElapsedTime();
     public void shootTimeStart(){
         timer.reset();
     }
@@ -41,8 +63,8 @@ public class ShooterController {
     }
 
     public void off(){
-        shooter.stop();
-        hood.passive();
+        manager.shooter.stop();
+        manager.hood.passive();
     }
 
     /*
@@ -53,7 +75,7 @@ public class ShooterController {
      */
     private final Pose blueGoal = new Pose(0, 138);
     private final Pose redGoal = new Pose(138, 138);
-    double targetDistance = 0;
+    private double targetDistance = 0;
     public double getTargetDistance(Follower follower, int alliance){
         if (alliance == 1){
             Pose currentPose = follower.getPose();
@@ -66,4 +88,5 @@ public class ShooterController {
 
         return targetDistance;
     }
+
 }

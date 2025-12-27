@@ -18,52 +18,62 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Autonomous(name = "RF12v2", group = "RF12v2")
 public class RF12v2 extends OpMode {
-
     SystemManager manager;
     HardwareMap hardwareMap;
-    private PathChain fs0, pi1, i1, cs1, pi2, i2, cs2, pi3, i3, fs3, l;
 
+    public void autonomousPathUpdate() {
+        switch (manager.pathState) {
+            case 0:
+                manager.follower.followPath(manager.rf12Paths.fs0, true);
+                if (!manager.follower.isBusy()) {
+                    manager.shooterController.shootTimeStart();
+                    manager.shooterController.shoot();
 
+                }
 
-
-
-
-
-    public void setPathState(int pState) {
-        manager.pathState = pState;
-        manager.pathTimer.resetTimer();
+                break;
+        }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+///default pedro requirements:
     @Override
     public void loop() {
-//        manager = new SystemManager(hardwareMap, gamepad1, gamepad2, false);
-//
-//        manager.follower.update();
-//        autonomousPathUpdate();
-//
-//        telemetry.addData("path state", pathState);
-//        telemetry.addData("x", follower.getPose().getX());
-//        telemetry.addData("y", follower.getPose().getY());
-//        telemetry.addData("heading", follower.getPose().getHeading());
-//        telemetry.update();
+        manager.follower.update();
+        //autonomousPathUpdate();
+
+        manager.telemetryM.addData("path state", manager.pathState);
+        manager.telemetryM.addData("x", manager.follower.getPose().getX());
+        manager.telemetryM.addData("y", manager.follower.getPose().getY());
+        manager.telemetryM.addData("heading", manager.follower.getPose().getHeading());
+        manager.telemetryM.update();
     }
     @Override
     public void init() {
-//        manager.pathTimer = new Timer();
-//        manager.opmodeTimer = new Timer();
-//        manager.opmodeTimer.resetTimer();
-//        buildPaths();
-//        manager.follower.setStartingPose(startPose);
+        manager.pathTimer = new Timer();
+        manager.opmodeTimer = new Timer();
+        manager.opmodeTimer.resetTimer();
+        manager.rf12Paths.buildPaths();
+        manager.follower.setStartingPose(manager.poseLib.farStartPose);
     }
     @Override
     public void init_loop() {}
     @Override
     public void start() {
         manager.opmodeTimer.resetTimer();
-        setPathState(0);
+        manager.setPathState(0);
     }
     @Override
     public void stop() {}
-
 }
 
