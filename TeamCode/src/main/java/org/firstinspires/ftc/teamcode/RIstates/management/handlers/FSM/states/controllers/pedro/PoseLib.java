@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems;
+package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.pedro;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.geometry.Pose;
 
 @Configurable
 public class PoseLib {
@@ -15,5 +16,19 @@ public class PoseLib {
     public static int PIntake1X = 100; public static int PIntake1Y = 84; public static int PIntake1R = 0;
     public static int Intake1X = 126; public static int Intake1Y = 84; public static int Intake1R = 0;
     public static int emptyX = 131; public static int emptyY = 60; public static int emptyR = 30;
+    // TODO: add leave poses, close and far
+
+    public final Pose farStartPose = new Pose(farStartX, farStartY, farStartR);
+    public final Pose farShootPose = new Pose(farShootX, farShootY, farShootR);
+    public final Pose nearStartPose = new Pose(nearStartX, nearStartY, nearStartR);
+    public final Pose nearShootPose = new Pose(nearShootX, nearShootY, nearShootR);
+    public final Pose pIntake3Pose = new Pose(PIntake3X, PIntake3Y, PIntake3R);
+    public final Pose intake3Pose = new Pose(Intake3X, Intake3Y, Intake3R);
+    public final Pose pIntake2Pose = new Pose(PIntake2X, PIntake2Y, PIntake2R);
+    public final Pose intake2Pose = new Pose(Intake2X, Intake2Y, Intake2R);
+    public final Pose pIntake1Pose = new Pose(PIntake1X, PIntake1Y, PIntake1R);
+    public final Pose intake1Pose = new Pose(Intake1X, Intake1Y, Intake1R);
+    public final Pose emptyPose = new Pose(emptyX, emptyY, emptyR);
+    
 
 }

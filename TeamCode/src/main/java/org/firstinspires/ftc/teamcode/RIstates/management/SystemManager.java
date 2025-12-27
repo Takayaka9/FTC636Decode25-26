@@ -3,9 +3,12 @@ package org.firstinspires.ftc.teamcode.RIstates.management;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.PathingController;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.pedro.PoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
@@ -27,6 +30,7 @@ public class SystemManager {
     public final Intake intake;
     public final ShooterController shooterController;
     public final TeleOpDriveController driveController;
+    public final PathingController pathingController;
 
     public final FSM FSM;
 
@@ -36,7 +40,9 @@ public class SystemManager {
     public Gamepad gamepad2;
 
 
-
+    public Timer pathTimer, actionTimer, opmodeTimer;
+    public int pathState;
+    public final PoseLib poseLib;
 
 
 
@@ -49,8 +55,15 @@ public class SystemManager {
         hood = new Hood(hardwareMap, "servo");
         intake = new Intake(hardwareMap, "intake");
         shooterController = new ShooterController(shooter, hood, turret, follower);
+        pathingController = new PathingController(SystemManager.this);
+        poseLib = new PoseLib();
+        pathTimer = new Timer();
+        actionTimer = new Timer();
+        opmodeTimer = new Timer();
+        pathState = 0;
 
-        //TODO: potentially only init in teleop?
+
+        //TODO: potentially only init in teleop? :
             this.gamepad1 = gamepad1;
             this.gamepad2 = gamepad2;
             driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
