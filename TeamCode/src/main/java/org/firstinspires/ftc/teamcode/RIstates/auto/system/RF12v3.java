@@ -5,10 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
 
-// first command system auto (does not use command system FSM)
+/// WIP
+//second command system auto which uses command system
 @Autonomous(name = "RF12v2", group = "RF12v2")
-public class RF12v2 extends OpMode {
+public class RF12v3 extends OpMode {
     SystemManager manager;
     HardwareMap hardwareMap;
 
@@ -29,7 +31,7 @@ public class RF12v2 extends OpMode {
                     manager.setPathState(2);
                 }
             case 2:
-                manager.intake.run();
+                manager.FSM.runNew(FSM.StateName.Intake);
                 manager.follower.followPath(manager.rf12Paths.i1);
                 if (!manager.follower.isBusy()) {
                     manager.setPathState(3);
@@ -50,7 +52,7 @@ public class RF12v2 extends OpMode {
                     manager.setPathState(5);
                 }
             case 5:
-                manager.intake.run();
+                manager.FSM.runNew(FSM.StateName.Intake);
                 manager.follower.followPath(manager.rf12Paths.i2);
                 if (!manager.follower.isBusy()) {
                     manager.setPathState(6);
@@ -71,7 +73,7 @@ public class RF12v2 extends OpMode {
                     manager.setPathState(8);
                 }
             case 8:
-                manager.intake.run();
+                manager.FSM.runNew(FSM.StateName.Intake);
                 manager.follower.followPath(manager.rf12Paths.i3);
                 if (!manager.follower.isBusy()) {
                     manager.setPathState(9);
@@ -97,7 +99,7 @@ public class RF12v2 extends OpMode {
 
 
 
-///default pedro requirements:
+    ///default pedro requirements:
     @Override
     public void loop() {
         autonomousPathUpdate();
