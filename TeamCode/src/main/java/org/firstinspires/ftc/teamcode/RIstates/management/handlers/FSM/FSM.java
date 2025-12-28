@@ -40,24 +40,23 @@ public class FSM {
     public void update() {
         if (currentState != null) {
             currentState.update(manager, this);
+            manager.telemetryM.addData("Current State", currentState.getClass().getSimpleName());
         }
-
     }
 
     public void runNew(StateName newState) {
-        if (currentState.equals(newState)) {
-            return;
-        }
+        if (currentState != null && newState != null && manager != null) {
+            if (currentState.equals(newState)) {
+                return;
+            }
 
-        if (currentState != null) {
             currentState.end(manager);
+
+            currentState = stateMap.get(newState);
+
+            assert currentState != null;
+            currentState.initiate(manager);
         }
-
-        // Switch to the new state object from the map.
-        currentState = stateMap.get(newState);
-
-        // Call the setup method of the new state we are ENTERING.
-        currentState.initiate(manager);
     }
 
 

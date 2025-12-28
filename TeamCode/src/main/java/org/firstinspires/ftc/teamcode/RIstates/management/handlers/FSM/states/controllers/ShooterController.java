@@ -24,10 +24,10 @@ public class ShooterController {
     public void shoot() {
         shootTimeStart();
         if (!shooterRunning){
-            manager.shooterController.enableHardware(false);
+            enableHardware(false);
         }
         if (shooterRunning){
-            manager.shooterController.enableHardware(true);
+            enableHardware(true);
         }
         if (targetDistance < 20) {
             if (shootTimeCheck(farTime)) {
@@ -39,7 +39,7 @@ public class ShooterController {
                 shooterRunning = false;
             }
         }
-        manager.telemetryM.addData("shooter running", manager.shooterController.shooterRunning);
+        manager.telemetryM.addData("shooter running", shooterRunning);
     }
     public boolean shooterRunning;
     public void enableHardware(boolean checking) {

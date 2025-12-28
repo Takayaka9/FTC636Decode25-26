@@ -49,6 +49,10 @@ public class SystemManager {
 
 
     public SystemManager(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Boolean isTeleOp) {
+        //DO NOT CHANGE THE INIT ORDER, add new stuff at the and ask me if it throws NullPointerException
+        this.gamepad1 = gamepad1;
+        this.gamepad2 = gamepad2;
+        pathState = 0;
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = Constants.createFollower(hardwareMap);
         config = new Config(hardwareMap);
@@ -56,23 +60,16 @@ public class SystemManager {
         shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
         hood = new Hood(hardwareMap, "servo");
         intake = new Intake(hardwareMap, "intake");
-        shooterController = new ShooterController(SystemManager.this);
-        pathingController = new PathingController(SystemManager.this);
         poseLib = new PoseLib();
         pathTimer = new Timer();
         actionTimer = new Timer();
         opmodeTimer = new Timer();
-        pathState = 0;
-        rf12Paths = new RF12Paths(SystemManager.this);
-
-
-
-        //TODO: potentially only init in teleop? :
-        this.gamepad1 = gamepad1;
-        this.gamepad2 = gamepad2;
+        rf12Paths = new RF12Paths(this);
         driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
-        FSM = new FSM(SystemManager.this);
+        shooterController = new ShooterController(this);
+        FSM = new FSM(this);
         teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2);
+        pathingController = new PathingController(this);
     }
 
     public void teleUpdate() {
