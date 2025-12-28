@@ -26,21 +26,81 @@ public class RF12v2 extends OpMode {
             case 0:
                 manager.follower.followPath(manager.rf12Paths.fs0, true);
                 if (!manager.follower.isBusy()) {
-                    manager.shooterController.shootTimeStart();
                     manager.shooterController.shoot();
-
+                    if (!manager.shooterController.shooterRunning) {
+                        manager.setPathState(1);
+                    }
                 }
-
                 break;
+            case 1:
+                manager.follower.followPath(manager.rf12Paths.pi1);
+                if (!manager.follower.isBusy()) {
+                    manager.setPathState(2);
+                }
+            case 2:
+                manager.intake.run();
+                manager.follower.followPath(manager.rf12Paths.i1);
+                if (!manager.follower.isBusy()) {
+                    manager.setPathState(3);
+                }
+                break;
+            case 3:
+                manager.follower.followPath(manager.rf12Paths.cs1, true);
+                if (!manager.follower.isBusy()) {
+                    manager.shooterController.shoot();
+                    if (!manager.shooterController.shooterRunning) {
+                        manager.setPathState(4);
+                    }
+                }
+                break;
+            case 4:
+                manager.follower.followPath(manager.rf12Paths.pi2);
+                if (!manager.follower.isBusy()) {
+                    manager.setPathState(5);
+                }
+            case 5:
+                manager.intake.run();
+                manager.follower.followPath(manager.rf12Paths.i2);
+                if (!manager.follower.isBusy()) {
+                    manager.setPathState(6);
+                }
+                break;
+            case 6:
+                manager.follower.followPath(manager.rf12Paths.cs2, true);
+                manager.shooterController.shoot();
+                if (!manager.follower.isBusy()) {
+                    manager.shooterController.shoot();
+                    if (!manager.shooterController.shooterRunning) {
+                        manager.setPathState(6);
+                    }
+                }
+            case 7:
+                manager.follower.followPath(manager.rf12Paths.pi3);
+                if (!manager.follower.isBusy()) {
+                    manager.setPathState(8);
+                }
+            case 8:
+                manager.intake.run();
+                manager.follower.followPath(manager.rf12Paths.i3);
+                if (!manager.follower.isBusy()) {
+                    manager.setPathState(9);
+                }
+                break;
+            case 9:
+                manager.follower.followPath(manager.rf12Paths.fs3, true);
+                if (!manager.follower.isBusy()) {
+                    manager.shooterController.shoot();
+                    if (!manager.shooterController.shooterRunning) {
+                        manager.setPathState(10);
+                    }
+                }
+                break;
+            case 10:
+                manager.follower.followPath(manager.rf12Paths.l);
+                break;
+
         }
     }
-
-
-
-
-
-
-
 
 
 
@@ -51,7 +111,7 @@ public class RF12v2 extends OpMode {
     public void loop() {
         manager.follower.update();
         //autonomousPathUpdate();
-
+        manager = new SystemManager(hardwareMap, gamepad1, gamepad2, false);
         manager.telemetryM.addData("path state", manager.pathState);
         manager.telemetryM.addData("x", manager.follower.getPose().getX());
         manager.telemetryM.addData("y", manager.follower.getPose().getY());
