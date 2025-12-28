@@ -58,7 +58,6 @@ public class RF12v2 extends OpMode {
                 break;
             case 6:
                 manager.follower.followPath(manager.rf12Paths.cs2, true);
-                manager.shooterController.shoot();
                 if (!manager.follower.isBusy()) {
                     manager.shooterController.shoot();
                     if (!manager.shooterController.shooterRunning) {

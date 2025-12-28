@@ -19,7 +19,7 @@ public class RF12v3 extends OpMode {
             case 0:
                 manager.follower.followPath(manager.rf12Paths.fs0, true);
                 if (!manager.follower.isBusy()) {
-                    manager.shooterController.shoot();
+                    manager.FSM.runNew(FSM.StateName.Shoot);
                     if (!manager.shooterController.shooterRunning) {
                         manager.setPathState(1);
                     }
@@ -40,7 +40,7 @@ public class RF12v3 extends OpMode {
             case 3:
                 manager.follower.followPath(manager.rf12Paths.cs1, true);
                 if (!manager.follower.isBusy()) {
-                    manager.shooterController.shoot();
+                    manager.FSM.runNew(FSM.StateName.Shoot);
                     if (!manager.shooterController.shooterRunning) {
                         manager.setPathState(4);
                     }
@@ -60,9 +60,8 @@ public class RF12v3 extends OpMode {
                 break;
             case 6:
                 manager.follower.followPath(manager.rf12Paths.cs2, true);
-                manager.shooterController.shoot();
                 if (!manager.follower.isBusy()) {
-                    manager.shooterController.shoot();
+                    manager.FSM.runNew(FSM.StateName.Shoot);
                     if (!manager.shooterController.shooterRunning) {
                         manager.setPathState(6);
                     }
@@ -82,7 +81,7 @@ public class RF12v3 extends OpMode {
             case 9:
                 manager.follower.followPath(manager.rf12Paths.fs3, true);
                 if (!manager.follower.isBusy()) {
-                    manager.shooterController.shoot();
+                    manager.FSM.runNew(FSM.StateName.Shoot);
                     if (!manager.shooterController.shooterRunning) {
                         manager.setPathState(10);
                     }
