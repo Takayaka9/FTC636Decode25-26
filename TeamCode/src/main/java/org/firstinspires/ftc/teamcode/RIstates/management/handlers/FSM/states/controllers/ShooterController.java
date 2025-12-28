@@ -39,6 +39,7 @@ public class ShooterController {
                 shooterRunning = false;
             }
         }
+        manager.telemetryM.addData("shooter running", manager.shooterController.shooterRunning);
     }
     public boolean shooterRunning;
     public void enableHardware(boolean checking) {
@@ -88,5 +89,4 @@ public class ShooterController {
 
         return targetDistance;
     }
-
 }

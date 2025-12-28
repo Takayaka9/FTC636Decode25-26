@@ -1,20 +1,10 @@
 package org.firstinspires.ftc.teamcode.RIstates.auto.system;
 
-import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
-import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.PathChain;
-import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Autonomous(name = "RF12v2", group = "RF12v2")
 public class RF12v2 extends OpMode {
@@ -109,17 +99,18 @@ public class RF12v2 extends OpMode {
 ///default pedro requirements:
     @Override
     public void loop() {
-        manager.follower.update();
-        //autonomousPathUpdate();
+        autonomousPathUpdate();
         manager = new SystemManager(hardwareMap, gamepad1, gamepad2, false);
         manager.telemetryM.addData("path state", manager.pathState);
         manager.telemetryM.addData("x", manager.follower.getPose().getX());
         manager.telemetryM.addData("y", manager.follower.getPose().getY());
         manager.telemetryM.addData("heading", manager.follower.getPose().getHeading());
-        manager.telemetryM.update();
+        manager.telemetryM.addData("follower busy?", manager.follower.isBusy());
+        manager.autoUpdate();
     }
     @Override
     public void init() {
+        manager.setAlliance(1);
         manager.pathTimer = new Timer();
         manager.opmodeTimer = new Timer();
         manager.opmodeTimer.resetTimer();
@@ -127,7 +118,8 @@ public class RF12v2 extends OpMode {
         manager.follower.setStartingPose(manager.poseLib.farStartPose);
     }
     @Override
-    public void init_loop() {}
+    public void init_loop() {
+    }
     @Override
     public void start() {
         manager.opmodeTimer.resetTimer();
