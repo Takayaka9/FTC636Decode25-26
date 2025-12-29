@@ -61,8 +61,8 @@ public class SystemManager {
         //subsystems
         config = new Config(hardwareMap);
         turret = new Turret(hardwareMap, "turret");
-        shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
-        hood = new Hood(hardwareMap, "servo");
+        shooter = new Shooter(hardwareMap, "sr", "sl");
+        hood = new Hood(hardwareMap, "hood");
         intake = new Intake(hardwareMap, "intake");
 
         //controllers

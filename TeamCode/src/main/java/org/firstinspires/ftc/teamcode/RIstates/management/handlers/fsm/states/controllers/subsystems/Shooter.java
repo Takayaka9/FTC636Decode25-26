@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.c
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.TelemetryManager;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -29,6 +30,11 @@ public class Shooter {
     public Shooter(HardwareMap hardwareMap, String rightName, String leftName){
         flyRight = hardwareMap.get(DcMotorEx.class, rightName);
         flyLeft = hardwareMap.get(DcMotorEx.class, leftName);
+        flyRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        flyLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        flyRight.setDirection(DcMotorEx.Direction.REVERSE);
+        flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         lut.add(d1, r1);
         lut.add(d2, r2);
         lut.add(d3, r3);

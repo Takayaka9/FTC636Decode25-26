@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -9,6 +10,9 @@ public class Intake {
     DcMotorEx intake;
     public Intake(HardwareMap hardwareMap, String name) {
         intake = hardwareMap.get(DcMotorEx.class, name);
+        intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        intake.setDirection(DcMotorEx.Direction.REVERSE);
+        intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     double intakePower = 1;

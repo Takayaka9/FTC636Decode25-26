@@ -27,37 +27,15 @@ public class Config {
     //TODO: we should put them in the subsystem classes themselves, i think we've been doing that though
 
     public Config(HardwareMap hardwareMap){
-        flyRight = hardwareMap.get(DcMotorEx.class, "flyRight");
-        flyLeft = hardwareMap.get(DcMotorEx.class, "flyLeft");
-        intake = hardwareMap.get(DcMotorEx.class, "intakeMotor");
-        belt = hardwareMap.get(DcMotorEx.class, "beltMotor");
-
-//        comment ts out if it tweaks
-        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        rightBack = hardwareMap.get(DcMotorEx.class, "br");
+        leftBack = hardwareMap.get(DcMotorEx.class, "bl");
+        rightFront = hardwareMap.get(DcMotorEx.class, "fr");
+        leftFront = hardwareMap.get(DcMotorEx.class, "fl");
 
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        onRamp = hardwareMap.get(Servo.class, "onRamp");
-        offRamp = hardwareMap.get(Servo.class, "offRamp");
-
-        flyRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        flyLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
-        belt.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
-        intake.setDirection(DcMotorEx.Direction.REVERSE);
-        flyRight.setDirection(DcMotorEx.Direction.REVERSE);
-
-        flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        belt.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
         colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
         colorSensor.setGain(1);
