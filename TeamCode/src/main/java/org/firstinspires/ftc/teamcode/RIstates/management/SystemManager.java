@@ -31,11 +31,7 @@ public class SystemManager {
     public final Intake intake;
     public final ShooterController shooterController;
     public final TeleOpDriveController driveController;
-    public final PathingController pathingController;
 
-    public final FSM FSM;
-
-    public final TeleOpHandler teleOpHandler;
 
     public Gamepad gamepad1;
     public Gamepad gamepad2;
@@ -44,33 +40,55 @@ public class SystemManager {
     public Timer pathTimer, actionTimer, opmodeTimer;
     public int pathState;
     public final PoseLib poseLib;
-    public final RF12Paths rf12Paths;
 
+    private boolean isTeleop;
 
 
     public SystemManager(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Boolean isTeleOp) {
-        //DO NOT CHANGE THE INIT ORDER, add new stuff at the and ask me if it throws NullPointerException
-        this.gamepad1 = gamepad1;
-        this.gamepad2 = gamepad2;
+        ///DO NOT CHANGE THE INIT ORDER, add new stuff in it's respective place to avoid NullPointer
+
+        //dependencies
+        isTeleop = isTeleOp;
         pathState = 0;
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = Constants.createFollower(hardwareMap);
+
+        //auto dependencies
+        poseLib = new PoseLib();
+        pathTimer = new Timer();
+        actionTimer = new Timer();
+        opmodeTimer = new Timer();
+
+        //subsystems
         config = new Config(hardwareMap);
         turret = new Turret(hardwareMap, "turret");
         shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
         hood = new Hood(hardwareMap, "servo");
         intake = new Intake(hardwareMap, "intake");
-        poseLib = new PoseLib();
-        pathTimer = new Timer();
-        actionTimer = new Timer();
-        opmodeTimer = new Timer();
-        rf12Paths = new RF12Paths(this);
+
+        //controllers
         driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
-        shooterController = new ShooterController(this);
-        FSM = new FSM(this);
-        teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2);
-        pathingController = new PathingController(this);
+        shooterController = new ShooterController(telemetryM, follower, shooter, hood, turret);
     }
+
+    public FSM FSM;
+    public RF12Paths rf12Paths;
+    public TeleOpHandler teleOpHandler;
+    public void Init() {
+        FSM = new FSM(this);
+        if (FSM != null) {
+            if (isTeleop) {
+                //initialize teleop only components
+                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2);
+            }
+            else {
+                //initialize paths
+                rf12Paths.buildPaths();
+            }
+        }
+    }
+
+
 
     public void teleUpdate() {
         follower.update();
@@ -83,9 +101,8 @@ public class SystemManager {
         telemetryM.update();
     }
 
-    public int alliance = 0;
     public void setAlliance(int newAlliance) {
-        alliance = newAlliance;
+        shooterController.alliance = newAlliance;
     }
 
     public void setPathState(int pState) {

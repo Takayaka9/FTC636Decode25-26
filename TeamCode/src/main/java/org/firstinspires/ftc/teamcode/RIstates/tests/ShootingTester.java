@@ -1,21 +1,15 @@
 package org.firstinspires.ftc.teamcode.RIstates.tests;
 
-import com.bylazar.telemetry.PanelsTelemetry;
-import com.bylazar.telemetry.TelemetryManager;
-import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
 
 public class ShootingTester extends OpMode {
     SystemManager manager;
 
     @Override
     public void init() {
+        manager.Init();
     }
     @Override
     public void loop() {
@@ -24,7 +18,7 @@ public class ShootingTester extends OpMode {
         manager.shooterController.shoot();
         manager.telemetryM.addData(
                 "target distance",
-                manager.shooterController.getTargetDistance(manager.follower, manager.alliance)
+                manager.shooterController.getTargetDistance(manager.follower, manager.shooterController.alliance)
         );
     }
 

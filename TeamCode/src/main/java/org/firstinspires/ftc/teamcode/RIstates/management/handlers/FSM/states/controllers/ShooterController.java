@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,15 +13,26 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.co
 
 @Configurable
 public class ShooterController {
-    private final SystemManager manager;
-    public ShooterController(SystemManager manager){
-        this.manager = manager;
+    private final TelemetryManager telemetryM;
+    private final Follower follower;
+    private final Shooter shooter;
+    private final Hood hood;
+    private final Turret turret;
+
+    public ShooterController(TelemetryManager telemetryM, Follower follower, Shooter shooter, Hood hood, Turret turret){
+        this.telemetryM = telemetryM;
+        this.follower = follower;
+        this.shooter = shooter;
+        this.hood = hood;
+        this.turret = turret;
     }
 
+    public int alliance = 0;
     private static int farDistance = 20;
     private static int farTime = 5000;
     private static int closeTime = 4000;
-    
+
+
     public void shoot() {
         shootTimeStart();
         if (!shooterRunning){
@@ -39,15 +51,15 @@ public class ShooterController {
                 shooterRunning = false;
             }
         }
-        manager.telemetryM.addData("shooter running", shooterRunning);
+        telemetryM.addData("shooter running", shooterRunning);
     }
     public boolean shooterRunning;
     public void enableHardware(boolean checking) {
         if (!checking) {
-            double targetDistance = getTargetDistance(manager.follower, manager.alliance);
-            manager.shooter.shoot(targetDistance);
-            manager.hood.angleHood(targetDistance);
-            manager.turret.trackGoal(manager.alliance, manager.follower);
+            double targetDistance = getTargetDistance(follower, alliance);
+            shooter.shoot(targetDistance);
+            hood.angleHood(targetDistance);
+            turret.trackGoal(alliance, follower);
             shooterRunning = true;
         }
     }
@@ -64,8 +76,8 @@ public class ShooterController {
     }
 
     public void off(){
-        manager.shooter.stop();
-        manager.hood.passive();
+        shooter.stop();
+        hood.passive();
     }
 
     /*
