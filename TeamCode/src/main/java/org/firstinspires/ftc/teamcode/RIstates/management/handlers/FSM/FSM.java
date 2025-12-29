@@ -34,7 +34,6 @@ public class FSM {
         stateMap.put(StateName.Intake, new IntakeState());
         stateMap.put(StateName.Backout, new BackoutState());
         stateMap.put(StateName.AllianceSelect, new AllianceSelectorState());
-        //stateMap.put(StateName.FollowerError, new FollowerErrorState());
     }
 
     public void update() {

@@ -79,7 +79,7 @@ public class SystemManager {
         if (FSM != null) {
             if (isTeleop) {
                 //initialize teleop only components
-                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2);
+                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterController);
             }
             else if (!isTeleop){
                 //initialize paths
@@ -88,10 +88,19 @@ public class SystemManager {
         }
     }
 
+    public void teleStart() {
+        teleOpHandler.start();
+        opmodeTimer.resetTimer();
+        follower.startTeleopDrive();
+    }
     public void teleUpdate() {
         follower.update();
         telemetryM.update();
         teleOpHandler.update();
+        driveController.teleopNorm();
+    }
+    public void teleStop() {
+        teleOpHandler.stop();
     }
 
     public void autoUpdate() {
