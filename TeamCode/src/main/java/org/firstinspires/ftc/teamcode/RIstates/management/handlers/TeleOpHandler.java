@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.RIstates.management.handlers;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.ShooterController;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.ShooterController;
 
 public class TeleOpHandler {
     private final FSM fsm;

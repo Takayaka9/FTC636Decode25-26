@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM;
+package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 

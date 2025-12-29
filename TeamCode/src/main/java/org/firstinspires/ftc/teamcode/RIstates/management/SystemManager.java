@@ -7,19 +7,18 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.PathingController;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.pedro.PoseLib;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.pedro.RF12Paths;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.PoseLib;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Config;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.ShooterController;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.TeleOpDriveController;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Turret;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Config;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.ShooterController;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.TeleOpDriveController;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Turret;
 
 public class SystemManager {
     public final Follower follower;

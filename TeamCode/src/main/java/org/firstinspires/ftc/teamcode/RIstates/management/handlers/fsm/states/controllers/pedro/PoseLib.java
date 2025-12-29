@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.pedro;
+package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;

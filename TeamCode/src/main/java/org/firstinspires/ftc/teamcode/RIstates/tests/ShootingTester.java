@@ -9,7 +9,7 @@ public class ShootingTester extends OpMode {
 
     @Override
     public void init() {
-        manager.Init();
+        manager.init();
     }
     @Override
     public void loop() {

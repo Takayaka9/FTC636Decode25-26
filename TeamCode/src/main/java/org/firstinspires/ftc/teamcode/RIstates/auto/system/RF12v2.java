@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.RIstates.auto.system;
 
-import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.HardwareMap;

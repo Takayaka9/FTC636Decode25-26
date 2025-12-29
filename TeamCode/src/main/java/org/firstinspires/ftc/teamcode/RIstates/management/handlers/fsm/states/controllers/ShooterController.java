@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers;
+package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.TelemetryManager;
@@ -6,10 +6,9 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Turret;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Hood;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Turret;
 
 @Configurable
 public class ShooterController {

@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.RIstates.auto.system;
 
-import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
 
 /// WIP
 //second command system auto which uses command system

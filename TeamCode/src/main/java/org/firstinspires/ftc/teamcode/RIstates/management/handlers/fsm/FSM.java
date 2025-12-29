@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM;
+package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.AllianceSelectorState;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.BackoutState;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.IntakeState;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.NormState;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.ShootState;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.AllianceSelectorState;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.BackoutState;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.IntakeState;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.NormState;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.ShootState;
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 
 import java.util.EnumMap;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers;
+package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers;
 
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.Gamepad;

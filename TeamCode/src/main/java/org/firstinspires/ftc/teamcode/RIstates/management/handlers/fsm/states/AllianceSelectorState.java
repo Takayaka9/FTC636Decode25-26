@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states;
+package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.State;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.State;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 
 public class AllianceSelectorState implements State {

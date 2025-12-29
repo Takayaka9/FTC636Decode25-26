@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states;
+package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.State;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.FSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.State;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 
 public class ShootState implements State {
