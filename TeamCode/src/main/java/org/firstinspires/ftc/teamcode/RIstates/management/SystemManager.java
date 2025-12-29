@@ -74,21 +74,19 @@ public class SystemManager {
     public FSM FSM;
     public RF12Paths rf12Paths;
     public TeleOpHandler teleOpHandler;
-    public void Init() {
+    public void init() {
         FSM = new FSM(this);
         if (FSM != null) {
             if (isTeleop) {
                 //initialize teleop only components
                 teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2);
             }
-            else {
+            else if (!isTeleop){
                 //initialize paths
                 rf12Paths.buildPaths();
             }
         }
     }
-
-
 
     public void teleUpdate() {
         follower.update();

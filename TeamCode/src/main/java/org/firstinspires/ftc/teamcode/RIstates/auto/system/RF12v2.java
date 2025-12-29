@@ -100,7 +100,6 @@ public class RF12v2 extends OpMode {
     @Override
     public void loop() {
         autonomousPathUpdate();
-        manager = new SystemManager(hardwareMap, gamepad1, gamepad2, false);
         manager.telemetryM.addData("path state", manager.pathState);
         manager.telemetryM.addData("x", manager.follower.getPose().getX());
         manager.telemetryM.addData("y", manager.follower.getPose().getY());
@@ -110,9 +109,9 @@ public class RF12v2 extends OpMode {
     }
     @Override
     public void init() {
+        manager = new SystemManager(hardwareMap, gamepad1, gamepad2, false);
+        manager.init();
         manager.setAlliance(1);
-        manager.pathTimer = new Timer();
-        manager.opmodeTimer = new Timer();
         manager.opmodeTimer.resetTimer();
         manager.rf12Paths.buildPaths();
         manager.follower.setStartingPose(manager.poseLib.farStartPose);

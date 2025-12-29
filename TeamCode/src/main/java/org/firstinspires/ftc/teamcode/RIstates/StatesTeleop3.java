@@ -1,0 +1,44 @@
+package org.firstinspires.ftc.teamcode.RIstates;
+
+import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.util.Timer;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
+
+@Configurable
+@TeleOp(name = "States TeleOp 3", group = "TeleOp")
+public class StatesTeleop3 extends OpMode {
+
+    //    Subsystems + Follower
+    SystemManager manager;
+    HardwareMap hardwareMap;
+
+
+    @Override
+    public void loop() {
+        manager.teleUpdate();
+    }
+
+    @Override
+    public void init() {
+        manager.init();
+    }
+
+    @Override
+    public void init_loop() {}
+
+    @Override
+    public void start() {
+        manager.opmodeTimer.resetTimer();
+        manager.follower.startTeleopDrive();
+        manager.driveController.teleopNorm();
+    }
+
+    @Override
+    public void stop() {
+    }
+
+}

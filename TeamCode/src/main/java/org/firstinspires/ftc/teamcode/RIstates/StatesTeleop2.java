@@ -7,16 +7,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 
 @Configurable
-@TeleOp(name = "States TeleOp", group = "TeleOp")
+@TeleOp(name = "States TeleOp 2", group = "TeleOp")
 public class StatesTeleop2 extends LinearOpMode {
 
 //    Subsystems + Follower
     SystemManager manager;
-    @Override
+
+
+
     public void runOpMode() throws InterruptedException {
 
-//        Subs init
         manager = new SystemManager(hardwareMap, gamepad1, gamepad2, true);
+        manager.init();
 
         waitForStart();
         if (isStopRequested()) return;
