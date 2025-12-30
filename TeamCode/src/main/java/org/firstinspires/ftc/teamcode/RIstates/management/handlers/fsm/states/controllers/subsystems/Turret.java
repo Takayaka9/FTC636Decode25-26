@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Configurable
 public class Turret {
     //TelemetryManager telemetryM;
-    DcMotorEx turret;
+    public DcMotorEx turret;
     public Turret(HardwareMap hardwareMap, String name){
         turret = hardwareMap.get(DcMotorEx.class, name);
     }
@@ -58,6 +58,7 @@ public class Turret {
    outputs: targetDistance (also printed to panels)
    !! It is never needed to call this method - it is called in trackGoal !!
     */
+    double output;
     public void turnTurret(double tPosition){
         double cPosition = turret.getCurrentPosition(); //TODO: change 0 to getPosition
         double error = tPosition - cPosition;
@@ -70,11 +71,11 @@ public class Turret {
 
         turretTime.reset();
 
-        double output;
+
         output = (error * turretKp) + (derivative * turretKd) + (turretIntegral * turretKi) ;
 
         //TODO: need to change this to whatever we name the motor
-        //turret.setPower(output);
+        turret.setPower(output);
 
         //telemetryM.addData("current position", cPosition);
         //telemetryM.addData("turret desired position", tPosition);

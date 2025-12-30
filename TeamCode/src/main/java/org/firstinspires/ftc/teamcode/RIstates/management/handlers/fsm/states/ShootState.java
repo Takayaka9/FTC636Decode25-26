@@ -21,7 +21,7 @@ public class ShootState implements State {
 
     @Override
     public void end(SystemManager manager) {
-        manager.shooter.stop();
+        manager.shooterController.off();
     }
 
 }

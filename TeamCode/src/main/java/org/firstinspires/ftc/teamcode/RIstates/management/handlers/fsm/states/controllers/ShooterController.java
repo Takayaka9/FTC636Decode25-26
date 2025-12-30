@@ -33,12 +33,8 @@ public class ShooterController {
 
 
     public void shoot() {
-        shootTimeStart();
         if (!shooterRunning){
-            enableHardware(false);
-        }
-        if (shooterRunning){
-            enableHardware(true);
+            enableHardware();
         }
         if (targetDistance < 20) {
             if (shootTimeCheck(farTime)) {
@@ -50,23 +46,18 @@ public class ShooterController {
                 shooterRunning = false;
             }
         }
-        telemetryM.addData("shooter running", shooterRunning);
     }
     public boolean shooterRunning;
-    public void enableHardware(boolean checking) {
-        if (!checking) {
+    public void enableHardware() {
+            timer.reset();
             double targetDistance = getTargetDistance(follower, alliance);
             shooter.shoot(targetDistance);
             hood.angleHood(targetDistance);
             turret.trackGoal(alliance, follower);
             shooterRunning = true;
-        }
     }
 
     private ElapsedTime timer = new ElapsedTime();
-    public void shootTimeStart(){
-        timer.reset();
-    }
     public boolean shootTimeCheck(double time){
         if (timer.milliseconds() >= time) {
             return true;

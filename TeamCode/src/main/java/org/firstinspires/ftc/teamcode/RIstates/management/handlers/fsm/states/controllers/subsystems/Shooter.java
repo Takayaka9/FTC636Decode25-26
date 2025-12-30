@@ -12,15 +12,10 @@ import com.seattlesolvers.solverslib.util.InterpLUT;
 public class Shooter {
     TelemetryManager telemetryM;
     private final InterpLUT lut = new InterpLUT();
-    private final DcMotorEx flyRight;
-    private final DcMotorEx flyLeft;
+    public final DcMotorEx flyRight;
+    public final DcMotorEx flyLeft;
     private ElapsedTime pidTime = new ElapsedTime();
-    private double integralSum;
-    private double lastError;
-    public static double Kp = 0.004;
-    public static double Ki = 0;
-    public static double Kd = 0;
-    public static double Kf = 0.006;
+
     double d1 = 0; int r1 = 0;
     double d2 = 0; int r2 = 0;
     double d3 = 0; int r3 = 0;
@@ -44,12 +39,12 @@ public class Shooter {
         lut.createLUT();
     }
 
-    public int shooterRPM(double targetDistance){
+    public int getShooterTPS(double targetDistance){
 
-        int calcRPM = (int) Math.round(lut.get(targetDistance));
-        //telemetryM.addData("Calculated RPM", calcRPM);
+        int calcTPS = (int) Math.round(lut.get(targetDistance));
+        //telemetryM.addData("Calculated TPS", calcTPS);
 
-        return calcRPM;
+        return calcTPS;
     }
 
     public void stop(){
@@ -57,6 +52,17 @@ public class Shooter {
         flyLeft.setPower(0);
     }
 
+
+    public static double Kp = 0.004;
+    public static double Ki = 0;
+    public static double Kd = 0;
+    public static double Kf = 0.006;
+
+
+
+    private double integralSum;
+    private double lastError;
+    public double outputRight; // basically the same as the normal PIDControl
     public void updateRight(double reference){
         double error = reference-(flyRight.getVelocity());
         double dt = pidTime.seconds();
@@ -67,15 +73,17 @@ public class Shooter {
 
         pidTime.reset();
 
-        double output; // basically the same as the normal PIDControl
-        output = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (reference * Kf);
 
-        //flyRight.setPower(output);
+        outputRight = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (reference * Kf);
+
+        flyRight.setPower(outputRight);
         //flyLeft.setPower(output); //in case we switch back to one pid
     }
+
     ElapsedTime pidLeft = new ElapsedTime();
     double lastErrorLeft;
     double integralSumLeft;
+    public double outputLeft = 0; // basically the same as the normal PIDControl
     public void updateLeft(double reference){
         double error = reference-(flyLeft.getVelocity());
         double dt = pidLeft.seconds();
@@ -86,15 +94,15 @@ public class Shooter {
 
         pidLeft.reset();
 
-        double output; // basically the same as the normal PIDControl
-        output = (error * Kp) + (derivative * Kd) + (integralSumLeft * Ki) + (reference * Kf);
 
-        //flyLeft.setPower(output);
+        outputLeft = (error * Kp) + (derivative * Kd) + (integralSumLeft * Ki) + (reference * Kf);
+
+        flyLeft.setPower(outputLeft);
     }
 
     public void shoot(double distance){
-        updateRight(shooterRPM(distance));
-        updateLeft(shooterRPM(distance));
+        updateRight(getShooterTPS(distance));
+        updateLeft(getShooterTPS(distance));
     }
 
     public void reverse() {
