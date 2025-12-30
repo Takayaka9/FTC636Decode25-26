@@ -38,12 +38,12 @@ public class Shooter {
         lut.add(d6, r6);
         lut.createLUT();
     }
-
+    public static int targetTPS = 0;
     public int getShooterTPS(double targetDistance){
 
         int calcTPS = (int) Math.round(lut.get(targetDistance));
         //telemetryM.addData("Calculated TPS", calcTPS);
-
+        targetTPS = calcTPS;
         return calcTPS;
     }
 
@@ -108,5 +108,9 @@ public class Shooter {
     public void reverse() {
         flyRight.setPower(-1);
         flyLeft.setPower(-1);
+    }
+    public int averageVelocity () {
+        double averageVelocity = ((flyRight.getVelocity() + flyLeft.getVelocity()) / 2);
+        return (int) (Math.round(averageVelocity));
     }
 }

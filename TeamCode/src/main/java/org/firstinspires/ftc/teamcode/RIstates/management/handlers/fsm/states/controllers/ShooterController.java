@@ -17,13 +17,14 @@ public class ShooterController {
     private final Shooter shooter;
     private final Hood hood;
     private final Turret turret;
-
-    public ShooterController(TelemetryManager telemetryM, Follower follower, Shooter shooter, Hood hood, Turret turret){
+    private final BeltController beltController;
+    public ShooterController(TelemetryManager telemetryM, Follower follower, Shooter shooter, Hood hood, Turret turret, BeltController beltController){
         this.telemetryM = telemetryM;
         this.follower = follower;
         this.shooter = shooter;
         this.hood = hood;
         this.turret = turret;
+        this.beltController = beltController;
     }
 
     public int alliance = 0;
@@ -32,29 +33,27 @@ public class ShooterController {
     private static int closeTime = 4000;
 
 
-    public void shoot() {
-        if (!shooterRunning){
-            enableHardware();
-        }
-        if (targetDistance < 20) {
-            if (shootTimeCheck(farTime)) {
-                shooterRunning = false;
-            }
-        }
-        else {
-            if (shootTimeCheck(closeTime)) {
-                shooterRunning = false;
-            }
-        }
-    }
-    public boolean shooterRunning;
-    public void enableHardware() {
+    public boolean shoot() {
+        if (!beltController.checkShotCounter()) {
             timer.reset();
             double targetDistance = getTargetDistance(follower, alliance);
             shooter.shoot(targetDistance);
             hood.angleHood(targetDistance);
             turret.trackGoal(alliance, follower);
+            beltController.run();
             shooterRunning = true;
+        }
+        if (beltController.checkShotCounter()) {
+            shooterRunning = false;
+            off();
+            return true;
+        }
+        return false;
+    }
+    public boolean shooterRunning;
+    public void enableHardware() {
+
+
     }
 
     private ElapsedTime timer = new ElapsedTime();
@@ -68,6 +67,7 @@ public class ShooterController {
     public void off(){
         shooter.stop();
         hood.passive();
+        beltController.belt.stop();
     }
 
     /*
@@ -78,7 +78,7 @@ public class ShooterController {
      */
     private final Pose blueGoal = new Pose(0, 138);
     private final Pose redGoal = new Pose(138, 138);
-    private double targetDistance = 0;
+    private static double targetDistance = 0;
     public double getTargetDistance(Follower follower, int alliance){
         if (alliance == 1){
             Pose currentPose = follower.getPose();
@@ -88,7 +88,6 @@ public class ShooterController {
             Pose currentPose = follower.getPose();
             targetDistance = currentPose.distanceFrom(redGoal);
         }
-
         return targetDistance;
     }
 }

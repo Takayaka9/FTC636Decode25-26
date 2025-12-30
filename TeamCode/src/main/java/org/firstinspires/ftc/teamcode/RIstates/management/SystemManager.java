@@ -7,9 +7,11 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.BeltController;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.PoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Belt;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Config;
@@ -28,9 +30,12 @@ public class SystemManager {
     public final Hood hood;
     public final Shooter shooter;
     public final Intake intake;
+    public final BeltController beltController;
     public final ShooterController shooterController;
     public final TeleOpDriveController driveController;
 
+
+    public final Belt belt;
 
     public Gamepad gamepad1;
     public Gamepad gamepad2;
@@ -60,14 +65,16 @@ public class SystemManager {
 
         //subsystems
         config = new Config(hardwareMap);
+        belt = new Belt(hardwareMap, "belt");
         turret = new Turret(hardwareMap, "turret");
         shooter = new Shooter(hardwareMap, "sr", "sl");
         hood = new Hood(hardwareMap, "hood");
         intake = new Intake(hardwareMap, "intake");
 
         //controllers
+        beltController = new BeltController(belt, shooter);
+        shooterController = new ShooterController(telemetryM, follower, shooter, hood, turret, beltController);
         driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
-        shooterController = new ShooterController(telemetryM, follower, shooter, hood, turret);
     }
 
     public FSM FSM;

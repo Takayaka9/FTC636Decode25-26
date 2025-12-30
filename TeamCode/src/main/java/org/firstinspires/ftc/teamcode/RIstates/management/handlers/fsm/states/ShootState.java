@@ -12,9 +12,10 @@ public class ShootState implements State {
 
     @Override
     public void update(SystemManager manager, FSM fsm) {
-        //TODO: make alliance happen
-        manager.shooterController.shoot();
-        if (!manager.shooterController.shooterRunning) {
+        while (!manager.beltController.checkShotCounter()){
+            manager.shooterController.shoot();
+        }
+        if (manager.beltController.checkShotCounter()) {
             fsm.runNew(FSM.StateName.Norm);
         }
     }
