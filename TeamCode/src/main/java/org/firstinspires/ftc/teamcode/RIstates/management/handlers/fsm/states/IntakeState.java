@@ -9,6 +9,7 @@ public class IntakeState implements State {
     @Override
     public void initiate(SystemManager manager) {
         manager.intake.run();
+        manager.belt.run();
     }
 
     @Override
@@ -18,6 +19,7 @@ public class IntakeState implements State {
     @Override
     public void end(SystemManager manager) {
         manager.intake.stop();
+        manager.belt.stop();
     }
 
 }
