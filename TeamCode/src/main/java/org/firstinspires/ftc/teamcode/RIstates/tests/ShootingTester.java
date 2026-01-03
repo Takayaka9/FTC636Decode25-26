@@ -65,7 +65,7 @@ public class ShootingTester extends OpMode {
 
     @Override
     public void init() {
-        manager = new SystemManager(hardwareMap, gamepad1, gamepad2, true);
+        manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, true);
         manager.init();
     }
 

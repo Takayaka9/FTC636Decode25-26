@@ -7,6 +7,7 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.BeltController;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.PoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.RF12Paths;
@@ -45,16 +46,19 @@ public class SystemManager {
     public int pathState;
     public final PoseLib poseLib;
 
+    private final Telemetry telemetry;
+
     private boolean isTeleop;
 
 
-    public SystemManager(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2, Boolean isTeleOp) {
+    public SystemManager(HardwareMap hardwareMap, Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, Boolean isTeleOp) {
         ///DO NOT CHANGE THE INIT ORDER, add new stuff in it's respective place to avoid NullPointer
 
         //dependencies
         isTeleop = isTeleOp;
         pathState = 0;
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
+        this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
 
         //auto dependencies
@@ -88,7 +92,7 @@ public class SystemManager {
                 teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterController);
             }
             else if (!isTeleop){
-                //initialize paths
+                ///initialize paths add more paths here
                 rf12Paths.buildPaths();
             }
         }
@@ -104,6 +108,11 @@ public class SystemManager {
         telemetryM.update();
         teleOpHandler.update();
         driveController.teleopNorm();
+        telemetryM.addData(FSM.getCurrentState(), "Current state");
+        telemetryM.addData("Alliance", getAlliance());
+        telemetry.addData(FSM.getCurrentState(), "Current state");
+        telemetry.addData("Alliance", getAlliance());
+        telemetry.update();
     }
     public void teleStop() {
         teleOpHandler.stop();
@@ -122,4 +131,15 @@ public class SystemManager {
         pathState = pState;
         pathTimer.resetTimer();
     }
+
+    public String getAlliance() {
+        if (shooterController.alliance == 1) {
+            return "red";
+        }
+        else if (shooterController.alliance == 2) {
+            return "blue";
+        }
+        return "unselected";
+    }
+
 }

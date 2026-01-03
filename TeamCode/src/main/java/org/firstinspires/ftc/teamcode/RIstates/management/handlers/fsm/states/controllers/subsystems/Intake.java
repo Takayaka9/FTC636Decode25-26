@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems;
 
 import com.bylazar.configurables.annotations.Configurable;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 

@@ -110,7 +110,7 @@ public class RF12v3 extends OpMode {
     }
     @Override
     public void init() {
-        manager = new SystemManager(hardwareMap, gamepad1, gamepad2, false);
+        manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, false);
         manager.init();
         manager.setAlliance(1);
         manager.opmodeTimer.resetTimer();

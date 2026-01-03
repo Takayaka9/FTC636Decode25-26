@@ -36,6 +36,14 @@ public class FSM {
         stateMap.put(StateName.AllianceSelect, new AllianceSelectorState());
     }
 
+    public String getCurrentState(){
+        if (currentState != null) {
+            return currentState.toString();
+        }
+        return "null";
+    }
+
+
     public void update() {
         if (currentState != null) {
             currentState.update(manager, this);
