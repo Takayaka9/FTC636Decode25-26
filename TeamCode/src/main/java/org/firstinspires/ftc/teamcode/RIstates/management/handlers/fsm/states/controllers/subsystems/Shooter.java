@@ -40,7 +40,6 @@ public class Shooter {
     }
     public static int targetTPS = 0;
     public int getShooterTPS(double targetDistance){
-
         int calcTPS = (int) Math.round(lut.get(targetDistance));
         //telemetryM.addData("Calculated TPS", calcTPS);
         targetTPS = calcTPS;
@@ -63,8 +62,8 @@ public class Shooter {
     private double integralSum;
     private double lastError;
     public double outputRight; // basically the same as the normal PIDControl
-    public void updateRight(double reference){
-        double error = reference-(flyRight.getVelocity());
+    public void updateRight(double target){
+        double error = target-(flyRight.getVelocity());
         double dt = pidTime.seconds();
         if (dt < 0.0001) dt = 0.0001;
         integralSum += error* dt;
@@ -74,7 +73,7 @@ public class Shooter {
         pidTime.reset();
 
 
-        outputRight = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (reference * Kf);
+        outputRight = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (target * Kf);
 
         flyRight.setPower(outputRight);
         //flyLeft.setPower(output); //in case we switch back to one pid
@@ -84,8 +83,8 @@ public class Shooter {
     double lastErrorLeft;
     double integralSumLeft;
     public double outputLeft = 0; // basically the same as the normal PIDControl
-    public void updateLeft(double reference){
-        double error = reference-(flyLeft.getVelocity());
+    public void updateLeft(double target){
+        double error = target-(flyLeft.getVelocity());
         double dt = pidLeft.seconds();
         if (dt < 0.0001) dt = 0.0001;
         integralSumLeft += error* dt;
@@ -95,7 +94,7 @@ public class Shooter {
         pidLeft.reset();
 
 
-        outputLeft = (error * Kp) + (derivative * Kd) + (integralSumLeft * Ki) + (reference * Kf);
+        outputLeft = (error * Kp) + (derivative * Kd) + (integralSumLeft * Ki) + (target * Kf);
 
         flyLeft.setPower(outputLeft);
     }
@@ -103,6 +102,10 @@ public class Shooter {
     public void shoot(double distance){
         updateRight(getShooterTPS(distance));
         updateLeft(getShooterTPS(distance));
+    }
+    public void test(double tps) {
+        updateLeft(tps);
+        updateRight(tps);
     }
 
     public void reverse() {
