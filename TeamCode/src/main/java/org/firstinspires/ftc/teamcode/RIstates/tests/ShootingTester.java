@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 
 @Configurable
-@TeleOp(name = "States TeleOp 3", group = "TeleOp")
+@TeleOp(name = "Shooting Tester", group = "TeleOp")
 public class ShootingTester extends OpMode {
 
     //    Subsystems + Follower

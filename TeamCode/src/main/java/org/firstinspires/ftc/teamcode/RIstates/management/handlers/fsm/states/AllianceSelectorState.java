@@ -6,23 +6,22 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 
 public class AllianceSelectorState implements State {
+    TeleOpHandler teleOpHandler;
+
     @Override
     public void initiate(SystemManager manager) {
+        this.teleOpHandler = manager.teleOpHandler;
     }
-
-    TeleOpHandler TeleOpHandler;
     @Override
     public void update(SystemManager manager, FSM teleOpfsm) {
-        if (teleOpfsm != null && TeleOpHandler != null){
-            if (manager.gamepad1.x && !TeleOpHandler.changedX && !TeleOpHandler.changedB) {
+            if (manager.gamepad2.x) {
                 manager.setAlliance(1);
-                TeleOpHandler.changedX = true;
+                teleOpHandler.changedX = true;
             }
-            if (manager.gamepad1.b && !TeleOpHandler.changedB && !TeleOpHandler.changedX) {
+            if (manager.gamepad2.b) {
                 manager.setAlliance(2);
-                TeleOpHandler.changedB = true;
+                teleOpHandler.changedB = true;
             }
-        }
     }
 
     @Override

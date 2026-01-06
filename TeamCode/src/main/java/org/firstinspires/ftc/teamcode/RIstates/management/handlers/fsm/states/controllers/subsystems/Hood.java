@@ -28,12 +28,12 @@ public class Hood {
     output: panels telemetry and servo position
     !! it is never needed to call this method - it is called by shoot !!
      */
-    double d1 = 0; double p1 = 0;
-    double d2 = 0; double p2 = 0;
-    double d3 = 0; double p3 = 0;
-    double d4 = 0; double p4 = 0;
-    double d5 = 0; double p5 = 0;
-    double d6 = 0; double p6 = 0;
+    double d1 = 12; double p1 = 0;
+    double d2 = 24; double p2 = 0;
+    double d3 = 36; double p3 = 0;
+    double d4 = 48; double p4 = 0;
+    double d5 = 60; double p5 = 0;
+    double d6 = 72; double p6 = 0;
 
     public void angleHood(double targetDistance) {
         double angle = lut.get(targetDistance);

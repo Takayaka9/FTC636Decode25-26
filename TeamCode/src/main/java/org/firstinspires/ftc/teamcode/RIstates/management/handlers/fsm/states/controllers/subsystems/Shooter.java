@@ -16,12 +16,12 @@ public class Shooter {
     public final DcMotorEx flyLeft;
     private ElapsedTime pidTime = new ElapsedTime();
 
-    double d1 = 0; int r1 = 0;
-    double d2 = 0; int r2 = 0;
-    double d3 = 0; int r3 = 0;
-    double d4 = 0; int r4 = 0;
-    double d5 = 0; int r5 = 0;
-    double d6 = 0; int r6 = 0;
+    double d1 = 12; int r1 = 0;
+    double d2 = 24; int r2 = 0;
+    double d3 = 36; int r3 = 0;
+    double d4 = 48; int r4 = 0;
+    double d5 = 60; int r5 = 0;
+    double d6 = 72; int r6 = 0;
     public Shooter(HardwareMap hardwareMap, String rightName, String leftName){
         flyRight = hardwareMap.get(DcMotorEx.class, rightName);
         flyLeft = hardwareMap.get(DcMotorEx.class, leftName);

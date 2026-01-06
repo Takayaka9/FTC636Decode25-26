@@ -18,11 +18,11 @@ and call each component.
 @Configurable
 public class Config {
     public DcMotorEx flyRight, flyLeft, intake; //motor declaration
-    public DcMotorEx belt; //idk why this is separate
+//    public DcMotorEx belt; //idk why this is separate
     public DcMotorEx rightBack, rightFront, leftFront, leftBack;
-    public Servo onRamp, offRamp; //servos
+//    public Servo onRamp, offRamp; //servos
     public RevColorSensorV3 colorSensor; //color sensor
-    public Limelight3A limelight;
+//    public Limelight3A limelight;
     //TODO: try to put ALL values here...so we can use in both tele/auto!
     //TODO: we should put them in the subsystem classes themselves, i think we've been doing that though
 
@@ -40,8 +40,8 @@ public class Config {
         colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
         colorSensor.setGain(1);
 
-        limelight = hardwareMap.get(Limelight3A.class, "limelight");
-        limelight.pipelineSwitch(0);
+//        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+//        limelight.pipelineSwitch(0);
     }
 
 }

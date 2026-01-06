@@ -55,6 +55,8 @@ public class SystemManager {
         ///DO NOT CHANGE THE INIT ORDER, add new stuff in it's respective place to avoid NullPointer
 
         //dependencies
+        this.gamepad1 = gamepad1;
+        this.gamepad2 = gamepad2;
         isTeleop = isTeleOp;
         pathState = 0;
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
@@ -108,9 +110,10 @@ public class SystemManager {
         telemetryM.update();
         teleOpHandler.update();
         driveController.teleopNorm();
-        telemetryM.addData(FSM.getCurrentState(), "Current state");
+        FSM.update();
+        telemetryM.addData("Current state", FSM.getCurrentState());
         telemetryM.addData("Alliance", getAlliance());
-        telemetry.addData(FSM.getCurrentState(), "Current state");
+        telemetry.addData("Current state", FSM.getCurrentState());
         telemetry.addData("Alliance", getAlliance());
         telemetry.update();
     }

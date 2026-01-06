@@ -24,20 +24,11 @@ public class TeleOpHandler {
     private boolean changedRT = false;
     private boolean changedLT = false;
     private boolean allianceSelecting = false;
-
+    private boolean off = false;
 
     private FSM.StateName requestingTransition = null;
     public void setTransition(FSM.StateName stateName){
-        if (requestingTransition != null) {
             requestingTransition = stateName;
-        }
-    }
-
-    public boolean checkStillRunning() {
-        if (changedA & changedB & changedX & changedRT & changedLT & allianceSelecting) {
-            return true;
-        }
-        return false;
     }
 
 
@@ -51,8 +42,6 @@ public class TeleOpHandler {
 
     public void update() {
         fsm.update();
-        requestingTransition = null;
-
         /*
         if statement order determines priority
         logic concept
@@ -62,41 +51,55 @@ public class TeleOpHandler {
         if (gamepad2.left_trigger > 0.3 && gamepad2.right_trigger > 0.3 && !allianceSelecting) {
             setTransition(FSM.StateName.AllianceSelect);
             allianceSelecting = true;
+            off = false;
         } else if (gamepad2.left_trigger < 0.3 & gamepad2.right_trigger < 0.3 && allianceSelecting) {
             allianceSelecting = false;
+            off = true;
         }
 
         //different logic which checks shootRunning for stop
         if (gamepad2.a && !changedA) {
             changedA = true;
             setTransition(FSM.StateName.Shoot);
+            off = false;
         } else if (shooterController.shooterRunning && changedA) {
             changedA = false;
+            off = true;
         }
 
         //backout
         if (gamepad2.left_bumper && !changedLT) {
             changedLT = true;
             setTransition(FSM.StateName.Backout);
+            off = false;
         } else if (!gamepad2.left_bumper && changedLT) {
             changedLT = false;
+            off = true;
         }
 
         //intake
         if (gamepad2.right_bumper && !changedRT) {
             changedRT = true;
             setTransition(FSM.StateName.Intake);
+            off = false;
         } else if (!gamepad2.right_bumper && changedRT) {
             changedRT = false;
+            off = true;
         }
 
-        //transition to next state
-        if (!checkStillRunning()) {
+//        transition to next state
+        if (off) {
             setTransition(FSM.StateName.Norm);
         }
+
         if (requestingTransition != null) {
             fsm.runNew(requestingTransition);
         }
+//        fsm.runNew(requestingTransition);
+//        if (!checkStillRunning()) {
+//            setTransition(FSM.StateName.Norm);
+//        }
+
     }
 }
 

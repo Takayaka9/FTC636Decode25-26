@@ -52,12 +52,14 @@ public class FSM {
     }
 
     public void runNew(StateName newState) {
-        if (currentState != null && newState != null && manager != null) {
-            if (currentState.equals(newState)) {
-                return;
-            }
+        if (newState != null && manager != null) {
+//            if (currentState.equals(newState)) {
+//                return;
+//            }
 
-            currentState.end(manager);
+            if (currentState != null) {
+                currentState.end(manager);
+            }
 
             currentState = stateMap.get(newState);
 

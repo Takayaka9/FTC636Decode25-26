@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.c
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Configurable

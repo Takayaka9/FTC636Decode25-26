@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.RIstates;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
@@ -13,9 +12,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
 public class StatesTeleop3 extends OpMode {
 
     //    Subsystems + Follower
-    SystemManager manager;
-    HardwareMap hardwareMap;
-
+   SystemManager manager;
 
     @Override
     public void loop() {
