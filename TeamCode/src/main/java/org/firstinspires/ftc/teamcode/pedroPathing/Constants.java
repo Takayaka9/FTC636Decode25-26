@@ -18,7 +18,7 @@ public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(11.62)
             .forwardZeroPowerAcceleration(-34.545892)
-           .lateralZeroPowerAcceleration(-53.881418)
+            .lateralZeroPowerAcceleration(-53.881418)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.1, 0, 0.01, 0.00))
             .headingPIDFCoefficients(new PIDFCoefficients(0.68, 0, 0.02, 0.0))
             .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.4, 0.0, 0.01, 0.6, 0.00))
@@ -53,7 +53,5 @@ public class Constants {
                 .mecanumDrivetrain(driveConstants)
                 .pinpointLocalizer(localizerConstants)
                 .build();
-
-
     }
 }

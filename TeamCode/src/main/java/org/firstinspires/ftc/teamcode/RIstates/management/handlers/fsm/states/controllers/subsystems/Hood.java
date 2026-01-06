@@ -8,7 +8,6 @@ import com.seattlesolvers.solverslib.util.InterpLUT;
 
 @Configurable
 public class Hood {
-    //TelemetryManager telemetryM;
     private final InterpLUT lut = new InterpLUT();
     private ServoImplEx servo;
     public Hood(HardwareMap hardwareMap, String name){
@@ -35,15 +34,15 @@ public class Hood {
     double d5 = 60; double p5 = 0;
     double d6 = 72; double p6 = 0;
 
+    public double angle;
     public void angleHood(double targetDistance) {
-        double angle = lut.get(targetDistance);
-        //TODO: figure out what we call this servo
-        //servo.setPosition(angle);
-        //telemetryM.addData("angle", angle);
+        angle = lut.get(targetDistance);
+        servo.setPosition(angle);
     }
 
+    public static double passive = 0.5;
     public void passive(){
-        //servo.setPosition(passive);
+        servo.setPosition(passive);
     }
 
     public void increment(boolean positive){
@@ -56,7 +55,7 @@ public class Hood {
     }
 
 
-    /*
+    /* graveyard - pre-shooterController setup
     shooterRPM uses InterpLut to calculate shooterRPM based on target distance
     inputs: targetDistance, hardwareMap
     output: panels telemetry

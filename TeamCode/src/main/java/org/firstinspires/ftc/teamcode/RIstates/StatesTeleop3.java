@@ -23,7 +23,7 @@ public class StatesTeleop3 extends OpMode {
     public void init() {
         manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, true);
         manager.init();
-        manager.FSM.runNew(FSM.StateName.AllianceSelect);
+        manager.FSM.runNew(FSM.StateName.Norm);
     }
 
     @Override

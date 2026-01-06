@@ -104,6 +104,7 @@ public class SystemManager {
         teleOpHandler.start();
         opmodeTimer.resetTimer();
         follower.startTeleopDrive();
+        FSM.runNew(org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM.StateName.AllianceSelect);
     }
     public void teleUpdate() {
         follower.update();

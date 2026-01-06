@@ -38,7 +38,7 @@ public class FSM {
 
     public String getCurrentState(){
         if (currentState != null) {
-            return currentState.toString();
+            return currentState.getClass().getSimpleName();
         }
         return "null";
     }
@@ -53,10 +53,6 @@ public class FSM {
 
     public void runNew(StateName newState) {
         if (newState != null && manager != null) {
-//            if (currentState.equals(newState)) {
-//                return;
-//            }
-
             if (currentState != null) {
                 currentState.end(manager);
             }

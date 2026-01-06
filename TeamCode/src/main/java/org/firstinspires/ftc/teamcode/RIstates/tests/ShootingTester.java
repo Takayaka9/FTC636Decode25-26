@@ -58,7 +58,8 @@ public class ShootingTester extends OpMode {
 
         //TODO: turret data
 
-
+        //Hood data
+        manager.telemetryM.addData("angle", manager.hood.angle);
 
 
     }
