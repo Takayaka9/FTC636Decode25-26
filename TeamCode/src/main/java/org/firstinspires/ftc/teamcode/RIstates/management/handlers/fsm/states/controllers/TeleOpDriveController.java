@@ -6,29 +6,27 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class TeleOpDriveController {
 
-    private HardwareMap hardwareMap;
     private Follower follower;
     private Gamepad gamepad;
 
-    public TeleOpDriveController(HardwareMap hardwareMap, Follower follower, Gamepad gamepad) {
-            this.hardwareMap = hardwareMap;
+    public TeleOpDriveController(Follower follower, Gamepad gamepad) {
             this.follower = follower;
             this.gamepad = gamepad;
     }
 
     public void teleopNorm () {
-        if (this.gamepad.left_trigger < 0.3) {
-            this.follower.setTeleOpDrive(
+        if (gamepad.left_trigger < 0.3) {
+            follower.setTeleOpDrive(
                     -gamepad.left_stick_y*1,
                     -gamepad.left_stick_x*1,
                     -gamepad.right_stick_x*0.45, false
             );
         }
-        if (this.gamepad.left_trigger > 0.3) {
-            this.follower.setTeleOpDrive(
-                    -this.gamepad.left_stick_y*0.35,
-                    -this.gamepad.left_stick_x*0.35,
-                    -this.gamepad.right_stick_x*0.25,
+        if (gamepad.left_trigger > 0.3) {
+            follower.setTeleOpDrive(
+                    -gamepad.left_stick_y*0.35,
+                    -gamepad.left_stick_x*0.35,
+                    -gamepad.right_stick_x*0.25,
                     false
             );
         }

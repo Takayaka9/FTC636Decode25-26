@@ -80,7 +80,7 @@ public class SystemManager {
         //controllers
         beltController = new BeltController(belt, shooter);
         shooterController = new ShooterController(telemetryM, follower, shooter, hood, turret, beltController);
-        driveController = new TeleOpDriveController(hardwareMap, follower, gamepad1);
+        driveController = new TeleOpDriveController(follower, gamepad1);
     }
 
     public FSM FSM;

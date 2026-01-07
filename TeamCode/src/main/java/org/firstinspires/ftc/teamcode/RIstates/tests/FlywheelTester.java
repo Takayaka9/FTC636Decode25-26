@@ -14,6 +14,7 @@ public class FlywheelTester extends OpMode {
     /// set in panels (pedro units, 12u = 1ft)
     private static double tps = 0;
     SystemManager manager;
+
     @Override
     public void init() {
         manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, true);

@@ -13,8 +13,6 @@ public class ShootingTester extends OpMode {
 
     //    Subsystems + Follower
     SystemManager manager;
-    HardwareMap hardwareMap;
-
 
     @Override
     public void loop() {

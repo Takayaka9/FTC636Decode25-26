@@ -15,7 +15,6 @@ public class AimingTester extends OpMode {
     /// set in panels (pedro units, 12u = 1ft)
     private static double tps = 0;
     SystemManager manager;
-    HardwareMap hardwareMap;
 
     private static int targetPosition = 0;
     @Override
