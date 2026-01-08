@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
 public class StatesTeleop3 extends OpMode {
 
     //    Subsystems + Follower
-   SystemManager manager;
+   private SystemManager manager;
 
     @Override
     public void loop() {

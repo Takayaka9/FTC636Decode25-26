@@ -118,6 +118,20 @@ public class SystemManager {
         telemetry.addData("Alliance", getAlliance());
         telemetry.update();
     }
+
+
+    public void testUpdate() {
+        follower.update();
+        telemetryM.update();
+        //teleOpHandler.update();
+        //driveController.teleopNorm();
+        //FSM.update();
+        telemetryM.addData("Current state", FSM.getCurrentState());
+        telemetryM.addData("Alliance", getAlliance());
+        telemetry.addData("Current state", FSM.getCurrentState());
+        telemetry.addData("Alliance", getAlliance());
+        telemetry.update();
+    }
     public void teleStop() {
         teleOpHandler.stop();
     }

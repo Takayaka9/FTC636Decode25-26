@@ -22,7 +22,7 @@ public class FlywheelTester extends OpMode {
 
     @Override
     public void loop() {
-        manager.teleUpdate();
+        manager.testUpdate();
 
         manager.shooter.test(tps);
 

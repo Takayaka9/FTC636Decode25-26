@@ -13,7 +13,7 @@ public class AimingTester extends OpMode {
 
     /// set in panels (pedro units, 12u = 1ft)
     private static double tps = 0;
-    SystemManager manager;
+    private SystemManager manager;
 
     private static int targetPosition = 0;
     @Override
@@ -29,7 +29,7 @@ public class AimingTester extends OpMode {
     }
     @Override
     public void loop() {
-        manager.teleUpdate();
+        manager.testUpdate();
         manager.shooter.test(tps);
 
         while(gamepad1.x && !gamepad1.b && !gamepad1.a) {
