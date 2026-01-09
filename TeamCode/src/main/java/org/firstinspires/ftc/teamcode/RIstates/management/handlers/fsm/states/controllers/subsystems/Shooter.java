@@ -16,12 +16,13 @@ public class Shooter {
     public final DcMotorEx flyLeft;
     private ElapsedTime pidTime = new ElapsedTime();
 
-    double d1 = 12; int r1 = 0;
-    double d2 = 24; int r2 = 0;
-    double d3 = 36; int r3 = 0;
-    double d4 = 48; int r4 = 0;
-    double d5 = 60; int r5 = 0;
-    double d6 = 72; int r6 = 0;
+    double d1 = 36; double r1 = 800;
+    double d2 = 50; double r2 = 1000;
+    double d3 = 75; double r3 = 1300;
+    double d4 = 96; double r4 = 1450;
+    double d5 = 108; double r5 = 2799;
+    double d6 = 150; double r6 = 2800;
+
     public Shooter(HardwareMap hardwareMap, String rightName, String leftName){
         flyRight = hardwareMap.get(DcMotorEx.class, rightName);
         flyLeft = hardwareMap.get(DcMotorEx.class, leftName);
@@ -30,12 +31,14 @@ public class Shooter {
         flyRight.setDirection(DcMotorEx.Direction.REVERSE);
         flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        lut.add(0, r1);
         lut.add(d1, r1);
         lut.add(d2, r2);
         lut.add(d3, r3);
         lut.add(d4, r4);
         lut.add(d5, r5);
         lut.add(d6, r6);
+        lut.add(1000, r6);
         lut.createLUT();
     }
     public static int targetTPS = 0;

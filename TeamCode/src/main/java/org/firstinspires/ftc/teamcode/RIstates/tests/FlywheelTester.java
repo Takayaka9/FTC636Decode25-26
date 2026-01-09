@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 public class FlywheelTester extends OpMode {
 
     /// set in panels (pedro units, 12u = 1ft)
-    private static double tps = 0;
+    private static double tps = 50;
     SystemManager manager;
 
     @Override

@@ -12,12 +12,14 @@ public class Hood {
     private ServoImplEx servo;
     public Hood(HardwareMap hardwareMap, String name){
         servo = hardwareMap.get(ServoImplEx.class, name);
+        lut.add(0, p1);
         lut.add(d1, p1);
         lut.add(d2, p2);
         lut.add(d3, p3);
         lut.add(d4, p4);
         lut.add(d5, p5);
         lut.add(d6, p6);
+        lut.add(1000, p6);
         lut.createLUT();
     }
 
@@ -27,12 +29,12 @@ public class Hood {
     output: panels telemetry and servo position
     !! it is never needed to call this method - it is called by shoot !!
      */
-    double d1 = 12; double p1 = 0;
-    double d2 = 24; double p2 = 0;
-    double d3 = 36; double p3 = 0;
-    double d4 = 48; double p4 = 0;
-    double d5 = 60; double p5 = 0;
-    double d6 = 72; double p6 = 0;
+    double d1 = 36; double p1 = 0.1;
+    double d2 = 50; double p2 = 0.2;
+    double d3 = 75; double p3 = 0.3;
+    double d4 = 96; double p4 = 0.4;
+    double d5 = 108; double p5 = 0.5;
+    double d6 = 150; double p6 = 0.6;
 
     public double angle;
     public void angleHood(double targetDistance) {

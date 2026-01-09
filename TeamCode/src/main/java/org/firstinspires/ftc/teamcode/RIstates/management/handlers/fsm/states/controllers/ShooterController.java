@@ -88,6 +88,10 @@ public class ShooterController {
             Pose currentPose = follower.getPose();
             targetDistance = currentPose.distanceFrom(redGoal);
         }
-        return targetDistance;
+        if (targetDistance > 20) {
+            return targetDistance;
+        } else {
+            return 1;
+        }
     }
 }
