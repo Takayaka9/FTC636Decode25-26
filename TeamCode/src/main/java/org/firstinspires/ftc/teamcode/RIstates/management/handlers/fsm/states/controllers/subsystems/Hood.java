@@ -29,12 +29,12 @@ public class Hood {
     output: panels telemetry and servo position
     !! it is never needed to call this method - it is called by shoot !!
      */
-    double d1 = 36; double p1 = 0.1;
-    double d2 = 50; double p2 = 0.2;
-    double d3 = 75; double p3 = 0.3;
-    double d4 = 96; double p4 = 0.4;
-    double d5 = 108; double p5 = 0.5;
-    double d6 = 150; double p6 = 0.6;
+    static double d1 = 36; static double p1 = 0.1;
+    static double d2 = 50; double p2 = 0.2;
+    static double d3 = 75; static double p3 = 0.3;
+    static double d4 = 96; static double p4 = 0.4;
+    static double d5 = 108; static double p5 = 0.5;
+    static double d6 = 150; static double p6 = 0.6;
 
     public double angle;
     public void angleHood(double targetDistance) {
