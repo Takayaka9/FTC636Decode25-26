@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Hood;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Turret;
+//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Turret;
 
 @Configurable
 public class ShooterController {
@@ -16,14 +16,14 @@ public class ShooterController {
     private final Follower follower;
     private final Shooter shooter;
     private final Hood hood;
-    private final Turret turret;
+    //private final Turret turret;
     private final BeltController beltController;
-    public ShooterController(TelemetryManager telemetryM, Follower follower, Shooter shooter, Hood hood, Turret turret, BeltController beltController){
+    public ShooterController(TelemetryManager telemetryM, Follower follower, Shooter shooter, Hood hood, BeltController beltController){
         this.telemetryM = telemetryM;
         this.follower = follower;
         this.shooter = shooter;
         this.hood = hood;
-        this.turret = turret;
+        //this.turret = turret;
         this.beltController = beltController;
     }
 
@@ -39,7 +39,7 @@ public class ShooterController {
             double targetDistance = getTargetDistance(follower, alliance);
             shooter.shoot(targetDistance);
             hood.angleHood(targetDistance);
-            turret.trackGoal(alliance, follower);
+            //turret.trackGoal(alliance, follower);
             beltController.run();
             shooterRunning = true;
         }

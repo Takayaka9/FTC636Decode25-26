@@ -21,13 +21,13 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.co
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.ShooterController;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.TeleOpDriveController;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Turret;
+//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Turret;
 
 public class SystemManager {
     public final Follower follower;
     public final TelemetryManager telemetryM;
     public final Config config;
-    public final Turret turret;
+    //public final Turret turret;
     public final Hood hood;
     public final Shooter shooter;
     public final Intake intake;
@@ -72,14 +72,14 @@ public class SystemManager {
         //subsystems
         config = new Config(hardwareMap);
         belt = new Belt(hardwareMap, "belt");
-        turret = new Turret(hardwareMap, "turret");
+        //turret = new Turret(hardwareMap, "turret");
         shooter = new Shooter(hardwareMap, "sr", "sl");
         hood = new Hood(hardwareMap, "hood");
         intake = new Intake(hardwareMap, "intake");
 
         //controllers
         beltController = new BeltController(belt, shooter);
-        shooterController = new ShooterController(telemetryM, follower, shooter, hood, turret, beltController);
+        shooterController = new ShooterController(telemetryM, follower, shooter, hood, beltController);
         driveController = new TeleOpDriveController(follower, gamepad1);
     }
 
