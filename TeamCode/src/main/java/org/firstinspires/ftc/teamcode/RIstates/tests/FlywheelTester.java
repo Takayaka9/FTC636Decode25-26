@@ -29,6 +29,10 @@ public class FlywheelTester extends OpMode {
         //telemetry:
         manager.telemetryM.addData(
                 "target TPS - 2800 = 6000",
+                tps
+        );
+        manager.telemetryM.addData(
+                "calc TPS",
                 manager.shooter.getShooterTPS(manager.shooterController.getTargetDistance(manager.follower, manager.shooterController.alliance))
         );
         manager.telemetryM.addData(
