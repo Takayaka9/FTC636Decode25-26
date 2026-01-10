@@ -12,10 +12,12 @@ public class Color {
     public RevColorSensorV3 sensor;
     NormalizedRGBA colors = null;
     private static double noBallDistance;
-    public Color(HardwareMap hardwareMap) {
+
+    TelemetryManager telemetryM;
+    public Color(HardwareMap hardwareMap, TelemetryManager telemetryM) {
         sensor = hardwareMap.get(RevColorSensorV3 .class, "colorSensor");
         sensor.setGain(1);
-
+        this.telemetryM = telemetryM;
     }
 
     public enum DetectedColor{
@@ -26,7 +28,7 @@ public class Color {
 
 
     //not currently useful
-    public zColor.DetectedColor updateDetectedColor(TelemetryManager telemetryM, HardwareMap hardwareMap){
+    public Color.DetectedColor updateDetectedColor(){
         NormalizedRGBA colors = sensor.getNormalizedColors();
 
         float normRed, normGreen, normBlue;
@@ -41,7 +43,7 @@ public class Color {
         telemetryM.addData("Green", normGreen);
         telemetryM.addData("Blue", normBlue);
 
-        return zColor.DetectedColor.UNKNOWN;
+        return Color.DetectedColor.UNKNOWN;
     }
 
     /**
