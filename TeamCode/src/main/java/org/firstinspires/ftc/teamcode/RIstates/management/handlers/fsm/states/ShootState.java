@@ -14,6 +14,7 @@ public class ShootState implements State {
     public void update(SystemManager manager, FSM fsm) {
         while (!manager.beltController.checkShotCounter()){
             manager.shooterController.shoot();
+            manager.lightController.shooterLightingUpdate(manager.beltController.shot);
         }
         if (manager.beltController.checkShotCounter()) {
             fsm.runNew(FSM.StateName.Norm);

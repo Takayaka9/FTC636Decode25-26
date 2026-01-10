@@ -9,10 +9,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.BeltController;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.LightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.PoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Belt;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.PWMLight;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Config;
@@ -31,10 +33,11 @@ public class SystemManager {
     public final Hood hood;
     public final Shooter shooter;
     public final Intake intake;
+    public final PWMLight light;
     public final BeltController beltController;
     public final ShooterController shooterController;
     public final TeleOpDriveController driveController;
-
+    public final LightController lightController;
 
     public final Belt belt;
 
@@ -76,11 +79,14 @@ public class SystemManager {
         shooter = new Shooter(hardwareMap, "sr", "sl");
         hood = new Hood(hardwareMap, "hood");
         intake = new Intake(hardwareMap, "intake");
+        light = new PWMLight(hardwareMap);
 
         //controllers
         beltController = new BeltController(belt, shooter);
         shooterController = new ShooterController(telemetryM, follower, shooter, hood, beltController);
         driveController = new TeleOpDriveController(follower, gamepad1);
+        lightController = new LightController(light);
+
     }
 
     public FSM FSM;

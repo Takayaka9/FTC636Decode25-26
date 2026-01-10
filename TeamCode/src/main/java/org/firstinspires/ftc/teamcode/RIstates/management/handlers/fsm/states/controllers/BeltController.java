@@ -34,7 +34,7 @@ public class BeltController {
         return false;
     }
 
-    public static int shot = 0;
+    public int shot = 0;
     public boolean checkShotCounter() {
         if (shot == 3) {
             return true;

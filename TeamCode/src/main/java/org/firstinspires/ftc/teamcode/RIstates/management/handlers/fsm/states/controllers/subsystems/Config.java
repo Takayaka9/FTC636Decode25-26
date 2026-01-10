@@ -37,8 +37,7 @@ public class Config {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        colorSensor = hardwareMap.get(RevColorSensorV3.class, "colorSensor");
-        colorSensor.setGain(1);
+
 
 //        limelight = hardwareMap.get(Limelight3A.class, "limelight");
 //        limelight.pipelineSwitch(0);
