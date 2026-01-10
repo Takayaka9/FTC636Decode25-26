@@ -39,8 +39,7 @@ public class Config {
 
 
 
-//        limelight = hardwareMap.get(Limelight3A.class, "limelight");
-//        limelight.pipelineSwitch(0);
+//
     }
 
 }
