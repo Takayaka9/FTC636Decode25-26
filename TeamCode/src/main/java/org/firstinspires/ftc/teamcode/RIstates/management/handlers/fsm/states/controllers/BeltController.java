@@ -34,39 +34,53 @@ public class BeltController {
         return false;
     }
 
-    public int shot = 0;
-    public boolean checkShotCounter() {
-        if (shot == 3) {
-            return true;
-        }
-        return false;
-    }
-    public void launch() {
-        while (!checkShooterReady()) {
-            runTimer.start();
+
+    public void run() {
+        if (checkShooterReady()) {
+            belt.run();
+        } else {
             belt.stop();
-        }
-        while (checkShooterReady()) {
-            if (!runTimer.done()) {
-                belt.run();
-            }
-            else if (runTimer.done()) {
-                shot++;
-                runTimer.start();
-            }
         }
     }
 
-    public boolean run() {
-        while (!checkShotCounter()) {
-            launch();
-        }
-        if (checkShotCounter()) {
-            shot = 0;
-            return true;
-        }
-        return false;
-    }
+
+
+
+
+
+//    public int shot = 0;
+//    public boolean checkShotCounter() {
+//        if (shot == 3) {
+//            return true;
+//        }
+//        return false;
+//    }
+//    public void launch() {
+//        while (!checkShooterReady()) {
+//            runTimer.start();
+//            belt.stop();
+//        }
+//        while (checkShooterReady()) {
+//            if (!runTimer.done()) {
+//                belt.run();
+//            }
+//            else if (runTimer.done()) {
+//                shot++;
+//                runTimer.start();
+//            }
+//        }
+//    }
+//
+//    public boolean run() {
+//        while (!checkShotCounter()) {
+//            launch();
+//        }
+//        if (checkShotCounter()) {
+//            shot = 0;
+//            return true;
+//        }
+//        return false;
+//    }
 
 
 }

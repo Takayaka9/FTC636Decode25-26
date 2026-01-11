@@ -34,23 +34,28 @@ public class ShooterController {
 
 
     public boolean shoot() {
-        if (!beltController.checkShotCounter()) {
-            timer.reset();
+//        if (!beltController.checkShotCounter()) {
+//            timer.reset();
+//            double targetDistance = getTargetDistance(follower, alliance);
+//            shooter.shoot(targetDistance);
+//            hood.angleHood(targetDistance);
+//            //turret.trackGoal(alliance, follower);
+//            beltController.run();
+//            shooterRunning = true;
+//        }
+//        if (beltController.checkShotCounter()) {
+//            shooterRunning = false;
+//            off();
+//            return true;
+//        }
+//        return false;
             double targetDistance = getTargetDistance(follower, alliance);
             shooter.shoot(targetDistance);
             hood.angleHood(targetDistance);
             //turret.trackGoal(alliance, follower);
             beltController.run();
-            shooterRunning = true;
-        }
-        if (beltController.checkShotCounter()) {
-            shooterRunning = false;
-            off();
-            return true;
-        }
-        return false;
     }
-    public boolean shooterRunning;
+    public boolean shooterRunning = false;
     public void enableHardware() {
 
 

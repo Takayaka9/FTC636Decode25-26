@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 public class ShootState implements State {
     @Override
     public void initiate(SystemManager manager) {
-        manager.shooter.stop();
+        manager.shooterController.off();
     }
 
     @Override
@@ -19,6 +19,7 @@ public class ShootState implements State {
         if (manager.beltController.checkShotCounter()) {
             fsm.runNew(FSM.StateName.Norm);
         }
+
     }
 
     @Override
