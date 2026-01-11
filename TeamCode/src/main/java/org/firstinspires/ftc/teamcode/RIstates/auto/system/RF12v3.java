@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 /// WIP
 //second command system auto which uses command system
@@ -19,7 +19,7 @@ public class RF12v3 extends OpMode {
                 manager.follower.followPath(manager.rf12Paths.fs0, true);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
-                    if (!manager.shooterController.shooterRunning) {
+                    if (!manager.shooterHandler.shooterRunning) {
                         manager.setPathState(1);
                     }
                 }
@@ -40,7 +40,7 @@ public class RF12v3 extends OpMode {
                 manager.follower.followPath(manager.rf12Paths.cs1, true);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
-                    if (!manager.shooterController.shooterRunning) {
+                    if (!manager.shooterHandler.shooterRunning) {
                         manager.setPathState(4);
                     }
                 }
@@ -61,7 +61,7 @@ public class RF12v3 extends OpMode {
                 manager.follower.followPath(manager.rf12Paths.cs2, true);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
-                    if (!manager.shooterController.shooterRunning) {
+                    if (!manager.shooterHandler.shooterRunning) {
                         manager.setPathState(6);
                     }
                 }
@@ -81,7 +81,7 @@ public class RF12v3 extends OpMode {
                 manager.follower.followPath(manager.rf12Paths.fs3, true);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
-                    if (!manager.shooterController.shooterRunning) {
+                    if (!manager.shooterHandler.shooterRunning) {
                         manager.setPathState(10);
                     }
                 }

@@ -2,20 +2,19 @@ package org.firstinspires.ftc.teamcode.RIstates.management.handlers;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.ShooterController;
+import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 public class TeleOpHandler {
     private final FSM fsm;
     private final Gamepad gamepad1;
     private final Gamepad gamepad2;
-    private final ShooterController shooterController;
+    private final ShooterHandler shooterHandler;
 
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterController shooterController) {
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
-        this.shooterController = shooterController;
+        this.shooterHandler = shooterHandler;
     }
 
     private boolean changedA = false;
@@ -62,7 +61,7 @@ public class TeleOpHandler {
             changedA = true;
             setTransition(FSM.StateName.Shoot);
             off = false;
-        } else if (shooterController.shooterRunning && changedA) {
+        } else if (shooterHandler.shooterRunning && changedA) {
             changedA = false;
             off = true;
         }

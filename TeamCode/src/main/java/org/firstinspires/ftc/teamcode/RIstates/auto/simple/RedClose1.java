@@ -12,7 +12,7 @@
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Turret;
-//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.ShooterController;
+//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.ShooterHandler;
 //
 //import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 ////9 ball blue spike mark 1 and 2 (counting downward from goal)
@@ -26,7 +26,7 @@
 //    private Shooter shooter;
 //    private Hood hood;
 //    private Turret turret;
-//    private ShooterController shooterController;
+//    private ShooterHandler shooterHandler;
 //    private Intake intake;
 //    private final int alliance = 2;
 //    private final double closeTime = 0;
@@ -87,10 +87,10 @@
 //            case 0:
 //                    follower.followPath(s0, true);
 //                    if(!follower.isBusy()) {
-//                        shooterController.shootTimeStart();
-//                        shooterController.shoot(alliance);
+//                        shooterHandler.shootTimeStart();
+//                        shooterHandler.shoot(alliance);
 //                    }
-//                    if(shooterController.shootTimeCheck(closeTime)) {
+//                    if(shooterHandler.shootTimeCheck(closeTime)) {
 //                        setPathState(1);
 //                    }
 //                    break;
@@ -106,10 +106,10 @@
 //            case 3:
 //                    follower.followPath(s1, true);
 //                    if(!follower.isBusy()) {
-//                        shooterController.shootTimeStart();
-//                        shooterController.shoot(alliance);
+//                        shooterHandler.shootTimeStart();
+//                        shooterHandler.shoot(alliance);
 //                    }
-//                    if(shooterController.shootTimeCheck(closeTime)) {
+//                    if(shooterHandler.shootTimeCheck(closeTime)) {
 //                        setPathState(4);
 //                    }
 //            case 4:
@@ -125,10 +125,10 @@
 //                    intake.stop();
 //                    follower.followPath(s2, true);
 //                    if(!follower.isBusy()) {
-//                        shooterController.shootTimeStart();
-//                        shooterController.shoot(alliance);
+//                        shooterHandler.shootTimeStart();
+//                        shooterHandler.shoot(alliance);
 //                    }
-//                    if(shooterController.shootTimeCheck(closeTime)) {
+//                    if(shooterHandler.shootTimeCheck(closeTime)) {
 //                        setPathState(7);
 //                    }
 //                    break;
@@ -159,7 +159,7 @@
 //        shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
 //        hood = new Hood(hardwareMap, "servo");
 //        turret = new Turret(hardwareMap, "turret");
-//        shooterController = new ShooterController(shooter, hood, turret, follower);
+//        shooterHandler = new ShooterHandler(shooter, hood, turret, follower);
 //        intake = new Intake(hardwareMap, "intake");
 //    }
 //    /** This method is called once at the init of the OpMode. **/

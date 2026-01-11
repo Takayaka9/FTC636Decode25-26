@@ -8,21 +8,22 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.BeltController;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.LightController;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.PoseLib;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.pedro.RF12Paths;
+import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt.BeltController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.PoseLib;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Belt;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.PWMLight;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.TurretSensor;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Config;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Hood;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.ShooterController;
-import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.TeleOpDriveController;
+import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.Config;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Hood;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Intake;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.TeleOpDriveController;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Turret;
 
 public class SystemManager {
@@ -33,12 +34,14 @@ public class SystemManager {
     public final Hood hood;
     public final Shooter shooter;
     public final Intake intake;
+    public final IntakeSensor intakeSensor;
+    public final TurretSensor turretSensor;
     public final BeltController beltController;
-    public final ShooterController shooterController;
+    public final ShooterHandler shooterHandler;
+    public final BallController ballController;
     public final TeleOpDriveController driveController;
     public final LightController lightController;
 
-    public final Belt belt;
 
     public Gamepad gamepad1;
     public Gamepad gamepad2;
@@ -73,17 +76,23 @@ public class SystemManager {
 
         //subsystems
         config = new Config(hardwareMap);
-        belt = new Belt(hardwareMap, "belt");
         //turret = new Turret(hardwareMap, "turret");
         shooter = new Shooter(hardwareMap, "sr", "sl");
         hood = new Hood(hardwareMap, "hood");
         intake = new Intake(hardwareMap, "intake");
+        intakeSensor = new IntakeSensor(hardwareMap, telemetryM);
+        turretSensor = new TurretSensor(hardwareMap, telemetryM);
+
 
         //controllers
-        beltController = new BeltController(belt, shooter);
-        shooterController = new ShooterController(telemetryM, follower, shooter, hood, beltController);
+        ballController = new BallController(intakeSensor, turretSensor);
+        beltController = new BeltController(shooter, hardwareMap, "belt");
         driveController = new TeleOpDriveController(follower, gamepad1);
         lightController = new LightController(hardwareMap);
+
+        //handlers
+        shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hood, beltController, lightController, ballController);
+
 
     }
 
@@ -95,7 +104,7 @@ public class SystemManager {
         if (FSM != null) {
             if (isTeleop) {
                 //initialize teleop only components
-                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterController);
+                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler);
             }
             else if (!isTeleop){
                 ///initialize paths add more paths here
@@ -108,7 +117,7 @@ public class SystemManager {
         teleOpHandler.start();
         opmodeTimer.resetTimer();
         follower.startTeleopDrive();
-        FSM.runNew(org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.FSM.StateName.AllianceSelect);
+        FSM.runNew(org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM.StateName.AllianceSelect);
     }
     public void teleUpdate() {
         follower.update();
@@ -146,7 +155,7 @@ public class SystemManager {
     }
 
     public void setAlliance(int newAlliance) {
-        shooterController.alliance = newAlliance;
+        shooterHandler.alliance = newAlliance;
     }
 
     public void setPathState(int pState) {
@@ -155,10 +164,10 @@ public class SystemManager {
     }
 
     public String getAlliance() {
-        if (shooterController.alliance == 1) {
+        if (shooterHandler.alliance == 1) {
             return "red";
         }
-        else if (shooterController.alliance == 2) {
+        else if (shooterHandler.alliance == 2) {
             return "blue";
         }
         return "unselected";

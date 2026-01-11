@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.RIstates.tests;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 
@@ -18,24 +17,24 @@ public class ShootingTester extends OpMode {
     public void loop() {
         manager.teleUpdate();
 
-        //shooterController data
+        //shooterHandler data
         manager.telemetryM.addData(
                 "shooter running - boolean",
-                manager.shooterController.shooterRunning
+                manager.shooterHandler.shooterRunning
         );
         manager.telemetryM.addData(
                 "target distance - 1ft = 12u (pedro pose unit)",
-                manager.shooterController.getTargetDistance(manager.follower, manager.shooterController.alliance)
+                manager.shooterHandler.getTargetDistance(manager.follower, manager.shooterHandler.alliance)
         );
         manager.telemetryM.addData(
                 "alliance - 0=init 1=red 2=blue",
-                manager.shooterController.alliance
+                manager.shooterHandler.alliance
         );
 
         //shooter data
         manager.telemetryM.addData(
                 "target TPS - 2800 = 6000",
-                manager.shooter.getShooterTPS(manager.shooterController.getTargetDistance(manager.follower, manager.shooterController.alliance))
+                manager.shooter.getShooterTPS(manager.shooterHandler.getTargetDistance(manager.follower, manager.shooterHandler.alliance))
                 );
         manager.telemetryM.addData(
                 "right output power (0-1)",

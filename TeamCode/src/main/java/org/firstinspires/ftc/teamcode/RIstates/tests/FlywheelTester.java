@@ -33,7 +33,7 @@ public class FlywheelTester extends OpMode {
         );
         manager.telemetryM.addData(
                 "calc TPS",
-                manager.shooter.getShooterTPS(manager.shooterController.getTargetDistance(manager.follower, manager.shooterController.alliance))
+                manager.shooter.getShooterTPS(manager.shooterHandler.getTargetDistance(manager.follower, manager.shooterHandler.alliance))
         );
         manager.telemetryM.addData(
                 "right output power (0-1)",
