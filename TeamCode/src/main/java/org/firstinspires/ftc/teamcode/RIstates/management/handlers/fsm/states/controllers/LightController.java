@@ -1,41 +1,41 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.PWMLight;
 
-public class LightController {
+public class LightController extends PWMLight {
 
-    PWMLight light;
-    public LightController(PWMLight light){
-        this.light = light;
+    public LightController(HardwareMap hardwareMap) {
+        super(hardwareMap);
     }
-
     public void intakeLightingUpdate(int artifactCount) {
         if (artifactCount ==0) {
-            light.violet();
+            violet();
         }
         if (artifactCount == 1) {
-            light.red();
+            red();
         }
         if (artifactCount == 2) {
-            light.yellow();
+            yellow();
         }
         if (artifactCount == 3) {
-            light.green();
+            green();
         }
     }
 
     public void shooterLightingUpdate(int artifactsShot) {
         if (artifactsShot ==0) {
-            light.violet();
+            violet();
         }
         if (artifactsShot == 1) {
-            light.red();
+            red();
         }
         if (artifactsShot == 2) {
-            light.yellow();
+            yellow();
         }
         if (artifactsShot == 3) {
-            light.green();
+            green();
         }
     }
 }

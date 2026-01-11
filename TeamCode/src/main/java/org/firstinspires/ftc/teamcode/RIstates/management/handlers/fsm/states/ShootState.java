@@ -20,6 +20,7 @@ public class ShootState implements State {
             fsm.runNew(FSM.StateName.Norm);
         }
 
+
     }
 
     @Override

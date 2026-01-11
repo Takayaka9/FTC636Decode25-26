@@ -4,7 +4,7 @@ import com.bylazar.lights.RGBIndicator;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class PWMLight {
+public abstract class PWMLight {
     Servo light;
     public PWMLight(HardwareMap hardwareMap) {
         light = hardwareMap.get(Servo.class, "led");

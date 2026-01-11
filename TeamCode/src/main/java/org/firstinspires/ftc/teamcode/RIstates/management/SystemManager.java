@@ -33,7 +33,6 @@ public class SystemManager {
     public final Hood hood;
     public final Shooter shooter;
     public final Intake intake;
-    public final PWMLight light;
     public final BeltController beltController;
     public final ShooterController shooterController;
     public final TeleOpDriveController driveController;
@@ -79,13 +78,12 @@ public class SystemManager {
         shooter = new Shooter(hardwareMap, "sr", "sl");
         hood = new Hood(hardwareMap, "hood");
         intake = new Intake(hardwareMap, "intake");
-        light = new PWMLight(hardwareMap);
 
         //controllers
         beltController = new BeltController(belt, shooter);
         shooterController = new ShooterController(telemetryM, follower, shooter, hood, beltController);
         driveController = new TeleOpDriveController(follower, gamepad1);
-        lightController = new LightController(light);
+        lightController = new LightController(hardwareMap);
 
     }
 

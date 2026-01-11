@@ -33,7 +33,7 @@ public class ShooterController {
     private static int closeTime = 4000;
 
 
-    public boolean shoot() {
+    public void shoot() {
 //        if (!beltController.checkShotCounter()) {
 //            timer.reset();
 //            double targetDistance = getTargetDistance(follower, alliance);
