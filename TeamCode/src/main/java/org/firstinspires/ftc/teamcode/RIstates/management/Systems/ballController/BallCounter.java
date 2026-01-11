@@ -13,7 +13,7 @@ public class BallCounter {
         this.turret = turret;
     }
 
-    private static int ballCount;
+    private static int ballCount = 0;
     public boolean checkBotClear() {
         if (ballCount == 0) {
             return true;
