@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt.BeltController;
@@ -39,7 +40,7 @@ public class SystemManager {
     public final BeltController beltController;
     public final ShooterHandler shooterHandler;
     public final BallController ballController;
-    public final TeleOpDriveController driveController;
+    public final Controller driveController;
     public final LightController lightController;
 
 
@@ -123,7 +124,7 @@ public class SystemManager {
         follower.update();
         telemetryM.update();
         teleOpHandler.update();
-        driveController.teleopNorm();
+        driveController.update();
         FSM.update();
         telemetryM.addData("Current state", FSM.getCurrentState());
         telemetryM.addData("Alliance", getAlliance());

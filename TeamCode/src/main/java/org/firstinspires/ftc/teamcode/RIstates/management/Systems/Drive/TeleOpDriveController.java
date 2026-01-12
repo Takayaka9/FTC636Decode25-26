@@ -3,7 +3,15 @@ package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive;
 import  com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class TeleOpDriveController {
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
+
+public class TeleOpDriveController implements Controller {
+
+    public void init() {};
+    public void end() {};
+    public errors updateError() {
+        return errors.RUNNING;
+    };
 
     private final Follower follower;
     private final Gamepad gamepad;
@@ -13,7 +21,7 @@ public class TeleOpDriveController {
             this.gamepad = gamepad;
     }
 
-    public void teleopNorm () {
+    public void update () {
         if (gamepad.left_trigger < 0.3) {
             follower.setTeleOpDrive(
                     -gamepad.left_stick_y*1,

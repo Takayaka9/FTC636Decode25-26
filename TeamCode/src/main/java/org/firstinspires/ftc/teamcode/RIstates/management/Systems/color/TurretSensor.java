@@ -14,6 +14,7 @@ public class TurretSensor extends DistanceCheckBase implements IsBallPresent{
         sensor.setGain(1);
     }
 
+    @Override
     public detectedLocation CheckIsBallPresent(){
         if (checkSensor(sensor, noBallDistance)){
             return detectedLocation.TURRET;
