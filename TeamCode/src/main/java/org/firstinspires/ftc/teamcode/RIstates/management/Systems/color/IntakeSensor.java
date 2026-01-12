@@ -15,6 +15,7 @@ public class IntakeSensor extends DistanceCheckBase implements IsBallPresent{
         Init(hardwareMap, telemetryM, "iCS", sensor);
     }
 
+    @Override
     public detectedLocation CheckIsBallPresent(){
         if (checkSensor(sensor, noBallDistance)){
         return detectedLocation.INTAKE;

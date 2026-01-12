@@ -28,7 +28,7 @@ public class StatesTeleop2 extends LinearOpMode {
 
         while(opModeIsActive()){
             manager.teleUpdate();
-            manager.driveController.teleopNorm();
+            manager.driveController.update();
         }
     }
 }

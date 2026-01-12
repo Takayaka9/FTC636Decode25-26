@@ -12,6 +12,7 @@ public class TurretSensor extends DistanceCheckBase implements IsBallPresent{
         Init(hardwareMap, telemetryM, "tCS", sensor);
     }
 
+    @Override
     public detectedLocation CheckIsBallPresent(){
         if (checkSensor(sensor, noBallDistance)){
             return detectedLocation.TURRET;

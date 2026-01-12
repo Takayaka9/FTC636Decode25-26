@@ -13,7 +13,7 @@ abstract class DistanceCheckBase implements IsBallPresent{
     }
 
     protected final boolean checkSensor(RevColorSensorV3 sensor, double noBallDistance) {
-        if (sensor.getDistance(DistanceUnit.CM) > noBallDistance){
+        if (sensor.getDistance(DistanceUnit.MM) > noBallDistance){
             return true;
         } else return false;
     }
