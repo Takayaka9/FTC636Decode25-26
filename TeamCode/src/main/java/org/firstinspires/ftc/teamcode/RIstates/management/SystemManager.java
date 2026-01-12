@@ -126,6 +126,8 @@ public class SystemManager {
         teleOpHandler.update();
         driveController.update();
         FSM.update();
+        telemetryM.addData("intake distance", intakeSensor.test());
+        telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentState());
         telemetryM.addData("Alliance", getAlliance());
         telemetry.addData("Current state", FSM.getCurrentState());

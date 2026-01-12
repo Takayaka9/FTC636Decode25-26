@@ -5,6 +5,8 @@ import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 
 @Configurable
 public class IntakeSensor extends DistanceCheckBase implements IsBallPresent{
@@ -17,6 +19,7 @@ public class IntakeSensor extends DistanceCheckBase implements IsBallPresent{
         sensor.setGain(1);
     }
 
+
     @Override
     public detectedLocation CheckIsBallPresent(){
         if (checkSensor(sensor, noBallDistance)){
@@ -24,5 +27,10 @@ public class IntakeSensor extends DistanceCheckBase implements IsBallPresent{
         } else {
             return detectedLocation.IntakeCLEAR;
         }
+    }
+
+    @Override
+    public double test() {
+        return sensor.getDistance(DistanceUnit.MM);
     }
 }

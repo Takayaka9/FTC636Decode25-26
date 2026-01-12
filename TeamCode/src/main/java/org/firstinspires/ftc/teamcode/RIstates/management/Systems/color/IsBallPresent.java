@@ -6,4 +6,6 @@ public interface IsBallPresent {
         INTAKE, TURRET, IntakeCLEAR, TurretCLEAR
     }
     detectedLocation CheckIsBallPresent();
+
+     double test();
 }
