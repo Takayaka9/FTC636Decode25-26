@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.Limelight;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.LimelightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt.BeltController;
@@ -35,6 +37,7 @@ public class SystemManager {
     public final Hood hood;
     public final Shooter shooter;
     public final Intake intake;
+    public final Limelight limelight;
     public final IntakeSensor intakeSensor;
     public final TurretSensor turretSensor;
     public final BeltController beltController;
@@ -42,7 +45,7 @@ public class SystemManager {
     public final BallController ballController;
     public final Controller driveController;
     public final LightController lightController;
-
+    //public final LimelightController limelightController;
 
     public Gamepad gamepad1;
     public Gamepad gamepad2;
@@ -83,6 +86,7 @@ public class SystemManager {
         intake = new Intake(hardwareMap, "intake");
         intakeSensor = new IntakeSensor(hardwareMap, telemetryM);
         turretSensor = new TurretSensor(hardwareMap, telemetryM);
+        //limelight = new Limelight(hardwareMap, "limelight");
 
 
         //controllers
@@ -90,6 +94,7 @@ public class SystemManager {
         beltController = new BeltController(shooter, hardwareMap, "belt");
         driveController = new TeleOpDriveController(follower, gamepad1);
         lightController = new LightController(hardwareMap);
+        //limelightController = new LimelightController(limelight)
 
         //handlers
         shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hood, beltController, lightController, ballController);

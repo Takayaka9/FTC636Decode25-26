@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
+import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
 
@@ -13,7 +15,7 @@ public class LimelightController extends Limelight implements Controller {
     private int state;
     TelemetryManager telemetryM;
     Follower follower;
-    public LimelightController(HardwareMap hardwareMap, String name, Follower f, TelemetryManager telemetryManager){
+    public LimelightController(HardwareMap hardwareMap, String name, Follower f){
         super(hardwareMap, name);
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = f;
@@ -33,22 +35,19 @@ public class LimelightController extends Limelight implements Controller {
     @Override
     public void update() {
         if(state == 1){
+
+        }
+        if(state == 3){
             limelight3A.pipelineSwitch(state);
-            /*
-            follower
-            limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
-            LLResult result = limelight.getLatestResult();
+            limelight3A.pipelineSwitch(state);
+            limelight3A.updateRobotOrientation(follower.getPose().getHeading());
+            LLResult result = limelight3A.getLatestResult();
             if (result != null) {
                 if (result.isValid()) {
                     Pose3D botpose = result.getBotpose_MT2();
                     // Use botpose data
                 }
             }
-
-             */
-        }
-        if(state == 3){
-            limelight3A.pipelineSwitch(state);
         }
 
         telemetryM.addData("pipeline", state);
