@@ -37,7 +37,7 @@ public class SystemManager {
     public final Hood hood;
     public final Shooter shooter;
     public final Intake intake;
-    public final Limelight limelight;
+//    public final Limelight limelight;
     public final IntakeSensor intakeSensor;
     public final TurretSensor turretSensor;
     public final BeltController beltController;

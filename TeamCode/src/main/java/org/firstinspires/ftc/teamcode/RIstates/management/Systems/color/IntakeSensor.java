@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @Configurable
 public class IntakeSensor extends DistanceCheckBase implements IsBallPresent{
     public RevColorSensorV3 sensor;
-    private static double noBallDistance = 1;
+    private static double noBallDistance = 57.5;
 
     public IntakeSensor(HardwareMap hardwareMap, TelemetryManager telemetryM) {
 //        Init(hardwareMap, telemetryM, "iCS", sensor);
