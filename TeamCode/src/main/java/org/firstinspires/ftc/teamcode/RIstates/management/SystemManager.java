@@ -130,6 +130,7 @@ public class SystemManager {
         telemetryM.addData("Alliance", getAlliance());
         telemetry.addData("Current state", FSM.getCurrentState());
         telemetry.addData("Alliance", getAlliance());
+        telemetry.addData("balls", ballController.getBallCount());
         telemetry.update();
     }
 

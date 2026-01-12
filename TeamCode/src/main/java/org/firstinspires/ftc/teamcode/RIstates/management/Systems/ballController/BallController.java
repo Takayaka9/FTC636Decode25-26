@@ -48,9 +48,9 @@ public class BallController extends BallCounter implements Controller {
         if (checkBotFull() && !shooting) {
             return errors.ErrorCausesNormState;
         }
-        if (shooting && timer.checkFinished()) {
-            return errors.ErrorCausesNormState;
-        }
+//        if (shooting && timer.checkFinished()) {
+//            return errors.ErrorCausesNormState;
+//        }e
         return errors.RUNNING;
     }
 
