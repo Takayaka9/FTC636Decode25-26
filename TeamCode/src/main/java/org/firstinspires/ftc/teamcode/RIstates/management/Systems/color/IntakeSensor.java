@@ -12,7 +12,9 @@ public class IntakeSensor extends DistanceCheckBase implements IsBallPresent{
     private static double noBallDistance = 1;
 
     public IntakeSensor(HardwareMap hardwareMap, TelemetryManager telemetryM) {
-        Init(hardwareMap, telemetryM, "iCS", sensor);
+//        Init(hardwareMap, telemetryM, "iCS", sensor);
+        sensor = hardwareMap.get(RevColorSensorV3.class, "iCS");
+        sensor.setGain(1);
     }
 
     public detectedLocation CheckIsBallPresent(){
