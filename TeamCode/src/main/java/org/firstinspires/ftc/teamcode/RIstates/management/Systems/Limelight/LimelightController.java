@@ -3,17 +3,22 @@ package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.ftc.InvertedFTCCoordinates;
+import com.pedropathing.ftc.PoseConverter;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
 
 import java.util.List;
 
 public class LimelightController extends Limelight implements Controller {
-
     private int state;
     public static int motifID;
     TelemetryManager telemetryM;
@@ -53,12 +58,15 @@ public class LimelightController extends Limelight implements Controller {
         }
         if(state == 3){
             limelight3A.pipelineSwitch(state);
-            limelight3A.updateRobotOrientation(follower.getPose().getHeading());
+            limelight3A.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
             LLResult result = limelight3A.getLatestResult();
             if (result != null) {
                 if (result.isValid()) {
-                    Pose3D botpose = result.getBotpose_MT2();
-                    // Use botpose data
+                    Pose3D llPose = result.getBotpose_MT2();
+                    telemetryM.addData("limelight pose", llPose.toString());
+                    Pose2D pose2D = new Pose2D(DistanceUnit.INCH, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.DEGREES, llPose.getOrientation().getYaw(AngleUnit.DEGREES));
+                    Pose pedroPose = PoseConverter.pose2DToPose(pose2D, InvertedFTCCoordinates.INSTANCE);
+                    follower.setPose(pedroPose);
                 }
             }
         }
