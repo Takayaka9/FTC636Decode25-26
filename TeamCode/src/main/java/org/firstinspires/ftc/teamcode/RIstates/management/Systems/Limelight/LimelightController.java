@@ -32,7 +32,7 @@ public class LimelightController extends Limelight implements Controller {
 
     @Override
     public void init() {
-        limelight3A.start();
+        start();
     }
 
     //states: motif (1), relocalization(3)
@@ -68,7 +68,7 @@ public class LimelightController extends Limelight implements Controller {
 
     @Override
     public void end() {
-
+        stop();
     }
 
     @Override
