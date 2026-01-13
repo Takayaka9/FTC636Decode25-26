@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.Systems.color;
 
 import com.bylazar.telemetry.TelemetryManager;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -13,7 +14,13 @@ abstract class DistanceCheckBase implements IsBallPresent{
     }
 
     protected final boolean checkSensor(RevColorSensorV3 sensor, double noBallDistance) {
-        if (sensor.getDistance(DistanceUnit.MM) > noBallDistance){
+        if (sensor.getDistance(DistanceUnit.MM) < noBallDistance){
+            return true;
+        } else return false;
+    }
+
+    protected final boolean checkDistanceSensor(Rev2mDistanceSensor sensor, double noBallDistance ) {
+        if (sensor.getDistance(DistanceUnit.MM) < noBallDistance){
             return true;
         } else return false;
     }

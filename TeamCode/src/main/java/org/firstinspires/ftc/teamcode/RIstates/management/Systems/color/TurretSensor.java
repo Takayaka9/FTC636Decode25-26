@@ -12,9 +12,9 @@ public class TurretSensor extends DistanceCheckBase implements IsBallPresent{
     public RevColorSensorV3 sensor;
     private static double noBallDistance = 25;
 
-    public TurretSensor(HardwareMap hardwareMap, TelemetryManager telemetryM) {
+    public TurretSensor(HardwareMap hardwareMap) {
 //        Init(hardwareMap, telemetryM, "tCS", sensor);
-        sensor = hardwareMap.get(RevColorSensorV3.class, "iCS");
+        sensor = hardwareMap.get(RevColorSensorV3.class, "tCS");
         sensor.setGain(1);
     }
 

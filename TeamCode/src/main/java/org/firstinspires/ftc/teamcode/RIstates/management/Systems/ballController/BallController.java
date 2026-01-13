@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballControlle
 import com.bylazar.configurables.annotations.Configurable;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDistanceSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.TurretSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.timers.GenericTime;
@@ -13,7 +14,7 @@ public class BallController extends BallCounter implements Controller {
     GenericTime timer;
     private boolean shooting = false;
     private static int shootTimeMax = 4500;
-    public BallController(IntakeSensor intake, TurretSensor turret) {
+    public BallController(IntakeDistanceSensor intake, TurretSensor turret) {
         super(intake, turret);
         timer = new SolversTiming();
         timer.create();
