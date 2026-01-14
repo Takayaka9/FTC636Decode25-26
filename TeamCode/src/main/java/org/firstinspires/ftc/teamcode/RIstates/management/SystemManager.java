@@ -9,6 +9,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.Limelight;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.LimelightController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDistanceSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt.BeltController;
@@ -35,14 +38,16 @@ public class SystemManager {
     public final Hood hood;
     public final Shooter shooter;
     public final Intake intake;
+//    public final Limelight limelight;
     public final IntakeSensor intakeSensor;
+    public final IntakeDistanceSensor intakeDistanceSensor;
     public final TurretSensor turretSensor;
     public final BeltController beltController;
     public final ShooterHandler shooterHandler;
     public final BallController ballController;
     public final Controller driveController;
     public final LightController lightController;
-
+    //public final LimelightController limelightController;
 
     public Gamepad gamepad1;
     public Gamepad gamepad2;
@@ -81,15 +86,18 @@ public class SystemManager {
         shooter = new Shooter(hardwareMap, "sr", "sl");
         hood = new Hood(hardwareMap, "hood");
         intake = new Intake(hardwareMap, "intake");
-        intakeSensor = new IntakeSensor(hardwareMap, telemetryM);
-        turretSensor = new TurretSensor(hardwareMap, telemetryM);
+        intakeSensor = new IntakeSensor(hardwareMap);
+        intakeDistanceSensor = new IntakeDistanceSensor(hardwareMap);
+        turretSensor = new TurretSensor(hardwareMap);
+        //limelight = new Limelight(hardwareMap, "limelight");
 
 
         //controllers
-        ballController = new BallController(intakeSensor, turretSensor);
+        ballController = new BallController(intakeDistanceSensor, turretSensor);
         beltController = new BeltController(shooter, hardwareMap, "belt");
         driveController = new TeleOpDriveController(follower, gamepad1);
         lightController = new LightController(hardwareMap);
+        //limelightController = new LimelightController(limelight)
 
         //handlers
         shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hood, beltController, lightController, ballController);
@@ -126,10 +134,13 @@ public class SystemManager {
         teleOpHandler.update();
         driveController.update();
         FSM.update();
+        telemetryM.addData("intake distance", intakeSensor.test());
+        telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentState());
         telemetryM.addData("Alliance", getAlliance());
         telemetry.addData("Current state", FSM.getCurrentState());
         telemetry.addData("Alliance", getAlliance());
+        telemetry.addData("balls", ballController.getBallCount());
         telemetry.update();
     }
 

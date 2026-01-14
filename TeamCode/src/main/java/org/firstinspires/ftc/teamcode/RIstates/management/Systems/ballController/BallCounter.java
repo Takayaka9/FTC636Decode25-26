@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController;
 
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDistanceSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IsBallPresent;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.TurretSensor;
@@ -8,7 +9,7 @@ public class BallCounter {
 
     IsBallPresent intake;
     IsBallPresent turret;
-    public BallCounter(IntakeSensor intake, TurretSensor turret) {
+    public BallCounter(IntakeDistanceSensor intake, TurretSensor turret) {
         this.intake = intake;
         this.turret = turret;
     }
