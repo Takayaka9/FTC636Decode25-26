@@ -21,24 +21,30 @@ import java.util.List;
 public class LimelightController extends Limelight implements Controller {
     private int state;
     public static int motifID;
+    public static boolean found;
     TelemetryManager telemetryM;
     Follower follower;
     public LimelightController(HardwareMap hardwareMap, String name, Follower f){
         super(hardwareMap, name);
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = f;
-        state = 0;
-        motifID = 0;
+        found = false;
+        //state = 0;
+        //motifID = 0;
     }
 
+    /*
     public void setState(int stateNum){
         state = stateNum;
     }
+
+     */
 
     @Override
     public void init() {
         start();
         limelight3A.pipelineSwitch(3);
+        found = false;
     }
 
     //states: motif (1), relocalization(3)
@@ -71,6 +77,7 @@ public class LimelightController extends Limelight implements Controller {
                 Pose2D pose2D = new Pose2D(DistanceUnit.INCH, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.DEGREES, llPose.getOrientation().getYaw(AngleUnit.DEGREES));
                 Pose pedroPose = PoseConverter.pose2DToPose(pose2D, InvertedFTCCoordinates.INSTANCE);
                 follower.setPose(pedroPose);
+                found = true;
             }
         }
         /*
@@ -86,6 +93,7 @@ public class LimelightController extends Limelight implements Controller {
     @Override
     public void end() {
         stop();
+        found = false;
     }
 
     @Override
