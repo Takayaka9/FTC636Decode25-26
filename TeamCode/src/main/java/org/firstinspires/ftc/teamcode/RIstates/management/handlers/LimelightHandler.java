@@ -11,7 +11,8 @@ public class LimelightHandler {
     private final LimelightController llController;
     private final Follower follower;
     SolversTiming timer = new SolversTiming();
-    boolean started = false;
+    boolean inited = false;
+    //makes LimelightHandler and resets timer
     public LimelightHandler(LimelightController control, Follower f){
         llController = control;
         follower = f;
@@ -19,12 +20,16 @@ public class LimelightHandler {
         timer.setLength(30000);
         timer.resetThenStart();
     }
+
     public void relocalize(){
-        if(timer.checkFinished() && !started){
+        //initializes llcontroller once timer is up
+        if(timer.checkFinished() && !inited){
             llController.init();
-            started = true;
+            inited = true;
         }
-        if(timer.checkFinished() && started && !found){
+        //if timer is up and ll initialized, looks for atags and relocalizes
+        //once relocalized, end ll and reset timer
+        if(timer.checkFinished() && inited && !found){
             llController.update();
         }
         else if(found){

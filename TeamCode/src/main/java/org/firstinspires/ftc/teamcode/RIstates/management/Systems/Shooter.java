@@ -15,7 +15,7 @@ public class Shooter {
     public final DcMotorEx flyRight;
     public final DcMotorEx flyLeft;
     private ElapsedTime pidTime = new ElapsedTime();
-
+    //TODO: decide lut or no lut
     static double d1 = 36; static double r1 = 800;
     static double d2 = 50; static double r2 = 1000;
     static double d3 = 75; static double r3 = 1300;
@@ -59,9 +59,7 @@ public class Shooter {
     public static double Ki = 0;
     public static double Kd = 0;
     public static double Kf = 0.006;
-
-
-
+    //TODO: either make a pidf class (good idea) or just fix ts. either way use chatgpt.
     private double integralSum;
     private double lastError;
     public double outputRight; // basically the same as the normal PIDControl

@@ -40,6 +40,7 @@ public class LimelightController extends Limelight implements Controller {
 
      */
 
+    //inits ll and switches pipeline to 3. sets found to false for llhandler purposes
     @Override
     public void init() {
         start();
@@ -67,7 +68,7 @@ public class LimelightController extends Limelight implements Controller {
 
 
          */
-
+        //code to use megatag2 to relocalize robot using follower's heading
         limelight3A.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
         LLResult result = limelight3A.getLatestResult();
         if (result != null) {
