@@ -38,11 +38,13 @@ public class LimelightController extends Limelight implements Controller {
     @Override
     public void init() {
         start();
+        limelight3A.pipelineSwitch(3);
     }
 
     //states: motif (1), relocalization(3)
     @Override
     public void update() {
+        /*
         if(state == 1){
             limelight3A.pipelineSwitch(state);
             LLResult result = limelight3A.getLatestResult();
@@ -56,20 +58,27 @@ public class LimelightController extends Limelight implements Controller {
                 }
             }
         }
-        if(state == 3){
-            limelight3A.pipelineSwitch(state);
-            limelight3A.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
-            LLResult result = limelight3A.getLatestResult();
-            if (result != null) {
-                if (result.isValid()) {
-                    Pose3D llPose = result.getBotpose_MT2();
-                    telemetryM.addData("limelight pose", llPose.toString());
-                    Pose2D pose2D = new Pose2D(DistanceUnit.INCH, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.DEGREES, llPose.getOrientation().getYaw(AngleUnit.DEGREES));
-                    Pose pedroPose = PoseConverter.pose2DToPose(pose2D, InvertedFTCCoordinates.INSTANCE);
-                    follower.setPose(pedroPose);
-                }
+
+
+         */
+
+        limelight3A.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
+        LLResult result = limelight3A.getLatestResult();
+        if (result != null) {
+            if (result.isValid()) {
+                Pose3D llPose = result.getBotpose_MT2();
+                telemetryM.addData("limelight pose", llPose.toString());
+                Pose2D pose2D = new Pose2D(DistanceUnit.INCH, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.DEGREES, llPose.getOrientation().getYaw(AngleUnit.DEGREES));
+                Pose pedroPose = PoseConverter.pose2DToPose(pose2D, InvertedFTCCoordinates.INSTANCE);
+                follower.setPose(pedroPose);
             }
         }
+        /*
+        if(state == 3){
+
+        }
+
+         */
 
         telemetryM.addData("pipeline", state);
     }
