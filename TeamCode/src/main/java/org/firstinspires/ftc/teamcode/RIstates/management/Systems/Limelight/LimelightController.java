@@ -24,10 +24,10 @@ public class LimelightController extends Limelight implements Controller {
     public static boolean found;
     TelemetryManager telemetryM;
     Follower follower;
-    public LimelightController(HardwareMap hardwareMap, String name, Follower f){
+    public LimelightController(HardwareMap hardwareMap, String name, Follower follower, TelemetryManager telemetryM){
         super(hardwareMap, name);
-        telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
-        follower = f;
+        this.telemetryM = telemetryM;
+        this.follower = follower;
         found = false;
         //state = 0;
         //motifID = 0;

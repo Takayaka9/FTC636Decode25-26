@@ -10,9 +10,9 @@ public class Turret {
     //TelemetryManager telemetryM;
     public DcMotorEx turret;
     Follower follower;
-    public Turret(HardwareMap hardwareMap, Follower f, String name){
+    public Turret(HardwareMap hardwareMap, Follower follower, String name){
         turret = hardwareMap.get(DcMotorEx.class, name);
-        follower = f;
+        this.follower = follower;
     }
     //turret code!
     //TODO: Ticks per Rev incorrect, thats for a 6000
@@ -76,7 +76,6 @@ public class Turret {
 
         output = (error * turretKp) + (derivative * turretKd) + (turretIntegral * turretKi) ;
 
-        //TODO: need to change this to whatever we name the motor
         turret.setPower(output);
 
         //telemetryM.addData("current position", cPosition);

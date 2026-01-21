@@ -8,9 +8,10 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.Limelight;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.LimelightController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.Turret;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDistanceSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
@@ -21,24 +22,21 @@ import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.RF12Path
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.TurretSensor;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.Config;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Hood;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Intake;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.TeleOpDriveController;
-//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Turret;
 
 public class SystemManager {
     public final Follower follower;
     public final TelemetryManager telemetryM;
     public final Config config;
-    //public final Turret turret;
+    public final Turret turret;
     public final Hood hood;
     public final Shooter shooter;
     public final Intake intake;
-//    public final Limelight limelight;
     public final IntakeSensor intakeSensor;
     public final IntakeDistanceSensor intakeDistanceSensor;
     public final TurretSensor turretSensor;
@@ -47,7 +45,7 @@ public class SystemManager {
     public final BallController ballController;
     public final Controller driveController;
     public final LightController lightController;
-    //public final LimelightController limelightController;
+    public final LimelightController limelightController;
 
     public Gamepad gamepad1;
     public Gamepad gamepad2;
@@ -82,14 +80,13 @@ public class SystemManager {
 
         //subsystems
         config = new Config(hardwareMap);
-        //turret = new Turret(hardwareMap, "turret");
         shooter = new Shooter(hardwareMap, "sr", "sl");
+        turret = new Turret(hardwareMap, follower, "turret");
         hood = new Hood(hardwareMap, "hood");
         intake = new Intake(hardwareMap, "intake");
         intakeSensor = new IntakeSensor(hardwareMap);
         intakeDistanceSensor = new IntakeDistanceSensor(hardwareMap);
         turretSensor = new TurretSensor(hardwareMap);
-        //limelight = new Limelight(hardwareMap, "limelight");
 
 
         //controllers
@@ -97,7 +94,7 @@ public class SystemManager {
         beltController = new BeltController(shooter, hardwareMap, "belt");
         driveController = new TeleOpDriveController(follower, gamepad1);
         lightController = new LightController(hardwareMap);
-        //limelightController = new LimelightController(limelight)
+        limelightController = new LimelightController(hardwareMap, "limelight", follower, telemetryM);
 
         //handlers
         shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hood, beltController, lightController, ballController);
