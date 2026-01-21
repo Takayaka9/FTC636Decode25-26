@@ -1,12 +1,17 @@
 package org.firstinspires.ftc.teamcode.RIstates.tests;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 @TeleOp(name = "quickyshootytesty")
 @Configurable
 public class QuickShootTest extends OpMode {
@@ -14,6 +19,7 @@ public class QuickShootTest extends OpMode {
     public DcMotorEx flyBottom;
     public ServoImplEx hood;
     public double target = 1650;
+    TelemetryManager telemetryManager;
     @Override
     public void init() {
         flyTop = hardwareMap.get(DcMotorEx.class, "ft");
@@ -24,9 +30,11 @@ public class QuickShootTest extends OpMode {
         flyTop.setDirection(DcMotorEx.Direction.REVERSE);
         flyTop.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         flyBottom.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
     }
     @Override
     public void loop() {
+        telemetryManager.update();
         if(gamepad2.b){
             updateRight(target);
             updateLeft(target);
