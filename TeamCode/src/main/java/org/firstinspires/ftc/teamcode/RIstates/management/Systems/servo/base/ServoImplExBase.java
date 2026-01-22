@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo;
+package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base;
 
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -8,13 +8,13 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.pwm.PwmConverter;
 
-abstract class ServoImplExBase implements GamepadServo {
+public abstract class ServoImplExBase implements GamepadServoImplEx {
     ServoImplEx servo;
     PwmRange range;
 
     PwmConverter converter;
 
-    ServoImplExBase(String name, HardwareMap hardwareMap) {
+    public ServoImplExBase(String name, HardwareMap hardwareMap) {
         servo = hardwareMap.get(ServoImplEx.class, name);
         converter = new PwmConverter();
         servo.setPwmEnable();

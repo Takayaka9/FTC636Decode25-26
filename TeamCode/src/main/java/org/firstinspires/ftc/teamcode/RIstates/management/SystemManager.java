@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.PoseStorage;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GamepadServo;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.PoseStorage;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GateServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.LimelightHandler;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -20,10 +20,10 @@ import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.Turr
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDistanceSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt.BeltController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.BeltController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.PoseLib;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.RF12Paths;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RedPoseLib;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.TurretSensor;
@@ -41,7 +41,7 @@ public class SystemManager {
     public final HoodController hoodController;
     public final Shooter shooter;
     public final Intake intake;
-    public final GamepadServo gateServo;
+    public final GamepadServoImplEx gateServo;
     public final IntakeSensor intakeSensor;
     public final IntakeDistanceSensor intakeDistanceSensor;
     public final TurretSensor turretSensor;
@@ -60,7 +60,7 @@ public class SystemManager {
 
     public Timer pathTimer, actionTimer, opmodeTimer;
     public int pathState;
-    public final PoseLib poseLib;
+    public final RedPoseLib redPoseLib;
 
     private final Telemetry telemetry;
 
@@ -80,7 +80,7 @@ public class SystemManager {
         follower = Constants.createFollower(hardwareMap);
 
         //auto dependencies
-        poseLib = new PoseLib();
+        redPoseLib = new RedPoseLib();
         poseStorage = new PoseStorage();
         pathTimer = new Timer();
         actionTimer = new Timer();

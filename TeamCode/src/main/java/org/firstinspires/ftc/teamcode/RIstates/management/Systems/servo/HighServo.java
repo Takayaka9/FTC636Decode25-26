@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
-public class HighServo //implements GamepadServo{
+public class HighServo //implements GamepadServoImplEx{
 {
 
     ServoImplEx servo = null;
