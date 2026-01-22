@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.states;
+package org.firstinspires.ftc.teamcode.RIstates.tests;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
@@ -11,12 +11,12 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Configurable
-@TeleOp(name = "Quick Test Shoot", group = "TeleOp")
-public class QuickShootTest extends OpMode {
+@TeleOp(name = "New Shooter Test", group = "TeleOp")
+public class NewShooterTester extends OpMode {
     public DcMotorEx flyTop;
     public DcMotorEx flyBottom;
     public ServoImplEx hood;
-    public static double target = 625;
+    public static double target = 1200;
     TelemetryManager telemetryManager;
     @Override
     public void init() {
