@@ -11,9 +11,8 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-@TeleOp(name = "quickyshootytesty")
 @Configurable
+@TeleOp(name = "Quick Test Shoot", group = "TeleOp")
 public class QuickShootTest extends OpMode {
     public DcMotorEx flyTop;
     public DcMotorEx flyBottom;
@@ -27,10 +26,11 @@ public class QuickShootTest extends OpMode {
         hood = hardwareMap.get(ServoImplEx.class, "h");
         flyTop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         flyBottom.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        flyTop.setDirection(DcMotorEx.Direction.REVERSE);
+        flyBottom.setDirection(DcMotorEx.Direction.REVERSE);
         flyTop.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         flyBottom.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
+        //hood.setPosition(0);
     }
     @Override
     public void loop() {
@@ -43,12 +43,20 @@ public class QuickShootTest extends OpMode {
             flyBottom.setPower(0);
             flyTop.setPower(0);
         }
+        /*
         if(gamepad2.a){
-            hood.setPosition(hood.getPosition() + 0.01);
+            hood.setPosition(hood.getPosition() + 0.0001);
         }
         if(gamepad2.x){
-            hood.setPosition(hood.getPosition() - 0.01);
+            hood.setPosition(hood.getPosition() - 0.0001);
         }
+
+         */
+        telemetryManager.addData("top power", flyTop.getPower());
+        telemetryManager.addData("bottom power", flyBottom.getPower());
+        telemetryManager.addData("top velocity", flyTop.getVelocity());
+        telemetryManager.addData("bottom velocity", flyBottom.getVelocity());
+        telemetryManager.addData("servo pos", hood.getPosition());
     }
     ElapsedTime pidTime = new ElapsedTime();
     public double integralSum;
