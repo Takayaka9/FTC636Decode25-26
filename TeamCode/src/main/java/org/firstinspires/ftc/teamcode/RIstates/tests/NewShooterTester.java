@@ -16,7 +16,7 @@ public class NewShooterTester extends OpMode {
     public DcMotorEx flyTop;
     public DcMotorEx flyBottom;
     public ServoImplEx hood;
-    public static double target = 1200;
+    public static double target = 950;
     TelemetryManager telemetryManager;
     @Override
     public void init() {
@@ -64,7 +64,7 @@ public class NewShooterTester extends OpMode {
     public static double Kp = 0.004;
     public static double Kd = 0;
     public static double Ki = 0;
-    public static double Kf = 0.0016;
+    public static double Kf = 0.003;
     public void updateRight(double target){
         double error = target-(flyTop.getVelocity());
         double dt = pidTime.seconds();
