@@ -21,7 +21,7 @@ public class LimelightHandler {
         timer.resetThenStart();
     }
 
-    public void relocalize(){
+    public void updatePosition(){
         //initializes llcontroller once timer is up
         if(timer.checkFinished() && !inited){
             llController.init();
@@ -36,6 +36,10 @@ public class LimelightHandler {
             timer.resetThenStart();
             llController.end();
         }
+    }
+
+    public boolean checkFound() {
+        return found;
     }
 
 }

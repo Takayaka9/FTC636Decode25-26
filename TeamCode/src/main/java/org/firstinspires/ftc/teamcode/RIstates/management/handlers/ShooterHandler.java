@@ -7,38 +7,36 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt.BeltController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Hood;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
-//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.fsm.states.controllers.subsystems.Turret;
 
 @Configurable
 public class ShooterHandler {
     private final TelemetryManager telemetryM;
     private final Follower follower;
     private final Shooter shooter;
-    private final Hood hood;
-    //private final Turret turret;
+    private final HoodController hoodController;
     private final BeltController beltController;
-    private final LightController lightController;
+//    private final LightController lightController;
     private final BallController ballController;
 
     public ShooterHandler(
             TelemetryManager telemetryM,
             Follower follower,
             Shooter shooter,
-            Hood hood,
+            HoodController hoodController,
             BeltController beltController,
-            LightController lightController,
-            BallController ballController) {
+//            LightController lightController,
+            BallController ballController
+    ) {
         this.telemetryM = telemetryM;
         this.follower = follower;
         this.shooter = shooter;
-        this.hood = hood;
-        //this.turret = turret;
+        this.hoodController = hoodController;
         this.beltController = beltController;
-        this.lightController = lightController;
+//        this.lightController = lightController;
         this.ballController = ballController;
     }
 
@@ -52,10 +50,9 @@ public class ShooterHandler {
             double targetDistance = getTargetDistance(follower, alliance);
             ballController.shootUpdateBallCount();
             shooter.shoot(targetDistance);
-            hood.angleHood(targetDistance);
-            //turret.trackGoal(alliance, follower);
+            hoodController.angleHood(targetDistance);
             beltController.run();
-            lightController.shooterLightingUpdate(ballController.getBallCount());
+//            lightController.shooterLightingUpdate(ballController.getBallCount());
     }
     public boolean shooterRunning = false;
 
@@ -69,7 +66,7 @@ public class ShooterHandler {
 
     public void off(){
         shooter.stop();
-        hood.passive();
+        hoodController.passive();
         beltController.stop();
     }
 

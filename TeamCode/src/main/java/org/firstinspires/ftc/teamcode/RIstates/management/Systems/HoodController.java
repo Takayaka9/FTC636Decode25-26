@@ -5,13 +5,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GamepadServo;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.HoodServo;
+
 
 @Configurable
-public class Hood {
+public class HoodController {
     private final InterpLUT lut = new InterpLUT();
-    private ServoImplEx servo;
-    public Hood(HardwareMap hardwareMap, String name){
-        servo = hardwareMap.get(ServoImplEx.class, name);
+    private GamepadServo servo;
+    public HoodController(HardwareMap hardwareMap){
+        GamepadServo servo = new HoodServo(hardwareMap);
         lut.add(0, p1);
         lut.add(d1, p1);
         lut.add(d2, p2);
@@ -24,7 +27,7 @@ public class Hood {
     }
 
     /*
-    angleHood uses InterpLut to calculate angle of hood based on target distance
+    angleHood uses InterpLut to calculate angle of hoodController based on target distance
     inputs: targetDistance, hardwareMap
     output: panels telemetry and servo position
     !! it is never needed to call this method - it is called by shoot !!
