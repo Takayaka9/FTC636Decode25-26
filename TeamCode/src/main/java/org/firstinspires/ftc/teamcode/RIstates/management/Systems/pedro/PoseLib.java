@@ -19,7 +19,6 @@ public class PoseLib {
     public static int farLeaveX = 93; public static int farLeaveY = 23; public static int farLeaveR = 45;
     public static int closeLeaveX = 111; public static int closeLeaveY = 96; public static int closeLeaveR = 45;
 
-    // TODO: add leave poses, close and far
 
     public final Pose farStartPose = new Pose(farStartX, farStartY, farStartR);
     public final Pose farShootPose = new Pose(farShootX, farShootY, farShootR);
