@@ -9,7 +9,7 @@
 //import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 //
 //import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Hood;
+//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.HoodController;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Intake;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.ShooterHandler;
@@ -26,7 +26,7 @@
 //
 //    //subs
 //    private Shooter shooter;
-//    private Hood hood;
+//    private HoodController hoodController;
 //    private Turret turret;
 //    private ShooterHandler shooterHandler;
 //    private Intake intake;
@@ -191,9 +191,9 @@
 //        telemetry.update();
 //        //subs
 //        shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
-//        hood = new Hood(hardwareMap, "servo");
+//        hoodController = new HoodController(hardwareMap, "servo");
 //        turret = new Turret(hardwareMap, "turret");
-//        shooterHandler = new ShooterHandler(shooter, hood, turret, follower);
+//        shooterHandler = new ShooterHandler(shooter, hoodController, turret, follower);
 //        intake = new Intake(hardwareMap, "intake");
 //    }
 //    /** This method is called once at the init of the OpMode. **/

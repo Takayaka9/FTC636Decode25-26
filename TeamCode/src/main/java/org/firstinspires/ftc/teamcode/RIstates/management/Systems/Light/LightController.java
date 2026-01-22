@@ -2,10 +2,12 @@ package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class LightController extends PWMLight {
+import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
+public class LightController extends PWMLight {
     public LightController(HardwareMap hardwareMap) {
         super(hardwareMap);
+
     }
     public void intakeLightingUpdate(int artifactCount) {
         if (artifactCount ==0) {
@@ -35,5 +37,36 @@ public class LightController extends PWMLight {
         if (artifactsShot == 3) {
             green();
         }
+    }
+
+    public void update(boolean limeLight, FSM.StateName currentState, int alliance) {
+        if (limeLight) {
+            green();
+        }
+        else if (currentState == FSM.StateName.Norm) {
+            white();
+        }
+        else if (currentState == FSM.StateName.Shoot) {
+            violet();
+        }
+        else if (currentState == FSM.StateName.Intake) {
+            blue();
+        }
+        else if (currentState == FSM.StateName.Backout) {
+            red();
+        }
+        else if (currentState == FSM.StateName.AllianceSelect) {
+            if (alliance == 0) {
+                yellow();
+            }
+            else if (alliance == 1) {
+                red();
+            }
+            else if (alliance == 2) {
+                blue();
+            }
+        }
+
+
     }
 }

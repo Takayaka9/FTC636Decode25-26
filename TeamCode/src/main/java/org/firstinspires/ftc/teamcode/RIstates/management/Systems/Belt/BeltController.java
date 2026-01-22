@@ -29,7 +29,9 @@ public class BeltController extends Belt implements Controller {
         return false;
     }
 
-    public void init() {}
+    public void init() {
+        run();
+    }
     public void update() {
         if (checkShooterReady()) {
             run();
