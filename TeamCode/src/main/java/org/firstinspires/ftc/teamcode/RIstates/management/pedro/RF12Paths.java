@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro;
+package org.firstinspires.ftc.teamcode.RIstates.management.pedro;
 
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
