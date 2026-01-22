@@ -4,7 +4,7 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 
 @Configurable
-public class PoseLib {
+public class RedPoseLib {
     public static int farStartX = 89; public static int farStartY = 9; public static int farStartR = 90;
     public static int farShootX = 87; public static int farShootY = 15; public static int farShootR = 73;
     public static int nearStartX = 89; public static int nearStartY = 9; public static int nearStartR = 90;

@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandle
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt.BeltController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.PoseLib;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.RedPoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
@@ -60,7 +60,7 @@ public class SystemManager {
 
     public Timer pathTimer, actionTimer, opmodeTimer;
     public int pathState;
-    public final PoseLib poseLib;
+    public final RedPoseLib redPoseLib;
 
     private final Telemetry telemetry;
 
@@ -80,7 +80,7 @@ public class SystemManager {
         follower = Constants.createFollower(hardwareMap);
 
         //auto dependencies
-        poseLib = new PoseLib();
+        redPoseLib = new RedPoseLib();
         poseStorage = new PoseStorage();
         pathTimer = new Timer();
         actionTimer = new Timer();

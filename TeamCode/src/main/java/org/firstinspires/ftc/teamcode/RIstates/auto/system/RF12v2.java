@@ -113,7 +113,7 @@ public class RF12v2 extends OpMode {
         manager.setAlliance(1);
         manager.opmodeTimer.resetTimer();
         manager.rf12Paths.buildPaths();
-        manager.follower.setStartingPose(manager.poseLib.farStartPose);
+        manager.follower.setStartingPose(manager.redPoseLib.farStartPose);
     }
     @Override
     public void init_loop() {
