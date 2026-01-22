@@ -2,10 +2,9 @@ package org.firstinspires.ftc.teamcode.RIstates.management.Systems;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GamepadServo;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.HoodServo;
 
 

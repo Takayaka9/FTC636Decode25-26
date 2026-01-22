@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt;
+package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Configurable
-abstract class Belt {
+public abstract class CRServoBase {
     HardwareMap hardwareMap;
     CRServo belt;
 //    DcMotorEx belt;
-    public Belt(HardwareMap hardwareMap, String name) {
+    public CRServoBase(HardwareMap hardwareMap, String name) {
         this.hardwareMap = hardwareMap;
         this.belt = hardwareMap.get(CRServo.class, name);
 //        this.belt = hardwareMap.get(DcMotorEx.class, name);

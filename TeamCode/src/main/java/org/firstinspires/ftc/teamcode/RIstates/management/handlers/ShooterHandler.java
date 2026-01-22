@@ -6,9 +6,8 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt.BeltController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.BeltController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
 

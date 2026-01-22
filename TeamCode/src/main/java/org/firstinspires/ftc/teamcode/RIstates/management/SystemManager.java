@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.PoseStorage;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GamepadServo;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GateServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.LimelightHandler;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.Turr
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDistanceSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt.BeltController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.BeltController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.RedPoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.RF12Paths;
