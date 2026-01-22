@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.tests;
+package org.firstinspires.ftc.teamcode.states;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 @Configurable
 @TeleOp(name = "Quick Test Shoot", group = "TeleOp")
 public class QuickShootTest extends OpMode {
