@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base;
 
-public interface GamepadServo {
+public interface GamepadServoImplEx {
     void setPosition(double position);
     double getPosition();
     void togglePosition(boolean open);

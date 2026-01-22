@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.pedro.PoseStorage;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServo;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GateServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.LimelightHandler;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -41,7 +41,7 @@ public class SystemManager {
     public final HoodController hoodController;
     public final Shooter shooter;
     public final Intake intake;
-    public final GamepadServo gateServo;
+    public final GamepadServoImplEx gateServo;
     public final IntakeSensor intakeSensor;
     public final IntakeDistanceSensor intakeDistanceSensor;
     public final TurretSensor turretSensor;

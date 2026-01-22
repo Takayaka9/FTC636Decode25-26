@@ -4,16 +4,16 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServo;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.HoodServo;
 
 
 @Configurable
 public class HoodController {
     private final InterpLUT lut = new InterpLUT();
-    private GamepadServo servo;
+    private GamepadServoImplEx servo;
     public HoodController(HardwareMap hardwareMap){
-        GamepadServo servo = new HoodServo(hardwareMap);
+        GamepadServoImplEx servo = new HoodServo(hardwareMap);
         lut.add(0, p1);
         lut.add(d1, p1);
         lut.add(d2, p2);
