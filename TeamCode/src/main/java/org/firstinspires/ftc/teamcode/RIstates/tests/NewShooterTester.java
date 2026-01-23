@@ -10,14 +10,13 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 @Configurable
-@TeleOp(name = "Quick Test Shoot", group = "TeleOp")
-public class QuickShootTest extends OpMode {
+@TeleOp(name = "New Shooter Test", group = "TeleOp")
+public class NewShooterTester extends OpMode {
     public DcMotorEx flyTop;
     public DcMotorEx flyBottom;
     public ServoImplEx hood;
-    public double target = 1650;
+    public static double target = 950;
     TelemetryManager telemetryManager;
     @Override
     public void init() {
@@ -57,14 +56,15 @@ public class QuickShootTest extends OpMode {
         telemetryManager.addData("top velocity", flyTop.getVelocity());
         telemetryManager.addData("bottom velocity", flyBottom.getVelocity());
         telemetryManager.addData("servo pos", hood.getPosition());
+        telemetryManager.debug("target", target);
     }
     ElapsedTime pidTime = new ElapsedTime();
     public double integralSum;
     public double lastError;
-    public double Kp = 0.004;
-    public double Kd = 0;
-    public double Ki = 0;
-    public double Kf = 0.006;
+    public static double Kp = 0.004;
+    public static double Kd = 0;
+    public static double Ki = 0;
+    public static double Kf = 0.003;
     public void updateRight(double target){
         double error = target-(flyTop.getVelocity());
         double dt = pidTime.seconds();
