@@ -32,11 +32,11 @@ import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.Config;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Intake;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.TeleOpDriveController;
+import org.firstinspires.ftc.teamcode.pedroPathing.TestConstants;
 
 public class SystemManager {
     public final Follower follower;
     public final TelemetryManager telemetryM;
-    public final Config config;
     public final Turret turret;
     public final HoodController hoodController;
     public final Shooter shooter;
@@ -67,7 +67,7 @@ public class SystemManager {
     private boolean isTeleop;
 
 
-    public SystemManager(HardwareMap hardwareMap, Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, Boolean isTeleOp) {
+    public SystemManager(HardwareMap hardwareMap, Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, boolean isTeleOp, boolean testing) {
         ///DO NOT CHANGE THE INIT ORDER, add new stuff in it's respective place to avoid NullPointer
 
         //dependencies
@@ -79,6 +79,9 @@ public class SystemManager {
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
 
+
+
+
         //auto dependencies
         redPoseLib = new RedPoseLib();
         poseStorage = new PoseStorage();
@@ -87,7 +90,6 @@ public class SystemManager {
         opmodeTimer = new Timer();
 
         //subsystems
-        config = new Config(hardwareMap);
         shooter = new Shooter(hardwareMap, "sr", "sl");
         turret = new Turret(hardwareMap, follower, "turret");
         hoodController = new HoodController(hardwareMap);
@@ -159,6 +161,7 @@ public class SystemManager {
         //teleOpHandler.update();
         //driveController.teleopNorm();
         //FSM.update();
+        turret.trackGoal(shooterHandler.alliance);
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
