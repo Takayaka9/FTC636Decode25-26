@@ -39,7 +39,7 @@ public class SystemManager {
     public final Shooter shooter;
     public final Intake intake;
 //    public final Limelight limelight;
-    public final IntakeSensor intakeSensor;
+    //public final IntakeSensor intakeSensor;
     public final IntakeDistanceSensor intakeDistanceSensor;
     public final TurretSensor turretSensor;
     public final BeltController beltController;
@@ -86,7 +86,7 @@ public class SystemManager {
         shooter = new Shooter(hardwareMap, "sr", "sl");
         hood = new Hood(hardwareMap, "hood");
         intake = new Intake(hardwareMap, "intake");
-        intakeSensor = new IntakeSensor(hardwareMap);
+       // intakeSensor = new IntakeSensor(hardwareMap);
         intakeDistanceSensor = new IntakeDistanceSensor(hardwareMap);
         turretSensor = new TurretSensor(hardwareMap);
         //limelight = new Limelight(hardwareMap, "limelight");
@@ -134,7 +134,7 @@ public class SystemManager {
         teleOpHandler.update();
         driveController.update();
         FSM.update();
-        telemetryM.addData("intake distance", intakeSensor.test());
+        telemetryM.addData("intake distance", intakeDistanceSensor.test());
         telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentState());
         telemetryM.addData("Alliance", getAlliance());
