@@ -17,17 +17,17 @@ public class BluePoseLib {
     public static int farLeaveX = 51; public static int farLeaveY = 23; public static int farLeaveR = 135;
     public static int closeLeaveX = 33; public static int closeLeaveY = 96; public static int closeLeaveR = 135;
 
-    public final Pose farStartPose = new Pose(farStartX, farStartY, farStartR);
-    public final Pose farShootPose = new Pose(farShootX, farShootY, farShootR);
-    public final Pose nearStartPose = new Pose(nearStartX, nearStartY, nearStartR);
-    public final Pose nearShootPose = new Pose(nearShootX, nearShootY, nearShootR);
-    public final Pose pIntake3Pose = new Pose(PIntake3X, PIntake3Y, PIntake3R);
-    public final Pose intake3Pose = new Pose(Intake3X, Intake3Y, Intake3R);
-    public final Pose pIntake2Pose = new Pose(PIntake2X, PIntake2Y, PIntake2R);
-    public final Pose intake2Pose = new Pose(Intake2X, Intake2Y, Intake2R);
-    public final Pose pIntake1Pose = new Pose(PIntake1X, PIntake1Y, PIntake1R);
-    public final Pose intake1Pose = new Pose(Intake1X, Intake1Y, Intake1R);
-    public final Pose emptyPose = new Pose(emptyX, emptyY, emptyR);
-    public final Pose farLeavePose = new Pose(farLeaveX, farLeaveY, farLeaveR);
-    public final Pose closeLeavePose = new Pose(closeLeaveX, closeLeaveY, closeLeaveR);
+    public final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
+    public final Pose farShootPose = new Pose(farShootX, farShootY, Math.toRadians(farShootR));
+    public final Pose nearStartPose = new Pose(nearStartX, nearStartY, Math.toRadians(nearStartR));
+    public final Pose nearShootPose = new Pose(nearShootX, nearShootY,Math.toRadians(nearShootR));
+    public final Pose pIntake3Pose = new Pose(PIntake3X, PIntake3Y, Math.toRadians(PIntake3R));
+    public final Pose intake3Pose = new Pose(Intake3X, Intake3Y, Math.toRadians(Intake3R));
+    public final Pose pIntake2Pose = new Pose(PIntake2X, PIntake2Y, Math.toRadians(PIntake2R));
+    public final Pose intake2Pose = new Pose(Intake2X, Intake2Y, Math.toRadians(Intake2R));
+    public final Pose pIntake1Pose = new Pose(PIntake1X, PIntake1Y, Math.toRadians(PIntake1R));
+    public final Pose intake1Pose = new Pose(Intake1X, Intake1Y, Math.toRadians(Intake1R));
+    public final Pose emptyPose = new Pose(emptyX, emptyY, Math.toRadians(emptyR));
+    public final Pose farLeavePose = new Pose(farLeaveX, farLeaveY, Math.toRadians(farLeaveR));
+    public final Pose closeLeavePose = new Pose(closeLeaveX, closeLeaveY, Math.toRadians(closeLeaveR));
 }
