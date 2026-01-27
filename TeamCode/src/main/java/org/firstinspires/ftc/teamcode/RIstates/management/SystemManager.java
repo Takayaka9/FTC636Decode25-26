@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.PoseStorage;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GateServo;
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandle
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.IntakeController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RedPoseLib;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BluePoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
@@ -58,6 +60,7 @@ public class SystemManager {
     public Timer pathTimer, actionTimer, opmodeTimer;
     public int pathState;
     public final RedPoseLib redPoseLib;
+    public final BluePoseLib bluePoseLib;
 
     private final Telemetry telemetry;
 
@@ -81,6 +84,7 @@ public class SystemManager {
 
         //auto dependencies
         redPoseLib = new RedPoseLib();
+        bluePoseLib = new BluePoseLib();
         poseStorage = new PoseStorage();
         pathTimer = new Timer();
         actionTimer = new Timer();
@@ -112,6 +116,7 @@ public class SystemManager {
 
     public FSM FSM;
     public RF12Paths rf12Paths;
+    public BF12Paths bf12Paths;
     public TeleOpHandler teleOpHandler;
     public void init() {
         FSM = new FSM(this);
@@ -122,7 +127,10 @@ public class SystemManager {
             }
             else if (!isTeleop){
                 ///initialize paths add more paths here
+                rf12Paths = new RF12Paths(this);
+                bf12Paths = new BF12Paths(this);
                 rf12Paths.buildPaths();
+                bf12Paths.buildPaths();
             }
         }
     }
