@@ -108,12 +108,12 @@ public class RF12v2 extends OpMode {
     }
     @Override
     public void init() {
-        manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, false);
+        manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, false, false);
         manager.init();
         manager.setAlliance(1);
         manager.opmodeTimer.resetTimer();
         manager.rf12Paths.buildPaths();
-        manager.follower.setStartingPose(manager.poseLib.farStartPose);
+        manager.follower.setStartingPose(manager.redPoseLib.farStartPose);
     }
     @Override
     public void init_loop() {

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Belt;
+package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -6,9 +6,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.CRServoBase;
 
 @Configurable
-public class BeltController extends Belt implements Controller {
+public class BeltController extends CRServoBase implements Controller {
     private final Shooter shooter;
     private static int toleranceHIGH = 300; /// in TPS
     private static int toleranceLOW = -300;  /// In TPS
@@ -29,7 +30,9 @@ public class BeltController extends Belt implements Controller {
         return false;
     }
 
-    public void init() {}
+    public void init() {
+        run();
+    }
     public void update() {
         if (checkShooterReady()) {
             run();

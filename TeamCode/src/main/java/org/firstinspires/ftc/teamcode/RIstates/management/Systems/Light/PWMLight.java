@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public abstract class PWMLight {
     Servo light;
     public PWMLight(HardwareMap hardwareMap) {
-        light = hardwareMap.get(Servo.class, "led");
+        light = hardwareMap.get(Servo.class, "light");
     }
 
     public void off() {

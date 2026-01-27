@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.RIstates.management.handlers;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 public class TeleOpHandler {
@@ -9,12 +10,14 @@ public class TeleOpHandler {
     private final Gamepad gamepad1;
     private final Gamepad gamepad2;
     private final ShooterHandler shooterHandler;
+    private final LimelightHandler limelight;
 
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler) {
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
         this.shooterHandler = shooterHandler;
+        this.limelight = limelight;
     }
 
     private boolean changedA = false;
@@ -22,7 +25,9 @@ public class TeleOpHandler {
     public boolean changedX = false;
     private boolean changedRT = false;
     private boolean changedLT = false;
+    private boolean changedY = false;
     private boolean allianceSelecting = false;
+    public boolean updateLimelight = false;
     private boolean off = false;
 
     private FSM.StateName requestingTransition = null;
@@ -47,6 +52,23 @@ public class TeleOpHandler {
         if inputs && not already active then request transition
         if no inputs && already active then stop state
          */
+
+
+        //limelight, not through fsm
+        if (gamepad2.y && !changedY) {
+            changedY = true;
+            updateLimelight = true;
+        }
+        if (updateLimelight) {
+            limelight.updatePosition();
+            if (limelight.checkFound()) {
+                updateLimelight = false;
+                changedY = false;
+            }
+        }
+
+
+        //Alliance select state
         if (gamepad2.left_trigger > 0.3 && gamepad2.right_trigger > 0.3 && !allianceSelecting) {
             setTransition(FSM.StateName.AllianceSelect);
             allianceSelecting = true;

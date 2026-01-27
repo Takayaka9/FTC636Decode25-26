@@ -36,11 +36,29 @@ public class FSM {
         stateMap.put(StateName.AllianceSelect, new AllianceSelectorState());
     }
 
-    public String getCurrentState(){
+    public String getCurrentStateAsString(){
         if (currentState != null) {
             return currentState.getClass().getSimpleName();
         }
         return "null";
+    }
+
+    public StateName getCurrentStateName(){
+        if (currentState != null) {
+            if (getCurrentStateAsString().equals("ShootState")) {
+                return StateName.Shoot;
+            }
+            if (getCurrentStateAsString().equals("IntakeState")) {
+                return StateName.Intake;
+            }
+            if (getCurrentStateAsString().equals("BackoutState")) {
+                return StateName.Backout;
+            }
+            if (getCurrentStateAsString().equals("AllianceSelectorState")) {
+                return StateName.AllianceSelect;
+            }
+        }
+        return StateName.Norm;
     }
 
 

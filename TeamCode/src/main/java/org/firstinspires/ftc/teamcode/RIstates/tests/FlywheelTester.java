@@ -16,7 +16,7 @@ public class FlywheelTester extends OpMode {
 
     @Override
     public void init() {
-        manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, true);
+        manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, true, true);
         manager.init();
     }
 
