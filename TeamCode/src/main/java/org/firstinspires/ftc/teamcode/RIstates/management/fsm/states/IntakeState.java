@@ -10,12 +10,12 @@ public class IntakeState implements State {
     public void initiate(SystemManager manager) {
         manager.intake.run();
         manager.intakeController.run();
-        manager.ballController.init();
+        //manager.ballController.init();
     }
 
     @Override
     public void update(SystemManager manager, FSM fsm) {
-        manager.ballController.update();
+        //manager.ballController.update();
     }
 
     @Override
