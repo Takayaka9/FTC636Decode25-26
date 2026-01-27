@@ -5,17 +5,18 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Intake;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.CRServoBase;
 
 @Configurable
-public class BeltController extends CRServoBase implements Controller {
+public class IntakeController extends Intake implements Controller {
     private final Shooter shooter;
-    private static int toleranceHIGH = 300; /// in TPS
+    private static int toleranceHIGH = 300; /// in TPS (to test)
     private static int toleranceLOW = -300;  /// In TPS
 
-    public BeltController(Shooter shooter, HardwareMap hardwareMap, String name) {
+    public IntakeController(Shooter shooter, HardwareMap hardwareMap, String name) {
         super(hardwareMap, name);
+        //super(hardwareMap, name);
         this.shooter = shooter;
     }
 

@@ -6,9 +6,8 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.BeltController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.IntakeController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
 
 @Configurable
@@ -17,18 +16,18 @@ public class ShooterHandler {
     private final Follower follower;
     private final Shooter shooter;
     private final HoodController hoodController;
-    private final BeltController beltController;
+    private final IntakeController beltController;
 //    private final LightController lightController;
-    private final BallController ballController;
+    //private final BallController ballController;
 
     public ShooterHandler(
             TelemetryManager telemetryM,
             Follower follower,
             Shooter shooter,
             HoodController hoodController,
-            BeltController beltController,
+            IntakeController beltController
 //            LightController lightController,
-            BallController ballController
+            //BallController ballController
     ) {
         this.telemetryM = telemetryM;
         this.follower = follower;
@@ -36,7 +35,7 @@ public class ShooterHandler {
         this.hoodController = hoodController;
         this.beltController = beltController;
 //        this.lightController = lightController;
-        this.ballController = ballController;
+        //this.ballController = ballController;
     }
 
     public int alliance = 0;
@@ -47,7 +46,7 @@ public class ShooterHandler {
 
     public void shoot() {
             double targetDistance = getTargetDistance(follower, alliance);
-            ballController.shootUpdateBallCount();
+            //ballController.shootUpdateBallCount();
             shooter.shoot(targetDistance);
             hoodController.angleHood(targetDistance);
             beltController.run();

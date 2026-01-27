@@ -19,8 +19,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.Lime
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.Turret;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDistanceSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.BeltController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.IntakeController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RedPoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RF12Paths;
@@ -28,11 +27,9 @@ import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.TurretSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.Config;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Intake;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.TeleOpDriveController;
-import org.firstinspires.ftc.teamcode.pedroPathing.TestConstants;
 
 public class SystemManager {
     public final Follower follower;
@@ -45,9 +42,9 @@ public class SystemManager {
     public final IntakeSensor intakeSensor;
     public final IntakeDistanceSensor intakeDistanceSensor;
     public final TurretSensor turretSensor;
-    public final BeltController beltController;
+    public final IntakeController intakeController;
     public final ShooterHandler shooterHandler;
-    public final BallController ballController;
+    //public final BallController ballController;
     public final Controller driveController;
     public final LightController lightController;
     public final LimelightController limelightController;
@@ -101,14 +98,14 @@ public class SystemManager {
 
 
         //controllers
-        ballController = new BallController(intakeDistanceSensor, turretSensor);
-        beltController = new BeltController(shooter, hardwareMap, "belt");
+        //ballController = new BallController(intakeDistanceSensor, turretSensor);
+        intakeController = new IntakeController(shooter, hardwareMap, "intake");
         driveController = new TeleOpDriveController(follower, gamepad1);
-        lightController = new LightController(hardwareMap);
+        lightController = new LightController(hardwareMap, intakeDistanceSensor);
         limelightController = new LimelightController(hardwareMap, "limelight", follower, telemetryM);
 
         //handlers
-        shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hoodController, beltController, ballController);
+        shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hoodController, intakeController);
         limelightHandler = new LimelightHandler(limelightController, follower);
 
     }
@@ -147,9 +144,10 @@ public class SystemManager {
         telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
+        telemetryM.addData("full?", lightController.checkFull());
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
         telemetry.addData("Alliance", getAlliance());
-        telemetry.addData("balls", ballController.getBallCount());
+        //telemetry.addData("balls", ballController.getBallCount());
         telemetry.update();
         lightController.update(teleOpHandler.updateLimelight, FSM.getCurrentStateName(), shooterHandler.alliance);
     }

@@ -1,28 +1,45 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDistanceSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 public class LightController extends PWMLight {
-    public LightController(HardwareMap hardwareMap) {
+    IntakeDistanceSensor distanceSensor;
+    public LightController(HardwareMap hardwareMap, IntakeDistanceSensor distance) {
         super(hardwareMap);
-
+        distanceSensor = distance;
+    }
+    ElapsedTime timer = new ElapsedTime();
+    boolean found = false;
+    public boolean checkFull(){
+        boolean detected = distanceSensor.checkDistanceSensor(20);
+        if(detected){
+            if(!found){
+                timer.reset();
+                found = true;
+            }
+            if(timer.seconds() > 1){
+                return true;
+            }
+        }
+        else{
+            found = false;
+        }
+        return false;
     }
     public void intakeLightingUpdate(int artifactCount) {
-        if (artifactCount ==0) {
-            violet();
-        }
-        if (artifactCount == 1) {
-            red();
-        }
-        if (artifactCount == 2) {
-            yellow();
-        }
-        if (artifactCount == 3) {
+        if (checkFull()) {
             green();
         }
+        else{
+            red();
+        }
     }
+
+
 
     public void shooterLightingUpdate(int artifactsShot) {
         if (artifactsShot ==0) {
