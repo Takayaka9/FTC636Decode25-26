@@ -12,13 +12,15 @@ public class TeleOpHandler {
     private final Gamepad gamepad2;
     private final ShooterHandler shooterHandler;
     private final LimelightHandler limelight;
+    private final LiftServo lift;
 
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight, LiftServo lift) {
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight, LiftServo liftServo) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
         this.shooterHandler = shooterHandler;
         this.limelight = limelight;
+        this.lift = liftServo;
     }
 
     private boolean changedA = false;
@@ -29,6 +31,7 @@ public class TeleOpHandler {
     private boolean changedY = false;
     private boolean allianceSelecting = false;
     public boolean updateLimelight = false;
+    public boolean updateLift = false;
     private boolean off = false;
 
     private FSM.StateName requestingTransition = null;
@@ -68,8 +71,20 @@ public class TeleOpHandler {
             }
         }
 
-        if (gamepad1.dpad_up) {
-
+        //lift code
+        if (gamepad2.dpad_up) {
+            updateLift = true;
+        }
+        if (updateLift) {
+            lift.up();
+        }
+        if (gamepad2.dpad_down) {
+            lift.down();
+            updateLift = false;
+        }
+        if (gamepad2.dpad_left) {
+            updateLift = false;
+            lift.stop();
         }
 
 
