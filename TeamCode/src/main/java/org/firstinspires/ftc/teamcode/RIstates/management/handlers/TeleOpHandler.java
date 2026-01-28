@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.RIstates.management.handlers;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 public class TeleOpHandler {
@@ -12,7 +13,7 @@ public class TeleOpHandler {
     private final ShooterHandler shooterHandler;
     private final LimelightHandler limelight;
 
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight) {
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight, LiftServo lift) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
@@ -65,6 +66,10 @@ public class TeleOpHandler {
                 updateLimelight = false;
                 changedY = false;
             }
+        }
+
+        if (gamepad1.dpad_up) {
+
         }
 
 
