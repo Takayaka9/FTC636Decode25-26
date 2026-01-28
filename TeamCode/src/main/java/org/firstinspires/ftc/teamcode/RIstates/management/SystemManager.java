@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.PoseStorage;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
@@ -40,6 +41,7 @@ public class SystemManager {
     public final HoodController hoodController;
     public final Shooter shooter;
     public final Intake intake;
+    public final LiftServo liftServo;
     public final GamepadServoImplEx gateServo;
     public final IntakeSensor intakeSensor;
     public final IntakeDistanceSensor intakeDistanceSensor;
@@ -99,13 +101,14 @@ public class SystemManager {
         intakeDistanceSensor = new IntakeDistanceSensor(hardwareMap);
         turretSensor = new TurretSensor(hardwareMap);
         gateServo = new GateServo(hardwareMap);
+        liftServo = new LiftServo(hardwareMap);
 
 
         //controllers
         //ballController = new BallController(intakeDistanceSensor, turretSensor);
         intakeController = new IntakeController(shooter, hardwareMap, "intake");
         driveController = new TeleOpDriveController(follower, gamepad1);
-        lightController = new LightController(hardwareMap, intakeDistanceSensor);
+        lightController = new LightController(hardwareMap);
         limelightController = new LimelightController(hardwareMap, "limelight", follower, telemetryM);
 
         //handlers
@@ -123,7 +126,7 @@ public class SystemManager {
         if (FSM != null) {
             if (isTeleop) {
                 //initialize teleop only components
-                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightHandler);
+                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightHandler, liftServo);
             }
             else if (!isTeleop){
                 ///initialize paths add more paths here
@@ -152,7 +155,7 @@ public class SystemManager {
         telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
-        telemetryM.addData("full?", lightController.checkFull());
+//        telemetryM.addData("full?", lightController.checkFull());
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
         telemetry.addData("Alliance", getAlliance());
         //telemetry.addData("balls", ballController.getBallCount());
