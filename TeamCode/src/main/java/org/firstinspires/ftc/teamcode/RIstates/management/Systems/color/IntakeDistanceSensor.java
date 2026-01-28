@@ -24,6 +24,10 @@ public class IntakeDistanceSensor extends DistanceCheckBase implements IsBallPre
         }
     }
 
+    public final boolean checkDistanceSensor(double noBallDistance ) {
+        return sensor.getDistance(DistanceUnit.MM) < noBallDistance;
+    }
+
     public double test() {
         return sensor.getDistance(DistanceUnit.MM);
     }
