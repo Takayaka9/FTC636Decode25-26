@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities;
+package org.firstinspires.ftc.teamcode.RIstates.management.Systems;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -41,6 +41,12 @@ public class Turret {
         }
         double robotHeading = follower.getHeading();
         double turretAngle = goalAngle - robotHeading;
+        if(turretAngle >= Math.PI/2){
+            turretAngle = Math.PI/2;
+        }
+        if(turretAngle <= -Math.PI/2){
+            turretAngle = -Math.PI/2;
+        }
 
         double ticksToMove = turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2));
         turnTurret(ticksToMove);
