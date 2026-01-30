@@ -108,7 +108,7 @@ public class SystemManager {
         //ballController = new BallController(intakeDistanceSensor, turretSensor);
         intakeController = new IntakeController(shooter, hardwareMap, "intake");
         driveController = new TeleOpDriveController(follower, gamepad1);
-        lightController = new LightController(hardwareMap);
+        lightController = new LightController(hardwareMap, intakeDistanceSensor);
         limelightController = new LimelightController(hardwareMap, "limelight", follower, telemetryM);
 
         //handlers
