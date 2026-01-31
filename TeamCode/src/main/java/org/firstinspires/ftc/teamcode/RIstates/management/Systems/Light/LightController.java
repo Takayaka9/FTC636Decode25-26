@@ -76,10 +76,10 @@ public class LightController extends PWMLight {
             if (alliance == 0) {
                 yellow();
             }
-            else if (alliance == 1) {
+            else if (alliance == 2) {
                 red();
             }
-            else if (alliance == 2) {
+            else if (alliance == 1) {
                 blue();
             }
         }

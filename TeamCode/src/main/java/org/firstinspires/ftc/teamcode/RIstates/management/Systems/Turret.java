@@ -18,10 +18,10 @@ public class Turret {
     //TODO: Ticks per Rev incorrect, thats for a 6000
     public static final double TICKS_PER_REV = 145.1;
     //20to102
-    public static final double BLUE_GOAL_Y = 138;
+    public static final double BLUE_GOAL_Y = 144;
     public static final double BLUE_GOAL_X = 0;
-    public static final double RED_GOAL_Y = 138;
-    public static final double RED_GOAL_X = 138;
+    public static final double RED_GOAL_Y = 144;
+    public static final double RED_GOAL_X = 144;
     double goalAngle;
 
     /* Function to move the turret to a certain angle
@@ -55,7 +55,7 @@ public class Turret {
     ElapsedTime turretTime = new ElapsedTime();
     double lastTurretError;
     double turretIntegral;
-    public static double turretKp = 0.01;
+    public static double turretKp = 0.03;
     public static double turretKd = 0;
     public static double turretKi = 0;
     public static double I_MAX = 500;

@@ -43,7 +43,7 @@ public class SystemManager {
     public final Intake intake;
     public final LiftServo liftServo;
     public final GamepadServoImplEx gateServo;
-    public final IntakeSensor intakeSensor;
+//    public final IntakeSensor intakeSensor;
     public final IntakeDistanceSensor intakeDistanceSensor;
     public final TurretSensor turretSensor;
     public final IntakeController intakeController;
@@ -97,7 +97,7 @@ public class SystemManager {
         turret = new Turret(hardwareMap, follower, "turret");
         hoodController = new HoodController(hardwareMap);
         intake = new Intake(hardwareMap, "intake");
-        intakeSensor = new IntakeSensor(hardwareMap);
+//        intakeSensor = new IntakeSensor(hardwareMap);
         intakeDistanceSensor = new IntakeDistanceSensor(hardwareMap);
         turretSensor = new TurretSensor(hardwareMap);
         gateServo = new GateServo(hardwareMap);
@@ -151,7 +151,7 @@ public class SystemManager {
         teleOpHandler.update();
         driveController.update();
         turret.trackGoal(shooterHandler.alliance);
-        telemetryM.addData("intake distance", intakeSensor.test());
+        telemetryM.addData("intake distance", intakeDistanceSensor.test());
         telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
@@ -199,10 +199,10 @@ public class SystemManager {
 
     public String getAlliance() {
         if (shooterHandler.alliance == 1) {
-            return "red";
+            return "Blue";
         }
         else if (shooterHandler.alliance == 2) {
-            return "blue";
+            return "Red";
         }
         return "unselected";
     }

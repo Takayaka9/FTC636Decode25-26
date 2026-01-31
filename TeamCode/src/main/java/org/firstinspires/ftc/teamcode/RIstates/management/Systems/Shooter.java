@@ -55,10 +55,10 @@ public class Shooter {
     }
 
 
-    public static double Kp = 0.004;
+    public static double Kp = 0.04;
     public static double Ki = 0;
     public static double Kd = 0;
-    public static double Kf = 0.006;
+    public static double Kf = 0;
     //TODO: either make a pidf class (good idea) or just fix ts. either way use chatgpt.
     private double integralSum;
     private double lastError;

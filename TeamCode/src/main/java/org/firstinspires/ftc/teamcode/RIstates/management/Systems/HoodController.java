@@ -4,16 +4,14 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.HoodServo;
 
 
 @Configurable
-public class HoodController {
+public class HoodController extends HoodServo {
     private final InterpLUT lut = new InterpLUT();
-    private GamepadServoImplEx servo;
     public HoodController(HardwareMap hardwareMap){
-        GamepadServoImplEx servo = new HoodServo(hardwareMap);
+        super(hardwareMap);
         lut.add(0, p1);
         lut.add(d1, p1);
         lut.add(d2, p2);
@@ -41,20 +39,20 @@ public class HoodController {
     public double angle;
     public void angleHood(double targetDistance) {
         angle = lut.get(targetDistance);
-        servo.setPosition(angle);
+        setPosition(angle);
     }
 
     public static double passive = 0.5;
     public void passive(){
-        servo.setPosition(passive);
+        setPosition(passive);
     }
 
     public void increment(boolean positive){
         if(positive){
-            servo.setPosition(servo.getPosition() + 0.03);
+            setPosition(getPosition() + 0.03);
         }
         else{
-            servo.setPosition(servo.getPosition() - 0.03);
+            setPosition(getPosition() - 0.03);
         }
     }
 
