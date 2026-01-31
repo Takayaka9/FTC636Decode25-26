@@ -59,6 +59,7 @@ public class Shooter {
     public static double Ki = 0;
     public static double Kd = 0;
     public static double Kf = 0;
+    //0.000357 should be the max kf value
     //TODO: either make a pidf class (good idea) or just fix ts. either way use chatgpt.
     private double integralSum;
     private double lastError;
