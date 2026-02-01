@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers;
 
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
@@ -17,7 +17,13 @@ public class TeleOpHandler {
 
     private final Follower follower;
 
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight, LiftServo liftServo, Follower follower) {
+    private Pose blueParkPose = null;
+    private Pose redParkPose = null;
+    
+    private int alliance = 0;
+
+
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight, LiftServo liftServo, Follower follower, int alliance) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
@@ -25,14 +31,18 @@ public class TeleOpHandler {
         this.limelight = limelight;
         this.lift = liftServo;
         this.follower = follower;
+        blueParkPose = new Pose(105.35, 37.8, Math.toRadians(90));
+        redParkPose = new Pose(38.6, 37.8, Math.toRadians(90));
+        this.alliance = alliance;
     }
 
     private boolean changedA = false;
     public boolean changedB = false;
+    public boolean changed1B = false;
     public boolean changedX = false;
     private boolean changedRT = false;
     private boolean changedLT = false;
-    private boolean changedY = false;
+    private boolean changed1A = false;
     private boolean allianceSelecting = false;
     public boolean updateLimelight = false;
     public boolean updateLift = false;
@@ -61,17 +71,30 @@ public class TeleOpHandler {
         if no inputs && already active then stop state
          */
 
+        //localization backup
+        if (gamepad1.b && !changed1B) {
+            if (alliance == 1) {
+                follower.setPose(blueParkPose);
+            } 
+            if (alliance == 2) {
+                follower.setPose(redParkPose);
+            }
+            changed1B = true;
+        }
+        if (!gamepad1.b && changed1B) {
+            changed1B = false;
+        }
 
         //limelight, not through fsm
-        if (gamepad2.y && !changedY) {
-            changedY = true;
+        if (gamepad1.a && !changed1A) {
+            changed1A = true;
             updateLimelight = true;
         }
         if (updateLimelight) {
             limelight.updatePosition();
             if (limelight.checkFound()) {
                 updateLimelight = false;
-                changedY = false;
+                changed1A = false;
             }
         }
 
