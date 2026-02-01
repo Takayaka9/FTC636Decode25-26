@@ -60,28 +60,29 @@ public class LightController extends PWMLight {
         if (limeLight) {
             green();
         }
-        else if (currentState == FSM.StateName.Norm) {
+        if (currentState == FSM.StateName.Norm) {
             white();
         }
-        else if (currentState == FSM.StateName.Shoot) {
+        if (currentState == FSM.StateName.Shoot) {
+            indigo();
+        }
+        if (currentState == FSM.StateName.Intake) {
             violet();
         }
-        else if (currentState == FSM.StateName.Intake) {
-            blue();
+        if (currentState == FSM.StateName.Backout) {
+            violet();
         }
-        else if (currentState == FSM.StateName.Backout) {
-            red();
-        }
-        else if (currentState == FSM.StateName.AllianceSelect) {
+        if (currentState == FSM.StateName.AllianceSelect) {
             if (alliance == 0) {
-                yellow();
+                white();
             }
-            else if (alliance == 2) {
-                red();
-            }
-            else if (alliance == 1) {
+            if (alliance == 1) {
                 blue();
             }
+            if (alliance == 2) {
+                red();
+            }
+
         }
 
 
