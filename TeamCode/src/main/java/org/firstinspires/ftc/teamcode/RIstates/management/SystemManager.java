@@ -126,7 +126,7 @@ public class SystemManager {
         if (FSM != null) {
             if (isTeleop) {
                 //initialize teleop only components
-                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightHandler, liftServo);
+                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightHandler, liftServo, follower);
             }
             else if (!isTeleop){
                 ///initialize paths add more paths here

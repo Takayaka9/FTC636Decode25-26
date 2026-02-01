@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers;
 
+import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
@@ -14,13 +15,16 @@ public class TeleOpHandler {
     private final LimelightHandler limelight;
     private final LiftServo lift;
 
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight, LiftServo liftServo) {
+    private final Follower follower;
+
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight, LiftServo liftServo, Follower follower) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
         this.shooterHandler = shooterHandler;
         this.limelight = limelight;
         this.lift = liftServo;
+        this.follower = follower;
     }
 
     private boolean changedA = false;
