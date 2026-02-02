@@ -155,6 +155,7 @@ public class SystemManager {
         telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
+        telemetryM.addData("current loc", follower.getPose());
 //        telemetryM.addData("full?", lightController.checkFull());
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
         telemetry.addData("Alliance", getAlliance());
