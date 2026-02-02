@@ -30,7 +30,6 @@ public class Turret {
     Calls turnTurret with required inputs to move the turret
      */
     public void trackGoal(int color){
-        follower.update();
         if(color == 0){
             return;
         }

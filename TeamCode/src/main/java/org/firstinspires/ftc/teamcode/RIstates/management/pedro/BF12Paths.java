@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.BluePoseLi
 public class BF12Paths extends BluePoseLib {
     Follower follower;
     public BF12Paths(Follower follower) {
+        super();
         this.follower = follower;
     }
     public PathChain fs0, pi1, i1, cs1, pi2, i2, cs2, pi3, i3, fs3, l;

@@ -5,7 +5,7 @@ import com.pedropathing.geometry.Pose;
 public abstract class BluePoseLib {
     public static int farStartX = 55; public static int farStartY = 9; public static int farStartR = 90;
     public static int farShootX = 57; public static int farShootY = 15; public static int farShootR = 107;
-    public static int nearStartX = 55; public static int nearStartY = 9; public static int nearStartR = 90;
+    public static int nearStartX = 24; public static int nearStartY = 129; public static int nearStartR = 143;
     public static int nearShootX = 49; public static int nearShootY = 95; public static int nearShootR = 130;
     public static int PIntake3X = 44; public static int PIntake3Y = 35; public static int PIntake3R = 180;
     public static int Intake3X = 11; public static int Intake3Y = 35; public static int Intake3R = 180;

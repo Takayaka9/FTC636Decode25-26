@@ -7,7 +7,7 @@ import com.pedropathing.geometry.Pose;
 public abstract class RedPoseLib {
     public static int farStartX = 89; public static int farStartY = 9; public static int farStartR = 90;
     public static int farShootX = 87; public static int farShootY = 15; public static int farShootR = 73;
-    public static int nearStartX = 89; public static int nearStartY = 9; public static int nearStartR = 90;
+    public static int nearStartX = 120; public static int nearStartY = 129; public static int nearStartR = 37;
     public static int nearShootX = 95; public static int nearShootY = 95; public static int nearShootR = 50;
     public static int PIntake3X = 100; public static int PIntake3Y = 35; public static int PIntake3R = 0;
     public static int Intake3X = 133; public static int Intake3Y = 35; public static int Intake3R = 0;

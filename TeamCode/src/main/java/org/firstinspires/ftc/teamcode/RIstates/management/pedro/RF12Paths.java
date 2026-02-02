@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.RedPoseLib
 public class RF12Paths extends RedPoseLib {
     Follower follower;
     public RF12Paths(Follower follower) {
+        super();
         this.follower = follower;
     }
     public PathChain fs0, pi1, i1, cs1, pi2, i2, cs2, pi3, i3, fs3, l;

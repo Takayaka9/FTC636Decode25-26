@@ -13,10 +13,9 @@ import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 import java.util.concurrent.TimeUnit;
 
-@Autonomous(name = "RC12v4", group = "RC12v4")
+@Autonomous()
 public class BC12v4 extends OpMode {
     SystemManager manager;
-    HardwareMap hardwareMap;
     Timing.Timer timer;
     Boolean timing;
     boolean following;

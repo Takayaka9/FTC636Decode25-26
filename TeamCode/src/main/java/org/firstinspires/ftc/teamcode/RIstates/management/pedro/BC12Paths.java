@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.BluePoseLi
 public class BC12Paths extends BluePoseLib {
     Follower follower;
     public BC12Paths(Follower follower) {
+        super();
         this.follower = follower;
     }
 
@@ -17,8 +18,8 @@ public class BC12Paths extends BluePoseLib {
 
     public void buildPaths() {
         startToShoot = follower.pathBuilder()
-                .addPath(new BezierLine(farStartPose, nearShootPose))
-                .setLinearHeadingInterpolation(farStartPose.getHeading(), nearShootPose.getHeading())
+                .addPath(new BezierLine(nearStartPose, nearShootPose))
+                .setLinearHeadingInterpolation(nearStartPose.getHeading(), nearShootPose.getHeading())
                 .build();
         intakeSpike2 = follower.pathBuilder()
                 .addPath(new BezierCurve(nearShootPose, pIntake2Pose, intake2Pose))
@@ -39,7 +40,7 @@ public class BC12Paths extends BluePoseLib {
                 .setVelocityConstraint(.5)
                 .build();
         spike1toShoot = follower.pathBuilder()
-                .addPath(new BezierCurve(intake1Pose, nearShootPose))
+                .addPath(new BezierLine(intake1Pose, nearShootPose))
                 .setLinearHeadingInterpolation(intake1Pose.getHeading(), nearShootPose.getHeading())
                 .build();
         intakeSpike3 = follower.pathBuilder()

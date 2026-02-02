@@ -8,10 +8,9 @@ import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 /// WIP
 //second command system auto which uses command system
-@Autonomous(name = "RF12v2", group = "RF12v2")
+@Autonomous()
 public class RF12v3 extends OpMode {
     SystemManager manager;
-    HardwareMap hardwareMap;
 
     public void autonomousPathUpdate() {
         switch (manager.pathState) {

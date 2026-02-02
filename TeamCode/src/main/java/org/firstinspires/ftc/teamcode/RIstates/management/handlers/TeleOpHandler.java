@@ -86,17 +86,17 @@ public class TeleOpHandler {
         }
 
         //limelight, not through fsm
-        if (gamepad1.a && !changed1A) {
-            changed1A = true;
-            updateLimelight = true;
-        }
-        if (updateLimelight) {
-            limelight.updatePosition();
-            if (limelight.checkFound()) {
-                updateLimelight = false;
-                changed1A = false;
-            }
-        }
+//        if (gamepad1.a && !changed1A) {
+//            changed1A = true;
+//            updateLimelight = true;
+//        }
+//        if (updateLimelight) {
+//            limelight.updatePosition();
+//            if (limelight.checkFound()) {
+//                updateLimelight = false;
+//                changed1A = false;
+//            }
+//        }
 
         //lift code
         if (gamepad2.dpad_up) {
@@ -126,12 +126,21 @@ public class TeleOpHandler {
         }
 
         //different logic which checks shootRunning for stop
+//        if (gamepad2.a && !changedA) {
+//            changedA = true;
+//            setTransition(FSM.StateName.Shoot);
+//            off = false;
+//        } else if (shooterHandler.shooterRunning && changedA) {
+//            changedA = false;
+//            off = true;
+//        }
         if (gamepad2.a && !changedA) {
             changedA = true;
             setTransition(FSM.StateName.Shoot);
             off = false;
-        } else if (shooterHandler.shooterRunning && changedA) {
+        } else if (!gamepad2.a && changedA) {
             changedA = false;
+            setTransition(FSM.StateName.Norm);
             off = true;
         }
 
