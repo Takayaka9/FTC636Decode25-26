@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 public class ShootState implements State {
     @Override
     public void initiate(SystemManager manager) {
-        manager.shooterHandler.off();
+        //manager.shooterHandler.off();
 //        manager.ballController.setErrorHandler(true);
 //        manager.ballController.init();
         manager.shooterHandler.shooterRunning = true;

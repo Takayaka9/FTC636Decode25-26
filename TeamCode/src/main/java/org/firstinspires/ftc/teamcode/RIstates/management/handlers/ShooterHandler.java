@@ -49,7 +49,7 @@ public class ShooterHandler {
             //ballController.shootUpdateBallCount();
             shooter.shoot(targetDistance);
             hoodController.angleHood(targetDistance);
-            beltController.run();
+            //beltController.run();
 //            lightController.shooterLightingUpdate(ballController.getBallCount());
     }
     public void constantShoot() {
