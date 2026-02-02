@@ -13,7 +13,7 @@ public class BC12Paths extends BluePoseLib {
         this.follower = follower;
     }
 
-    private PathChain startToShoot, intakeSpike2, openGate, gateToShoot, intakeSpike1, spike1toShoot, intakeSpike3, spike3toShoot, shootToLeave;
+    public PathChain startToShoot, intakeSpike2, openGate, gateToShoot, intakeSpike1, spike1toShoot, intakeSpike3, spike3toShoot, shootToLeave;
 
     public void buildPaths() {
         startToShoot = follower.pathBuilder()

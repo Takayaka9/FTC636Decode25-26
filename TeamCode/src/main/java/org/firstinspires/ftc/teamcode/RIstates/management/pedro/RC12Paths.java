@@ -13,7 +13,7 @@ public class RC12Paths extends RedPoseLib {
         this.follower = follower;
     }
 
-    private PathChain startToShoot, intakeSpike2, openGate, gateToShoot, intakeSpike1, spike1toShoot, intakeSpike3, spike3toShoot, shootToLeave;
+    public PathChain startToShoot, intakeSpike2, openGate, gateToShoot, intakeSpike1, spike1toShoot, intakeSpike3, spike3toShoot, shootToLeave;
 
     public void buildPaths() {
         startToShoot = follower.pathBuilder()
