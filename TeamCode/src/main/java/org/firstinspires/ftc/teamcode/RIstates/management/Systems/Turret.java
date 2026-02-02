@@ -22,7 +22,8 @@ public class Turret {
     public static final double BLUE_GOAL_X = 0;
     public static final double RED_GOAL_Y = 144;
     public static final double RED_GOAL_X = 144;
-    double goalAngle;
+    public double goalAngle;
+    public double ticksToMove;
 
     /* Function to move the turret to a certain angle
     Requires color (1 for blue, 2 for red) and follower object
@@ -48,7 +49,7 @@ public class Turret {
             turretAngle = -Math.PI/2;
         }
 
-        double ticksToMove = turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2));
+        ticksToMove = turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2));
         turnTurret(ticksToMove);
     }
 

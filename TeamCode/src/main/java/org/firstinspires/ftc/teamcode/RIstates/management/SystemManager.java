@@ -174,6 +174,10 @@ public class SystemManager {
         turret.trackGoal(shooterHandler.alliance);
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
+        telemetryM.addData("turret pos", turret.turretPosition());
+        telemetryM.addData("intake distance", intakeDistanceSensor.test());
+        telemetryM.addData("ticks to move", turret.ticksToMove);
+        telemetryM.addData("goal angle", turret.goalAngle);
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
         telemetry.addData("Alliance", getAlliance());
         telemetry.update();
