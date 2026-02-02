@@ -22,17 +22,22 @@ public class RelocalizationTest extends OpMode {
     Follower follower;
     TelemetryManager t;
     Pose start = new Pose(x, y, h);
-    public static double x = 0;
-    public static double y = 0;
+    public static double x = 72;
+    public static double y = 72;
     public static double h = 0;
     @Override
     public void init() {
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(start);
         t = PanelsTelemetry.INSTANCE.getTelemetry();
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.start();
         limelight.pipelineSwitch(3);
+    }
+
+    @Override
+    public void start() {
+        follower.setStartingPose(start);
+        follower.startTeleopDrive();
     }
 
     @Override
