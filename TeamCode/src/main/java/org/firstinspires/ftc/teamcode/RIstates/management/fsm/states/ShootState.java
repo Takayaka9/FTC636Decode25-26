@@ -36,7 +36,7 @@ public class ShootState implements State {
 //            manager.intake.stop();
 //            manager.shooterHandler.shoot();
 //        }
-
+        manager.transfer.update();
         manager.shooterHandler.shoot();
 //        manager.shooterHandler.whileConstantShootingBelt(true);
     }
