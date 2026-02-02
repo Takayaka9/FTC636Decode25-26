@@ -10,8 +10,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BC12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF12Paths;
-import org.firstinspires.ftc.teamcode.RIstates.management.pedro.PoseStorage;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RC12Paths;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.PoseStorage;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GateServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.LimelightHandler;
@@ -23,11 +25,8 @@ import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDi
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.IntakeController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
-import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RedPoseLib;
-import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BluePoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.TurretSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Intake;
@@ -61,9 +60,10 @@ public class SystemManager {
 
     public Timer pathTimer, actionTimer, opmodeTimer;
     public int pathState;
-    public final RedPoseLib redPoseLib;
-    public final BluePoseLib bluePoseLib;
-
+    public final RF12Paths rf12Paths;
+    public final BF12Paths bf12Paths;
+    public final BC12Paths bc12Paths;
+    public final RC12Paths rc12Paths;
     private final Telemetry telemetry;
 
     private boolean isTeleop;
@@ -85,8 +85,6 @@ public class SystemManager {
 
 
         //auto dependencies
-        redPoseLib = new RedPoseLib();
-        bluePoseLib = new BluePoseLib();
         poseStorage = new PoseStorage();
         pathTimer = new Timer();
         actionTimer = new Timer();
@@ -111,6 +109,12 @@ public class SystemManager {
         lightController = new LightController(hardwareMap, intakeDistanceSensor);
         limelightController = new LimelightController(hardwareMap, "limelight", follower, telemetryM);
 
+        //pathing
+        rf12Paths = new RF12Paths(follower);
+        bf12Paths = new BF12Paths(follower);
+        rc12Paths = new RC12Paths(follower);
+        bc12Paths = new BC12Paths(follower);
+
         //handlers
         shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hoodController, intakeController);
         limelightHandler = new LimelightHandler(limelightController, follower);
@@ -118,20 +122,16 @@ public class SystemManager {
     }
 
     public FSM FSM;
-    public RF12Paths rf12Paths;
-    public BF12Paths bf12Paths;
     public TeleOpHandler teleOpHandler;
     public void init() {
         FSM = new FSM(this);
         if (FSM != null) {
             if (isTeleop) {
                 //initialize teleop only components
-                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightHandler, liftServo, follower);
+                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightHandler, liftServo, follower, shooterHandler.alliance);
             }
             else if (!isTeleop){
-                ///initialize paths add more paths here
-                rf12Paths = new RF12Paths(this);
-                bf12Paths = new BF12Paths(this);
+                //initialize paths add more paths here
                 rf12Paths.buildPaths();
                 bf12Paths.buildPaths();
             }

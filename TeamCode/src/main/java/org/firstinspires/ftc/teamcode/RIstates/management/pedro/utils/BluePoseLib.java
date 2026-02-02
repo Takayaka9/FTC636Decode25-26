@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.pedro;
+package org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils;
 
 import com.pedropathing.geometry.Pose;
 
-public class BluePoseLib {
+public abstract class BluePoseLib {
     public static int farStartX = 55; public static int farStartY = 9; public static int farStartR = 90;
     public static int farShootX = 57; public static int farShootY = 15; public static int farShootR = 107;
     public static int nearStartX = 55; public static int nearStartY = 9; public static int nearStartR = 90;
@@ -29,5 +29,5 @@ public class BluePoseLib {
     public final Pose intake1Pose = new Pose(Intake1X, Intake1Y, Math.toRadians(Intake1R));
     public final Pose emptyPose = new Pose(emptyX, emptyY, Math.toRadians(emptyR));
     public final Pose farLeavePose = new Pose(farLeaveX, farLeaveY, Math.toRadians(farLeaveR));
-    public final Pose closeLeavePose = new Pose(closeLeaveX, closeLeaveY, Math.toRadians(closeLeaveR));
+    public final Pose nearLeavePose = new Pose(closeLeaveX, closeLeaveY, Math.toRadians(closeLeaveR));
 }
