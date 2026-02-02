@@ -151,11 +151,12 @@ public class SystemManager {
         teleOpHandler.update();
         driveController.update();
         turret.trackGoal(shooterHandler.alliance);
-        telemetryM.addData("intake distance", intakeDistanceSensor.test());
-        telemetryM.addData("turret distance", turretSensor.test());
+        //telemetryM.addData("intake distance", intakeDistanceSensor.test());
+        //telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
         telemetryM.addData("current loc", follower.getPose());
+        //telemetryM.addData("distance goal", shooterHandler.getTargetDistance(follower, ))
 //        telemetryM.addData("full?", lightController.checkFull());
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
         telemetry.addData("Alliance", getAlliance());

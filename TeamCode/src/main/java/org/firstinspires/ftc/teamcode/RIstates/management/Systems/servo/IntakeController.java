@@ -34,6 +34,7 @@ public class IntakeController extends Intake implements Controller {
     public void init() {
         run();
     }
+
     public void update() {
         if (checkShooterReady()) {
             run();

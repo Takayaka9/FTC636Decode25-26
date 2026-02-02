@@ -89,8 +89,12 @@ public class ShooterHandler {
     outputs: targetDistance (also printed to panels)
     !! It is never needed to call this method - it is called in shoot !!
      */
-    private final Pose blueGoal = new Pose(0, 138);
-    private final Pose redGoal = new Pose(138, 138);
+    public static double blueX = 0;
+    public static double blueY = 138;
+    public static double redX = 138;
+    public static double redY = 138;
+    private Pose blueGoal = new Pose(blueX, blueY);
+    private Pose redGoal = new Pose(redX, redY);
     private static double targetDistance = 0;
     public double getTargetDistance(Follower follower, int alliance){
         if (alliance == 1){
@@ -101,7 +105,8 @@ public class ShooterHandler {
             Pose currentPose = follower.getPose();
             targetDistance = currentPose.distanceFrom(redGoal);
         }
-        if (targetDistance > 20) {
+        if (targetDistance > 0) {
+            telemetryM.addData("distance goal", targetDistance);
             return targetDistance;
         } else {
             return 1;
