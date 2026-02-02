@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.Transfer;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BC12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RC12Paths;
@@ -53,6 +54,7 @@ public class SystemManager {
     public final LimelightController limelightController;
     public final LimelightHandler limelightHandler;
     public final PoseStorage poseStorage;
+    public final Transfer transfer;
 
     public Gamepad gamepad1;
     public Gamepad gamepad2;
@@ -100,6 +102,7 @@ public class SystemManager {
         turretSensor = new TurretSensor(hardwareMap);
         gateServo = new GateServo(hardwareMap);
         liftServo = new LiftServo(hardwareMap);
+        transfer = new Transfer(hardwareMap, gamepad2);
 
 
         //controllers
