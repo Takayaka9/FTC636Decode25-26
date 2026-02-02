@@ -19,10 +19,14 @@ public class RC12v4 extends OpMode {
     HardwareMap hardwareMap;
     Timing.Timer timer;
     Boolean timing;
+    boolean following;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
             case 0:
-                manager.follower.followPath(manager.rc12Paths.startToShoot, true);
+                if (!following) {
+                    manager.follower.followPath(manager.rc12Paths.startToShoot, false);
+                    following = true;
+                }
                 if (!manager.follower.isBusy()) {
                     manager.setPathState(1);
                 }
@@ -36,11 +40,95 @@ public class RC12v4 extends OpMode {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
                 if (timing && timer.done()) {
-                    manager.setPathState(2);
+                    manager.FSM.runNew(FSM.StateName.Norm);
                     timing = false;
+                    manager.follower.followPath(manager.rc12Paths.intakeSpike2, false);
+                    manager.setPathState(2);
                 }
-
-
+                break;
+            case 2:
+                manager.FSM.runNew(FSM.StateName.Intake);
+                if (!manager.follower.isBusy()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.follower.followPath(manager.rc12Paths.openGate, false);
+                    manager.setPathState(3);
+                }
+                break;
+            case 3:
+                if (!manager.follower.isBusy()) {
+                    manager.follower.followPath(manager.rc12Paths.gateToShoot, false);
+                    manager.setPathState(4);
+                }
+                break;
+            case 4:
+                if (!manager.follower.isBusy()) {
+                    manager.setPathState(5);
+                }
+            case 5:
+                if (!timer.isTimerOn() && !timing) {
+                    timer.start();
+                    timing = true;
+                }
+                if (timer.isTimerOn() && !timer.done()) {
+                    manager.FSM.runNew(FSM.StateName.Shoot);
+                }
+                if (timing && timer.done()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.follower.followPath(manager.rc12Paths.intakeSpike1, false);
+                    timing = false;
+                    manager.setPathState(6);
+                }
+                break;
+            case 6:
+                manager.FSM.runNew(FSM.StateName.Intake);
+                if (!manager.follower.isBusy()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.follower.followPath(manager.rc12Paths.spike1toShoot, false);
+                    manager.setPathState(7);
+                }
+            case 7:
+                if (!manager.follower.isBusy()) {
+                    manager.setPathState(8);
+                }
+            case 8:
+                if (!timer.isTimerOn() && !timing) {
+                    timer.start();
+                    timing = true;
+                }
+                if (timer.isTimerOn() && !timer.done()) {
+                    manager.FSM.runNew(FSM.StateName.Shoot);
+                }
+                if (timing && timer.done()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.follower.followPath(manager.rc12Paths.intakeSpike3, false);
+                    timing = false;
+                    manager.setPathState(9);
+                }
+                break;
+            case 9:
+                manager.FSM.runNew(FSM.StateName.Intake);
+                if (!manager.follower.isBusy()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.follower.followPath(manager.rc12Paths.spike3toShoot, false);
+                    manager.setPathState(10);
+                }
+            case 10:
+                if (!timer.isTimerOn() && !timing) {
+                    timer.start();
+                    timing = true;
+                }
+                if (timer.isTimerOn() && !timer.done()) {
+                    manager.FSM.runNew(FSM.StateName.Shoot);
+                }
+                if (timing && timer.done()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.follower.followPath(manager.rc12Paths.shootToLeave, false);
+                    timing = false;
+                    manager.setPathState(11);
+                }
+                break;
+            case 11:
+                break;
         }
     }
 
@@ -65,6 +153,7 @@ public class RC12v4 extends OpMode {
         timer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
         timer.pause();
         timing = false;
+        following = false;
     }
     @Override
     public void init_loop() {
