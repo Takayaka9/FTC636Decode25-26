@@ -25,12 +25,14 @@ public class ShootState implements State {
 //            manager.FSM.runNew(FSM.StateName.Norm);
 //        }
         manager.shooterHandler.shoot();
+//        manager.shooterHandler.whileConstantShootingBelt(true);
     }
 
     @Override
     public void end(SystemManager manager) {
         manager.shooterHandler.shooterRunning = false;
         manager.shooterHandler.off();
+        //manager.shooterHandler.whileConstantShootingBelt(true);
         manager.gateServo.togglePosition(true);
     }
 

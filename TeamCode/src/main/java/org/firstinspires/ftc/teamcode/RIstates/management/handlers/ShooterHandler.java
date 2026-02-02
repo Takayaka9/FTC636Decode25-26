@@ -52,6 +52,19 @@ public class ShooterHandler {
             beltController.run();
 //            lightController.shooterLightingUpdate(ballController.getBallCount());
     }
+    public void constantShoot() {
+        double targetDistance = getTargetDistance(follower, alliance);
+        shooter.shoot(targetDistance);
+        hoodController.angleHood(targetDistance);
+    }
+
+    public void whileConstantShootingBelt(Boolean run) {
+        if (run) {
+            beltController.run();
+        } else {
+            beltController.stop();
+        }
+    }
     public boolean shooterRunning = false;
 
     private ElapsedTime timer = new ElapsedTime();
@@ -67,6 +80,8 @@ public class ShooterHandler {
         hoodController.passive();
         beltController.stop();
     }
+
+
 
     /*
     Get Target Distance is a method to retrieve target distance

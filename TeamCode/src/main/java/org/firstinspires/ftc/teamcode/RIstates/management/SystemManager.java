@@ -161,6 +161,7 @@ public class SystemManager {
         //telemetry.addData("balls", ballController.getBallCount());
         telemetry.update();
         lightController.update(teleOpHandler.updateLimelight, FSM.getCurrentStateName(), shooterHandler.alliance);
+        //shooterHandler.constantShoot();
     }
 
 
