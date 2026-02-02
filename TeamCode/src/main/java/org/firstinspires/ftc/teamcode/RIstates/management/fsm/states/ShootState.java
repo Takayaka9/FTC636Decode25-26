@@ -1,11 +1,16 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.fsm.states;
 
+import com.seattlesolvers.solverslib.util.Timing;
+
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.State;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class ShootState implements State {
+    Timing.Timer timer;
     @Override
     public void initiate(SystemManager manager) {
         manager.shooterHandler.off();
@@ -13,6 +18,8 @@ public class ShootState implements State {
 //        manager.ballController.init();
         manager.shooterHandler.shooterRunning = true;
         manager.gateServo.togglePosition(false);
+//        timer = new Timing.Timer(500, TimeUnit.MILLISECONDS);
+//        manager.intake.reverse();
     }
 
     @Override
@@ -24,6 +31,12 @@ public class ShootState implements State {
 //            manager.shooterHandler.shooterRunning = false;
 //            manager.FSM.runNew(FSM.StateName.Norm);
 //        }
+
+//        if (timer.done()) {
+//            manager.intake.stop();
+//            manager.shooterHandler.shoot();
+//        }
+
         manager.shooterHandler.shoot();
 //        manager.shooterHandler.whileConstantShootingBelt(true);
     }
