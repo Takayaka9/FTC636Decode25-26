@@ -16,7 +16,7 @@ public class ShooterHandler {
     private final Follower follower;
     private final Shooter shooter;
     private final HoodController hoodController;
-    private final IntakeController beltController;
+    private final IntakeController intakeController;
 //    private final LightController lightController;
     //private final BallController ballController;
 
@@ -25,7 +25,7 @@ public class ShooterHandler {
             Follower follower,
             Shooter shooter,
             HoodController hoodController,
-            IntakeController beltController
+            IntakeController intakeController
 //            LightController lightController,
             //BallController ballController
     ) {
@@ -33,7 +33,7 @@ public class ShooterHandler {
         this.follower = follower;
         this.shooter = shooter;
         this.hoodController = hoodController;
-        this.beltController = beltController;
+        this.intakeController = intakeController;
 //        this.lightController = lightController;
         //this.ballController = ballController;
     }
@@ -49,7 +49,7 @@ public class ShooterHandler {
             //ballController.shootUpdateBallCount();
             shooter.shoot(targetDistance);
             hoodController.angleHood(targetDistance);
-            //beltController.run();
+            //intakeController.run();
 //            lightController.shooterLightingUpdate(ballController.getBallCount());
     }
     public void constantShoot() {
@@ -60,9 +60,9 @@ public class ShooterHandler {
 
     public void whileConstantShootingBelt(Boolean run) {
         if (run) {
-            beltController.run();
+            intakeController.run();
         } else {
-            beltController.stop();
+            intakeController.stop();
         }
     }
     public boolean shooterRunning = false;
@@ -78,7 +78,7 @@ public class ShooterHandler {
     public void off(){
         shooter.stop();
         hoodController.passive();
-        beltController.stop();
+        intakeController.stop();
     }
 
 
