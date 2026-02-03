@@ -116,11 +116,11 @@ public class TeleOpHandler {
 
 
         //Alliance select state
-        if (gamepad2.left_trigger > 0.3 && gamepad2.right_trigger > 0.3 && !allianceSelecting) {
+        if (gamepad1.left_trigger > 0.3 && gamepad1.right_trigger > 0.3 && !allianceSelecting) {
             setTransition(FSM.StateName.AllianceSelect);
             allianceSelecting = true;
             off = false;
-        } else if (gamepad2.left_trigger < 0.3 & gamepad2.right_trigger < 0.3 && allianceSelecting) {
+        } else if (gamepad1.left_trigger < 0.3 & gamepad1.right_trigger < 0.3 && allianceSelecting) {
             allianceSelecting = false;
             off = true;
         }
