@@ -12,6 +12,66 @@ public class LightController extends PWMLight {
         super(hardwareMap);
         distanceSensor = distance;
     }
+
+    boolean green = false;
+    public void update(boolean limeLight, FSM.StateName currentState, int alliance, int averageVelocity, int targetVelocity) {
+        if (limeLight) {
+            if (!green) {
+                green();
+                green = true;
+            } else if (green) {
+                white();
+                green = false;
+            }
+        }
+        if (currentState == FSM.StateName.Norm) {
+            white();
+        }
+        if (currentState == FSM.StateName.Shoot) {
+            getColor(averageVelocity, targetVelocity);
+        }
+        if (currentState == FSM.StateName.Intake) {
+            violet();
+        }
+        if (currentState == FSM.StateName.Backout) {
+            violet();
+        }
+        if (limeLight) {
+            if (!green) {
+                green();
+                green = true;
+            } else {
+                white();
+                green = false;
+            }
+        }
+        if (currentState == FSM.StateName.AllianceSelect) {
+            if (alliance == 0) {
+                white();
+            }
+            if (alliance == 1) {
+                blue();
+            }
+            if (alliance == 2) {
+                red();
+            }
+        }
+
+    }
+
+    public void getColor(int averageVelocity, int targetVelocity) {
+        if (averageVelocity < (targetVelocity-100)) {
+            red();
+        } else if (averageVelocity > (targetVelocity+200)) {
+            indigo();
+        } else if (averageVelocity < (targetVelocity-100) && averageVelocity > (targetVelocity+200)) {
+            green();
+        }
+    }
+
+
+
+    /*
     ElapsedTime timer = new ElapsedTime();
     boolean found = false;
     public boolean checkFull(){
@@ -39,8 +99,6 @@ public class LightController extends PWMLight {
         }
     }
 
-
-
     public void shooterLightingUpdate(int artifactsShot) {
         if (artifactsShot ==0) {
             violet();
@@ -55,36 +113,5 @@ public class LightController extends PWMLight {
             green();
         }
     }
-
-    public void update(boolean limeLight, FSM.StateName currentState, int alliance) {
-        if (limeLight) {
-            green();
-        }
-        if (currentState == FSM.StateName.Norm) {
-            white();
-        }
-        if (currentState == FSM.StateName.Shoot) {
-            indigo();
-        }
-        if (currentState == FSM.StateName.Intake) {
-            violet();
-        }
-        if (currentState == FSM.StateName.Backout) {
-            violet();
-        }
-        if (currentState == FSM.StateName.AllianceSelect) {
-            if (alliance == 0) {
-                white();
-            }
-            if (alliance == 1) {
-                blue();
-            }
-            if (alliance == 2) {
-                red();
-            }
-
-        }
-
-
-    }
+     */
 }
