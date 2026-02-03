@@ -86,17 +86,17 @@ public class TeleOpHandler {
         }
 
         //limelight, not through fsm
-//        if (gamepad1.a && !changed1A) {
-//            changed1A = true;
-//            updateLimelight = true;
-//        }
-//        if (updateLimelight) {
-//            limelight.updatePosition();
-//            if (limelight.checkFound()) {
-//                updateLimelight = false;
-//                changed1A = false;
-//            }
-//        }
+        if (gamepad1.a && !changed1A) {
+            changed1A = true;
+            updateLimelight = true;
+        }
+        if (updateLimelight) {
+            limelight.updatePosition();
+            if (limelight.checkFound()) {
+                updateLimelight = false;
+                changed1A = false;
+            }
+        }
 
         //lift code
         if (gamepad2.dpad_up) {
@@ -140,7 +140,6 @@ public class TeleOpHandler {
             off = false;
         } else if (!gamepad2.a && changedA) {
             changedA = false;
-            setTransition(FSM.StateName.Norm);
             off = true;
         }
 
@@ -172,10 +171,7 @@ public class TeleOpHandler {
         if (requestingTransition != null) {
             fsm.runNew(requestingTransition);
         }
-//        fsm.runNew(requestingTransition);
-//        if (!checkStillRunning()) {
-//            setTransition(FSM.StateName.Norm);
-//        }
+        requestingTransition = null;
 
     }
 }
