@@ -19,7 +19,6 @@ public class Turret {
         this.follower = follower;
     }
     //turret code!
-    //TODO: Ticks per Rev incorrect, thats for a 6000
     public static final double TICKS_PER_REV = 145.1;
     //20to102
     public static double BLUE_GOAL_Y = 144;
