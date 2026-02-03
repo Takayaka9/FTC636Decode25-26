@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.Systems;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,6 +13,9 @@ public class Turret {
     Follower follower;
     public Turret(HardwareMap hardwareMap, Follower follower, String name){
         turret = hardwareMap.get(DcMotorEx.class, name);
+        turret.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.follower = follower;
     }
     //turret code!

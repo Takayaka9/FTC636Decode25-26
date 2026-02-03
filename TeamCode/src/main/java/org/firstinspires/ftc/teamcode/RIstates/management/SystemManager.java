@@ -4,6 +4,7 @@ import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.util.Timer;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -99,7 +100,9 @@ public class SystemManager {
 
         //subsystems
         shooter = new Shooter(hardwareMap, "sr", "sl");
+
         turret = new Turret(hardwareMap, follower, "turret");
+
         hoodController = new HoodController(hardwareMap);
         intake = new Intake(hardwareMap, "intake");
 //        intakeSensor = new IntakeSensor(hardwareMap);
