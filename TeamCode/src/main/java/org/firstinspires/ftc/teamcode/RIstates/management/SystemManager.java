@@ -13,7 +13,9 @@ import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServ
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.Transfer;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BC12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF12Paths;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF6Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RC12Paths;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RF6Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.PoseStorage;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GateServo;
@@ -66,6 +68,9 @@ public class SystemManager {
     public final BF12Paths bf12Paths;
     public final BC12Paths bc12Paths;
     public final RC12Paths rc12Paths;
+    public final RF6Paths rf6Paths;
+    public final BF6Paths bf6Paths;
+
     private final Telemetry telemetry;
 
     private boolean isTeleop;
@@ -117,6 +122,9 @@ public class SystemManager {
         bf12Paths = new BF12Paths(follower);
         rc12Paths = new RC12Paths(follower);
         bc12Paths = new BC12Paths(follower);
+        bf6Paths = new BF6Paths(follower);
+        rf6Paths = new RF6Paths(follower);
+
 
         //handlers
         shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hoodController, intakeController);
@@ -134,9 +142,6 @@ public class SystemManager {
                 teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightHandler, liftServo, follower, shooterHandler.alliance);
             }
             else if (!isTeleop){
-                //initialize paths add more paths here
-                rf12Paths.buildPaths();
-                bf12Paths.buildPaths();
             }
         }
     }
@@ -165,7 +170,13 @@ public class SystemManager {
         telemetry.addData("Alliance", getAlliance());
         //telemetry.addData("balls", ballController.getBallCount());
         telemetry.update();
-        lightController.update(teleOpHandler.updateLimelight, FSM.getCurrentStateName(), shooterHandler.alliance);
+        lightController.update(
+                teleOpHandler.updateLimelight,
+                FSM.getCurrentStateName(),
+                shooterHandler.alliance,
+                shooter.averageVelocity(),
+                shooter.getShooterTPS(shooterHandler.getTargetDistance(follower, shooterHandler.alliance))
+        );
         //shooterHandler.constantShoot();
     }
 
