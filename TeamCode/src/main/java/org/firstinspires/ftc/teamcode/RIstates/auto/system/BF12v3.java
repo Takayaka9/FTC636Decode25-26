@@ -8,86 +8,84 @@ import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 /// WIP
 //second command system auto which uses command system
-@Autonomous(name = "RF12v2", group = "RF12v2")
+@Autonomous()
 public class BF12v3 extends OpMode {
     SystemManager manager;
-    HardwareMap hardwareMap;
 
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
             case 0:
-                manager.follower.followPath(manager.rf12Paths.fs0, true);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                     if (!manager.shooterHandler.shooterRunning) {
+                        manager.follower.followPath(manager.rf12Paths.pi1);
                         manager.setPathState(1);
                     }
                 }
                 break;
             case 1:
-                manager.follower.followPath(manager.rf12Paths.pi1);
                 if (!manager.follower.isBusy()) {
+                    manager.follower.followPath(manager.rf12Paths.i1);
                     manager.setPathState(2);
                 }
             case 2:
                 manager.FSM.runNew(FSM.StateName.Intake);
-                manager.follower.followPath(manager.rf12Paths.i1);
                 if (!manager.follower.isBusy()) {
+                    manager.FSM.runNew(FSM.StateName.Shoot);
                     manager.setPathState(3);
                 }
                 break;
             case 3:
                 manager.follower.followPath(manager.rf12Paths.cs1, true);
                 if (!manager.follower.isBusy()) {
-                    manager.FSM.runNew(FSM.StateName.Shoot);
                     if (!manager.shooterHandler.shooterRunning) {
+                        manager.follower.followPath(manager.rf12Paths.pi2);
                         manager.setPathState(4);
                     }
                 }
                 break;
             case 4:
-                manager.follower.followPath(manager.rf12Paths.pi2);
                 if (!manager.follower.isBusy()) {
+                    manager.follower.followPath(manager.rf12Paths.i2);
                     manager.setPathState(5);
                 }
             case 5:
                 manager.FSM.runNew(FSM.StateName.Intake);
-                manager.follower.followPath(manager.rf12Paths.i2);
                 if (!manager.follower.isBusy()) {
+                    manager.follower.followPath(manager.rf12Paths.cs2, true);
                     manager.setPathState(6);
                 }
                 break;
             case 6:
-                manager.follower.followPath(manager.rf12Paths.cs2, true);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                     if (!manager.shooterHandler.shooterRunning) {
+                        manager.follower.followPath(manager.rf12Paths.pi3);
                         manager.setPathState(6);
                     }
                 }
             case 7:
-                manager.follower.followPath(manager.rf12Paths.pi3);
                 if (!manager.follower.isBusy()) {
+                    manager.follower.followPath(manager.rf12Paths.i3);
                     manager.setPathState(8);
                 }
             case 8:
                 manager.FSM.runNew(FSM.StateName.Intake);
-                manager.follower.followPath(manager.rf12Paths.i3);
                 if (!manager.follower.isBusy()) {
+                    manager.follower.followPath(manager.rf12Paths.fs3, true);
                     manager.setPathState(9);
                 }
                 break;
             case 9:
-                manager.follower.followPath(manager.rf12Paths.fs3, true);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                     if (!manager.shooterHandler.shooterRunning) {
+                        manager.follower.followPath(manager.rf12Paths.l);
                         manager.setPathState(10);
                     }
                 }
                 break;
             case 10:
-                manager.follower.followPath(manager.rf12Paths.l);
                 break;
 
         }
@@ -115,7 +113,7 @@ public class BF12v3 extends OpMode {
         manager.setAlliance(1);
         manager.opmodeTimer.resetTimer();
         manager.rf12Paths.buildPaths();
-        manager.follower.setStartingPose(manager.bluePoseLib.farStartPose);
+        manager.follower.setStartingPose(manager.bf12Paths.farStartPose);
     }
     @Override
     public void init_loop() {
@@ -123,6 +121,7 @@ public class BF12v3 extends OpMode {
     @Override
     public void start() {
         manager.opmodeTimer.resetTimer();
+        manager.follower.followPath(manager.rf12Paths.fs0, true);
         manager.setPathState(0);
     }
     @Override

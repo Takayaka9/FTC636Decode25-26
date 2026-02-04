@@ -4,16 +4,14 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.HoodServo;
 
 
 @Configurable
-public class HoodController {
+public class HoodController extends HoodServo {
     private final InterpLUT lut = new InterpLUT();
-    private GamepadServoImplEx servo;
     public HoodController(HardwareMap hardwareMap){
-        GamepadServoImplEx servo = new HoodServo(hardwareMap);
+        super(hardwareMap);
         lut.add(0, p1);
         lut.add(d1, p1);
         lut.add(d2, p2);
@@ -31,30 +29,30 @@ public class HoodController {
     output: panels telemetry and servo position
     !! it is never needed to call this method - it is called by shoot !!
      */
-    static double d1 = 36; static double p1 = 0.1;
-    static double d2 = 50; double p2 = 0.2;
-    static double d3 = 75; static double p3 = 0.3;
-    static double d4 = 96; static double p4 = 0.4;
-    static double d5 = 108; static double p5 = 0.5;
-    static double d6 = 150; static double p6 = 0.6;
+    static double d1 = 36; static double p1 = 1;
+    static double d2 = 50; static double p2 = 0.95;
+    static double d3 = 75; static double p3 = 0.92;
+    static double d4 = 96; static double p4 = 0.88;
+    static double d5 = 108; static double p5 = 0.85;
+    static double d6 = 150; static double p6 = 0.85;
 
     public double angle;
     public void angleHood(double targetDistance) {
         angle = lut.get(targetDistance);
-        servo.setPosition(angle);
+        setPosition(angle);
     }
 
-    public static double passive = 0.5;
+    public static double passive = 1;
     public void passive(){
-        servo.setPosition(passive);
+        setPosition(passive);
     }
 
     public void increment(boolean positive){
         if(positive){
-            servo.setPosition(servo.getPosition() + 0.03);
+            setPosition(getPosition() + 0.03);
         }
         else{
-            servo.setPosition(servo.getPosition() - 0.03);
+            setPosition(getPosition() - 0.03);
         }
     }
 

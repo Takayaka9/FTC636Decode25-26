@@ -8,11 +8,10 @@ import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.Ser
 
 @Configurable
 public class HoodServo extends ServoImplExBase implements GamepadServoImplEx {
-    double start = 0.2;
-    double end = .5;
+    double start = 0.85;
+    double end = 1;
     public HoodServo (HardwareMap hardwareMap) {
         super("hood", hardwareMap);
-        super.setRange(start, end);
     }
 
 

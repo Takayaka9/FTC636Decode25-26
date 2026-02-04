@@ -16,10 +16,11 @@ public class Shooter {
     public final DcMotorEx flyLeft;
     private ElapsedTime pidTime = new ElapsedTime();
     //TODO: decide lut or no lut
-    static double d1 = 36; static double r1 = 800;
-    static double d2 = 50; static double r2 = 1000;
-    static double d3 = 75; static double r3 = 1300;
-    static double d4 = 96; static double r4 = 1450;
+
+    static double d1 = 36; static double r1 = 1100;
+    static double d2 = 50; static double r2 = 1400;
+    static double d3 = 75; static double r3 = 1500;
+    static double d4 = 96; static double r4 = 1850;
     static double d5 = 108; static double r5 = 2799;
     static double d6 = 150; static double r6 = 2800;
 
@@ -55,10 +56,11 @@ public class Shooter {
     }
 
 
-    public static double Kp = 0.004;
+    public static double Kp = 0.3;
     public static double Ki = 0;
     public static double Kd = 0;
-    public static double Kf = 0.006;
+    public static double Kf = 0.00036;
+    //0.000357 should be the max kf value
     //TODO: either make a pidf class (good idea) or just fix ts. either way use chatgpt.
     private double integralSum;
     private double lastError;

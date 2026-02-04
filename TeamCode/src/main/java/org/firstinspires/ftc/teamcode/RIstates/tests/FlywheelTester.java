@@ -51,5 +51,11 @@ public class FlywheelTester extends OpMode {
                 "left velocity in tps",
                 manager.shooter.flyLeft.getVelocity()
         );
+        manager.telemetryM.addData(
+                "goal distance red", manager.shooterHandler.getTargetDistance(manager.follower, 2)
+        );
+        manager.telemetryM.addData(
+                "goal distance blue", manager.shooterHandler.getTargetDistance(manager.follower, 1)
+        );
     }
 }

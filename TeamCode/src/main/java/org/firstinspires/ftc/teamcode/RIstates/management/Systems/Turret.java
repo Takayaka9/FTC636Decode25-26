@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities;
+package org.firstinspires.ftc.teamcode.RIstates.management.Systems;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,24 +13,26 @@ public class Turret {
     Follower follower;
     public Turret(HardwareMap hardwareMap, Follower follower, String name){
         turret = hardwareMap.get(DcMotorEx.class, name);
+        turret.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.follower = follower;
     }
     //turret code!
-    //TODO: Ticks per Rev incorrect, thats for a 6000
     public static final double TICKS_PER_REV = 145.1;
     //20to102
-    public static final double BLUE_GOAL_Y = 138;
-    public static final double BLUE_GOAL_X = 0;
-    public static final double RED_GOAL_Y = 138;
-    public static final double RED_GOAL_X = 138;
-    double goalAngle;
+    public static double BLUE_GOAL_Y = 144;
+    public static double BLUE_GOAL_X = 0;
+    public static double RED_GOAL_Y = 140;
+    public static double RED_GOAL_X = 144;
+    public double goalAngle;
+    public double ticksToMove;
 
     /* Function to move the turret to a certain angle
     Requires color (1 for blue, 2 for red) and follower object
     Calls turnTurret with required inputs to move the turret
      */
     public void trackGoal(int color){
-        follower.update();
         if(color == 0){
             return;
         }
@@ -41,15 +44,21 @@ public class Turret {
         }
         double robotHeading = follower.getHeading();
         double turretAngle = goalAngle - robotHeading;
+        if(turretAngle >= Math.PI/2){
+            turretAngle = Math.PI/2;
+        }
+        if(turretAngle <= -Math.PI/2){
+            turretAngle = -Math.PI/2;
+        }
 
-        double ticksToMove = turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2));
+        ticksToMove = turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2));
         turnTurret(ticksToMove);
     }
 
     ElapsedTime turretTime = new ElapsedTime();
     double lastTurretError;
     double turretIntegral;
-    public static double turretKp = 0.01;
+    public static double turretKp = 0.03;
     public static double turretKd = 0;
     public static double turretKi = 0;
     public static double I_MAX = 500;

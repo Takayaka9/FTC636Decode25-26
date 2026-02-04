@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.handlers;
 
+import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.LimelightController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 public class TeleOpHandler {
@@ -10,25 +13,42 @@ public class TeleOpHandler {
     private final Gamepad gamepad1;
     private final Gamepad gamepad2;
     private final ShooterHandler shooterHandler;
-    private final LimelightHandler limelight;
+    private final LimelightController limelight;
+    private final LiftServo lift;
 
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight) {
+    private final Follower follower;
+
+    private Pose blueParkPose = null;
+    private Pose redParkPose = null;
+    
+    private int alliance = 0;
+
+
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightController limelight, LiftServo liftServo, Follower follower, int alliance) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
         this.shooterHandler = shooterHandler;
         this.limelight = limelight;
+        this.lift = liftServo;
+        this.follower = follower;
+        blueParkPose = new Pose(105.35, 37.8, Math.toRadians(90));
+        redParkPose = new Pose(38.6, 37.8, Math.toRadians(90));
+        this.alliance = alliance;
     }
 
     private boolean changedA = false;
     public boolean changedB = false;
+    public boolean changed1B = false;
     public boolean changedX = false;
     private boolean changedRT = false;
     private boolean changedLT = false;
-    private boolean changedY = false;
+    private boolean changed1A = false;
     private boolean allianceSelecting = false;
     public boolean updateLimelight = false;
+    public boolean updateLift = false;
     private boolean off = false;
+    public static boolean started = false;
 
     private FSM.StateName requestingTransition = null;
     public void setTransition(FSM.StateName stateName){
@@ -53,37 +73,76 @@ public class TeleOpHandler {
         if no inputs && already active then stop state
          */
 
-
+        //localization backup
+        if (gamepad1.b && !changed1B) {
+            if (alliance == 1) {
+                follower.setPose(blueParkPose);
+            } 
+            if (alliance == 2) {
+                follower.setPose(redParkPose);
+            }
+            changed1B = true;
+        }
+        if (!gamepad1.b && changed1B) {
+            changed1B = false;
+        }
         //limelight, not through fsm
-        if (gamepad2.y && !changedY) {
-            changedY = true;
+        if (gamepad1.a && !changed1A) {
+            changed1A = true;
             updateLimelight = true;
         }
-        if (updateLimelight) {
-            limelight.updatePosition();
-            if (limelight.checkFound()) {
+        if(updateLimelight && !started){
+            limelight.init();
+        }
+        else if (updateLimelight && started) {
+            limelight.update();
+            if (limelight.found) {
                 updateLimelight = false;
-                changedY = false;
+                changed1A = false;
             }
+        }
+
+        //lift code
+        if (gamepad2.dpad_up) {
+            updateLift = true;
+        }
+        if (updateLift) {
+            lift.up();
+        }
+        if (gamepad2.dpad_down) {
+            lift.down();
+            updateLift = false;
+        }
+        if (gamepad2.dpad_left) {
+            updateLift = false;
+            lift.stop();
         }
 
 
         //Alliance select state
-        if (gamepad2.left_trigger > 0.3 && gamepad2.right_trigger > 0.3 && !allianceSelecting) {
+        if (gamepad1.left_trigger > 0.3 && gamepad1.right_trigger > 0.3 && !allianceSelecting) {
             setTransition(FSM.StateName.AllianceSelect);
             allianceSelecting = true;
             off = false;
-        } else if (gamepad2.left_trigger < 0.3 & gamepad2.right_trigger < 0.3 && allianceSelecting) {
+        } else if (gamepad1.left_trigger < 0.3 & gamepad1.right_trigger < 0.3 && allianceSelecting) {
             allianceSelecting = false;
             off = true;
         }
 
         //different logic which checks shootRunning for stop
+//        if (gamepad2.a && !changedA) {
+//            changedA = true;
+//            setTransition(FSM.StateName.Shoot);
+//            off = false;
+//        } else if (shooterHandler.shooterRunning && changedA) {
+//            changedA = false;
+//            off = true;
+//        }
         if (gamepad2.a && !changedA) {
             changedA = true;
             setTransition(FSM.StateName.Shoot);
             off = false;
-        } else if (shooterHandler.shooterRunning && changedA) {
+        } else if (!gamepad2.a && changedA) {
             changedA = false;
             off = true;
         }
@@ -116,10 +175,7 @@ public class TeleOpHandler {
         if (requestingTransition != null) {
             fsm.runNew(requestingTransition);
         }
-//        fsm.runNew(requestingTransition);
-//        if (!checkStillRunning()) {
-//            setTransition(FSM.StateName.Norm);
-//        }
+        requestingTransition = null;
 
     }
 }

@@ -3,38 +3,40 @@ package org.firstinspires.ftc.teamcode.RIstates.management;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.pedropathing.util.Timer;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.Transfer;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BC12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF12Paths;
-import org.firstinspires.ftc.teamcode.RIstates.management.pedro.PoseStorage;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF6Paths;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RC12Paths;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RF6Paths;
+import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.PoseStorage;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GateServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.LimelightHandler;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.LimelightController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.Turret;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Turret;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeDistanceSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.ShooterHandler;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.ballController.BallController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.BeltController;
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.IntakeController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Light.LightController;
-import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RedPoseLib;
-import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BluePoseLib;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RF12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.TeleOpHandler;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.IntakeSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.color.TurretSensor;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.Config;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Intake;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.TeleOpDriveController;
-import org.firstinspires.ftc.teamcode.pedroPathing.TestConstants;
 
 public class SystemManager {
     public final Follower follower;
@@ -43,18 +45,20 @@ public class SystemManager {
     public final HoodController hoodController;
     public final Shooter shooter;
     public final Intake intake;
+    public final LiftServo liftServo;
     public final GamepadServoImplEx gateServo;
-    public final IntakeSensor intakeSensor;
+//    public final IntakeSensor intakeSensor;
     public final IntakeDistanceSensor intakeDistanceSensor;
     public final TurretSensor turretSensor;
-    public final BeltController beltController;
+    public final IntakeController intakeController;
     public final ShooterHandler shooterHandler;
-    public final BallController ballController;
+    //public final BallController ballController;
     public final Controller driveController;
     public final LightController lightController;
     public final LimelightController limelightController;
     public final LimelightHandler limelightHandler;
     public final PoseStorage poseStorage;
+    public final Transfer transfer;
 
     public Gamepad gamepad1;
     public Gamepad gamepad2;
@@ -62,8 +66,12 @@ public class SystemManager {
 
     public Timer pathTimer, actionTimer, opmodeTimer;
     public int pathState;
-    public final RedPoseLib redPoseLib;
-    public final BluePoseLib bluePoseLib;
+    public final RF12Paths rf12Paths;
+    public final BF12Paths bf12Paths;
+    public final BC12Paths bc12Paths;
+    public final RC12Paths rc12Paths;
+    public final RF6Paths rf6Paths;
+    public final BF6Paths bf6Paths;
 
     private final Telemetry telemetry;
 
@@ -86,8 +94,6 @@ public class SystemManager {
 
 
         //auto dependencies
-        redPoseLib = new RedPoseLib();
-        bluePoseLib = new BluePoseLib();
         poseStorage = new PoseStorage();
         pathTimer = new Timer();
         actionTimer = new Timer();
@@ -95,53 +101,60 @@ public class SystemManager {
 
         //subsystems
         shooter = new Shooter(hardwareMap, "sr", "sl");
+
         turret = new Turret(hardwareMap, follower, "turret");
+
         hoodController = new HoodController(hardwareMap);
         intake = new Intake(hardwareMap, "intake");
-        intakeSensor = new IntakeSensor(hardwareMap);
+//        intakeSensor = new IntakeSensor(hardwareMap);
         intakeDistanceSensor = new IntakeDistanceSensor(hardwareMap);
         turretSensor = new TurretSensor(hardwareMap);
         gateServo = new GateServo(hardwareMap);
+        liftServo = new LiftServo(hardwareMap);
+        transfer = new Transfer(hardwareMap, gamepad2);
 
 
         //controllers
-        ballController = new BallController(intakeDistanceSensor, turretSensor);
-        beltController = new BeltController(shooter, hardwareMap, "belt");
+        //ballController = new BallController(intakeDistanceSensor, turretSensor);
+        intakeController = new IntakeController(shooter, hardwareMap, "intake");
         driveController = new TeleOpDriveController(follower, gamepad1);
-        lightController = new LightController(hardwareMap);
+        lightController = new LightController(hardwareMap, intakeDistanceSensor);
         limelightController = new LimelightController(hardwareMap, "limelight", follower, telemetryM);
 
+        //pathing
+        rf12Paths = new RF12Paths(follower);
+        bf12Paths = new BF12Paths(follower);
+        rc12Paths = new RC12Paths(follower);
+        bc12Paths = new BC12Paths(follower);
+        bf6Paths = new BF6Paths(follower);
+        rf6Paths = new RF6Paths(follower);
+
+
         //handlers
-        shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hoodController, beltController, ballController);
+        shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hoodController, intakeController);
         limelightHandler = new LimelightHandler(limelightController, follower);
 
     }
 
     public FSM FSM;
-    public RF12Paths rf12Paths;
-    public BF12Paths bf12Paths;
     public TeleOpHandler teleOpHandler;
     public void init() {
         FSM = new FSM(this);
         if (FSM != null) {
             if (isTeleop) {
                 //initialize teleop only components
-                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightHandler);
+                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightController, liftServo, follower, shooterHandler.alliance);
             }
             else if (!isTeleop){
-                ///initialize paths add more paths here
-                rf12Paths = new RF12Paths(this);
-                bf12Paths = new BF12Paths(this);
-                rf12Paths.buildPaths();
-                bf12Paths.buildPaths();
             }
         }
     }
-
+    Pose center = new Pose(72, 72, 0);
     public void teleStart() {
         teleOpHandler.start();
         opmodeTimer.resetTimer();
-        follower.setStartingPose(poseStorage.getPose());
+        //follower.setStartingPose(poseStorage.getPose());
+        follower.setStartingPose(center);
         follower.startTeleopDrive();
         FSM.runNew(org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM.StateName.AllianceSelect);
     }
@@ -151,15 +164,28 @@ public class SystemManager {
         teleOpHandler.update();
         driveController.update();
         turret.trackGoal(shooterHandler.alliance);
-        telemetryM.addData("intake distance", intakeSensor.test());
-        telemetryM.addData("turret distance", turretSensor.test());
+        //telemetryM.addData("intake distance", intakeDistanceSensor.test());
+        //telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
+        telemetryM.addData("current loc", follower.getPose());
+        telemetryM.addData("flywheel vel. (right)", shooter.flyRight.getVelocity());
+        telemetryM.addData("hood pos", hoodController.getPosition());
+        //telemetryM.addData("distance goal", shooterHandler.getTargetDistance(follower, ))
+//        telemetryM.addData("full?", lightController.checkFull());
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
         telemetry.addData("Alliance", getAlliance());
-        telemetry.addData("balls", ballController.getBallCount());
+        //telemetry.addData("balls", ballController.getBallCount());
         telemetry.update();
-        lightController.update(teleOpHandler.updateLimelight, FSM.getCurrentStateName(), shooterHandler.alliance);
+        hoodController.angleHood(shooterHandler.getTargetDistance(follower, shooterHandler.alliance));
+        lightController.update(
+                teleOpHandler.updateLimelight,
+                FSM.getCurrentStateName(),
+                shooterHandler.alliance,
+                shooter.averageVelocity(),
+                shooter.getShooterTPS(shooterHandler.getTargetDistance(follower, shooterHandler.alliance))
+        );
+        //shooterHandler.constantShoot();
     }
 
 
@@ -172,6 +198,10 @@ public class SystemManager {
         turret.trackGoal(shooterHandler.alliance);
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
+        telemetryM.addData("turret pos", turret.turretPosition());
+        telemetryM.addData("intake distance", intakeDistanceSensor.test());
+        telemetryM.addData("ticks to move", turret.ticksToMove);
+        telemetryM.addData("goal angle", turret.goalAngle);
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
         telemetry.addData("Alliance", getAlliance());
         telemetry.update();
@@ -198,10 +228,10 @@ public class SystemManager {
 
     public String getAlliance() {
         if (shooterHandler.alliance == 1) {
-            return "red";
+            return "Blue";
         }
         else if (shooterHandler.alliance == 2) {
-            return "blue";
+            return "Red";
         }
         return "unselected";
     }

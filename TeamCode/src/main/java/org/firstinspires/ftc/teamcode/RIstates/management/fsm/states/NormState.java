@@ -12,10 +12,12 @@ public class NormState implements State {
 
     @Override
     public void update(SystemManager manager, FSM fsm) {
+        //manager.shooterHandler.constantShoot();
     }
 
     @Override
     public void end(SystemManager manager) {
+        //manager.shooterHandler.off();
     }
 
 }

@@ -14,11 +14,11 @@ public class AllianceSelectorState implements State {
     }
     @Override
     public void update(SystemManager manager, FSM teleOpfsm) {
-            if (manager.gamepad2.x) {
+            if (manager.gamepad1.x) {
                 manager.setAlliance(1);
                 teleOpHandler.changedX = true;
             }
-            if (manager.gamepad2.b) {
+            if (manager.gamepad1.b) {
                 manager.setAlliance(2);
                 teleOpHandler.changedB = true;
             }

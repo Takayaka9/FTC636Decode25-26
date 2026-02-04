@@ -10,19 +10,17 @@ public class IntakeState implements State {
     @Override
     public void initiate(SystemManager manager) {
         manager.intake.run();
-        manager.beltController.run();
-        manager.ballController.init();
     }
 
     @Override
     public void update(SystemManager manager, FSM fsm) {
-        manager.ballController.update();
+        //manager.shooterHandler.constantShoot();
     }
 
     @Override
     public void end(SystemManager manager) {
         manager.intake.stop();
-        manager.beltController.stop();
+        //manager.shooterHandler.off();
     }
 
 }
