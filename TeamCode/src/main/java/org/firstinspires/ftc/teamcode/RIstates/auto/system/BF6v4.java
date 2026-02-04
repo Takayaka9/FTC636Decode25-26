@@ -12,8 +12,9 @@ import java.util.concurrent.TimeUnit;
 @Autonomous()
 public class BF6v4 extends OpMode {
     SystemManager manager;
-    Timing.Timer timer;
-    Boolean timing;
+    Timing.Timer flyTimer;
+    Timing.Timer advanceTimer;
+    boolean timing;
     boolean following;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
@@ -27,14 +28,18 @@ public class BF6v4 extends OpMode {
                 }
                 break;
             case 1:
-                if (!timer.isTimerOn() && !timing) {
-                    timer.start();
+                if (!flyTimer.isTimerOn() && !timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
                     timing = true;
                 }
-                if (timer.isTimerOn() && !timer.done()) {
+                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                if (timing && timer.done()) {
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     timing = false;
                     manager.follower.followPath(manager.bf6Paths.intakeSpike3, false);
@@ -50,14 +55,18 @@ public class BF6v4 extends OpMode {
                 }
                 break;
             case 3:
-                if (!timer.isTimerOn() && !timing) {
-                    timer.start();
+                if (!flyTimer.isTimerOn() && !timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
                     timing = true;
                 }
-                if (timer.isTimerOn() && !timer.done()) {
+                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                if (timing && timer.done()) {
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     timing = false;
                     manager.follower.followPath(manager.bf6Paths.startToShoot, false);
@@ -93,8 +102,10 @@ public class BF6v4 extends OpMode {
         manager.opmodeTimer.resetTimer();
         manager.bf6Paths.buildPaths();
         manager.follower.setStartingPose(manager.bf12Paths.farStartPose);
-        timer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
-        timer.pause();
+        flyTimer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
+        advanceTimer = new Timing.Timer(500, TimeUnit.MILLISECONDS);
+        flyTimer.pause();
+        advanceTimer.pause();
         timing = false;
         following = false;
     }
