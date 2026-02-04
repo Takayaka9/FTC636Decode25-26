@@ -1,22 +1,19 @@
 package org.firstinspires.ftc.teamcode.RIstates.auto.system;
 
-import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.timers.GenericTime;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.timers.SolversTiming;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 import java.util.concurrent.TimeUnit;
 
 @Autonomous()
-public class RC12v4 extends OpMode {
+public class RC12v5 extends OpMode {
     SystemManager manager;
-    Timing.Timer timer;
+    Timing.Timer flyTimer;
+    Timing.Timer advanceTimer;
     Boolean timing;
     boolean following;
     public void autonomousPathUpdate() {
@@ -31,14 +28,18 @@ public class RC12v4 extends OpMode {
                 }
                 break;
             case 1:
-                if (!timer.isTimerOn() && !timing) {
-                    timer.start();
+                if (!flyTimer.isTimerOn() && !timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
                     timing = true;
                 }
-                if (timer.isTimerOn() && !timer.done()) {
+                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                if (timing && timer.done()) {
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     timing = false;
                     manager.follower.followPath(manager.rc12Paths.intakeSpike2, false);
@@ -64,14 +65,18 @@ public class RC12v4 extends OpMode {
                     manager.setPathState(5);
                 }
             case 5:
-                if (!timer.isTimerOn() && !timing) {
-                    timer.start();
+                if (!flyTimer.isTimerOn() && !timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
                     timing = true;
                 }
-                if (timer.isTimerOn() && !timer.done()) {
+                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                if (timing && timer.done()) {
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     manager.follower.followPath(manager.rc12Paths.intakeSpike1, false);
                     timing = false;
@@ -90,14 +95,18 @@ public class RC12v4 extends OpMode {
                     manager.setPathState(8);
                 }
             case 8:
-                if (!timer.isTimerOn() && !timing) {
-                    timer.start();
+                if (!flyTimer.isTimerOn() && !timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
                     timing = true;
                 }
-                if (timer.isTimerOn() && !timer.done()) {
+                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                if (timing && timer.done()) {
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     manager.follower.followPath(manager.rc12Paths.intakeSpike3, false);
                     timing = false;
@@ -112,14 +121,18 @@ public class RC12v4 extends OpMode {
                     manager.setPathState(10);
                 }
             case 10:
-                if (!timer.isTimerOn() && !timing) {
-                    timer.start();
+                if (!flyTimer.isTimerOn() && !timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
                     timing = true;
                 }
-                if (timer.isTimerOn() && !timer.done()) {
+                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                if (timing && timer.done()) {
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     manager.follower.followPath(manager.rc12Paths.shootToLeave, false);
                     timing = false;
@@ -149,8 +162,10 @@ public class RC12v4 extends OpMode {
         manager.opmodeTimer.resetTimer();
         manager.rc12Paths.buildPaths();
         manager.follower.setStartingPose(manager.bf12Paths.farStartPose);
-        timer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
-        timer.pause();
+        flyTimer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
+        advanceTimer = new Timing.Timer(500, TimeUnit.MILLISECONDS);
+        advanceTimer.pause();
+        flyTimer.pause();
         timing = false;
         following = false;
     }
