@@ -35,7 +35,7 @@ public class TeleOpDriveController implements Controller {
                     -gamepad.left_stick_y*0.35,
                     -gamepad.left_stick_x*0.35,
                     -gamepad.right_stick_x*0.25,
-                    false
+                    true
             );
         }
     }

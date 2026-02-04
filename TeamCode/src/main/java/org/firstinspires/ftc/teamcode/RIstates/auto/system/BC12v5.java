@@ -161,7 +161,7 @@ public class BC12v5 extends OpMode {
         manager.setAlliance(2);
         manager.opmodeTimer.resetTimer();
         manager.bc12Paths.buildPaths();
-        manager.follower.setStartingPose(manager.bf12Paths.farStartPose);
+        manager.follower.setStartingPose(manager.bc12Paths.nearStartPose);
         flyTimer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
         advanceTimer = new Timing.Timer(500, TimeUnit.MILLISECONDS);
         advanceTimer.pause();
