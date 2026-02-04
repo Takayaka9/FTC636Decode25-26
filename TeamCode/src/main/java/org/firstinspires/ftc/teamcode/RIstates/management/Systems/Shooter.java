@@ -17,10 +17,10 @@ public class Shooter {
     private ElapsedTime pidTime = new ElapsedTime();
     //TODO: decide lut or no lut
 
-    static double d1 = 36; static double r1 = 1100;
-    static double d2 = 50; static double r2 = 1400;
-    static double d3 = 75; static double r3 = 1500;
-    static double d4 = 96; static double r4 = 1850;
+    static double d1 = 36; static double r1 = 900;
+    static double d2 = 50; static double r2 = 1000;
+    static double d3 = 75; static double r3 = 1000;
+    static double d4 = 96; static double r4 = 1150;
     static double d5 = 108; static double r5 = 2799;
     static double d6 = 150; static double r6 = 2800;
 

@@ -32,7 +32,7 @@ public class HoodController extends HoodServo {
     static double d1 = 36; static double p1 = 1;
     static double d2 = 50; static double p2 = 0.95;
     static double d3 = 75; static double p3 = 0.92;
-    static double d4 = 96; static double p4 = 0.88;
+    static double d4 = 96; static double p4 = 0.85;
     static double d5 = 108; static double p5 = 0.85;
     static double d6 = 150; static double p6 = 0.85;
 
