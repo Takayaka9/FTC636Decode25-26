@@ -78,12 +78,12 @@ public class TeleOpHandler {
             if (alliance == 1) {
                 follower.setPose(blueParkPose);
             } 
-            if (alliance == 2) {
+            else if (alliance == 2) {
                 follower.setPose(redParkPose);
             }
             changed1y = true;
         }
-        if (!gamepad1.b && changed1y) {
+        if (!gamepad1.y && changed1y) {
             changed1y = false;
         }
 
