@@ -28,12 +28,10 @@ public class RC12v5 extends OpMode {
                 }
                 break;
             case 1:
-                if (!flyTimer.isTimerOn() && !timing) {
+                if (!timing) {
                     advanceTimer.start();
                     flyTimer.start();
                     timing = true;
-                }
-                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
                 if (timing && advanceTimer.done()) {
@@ -65,12 +63,10 @@ public class RC12v5 extends OpMode {
                     manager.setPathState(5);
                 }
             case 5:
-                if (!flyTimer.isTimerOn() && !timing) {
+                if (!timing) {
                     advanceTimer.start();
                     flyTimer.start();
                     timing = true;
-                }
-                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
                 if (timing && advanceTimer.done()) {
@@ -95,12 +91,10 @@ public class RC12v5 extends OpMode {
                     manager.setPathState(8);
                 }
             case 8:
-                if (!flyTimer.isTimerOn() && !timing) {
+                if (!timing) {
                     advanceTimer.start();
                     flyTimer.start();
                     timing = true;
-                }
-                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
                 if (timing && advanceTimer.done()) {
@@ -121,12 +115,10 @@ public class RC12v5 extends OpMode {
                     manager.setPathState(10);
                 }
             case 10:
-                if (!flyTimer.isTimerOn() && !timing) {
+                if (!timing) {
                     advanceTimer.start();
                     flyTimer.start();
                     timing = true;
-                }
-                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
                 if (timing && advanceTimer.done()) {
@@ -141,6 +133,7 @@ public class RC12v5 extends OpMode {
                 break;
             case 11:
                 break;
+
         }
     }
 
