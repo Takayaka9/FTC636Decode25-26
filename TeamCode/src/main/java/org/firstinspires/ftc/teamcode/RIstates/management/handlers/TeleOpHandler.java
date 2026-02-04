@@ -21,12 +21,10 @@ public class TeleOpHandler {
     private Pose blueParkPose = null;
     private Pose redParkPose = null;
     
-    private int alliance = 0;
+    public int alliance = 0;
 
-    private int offset;
-
-
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightController limelight, LiftServo liftServo, Follower follower, int alliance, int offset) {
+    public int offset = 0;
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightController limelight, LiftServo liftServo, Follower follower) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
@@ -36,8 +34,6 @@ public class TeleOpHandler {
         this.follower = follower;
         blueParkPose = new Pose(105.35, 37.8, Math.toRadians(90));
         redParkPose = new Pose(38.6, 37.8, Math.toRadians(90));
-        this.alliance = alliance;
-        this.offset = offset;
     }
 
     private boolean changedA = false;
@@ -47,6 +43,8 @@ public class TeleOpHandler {
     private boolean changedRT = false;
     private boolean changedLT = false;
     private boolean changed1A = false;
+    private boolean changedDown = false;
+    private boolean changedUp = false;
     private boolean allianceSelecting = false;
     public boolean updateLimelight = false;
     public boolean updateLift = false;
@@ -106,11 +104,17 @@ public class TeleOpHandler {
             }
         }
 
-        if (gamepad2.dpad_up && changedDown) {
-            changed1A = false;
-
-        } else if (!gamepad2.dpad_up && changedDown) {
+        if (gamepad2.dpad_down && changedDown) {
+            changedDown = true;
+            offset = offset - 20;
+        } else if (!gamepad2.dpad_down && changedDown) {
             changedDown = false;
+        }
+        if (gamepad2.dpad_up && changedUp) {
+            changedUp = true;
+            offset = offset + 20;
+        } else if (!gamepad2.dpad_up && changedUp) {
+            changedUp = false;
         }
 
         //shooter code)

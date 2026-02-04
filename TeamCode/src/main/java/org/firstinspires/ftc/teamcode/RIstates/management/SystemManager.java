@@ -76,7 +76,6 @@ public class SystemManager {
     private final Telemetry telemetry;
 
     private boolean isTeleop;
-    public int offset = 0;
 
 
     public SystemManager(HardwareMap hardwareMap, Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, boolean isTeleOp, boolean testing) {
@@ -103,7 +102,7 @@ public class SystemManager {
         //subsystems
         shooter = new Shooter(hardwareMap, "sr", "sl");
 
-        turret = new Turret(hardwareMap, follower, "turret", offset);
+        turret = new Turret(hardwareMap, follower, "turret", teleOpHandler.offset);
 
         hoodController = new HoodController(hardwareMap);
         intake = new Intake(hardwareMap, "intake");
@@ -144,7 +143,7 @@ public class SystemManager {
         if (FSM != null) {
             if (isTeleop) {
                 //initialize teleop only components
-                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightController, liftServo, follower, shooterHandler.alliance, offset);
+                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightController, liftServo, follower);
             }
             else if (!isTeleop){
             }
@@ -186,6 +185,8 @@ public class SystemManager {
                 shooter.averageVelocity(),
                 shooter.getShooterTPS(shooterHandler.getTargetDistance(follower, shooterHandler.alliance))
         );
+        turret.offset = teleOpHandler.offset;
+        teleOpHandler.alliance = shooterHandler.alliance;
         //shooterHandler.constantShoot();
     }
     
