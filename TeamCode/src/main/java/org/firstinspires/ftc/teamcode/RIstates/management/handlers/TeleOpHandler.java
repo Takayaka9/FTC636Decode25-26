@@ -39,7 +39,7 @@ public class TeleOpHandler {
 
     private boolean changedA = false;
     public boolean changedB = false;
-    public boolean changed1B = false;
+    public boolean changed1y = false;
     public boolean changedX = false;
     private boolean changedRT = false;
     private boolean changedLT = false;
@@ -74,18 +74,19 @@ public class TeleOpHandler {
          */
 
         //localization backup
-        if (gamepad1.b && !changed1B) {
+        if (gamepad1.y && !changed1y) {
             if (alliance == 1) {
                 follower.setPose(blueParkPose);
             } 
             if (alliance == 2) {
                 follower.setPose(redParkPose);
             }
-            changed1B = true;
+            changed1y = true;
         }
-        if (!gamepad1.b && changed1B) {
-            changed1B = false;
+        if (!gamepad1.b && changed1y) {
+            changed1y = false;
         }
+
         //limelight, not through fsm
         if (gamepad1.a && !changed1A) {
             changed1A = true;
