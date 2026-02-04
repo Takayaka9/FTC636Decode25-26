@@ -56,7 +56,7 @@ public class Shooter {
     }
 
 
-    public static double Kp = 0.01;
+    public static double Kp = 0.3;
     public static double Ki = 0;
     public static double Kd = 0;
     public static double Kf = 0.00036;
