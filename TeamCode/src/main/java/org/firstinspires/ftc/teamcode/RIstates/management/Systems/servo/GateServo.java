@@ -10,9 +10,9 @@ import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.Ser
 public class GateServo extends ServoImplExBase implements GamepadServoImplEx {
     static double start = 0;
     static double end = .6;
+    public double open;
+    public double closed;
     public GateServo (HardwareMap hardwareMap) {
-        super("hood", hardwareMap);
+        super("gate", hardwareMap);
     }
-
-
 }

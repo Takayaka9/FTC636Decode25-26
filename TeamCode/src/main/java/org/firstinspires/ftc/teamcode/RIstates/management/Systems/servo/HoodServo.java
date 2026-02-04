@@ -12,7 +12,6 @@ public class HoodServo extends ServoImplExBase implements GamepadServoImplEx {
     double end = 1;
     public HoodServo (HardwareMap hardwareMap) {
         super("hood", hardwareMap);
-        //super.setRange(start, end);
     }
 
 

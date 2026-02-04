@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.RIstates.tests;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
+@Disabled
 @Configurable
 @TeleOp(name = "Turret Tester", group = "TeleOp")
 public class AimingTester extends OpMode {

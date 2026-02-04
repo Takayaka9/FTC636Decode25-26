@@ -18,7 +18,8 @@ public class ShootState implements State {
 //        manager.ballController.setErrorHandler(true);
 //        manager.ballController.init();
         manager.shooterHandler.shooterRunning = true;
-        manager.gateServo.togglePosition(false);
+        //manager.gateServo.togglePosition(false);
+        // TODO: manager.gateServo.setPosition(1);
 //        timer = new Timing.Timer(500, TimeUnit.MILLISECONDS);
 //        manager.intake.reverse();
     }
@@ -41,9 +42,11 @@ public class ShootState implements State {
 //        manager.shooterHandler.whileConstantShootingBelt(true);
         if (manager.gamepad2.x && !changed2X) {
             manager.intakeController.shootRun();
+            //TODO: manager.gateServo.setPosition(0);
             changed2X = true;
         } else if (!manager.gamepad2.x && changed2X) {
             manager.intakeController.stop();
+            //TODO: manager.gateServo.setPosition(0);
             changed2X = false;
         }
     }
@@ -56,6 +59,7 @@ public class ShootState implements State {
         manager.intakeController.stop();
         //manager.shooterHandler.whileConstantShootingBelt(true);
         manager.gateServo.togglePosition(true);
+        //TODO: manager.gateServo.setPosition(0);
     }
 
 }
