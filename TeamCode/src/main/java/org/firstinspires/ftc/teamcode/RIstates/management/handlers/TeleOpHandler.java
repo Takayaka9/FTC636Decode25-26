@@ -107,13 +107,13 @@ public class TeleOpHandler {
         if (gamepad2.dpad_down && changedDown) {
             changedDown = true;
             offset = offset - 20;
-        } else if (!gamepad2.dpad_down && changedDown) {
+        } if (!gamepad2.dpad_down && changedDown) {
             changedDown = false;
         }
         if (gamepad2.dpad_up && changedUp) {
             changedUp = true;
             offset = offset + 20;
-        } else if (!gamepad2.dpad_up && changedUp) {
+        } if (!gamepad2.dpad_up && changedUp) {
             changedUp = false;
         }
 
