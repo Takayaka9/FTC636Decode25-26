@@ -10,7 +10,8 @@ import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import java.util.concurrent.TimeUnit;
 
 public class ShootState implements State {
-    Timing.Timer timer;
+//    Timing.Timer timer;
+    public boolean changed2X = false;
     @Override
     public void initiate(SystemManager manager) {
         //manager.shooterHandler.off();
@@ -36,15 +37,23 @@ public class ShootState implements State {
 //            manager.intake.stop();
 //            manager.shooterHandler.shoot();
 //        }
-        manager.transfer.update();
         manager.shooterHandler.shoot();
 //        manager.shooterHandler.whileConstantShootingBelt(true);
+        if (manager.gamepad2.x && !changed2X) {
+            manager.intakeController.shootRun();
+            changed2X = true;
+        } else if (!manager.gamepad2.x && changed2X) {
+            manager.intakeController.stop();
+            changed2X = false;
+        }
     }
+
 
     @Override
     public void end(SystemManager manager) {
         manager.shooterHandler.shooterRunning = false;
         manager.shooterHandler.off();
+        manager.intakeController.stop();
         //manager.shooterHandler.whileConstantShootingBelt(true);
         manager.gateServo.togglePosition(true);
     }

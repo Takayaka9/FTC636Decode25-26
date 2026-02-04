@@ -29,12 +29,12 @@ public class HoodController extends HoodServo {
     output: panels telemetry and servo position
     !! it is never needed to call this method - it is called by shoot !!
      */
-    static double d1 = 36; static double p1 = 0.1;
-    static double d2 = 50; double p2 = 0.2;
-    static double d3 = 75; static double p3 = 0.3;
-    static double d4 = 96; static double p4 = 0.4;
-    static double d5 = 108; static double p5 = 0.5;
-    static double d6 = 150; static double p6 = 0.6;
+    static double d1 = 36; static double p1 = 1;
+    static double d2 = 50; static double p2 = 0.95;
+    static double d3 = 75; static double p3 = 0.92;
+    static double d4 = 96; static double p4 = 0.88;
+    static double d5 = 108; static double p5 = 0.85;
+    static double d6 = 150; static double p6 = 0.85;
 
     public double angle;
     public void angleHood(double targetDistance) {
@@ -42,7 +42,7 @@ public class HoodController extends HoodServo {
         setPosition(angle);
     }
 
-    public static double passive = 0.5;
+    public static double passive = 1;
     public void passive(){
         setPosition(passive);
     }

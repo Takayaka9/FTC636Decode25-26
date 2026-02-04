@@ -18,6 +18,10 @@ public class Intake {
     public void run(){
         intake.setPower(intakePower);
     }
+    public static double shootPower = 0.8;
+    public void shootRun(){
+        intake.setPower(shootPower);
+    }
     double reverseIntakePower = -1;
     public void reverse(){
         intake.setPower(reverseIntakePower);

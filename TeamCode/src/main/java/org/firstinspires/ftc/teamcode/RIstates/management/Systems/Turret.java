@@ -23,7 +23,7 @@ public class Turret {
     //20to102
     public static double BLUE_GOAL_Y = 144;
     public static double BLUE_GOAL_X = 0;
-    public static double RED_GOAL_Y = 144;
+    public static double RED_GOAL_Y = 140;
     public static double RED_GOAL_X = 144;
     public double goalAngle;
     public double ticksToMove;

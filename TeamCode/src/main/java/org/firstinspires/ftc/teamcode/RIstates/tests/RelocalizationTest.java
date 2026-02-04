@@ -6,6 +6,8 @@ import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ftc.InvertedFTCCoordinates;
 import com.pedropathing.ftc.PoseConverter;
+import com.pedropathing.geometry.CoordinateSystem;
+import com.pedropathing.geometry.PedroCoordinates;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
@@ -50,14 +52,17 @@ public class RelocalizationTest extends OpMode {
         t.update();
         t.addData("follower pose", follower.getPose());
 
-        limelight.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() - Math.PI/2));
+        limelight.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
         LLResult result = limelight.getLatestResult();
         if (result != null) {
             if (result.isValid()) {
                 Pose3D llPose = result.getBotpose_MT2();
                 t.addData("ll pose", llPose.toString());
-                Pose2D pose2D = new Pose2D(DistanceUnit.INCH, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.DEGREES, llPose.getOrientation().getYaw(AngleUnit.DEGREES));
+                Pose2D pose2D = new Pose2D(DistanceUnit.METER, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.DEGREES, llPose.getOrientation().getYaw(AngleUnit.DEGREES));
+                t.addData("ftc pose in x", pose2D.getX(DistanceUnit.INCH));
+                t.addData("ftc pose in y", pose2D.getY(DistanceUnit.INCH));
                 Pose pedroPose = PoseConverter.pose2DToPose(pose2D, InvertedFTCCoordinates.INSTANCE);
+                pedroPose = pedroPose.getAsCoordinateSystem(PedroCoordinates.INSTANCE);
                 t.addData("pp (from ll) pose", pedroPose);
             }
         }

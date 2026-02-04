@@ -4,6 +4,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.LimelightController;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
@@ -12,7 +13,7 @@ public class TeleOpHandler {
     private final Gamepad gamepad1;
     private final Gamepad gamepad2;
     private final ShooterHandler shooterHandler;
-    private final LimelightHandler limelight;
+    private final LimelightController limelight;
     private final LiftServo lift;
 
     private final Follower follower;
@@ -23,7 +24,7 @@ public class TeleOpHandler {
     private int alliance = 0;
 
 
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightHandler limelight, LiftServo liftServo, Follower follower, int alliance) {
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightController limelight, LiftServo liftServo, Follower follower, int alliance) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
@@ -47,6 +48,7 @@ public class TeleOpHandler {
     public boolean updateLimelight = false;
     public boolean updateLift = false;
     private boolean off = false;
+    public static boolean started = false;
 
     private FSM.StateName requestingTransition = null;
     public void setTransition(FSM.StateName stateName){
@@ -84,15 +86,17 @@ public class TeleOpHandler {
         if (!gamepad1.b && changed1B) {
             changed1B = false;
         }
-
         //limelight, not through fsm
         if (gamepad1.a && !changed1A) {
             changed1A = true;
             updateLimelight = true;
         }
-        if (updateLimelight) {
-            limelight.updatePosition();
-            if (limelight.checkFound()) {
+        if(updateLimelight && !started){
+            limelight.init();
+        }
+        else if (updateLimelight && started) {
+            limelight.update();
+            if (limelight.found) {
                 updateLimelight = false;
                 changed1A = false;
             }

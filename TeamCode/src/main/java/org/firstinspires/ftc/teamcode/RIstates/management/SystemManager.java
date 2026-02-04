@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.RIstates.management;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -142,17 +143,18 @@ public class SystemManager {
         if (FSM != null) {
             if (isTeleop) {
                 //initialize teleop only components
-                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightHandler, liftServo, follower, shooterHandler.alliance);
+                teleOpHandler = new TeleOpHandler(FSM, gamepad1, gamepad2, shooterHandler, limelightController, liftServo, follower, shooterHandler.alliance);
             }
             else if (!isTeleop){
             }
         }
     }
-
+    Pose center = new Pose(72, 72, 0);
     public void teleStart() {
         teleOpHandler.start();
         opmodeTimer.resetTimer();
-        follower.setStartingPose(poseStorage.getPose());
+        //follower.setStartingPose(poseStorage.getPose());
+        follower.setStartingPose(center);
         follower.startTeleopDrive();
         FSM.runNew(org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM.StateName.AllianceSelect);
     }
@@ -167,12 +169,15 @@ public class SystemManager {
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
         telemetryM.addData("current loc", follower.getPose());
+        telemetryM.addData("flywheel vel. (right)", shooter.flyRight.getVelocity());
+        telemetryM.addData("hood pos", hoodController.getPosition());
         //telemetryM.addData("distance goal", shooterHandler.getTargetDistance(follower, ))
 //        telemetryM.addData("full?", lightController.checkFull());
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
         telemetry.addData("Alliance", getAlliance());
         //telemetry.addData("balls", ballController.getBallCount());
         telemetry.update();
+        hoodController.angleHood(shooterHandler.getTargetDistance(follower, shooterHandler.alliance));
         lightController.update(
                 teleOpHandler.updateLimelight,
                 FSM.getCurrentStateName(),
