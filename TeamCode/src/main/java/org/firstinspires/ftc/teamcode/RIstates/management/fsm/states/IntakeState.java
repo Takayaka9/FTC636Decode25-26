@@ -10,11 +10,11 @@ public class IntakeState implements State {
     @Override
     public void initiate(SystemManager manager) {
         manager.intake.run();
-
     }
 
     @Override
     public void update(SystemManager manager, FSM fsm) {
+        manager.shooterHandler.constantShoot();
     }
 
     @Override

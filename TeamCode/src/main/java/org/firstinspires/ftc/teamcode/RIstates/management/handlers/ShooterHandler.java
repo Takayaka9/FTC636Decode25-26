@@ -53,9 +53,7 @@ public class ShooterHandler {
 //            lightController.shooterLightingUpdate(ballController.getBallCount());
     }
     public void constantShoot() {
-        double targetDistance = getTargetDistance(follower, alliance);
-        shooter.shoot(targetDistance);
-//        hoodController.angleHood(targetDistance);
+        shooter.test(500);
     }
 
     public void whileConstantShootingBelt(Boolean run) {
