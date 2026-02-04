@@ -39,7 +39,7 @@ public class NewShooterTester extends OpMode {
         telemetryManager = PanelsTelemetry.INSTANCE.getTelemetry();
         //hood.setPosition(0);
     }
-    Pose start = new Pose(144, 0);
+    Pose start = new Pose(72, 72, 0);
     @Override
     public void start() {
         follower.setStartingPose(start);

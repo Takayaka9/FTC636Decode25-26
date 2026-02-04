@@ -63,6 +63,7 @@ public class RelocalizationTest extends OpMode {
                 t.addData("ftc pose in y", pose2D.getY(DistanceUnit.INCH));
                 Pose pedroPose = PoseConverter.pose2DToPose(pose2D, InvertedFTCCoordinates.INSTANCE);
                 pedroPose = pedroPose.getAsCoordinateSystem(PedroCoordinates.INSTANCE);
+                pedroPose = new Pose(pedroPose.getX() + 72, pedroPose.getY(), pedroPose.getHeading());
                 t.addData("pp (from ll) pose", pedroPose);
             }
         }

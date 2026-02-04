@@ -14,12 +14,13 @@ public class IntakeState implements State {
 
     @Override
     public void update(SystemManager manager, FSM fsm) {
-        manager.shooterHandler.constantShoot();
+        //manager.shooterHandler.constantShoot();
     }
 
     @Override
     public void end(SystemManager manager) {
         manager.intake.stop();
+        //manager.shooterHandler.off();
     }
 
 }
