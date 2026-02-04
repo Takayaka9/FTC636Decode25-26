@@ -10,16 +10,17 @@ import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 import java.util.concurrent.TimeUnit;
 
 @Autonomous()
-public class RF6v4 extends OpMode {
+public class RF6v5 extends OpMode {
     SystemManager manager;
-    Timing.Timer timer;
+    Timing.Timer flyTimer;
+    Timing.Timer advanceTimer;
     Boolean timing;
     boolean following;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
             case 0:
                 if (!following) {
-                    manager.follower.followPath(manager.rf6Paths.startToShoot, false);
+                    manager.follower.followPath(manager.bf6Paths.startToShoot, false);
                     following = true;
                 }
                 if (!manager.follower.isBusy()) {
@@ -27,17 +28,21 @@ public class RF6v4 extends OpMode {
                 }
                 break;
             case 1:
-                if (!timer.isTimerOn() && !timing) {
-                    timer.start();
+                if (!flyTimer.isTimerOn() && !timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
                     timing = true;
                 }
-                if (timer.isTimerOn() && !timer.done()) {
+                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                if (timing && timer.done()) {
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     timing = false;
-                    manager.follower.followPath(manager.rf6Paths.intakeSpike3, false);
+                    manager.follower.followPath(manager.bf6Paths.intakeSpike3, false);
                     manager.setPathState(2);
                 }
                 break;
@@ -45,28 +50,32 @@ public class RF6v4 extends OpMode {
                 manager.FSM.runNew(FSM.StateName.Intake);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rf6Paths.spike3toShoot, false);
+                    manager.follower.followPath(manager.bf6Paths.spike3toShoot, false);
                     manager.setPathState(3);
                 }
                 break;
             case 3:
-                if (!timer.isTimerOn() && !timing) {
-                    timer.start();
+                if (!flyTimer.isTimerOn() && !timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
                     timing = true;
                 }
-                if (timer.isTimerOn() && !timer.done()) {
+                if (flyTimer.isTimerOn() && !flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                if (timing && timer.done()) {
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     timing = false;
-                    manager.follower.followPath(manager.rf6Paths.startToShoot, false);
+                    manager.follower.followPath(manager.bf6Paths.startToShoot, false);
                     manager.setPathState(4);
                 }
                 break;
             case 4:
                 if (!manager.follower.isBusy()) {
-                    manager.follower.followPath(manager.rf6Paths.shootToLeave, false);
+                    manager.follower.followPath(manager.bf6Paths.shootToLeave, false);
                     manager.setPathState(5);
                 }
                 break;
@@ -93,8 +102,10 @@ public class RF6v4 extends OpMode {
         manager.opmodeTimer.resetTimer();
         manager.rf6Paths.buildPaths();
         manager.follower.setStartingPose(manager.bf12Paths.farStartPose);
-        timer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
-        timer.pause();
+        flyTimer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
+        advanceTimer = new Timing.Timer(500, TimeUnit.MILLISECONDS);
+        advanceTimer.pause();
+        flyTimer.pause();
         timing = false;
         following = false;
     }
