@@ -11,12 +11,14 @@ public class Turret {
     //TelemetryManager telemetryM;
     public DcMotorEx turret;
     Follower follower;
-    public Turret(HardwareMap hardwareMap, Follower follower, String name){
+    private int offset;
+    public Turret(HardwareMap hardwareMap, Follower follower, String name, int offset){
         turret = hardwareMap.get(DcMotorEx.class, name);
         turret.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.follower = follower;
+        this.offset = offset;
     }
     //turret code!
     public static final double TICKS_PER_REV = 145.1;
@@ -27,7 +29,6 @@ public class Turret {
     public static double RED_GOAL_X = 144;
     public double goalAngle;
     public double ticksToMove;
-    public double offset = 0;
 
 
     /* Function to move the turret to a certain angle

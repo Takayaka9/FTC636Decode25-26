@@ -23,8 +23,10 @@ public class TeleOpHandler {
     
     private int alliance = 0;
 
+    private int offset;
 
-    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightController limelight, LiftServo liftServo, Follower follower, int alliance) {
+
+    public TeleOpHandler(FSM fsm, Gamepad gamepad1, Gamepad gamepad2, ShooterHandler shooterHandler, LimelightController limelight, LiftServo liftServo, Follower follower, int alliance, int offset) {
         this.fsm = fsm;
         this.gamepad1 = gamepad1;
         this.gamepad2 = gamepad2;
@@ -35,6 +37,7 @@ public class TeleOpHandler {
         blueParkPose = new Pose(105.35, 37.8, Math.toRadians(90));
         redParkPose = new Pose(38.6, 37.8, Math.toRadians(90));
         this.alliance = alliance;
+        this.offset = offset;
     }
 
     private boolean changedA = false;
@@ -102,6 +105,16 @@ public class TeleOpHandler {
                 changed1A = false;
             }
         }
+
+        if (gamepad2.dpad_up && changedDown) {
+            changed1A = false;
+
+        } else if (!gamepad2.dpad_up && changedDown) {
+            changedDown = false;
+        }
+
+        //shooter code)
+
 
         //lift code
         if (gamepad2.dpad_up) {
