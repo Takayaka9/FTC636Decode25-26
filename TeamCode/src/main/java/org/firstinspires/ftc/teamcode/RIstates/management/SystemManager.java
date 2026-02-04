@@ -102,7 +102,7 @@ public class SystemManager {
         //subsystems
         shooter = new Shooter(hardwareMap, "sr", "sl");
 
-        turret = new Turret(hardwareMap, follower, "turret", teleOpHandler.offset);
+        turret = new Turret(hardwareMap, follower, "turret");
 
         hoodController = new HoodController(hardwareMap);
         intake = new Intake(hardwareMap, "intake");
@@ -185,8 +185,13 @@ public class SystemManager {
                 shooter.averageVelocity(),
                 shooter.getShooterTPS(shooterHandler.getTargetDistance(follower, shooterHandler.alliance))
         );
-        turret.offset = teleOpHandler.offset;
-        teleOpHandler.alliance = shooterHandler.alliance;
+        if (teleOpHandler != null){
+            turret.offset = teleOpHandler.offset;
+        }
+        if (shooterHandler != null){
+            teleOpHandler.alliance = shooterHandler.alliance;
+        }
+
         //shooterHandler.constantShoot();
     }
     

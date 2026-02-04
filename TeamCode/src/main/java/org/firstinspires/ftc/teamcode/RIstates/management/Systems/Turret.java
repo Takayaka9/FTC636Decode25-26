@@ -12,7 +12,7 @@ public class Turret {
     public DcMotorEx turret;
     Follower follower;
     public int offset = 0;
-    public Turret(HardwareMap hardwareMap, Follower follower, String name, int offset){
+    public Turret(HardwareMap hardwareMap, Follower follower, String name){
         turret = hardwareMap.get(DcMotorEx.class, name);
         turret.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
