@@ -10,11 +10,11 @@ import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 import java.util.concurrent.TimeUnit;
 
 @Autonomous()
-public class RF6v4 extends OpMode {
+public class BF6v5 extends OpMode {
     SystemManager manager;
     Timing.Timer flyTimer;
     Timing.Timer advanceTimer;
-    Boolean timing;
+    boolean timing;
     boolean following;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
@@ -100,12 +100,12 @@ public class RF6v4 extends OpMode {
         manager.init();
         manager.setAlliance(2);
         manager.opmodeTimer.resetTimer();
-        manager.rf6Paths.buildPaths();
+        manager.bf6Paths.buildPaths();
         manager.follower.setStartingPose(manager.bf12Paths.farStartPose);
         flyTimer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
         advanceTimer = new Timing.Timer(500, TimeUnit.MILLISECONDS);
-        advanceTimer.pause();
         flyTimer.pause();
+        advanceTimer.pause();
         timing = false;
         following = false;
     }
