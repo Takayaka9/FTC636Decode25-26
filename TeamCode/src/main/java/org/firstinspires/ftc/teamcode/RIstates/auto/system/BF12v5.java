@@ -1,16 +1,16 @@
 package org.firstinspires.ftc.teamcode.RIstates.auto.system;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.seattlesolvers.solverslib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
-import java.util.concurrent.TimeUnit;
-
+/// WIP
+//second command system auto which uses command system
 @Autonomous()
-public class RC12v5 extends OpMode {
+public class BF12v5 extends OpMode {
     SystemManager manager;
     Timing.Timer flyTimer;
     Timing.Timer advanceTimer;
@@ -20,9 +20,9 @@ public class RC12v5 extends OpMode {
         switch (manager.pathState) {
             case 0:
                 if (!following) {
-                    manager.follower.followPath(manager.rc12Paths.startToShoot, false);
-                    following = true;
-                }
+                    manager.follower.followPath(manager.bf12Paths.pi1, false);
+                        following = true;
+                    }
                 if (!manager.follower.isBusy()) {
                     manager.setPathState(1);
                 }
@@ -42,7 +42,7 @@ public class RC12v5 extends OpMode {
                 if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     timing = false;
-                    manager.follower.followPath(manager.rc12Paths.intakeSpike2, false);
+                    manager.follower.followPath(manager.bf12Paths.i2, false);
                     manager.setPathState(2);
                 }
                 break;
@@ -50,22 +50,24 @@ public class RC12v5 extends OpMode {
                 manager.FSM.runNew(FSM.StateName.Intake);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.openGate, false);
+                    manager.follower.followPath(manager.bf12Paths.cs2); //What paths am I supposed to set?? 什么? что?
                     manager.setPathState(3);
                 }
                 break;
             case 3:
                 if (!manager.follower.isBusy()) {
-                    manager.follower.followPath(manager.rc12Paths.gateToShoot, false);
-                    manager.setPathState(4);
+                        manager.follower.followPath(manager.bf12Paths.pi2, false);
+                        manager.setPathState(4);
                 }
                 break;
             case 4:
                 if (!manager.follower.isBusy()) {
+                    //manager.follower.followPath(manager.rf12Paths.i2);
                     manager.setPathState(5);
                 }
             case 5:
                 if (!flyTimer.isTimerOn() && !timing) {
+                    //manager.follower.followPath(manager.rf12Paths.cs2, true);
                     advanceTimer.start();
                     flyTimer.start();
                     timing = true;
@@ -78,7 +80,7 @@ public class RC12v5 extends OpMode {
                 }
                 if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.intakeSpike1, false);
+                    manager.follower.followPath(manager.bf12Paths.i1, false);
                     timing = false;
                     manager.setPathState(6);
                 }
@@ -87,11 +89,12 @@ public class RC12v5 extends OpMode {
                 manager.FSM.runNew(FSM.StateName.Intake);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.spike1toShoot, false);
+                    manager.follower.followPath(manager.bf12Paths.pi3, false);
                     manager.setPathState(7);
                 }
             case 7:
                 if (!manager.follower.isBusy()) {
+                    //manager.follower.followPath(manager.rf12Paths.i3);
                     manager.setPathState(8);
                 }
             case 8:
@@ -108,7 +111,7 @@ public class RC12v5 extends OpMode {
                 }
                 if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.intakeSpike3, false);
+                    manager.follower.followPath(manager.bf12Paths.i3, false);
                     timing = false;
                     manager.setPathState(9);
                 }
@@ -117,33 +120,20 @@ public class RC12v5 extends OpMode {
                 manager.FSM.runNew(FSM.StateName.Intake);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.spike3toShoot, false);
+                    manager.follower.followPath(manager.bf12Paths.l, false);
                     manager.setPathState(10);
                 }
-            case 10:
-                if (!flyTimer.isTimerOn() && !timing) {
-                    advanceTimer.start();
-                    flyTimer.start();
-                    timing = true;
-                }
-                if (flyTimer.isTimerOn() && !flyTimer.done()) {
-                    manager.FSM.runNew(FSM.StateName.Shoot);
-                }
-                if (timing && advanceTimer.done()) {
-                    manager.intakeController.shootRun();
-                }
-                if (timing && flyTimer.done()) {
-                    manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.shootToLeave, false);
-                    timing = false;
-                    manager.setPathState(11);
-                }
                 break;
-            case 11:
+            case 10:
                 break;
         }
     }
 
+
+
+
+
+    ///default pedro requirements:
     @Override
     public void loop() {
         autonomousPathUpdate();
@@ -158,16 +148,10 @@ public class RC12v5 extends OpMode {
     public void init() {
         manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, false, false);
         manager.init();
-        manager.setAlliance(2);
+        manager.setAlliance(1);
         manager.opmodeTimer.resetTimer();
-        manager.rc12Paths.buildPaths();
+        manager.rf12Paths.buildPaths();
         manager.follower.setStartingPose(manager.bf12Paths.farStartPose);
-        flyTimer = new Timing.Timer(3500, TimeUnit.MILLISECONDS);
-        advanceTimer = new Timing.Timer(500, TimeUnit.MILLISECONDS);
-        advanceTimer.pause();
-        flyTimer.pause();
-        timing = false;
-        following = false;
     }
     @Override
     public void init_loop() {
@@ -175,8 +159,10 @@ public class RC12v5 extends OpMode {
     @Override
     public void start() {
         manager.opmodeTimer.resetTimer();
+        manager.follower.followPath(manager.rf12Paths.fs0, true);
         manager.setPathState(0);
     }
     @Override
     public void stop() {}
 }
+

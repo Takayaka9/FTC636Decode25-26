@@ -20,7 +20,7 @@ public class BC12v5 extends OpMode {
         switch (manager.pathState) {
             case 0:
                 if (!following) {
-                    manager.follower.followPath(manager.rc12Paths.startToShoot, false);
+                    manager.follower.followPath(manager.bc12Paths.startToShoot, false);
                     following = true;
                 }
                 if (!manager.follower.isBusy()) {
@@ -42,7 +42,7 @@ public class BC12v5 extends OpMode {
                 if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
                     timing = false;
-                    manager.follower.followPath(manager.rc12Paths.intakeSpike2, false);
+                    manager.follower.followPath(manager.bc12Paths.intakeSpike2, false);
                     manager.setPathState(2);
                 }
                 break;
@@ -50,13 +50,13 @@ public class BC12v5 extends OpMode {
                 manager.FSM.runNew(FSM.StateName.Intake);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.openGate, false);
+                    manager.follower.followPath(manager.bc12Paths.openGate, false);
                     manager.setPathState(3);
                 }
                 break;
             case 3:
                 if (!manager.follower.isBusy()) {
-                    manager.follower.followPath(manager.rc12Paths.gateToShoot, false);
+                    manager.follower.followPath(manager.bc12Paths.gateToShoot, false);
                     manager.setPathState(4);
                 }
                 break;
@@ -78,7 +78,7 @@ public class BC12v5 extends OpMode {
                 }
                 if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.intakeSpike1, false);
+                    manager.follower.followPath(manager.bc12Paths.intakeSpike1, false);
                     timing = false;
                     manager.setPathState(6);
                 }
@@ -87,7 +87,7 @@ public class BC12v5 extends OpMode {
                 manager.FSM.runNew(FSM.StateName.Intake);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.spike1toShoot, false);
+                    manager.follower.followPath(manager.bc12Paths.spike1toShoot, false);
                     manager.setPathState(7);
                 }
             case 7:
@@ -108,7 +108,7 @@ public class BC12v5 extends OpMode {
                 }
                 if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.intakeSpike3, false);
+                    manager.follower.followPath(manager.bc12Paths.intakeSpike3, false);
                     timing = false;
                     manager.setPathState(9);
                 }
@@ -117,7 +117,7 @@ public class BC12v5 extends OpMode {
                 manager.FSM.runNew(FSM.StateName.Intake);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.spike3toShoot, false);
+                    manager.follower.followPath(manager.bc12Paths.spike3toShoot, false);
                     manager.setPathState(10);
                 }
             case 10:
@@ -134,7 +134,7 @@ public class BC12v5 extends OpMode {
                 }
                 if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.shootToLeave, false);
+                    manager.follower.followPath(manager.bc12Paths.shootToLeave, false);
                     timing = false;
                     manager.setPathState(11);
                 }
