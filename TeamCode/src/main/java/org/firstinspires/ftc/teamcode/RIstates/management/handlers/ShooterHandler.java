@@ -55,7 +55,7 @@ public class ShooterHandler {
     public void constantShoot() {
         shooter.test(500);
     }
-    public static double allowedError = 70;
+    public static double allowedError = 40;
     public boolean inRange(){
         return Math.abs(shooter.getError()) < allowedError;
     }

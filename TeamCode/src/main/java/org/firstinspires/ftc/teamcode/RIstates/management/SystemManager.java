@@ -155,7 +155,7 @@ public class SystemManager {
         opmodeTimer.resetTimer();
         //follower.setStartingPose(poseStorage.getPose());
         follower.setStartingPose(center);
-        follower.startTeleopDrive();
+        follower.startTeleopDrive(true);
         gateServo.setPosition(0.32);
         FSM.runNew(org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM.StateName.AllianceSelect);
     }
