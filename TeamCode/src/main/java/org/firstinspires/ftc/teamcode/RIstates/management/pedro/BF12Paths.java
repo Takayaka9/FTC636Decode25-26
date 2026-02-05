@@ -12,7 +12,7 @@ public class BF12Paths extends BluePoseLib {
         super();
         this.follower = follower;
     }
-    public PathChain fs0, pi1, i1, cs1, pi2, i2, cs2, pi3, i3, fs3, l;
+    public PathChain fs0, pi1, i1, cs1, pi2, i2, cs2, pi3, i3, fs3, l, abort;
 
     public void buildPaths() {
 
@@ -60,6 +60,10 @@ public class BF12Paths extends BluePoseLib {
 
         l = follower.pathBuilder().addPath(new BezierLine(farShootPose, farLeavePose))
                 .setLinearHeadingInterpolation(farShootPose.getHeading(), farLeavePose.getHeading())
+                .build();
+        abort = follower.pathBuilder()
+                .addPath(new BezierLine(follower.getPose(), farLeavePose))
+                .setLinearHeadingInterpolation(follower.getPose().getHeading(), farLeavePose.getHeading())
                 .build();
     }
 }

@@ -191,6 +191,10 @@ public class SystemManager {
         if (shooterHandler != null){
             teleOpHandler.alliance = shooterHandler.alliance;
         }
+        if(!shooterHandler.shooterRunning){
+            //shooter.test(600);
+        }
+        //TODO: uncomment above once gate servo pos's are good
 
         //shooterHandler.constantShoot();
     }
@@ -220,7 +224,7 @@ public class SystemManager {
         follower.update();
         telemetryM.update();
         poseStorage.updatePose(follower.getPose());
-        turret.trackGoal(shooterHandler.alliance);
+        hoodController.angleHood(shooterHandler.getTargetDistance(follower, shooterHandler.alliance));
     }
 
     public void setAlliance(int newAlliance) {

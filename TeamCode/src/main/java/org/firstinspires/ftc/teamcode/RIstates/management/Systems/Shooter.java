@@ -15,7 +15,6 @@ public class Shooter {
     public final DcMotorEx flyRight;
     public final DcMotorEx flyLeft;
     private ElapsedTime pidTime = new ElapsedTime();
-    //TODO: decide lut or no lut
 
     static double d1 = 36; static double r1 = 900;
     static double d2 = 50; static double r2 = 1000;
@@ -61,7 +60,6 @@ public class Shooter {
     public static double Kd = 0;
     public static double Kf = 0.00036;
     //0.000357 should be the max kf value
-    //TODO: either make a pidf class (good idea) or just fix ts. either way use chatgpt.
     private double integralSum;
     private double lastError;
     public double outputRight; // basically the same as the normal PIDControl
@@ -100,6 +98,11 @@ public class Shooter {
         outputLeft = (error * Kp) + (derivative * Kd) + (integralSumLeft * Ki) + (target * Kf);
 
         flyLeft.setPower(outputLeft);
+    }
+
+    public double getError(){
+        //return getShooterTPS(distance) - flyRight.getVelocity();
+        return lastError;
     }
 
     public void shoot(double distance){

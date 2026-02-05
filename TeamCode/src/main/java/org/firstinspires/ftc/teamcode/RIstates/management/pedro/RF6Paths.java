@@ -15,7 +15,7 @@ public class RF6Paths extends RedPoseLib {
         this.follower = follower;
     }
 
-    public PathChain startToShoot, intakeSpike3, spike3toShoot, shootToLeave;
+    public PathChain startToShoot, intakeSpike3, spike3toShoot, shootToLeave, abort;
 
     public void buildPaths() {
         startToShoot = follower.pathBuilder()
@@ -34,6 +34,10 @@ public class RF6Paths extends RedPoseLib {
         shootToLeave = follower.pathBuilder()
                 .addPath(new BezierLine(farShootPose, farLeavePose))
                 .setConstantHeadingInterpolation(farShootPose.getHeading())
+                .build();
+        abort = follower.pathBuilder()
+                .addPath(new BezierLine(follower.getPose(), farLeavePose))
+                .setLinearHeadingInterpolation(follower.getPose().getHeading(), farLeavePose.getHeading())
                 .build();
     }
 

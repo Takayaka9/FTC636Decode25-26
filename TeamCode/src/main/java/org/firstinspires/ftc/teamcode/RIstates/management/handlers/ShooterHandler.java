@@ -55,6 +55,10 @@ public class ShooterHandler {
     public void constantShoot() {
         shooter.test(500);
     }
+    public static double allowedError = 30;
+    public boolean inRange(){
+        return Math.abs(shooter.getError()) < allowedError;
+    }
 
     public void whileConstantShootingBelt(Boolean run) {
         if (run) {

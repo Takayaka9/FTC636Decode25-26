@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.RIstates.auto.system;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
@@ -83,10 +84,23 @@ public class BF6v5 extends OpMode {
                 break;
         }
     }
-
+    ElapsedTime autoTime = new ElapsedTime();
+    public static double abortMission = 26;
+    public static boolean fled = false;
     @Override
     public void loop() {
-        autonomousPathUpdate();
+        if(autoTime.seconds() > abortMission && !fled){
+            manager.follower.followPath(manager.rc12Paths.abort);
+            fled = true;
+        }
+        else if(autoTime.seconds() > abortMission && fled){
+            manager.turret.turnTurret(0);
+        }
+        else{
+            autonomousPathUpdate();
+            manager.turret.trackGoal(manager.shooterHandler.alliance);
+        }
+        //autonomousPathUpdate();
         manager.telemetryM.addData("path state", manager.pathState);
         manager.telemetryM.addData("x", manager.follower.getPose().getX());
         manager.telemetryM.addData("y", manager.follower.getPose().getY());
@@ -98,7 +112,7 @@ public class BF6v5 extends OpMode {
     public void init() {
         manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, false, false);
         manager.init();
-        manager.setAlliance(2);
+        manager.setAlliance(1);
         manager.opmodeTimer.resetTimer();
         manager.bf6Paths.buildPaths();
         manager.follower.setStartingPose(manager.bf12Paths.farStartPose);
