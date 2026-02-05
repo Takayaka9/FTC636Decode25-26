@@ -12,7 +12,7 @@ public class HoodController extends HoodServo {
     private final InterpLUT lut = new InterpLUT();
     public HoodController(HardwareMap hardwareMap){
         super(hardwareMap);
-        lut.add(0, p1);
+        lut.add(0, 1);
         lut.add(d1, p1);
         lut.add(d2, p2);
         lut.add(d3, p3);
@@ -29,7 +29,7 @@ public class HoodController extends HoodServo {
     output: panels telemetry and servo position
     !! it is never needed to call this method - it is called by shoot !!
      */
-    static double d1 = 36; static double p1 = 1;
+    static double d1 = 36; static double p1 = 0.96;
     static double d2 = 50; static double p2 = 0.95;
     static double d3 = 75; static double p3 = 0.92;
     static double d4 = 96; static double p4 = 0.85;

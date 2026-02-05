@@ -41,11 +41,16 @@ public class ShootState implements State {
         manager.shooterHandler.shoot();
 //        manager.shooterHandler.whileConstantShootingBelt(true);
         if (manager.gamepad2.x && !changed2X && manager.shooterHandler.inRange()) {
-            manager.intakeController.shootRun();
+            manager.intakeController.run();
             changed2X = true;
-        } else if (!manager.gamepad2.x && changed2X) {
+        }
+        else if (!manager.gamepad2.x && !manager.gamepad2.right_bumper) {
             manager.intakeController.stop();
             changed2X = false;
+        }
+        else if (manager.gamepad2.left_bumper) {
+            manager.intakeController.reverse();
+            changed2X = true;
         }
     }
 

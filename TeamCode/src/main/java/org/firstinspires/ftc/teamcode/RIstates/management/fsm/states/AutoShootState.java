@@ -13,11 +13,7 @@ public class AutoShootState implements State {
     @Override
     public void update(SystemManager manager, FSM tFSM) {
         manager.shooterHandler.shoot();
-        if (manager.shooterHandler.inRange()) {
-            manager.intakeController.shootRun();
-        } else {
-            manager.intakeController.stop();
-        }
+        manager.shooterHandler.autoShoot();
     }
 
     @Override

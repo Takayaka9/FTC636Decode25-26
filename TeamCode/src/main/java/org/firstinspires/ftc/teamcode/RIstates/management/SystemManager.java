@@ -154,7 +154,7 @@ public class SystemManager {
         teleOpHandler.start();
         opmodeTimer.resetTimer();
         //follower.setStartingPose(poseStorage.getPose());
-        follower.setStartingPose(center);
+        follower.setStartingPose(PoseStorage.endPose);
         follower.startTeleopDrive(true);
         gateServo.setPosition(0.32);
         FSM.runNew(org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM.StateName.AllianceSelect);
@@ -226,7 +226,7 @@ public class SystemManager {
     public void autoUpdate() {
         follower.update();
         telemetryM.update();
-        poseStorage.updatePose(follower.getPose());
+        PoseStorage.endPose = follower.getPose();
         hoodController.angleHood(shooterHandler.getTargetDistance(follower, shooterHandler.alliance));
         //shooterHandler.shoot();
     }
