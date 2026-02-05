@@ -13,13 +13,11 @@ public class StopperTester extends OpMode {
     @Override
     public void init() {
         h = hardwareMap.get(Servo.class, "gate");
-        position = 0;
+        //position = 0;
     }
 
     @Override
     public void loop() {
-        if(gamepad2.a){
-            h.setPosition(position);
-        }
+        h.setPosition(position);
     }
 }

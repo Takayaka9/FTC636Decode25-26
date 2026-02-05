@@ -19,7 +19,7 @@ public class ShootState implements State {
 //        manager.ballController.init();
         manager.shooterHandler.shooterRunning = true;
         //manager.gateServo.togglePosition(false);
-        // TODO: manager.gateServo.setPosition(notblocking);
+        //manager.gateServo.setPosition(0.17);
 //        timer = new Timing.Timer(500, TimeUnit.MILLISECONDS);
 //        manager.intake.reverse();
     }
@@ -56,8 +56,8 @@ public class ShootState implements State {
         manager.shooterHandler.off();
         manager.intakeController.stop();
         //manager.shooterHandler.whileConstantShootingBelt(true);
-        manager.gateServo.togglePosition(true);
-        //TODO: manager.gateServo.setPosition(blocking);
+        //manager.gateServo.togglePosition(true);
+        //manager.gateServo.setPosition(0.32);
     }
 
 }

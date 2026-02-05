@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.fsm;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.states.AllianceSelectorState;
+import org.firstinspires.ftc.teamcode.RIstates.management.fsm.states.AutoShootState;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.states.BackoutState;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.states.IntakeState;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.states.NormState;
@@ -17,7 +18,8 @@ public class FSM {
         Backout,
         //FollowerError,
         AllianceSelect,
-        Norm
+        Norm,
+        AutoShoot
     }
     private final EnumMap<StateName, State> stateMap;
     private State currentState = null;
@@ -34,6 +36,7 @@ public class FSM {
         stateMap.put(StateName.Intake, new IntakeState());
         stateMap.put(StateName.Backout, new BackoutState());
         stateMap.put(StateName.AllianceSelect, new AllianceSelectorState());
+        stateMap.put(StateName.AutoShoot, new AutoShootState());
     }
 
     public String getCurrentStateAsString(){
@@ -56,6 +59,9 @@ public class FSM {
             }
             if (getCurrentStateAsString().equals("AllianceSelectorState")) {
                 return StateName.AllianceSelect;
+            }
+            if(getCurrentStateAsString().equals("AutoShootState")){
+                return StateName.AutoShoot;
             }
         }
         return StateName.Norm;

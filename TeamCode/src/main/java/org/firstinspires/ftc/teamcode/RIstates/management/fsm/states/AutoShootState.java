@@ -1,0 +1,29 @@
+package org.firstinspires.ftc.teamcode.RIstates.management.fsm.states;
+
+import org.firstinspires.ftc.teamcode.RIstates.management.fsm.State;
+import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
+import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
+
+public class AutoShootState implements State {
+    @Override
+    public void initiate(SystemManager manager) {
+        manager.shooterHandler.shooterRunning = true;
+    }
+
+    @Override
+    public void update(SystemManager manager, FSM tFSM) {
+        manager.shooterHandler.shoot();
+        if (manager.shooterHandler.inRange()) {
+            manager.intakeController.shootRun();
+        } else {
+            manager.intakeController.stop();
+        }
+    }
+
+    @Override
+    public void end(SystemManager manager) {
+        manager.shooterHandler.shooterRunning = false;
+        manager.shooterHandler.off();
+        manager.intakeController.stop();
+    }
+}

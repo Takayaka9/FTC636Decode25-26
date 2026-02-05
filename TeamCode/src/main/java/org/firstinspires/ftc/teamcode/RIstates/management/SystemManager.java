@@ -156,6 +156,7 @@ public class SystemManager {
         //follower.setStartingPose(poseStorage.getPose());
         follower.setStartingPose(center);
         follower.startTeleopDrive();
+        gateServo.setPosition(0.32);
         FSM.runNew(org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM.StateName.AllianceSelect);
     }
     public void teleUpdate() {
@@ -171,6 +172,8 @@ public class SystemManager {
         telemetryM.addData("current loc", follower.getPose());
         telemetryM.addData("flywheel vel. (right)", shooter.flyRight.getVelocity());
         telemetryM.addData("hood pos", hoodController.getPosition());
+        telemetryM.addData("can shoot", shooterHandler.inRange());
+        telemetryM.addData("flywheel error", shooter.getError());
         //telemetryM.addData("distance goal", shooterHandler.getTargetDistance(follower, ))
 //        telemetryM.addData("full?", lightController.checkFull());
         telemetry.addData("Current state", FSM.getCurrentStateAsString());
@@ -191,9 +194,9 @@ public class SystemManager {
         if (shooterHandler != null){
             teleOpHandler.alliance = shooterHandler.alliance;
         }
-        if(!shooterHandler.shooterRunning){
-            //shooter.test(600);
-        }
+//        if(!shooterHandler.shooterRunning){
+//            shooter.test(600);
+//        }
         //TODO: uncomment above once gate servo pos's are good
 
         //shooterHandler.constantShoot();
@@ -225,6 +228,7 @@ public class SystemManager {
         telemetryM.update();
         poseStorage.updatePose(follower.getPose());
         hoodController.angleHood(shooterHandler.getTargetDistance(follower, shooterHandler.alliance));
+        //shooterHandler.shoot();
     }
 
     public void setAlliance(int newAlliance) {

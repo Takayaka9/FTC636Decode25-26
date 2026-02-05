@@ -15,7 +15,7 @@ public abstract class RedPoseLib {
     public static int Intake2X = 133; public static int Intake2Y = 60; public static int Intake2R = 0;
     public static int PIntake1X = 100; public static int PIntake1Y = 84; public static int PIntake1R = 0;
     public static int Intake1X = 126; public static int Intake1Y = 84; public static int Intake1R = 0;
-    public static int emptyX = 131; public static int emptyY = 60; public static int emptyR = 30;
+    public static int emptyX = 131; public static int emptyY = 60; public static int emptyR = 90;
     public static int farLeaveX = 93; public static int farLeaveY = 23; public static int farLeaveR = 45;
     public static int closeLeaveX = 111; public static int closeLeaveY = 96; public static int closeLeaveR = 45;
 
