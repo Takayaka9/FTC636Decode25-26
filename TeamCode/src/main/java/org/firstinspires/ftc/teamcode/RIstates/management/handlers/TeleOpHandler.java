@@ -32,8 +32,8 @@ public class TeleOpHandler {
         this.limelight = limelight;
         this.lift = liftServo;
         this.follower = follower;
-        blueParkPose = new Pose(105.35, 37.8, Math.toRadians(90));
-        redParkPose = new Pose(38.6, 37.8, Math.toRadians(90));
+        blueParkPose = new Pose(105.35, 37.8, Math.toRadians(180));
+        redParkPose = new Pose(38.6, 37.8, Math.toRadians(0));
     }
 
     private boolean changedA = false;
