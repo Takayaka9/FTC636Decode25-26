@@ -14,7 +14,7 @@ public class BC12Paths extends BluePoseLib {
         this.follower = follower;
     }
 
-    public PathChain startToShoot, preIntakeSpike2, intakeSpike2, openGate, gateToShoot, preIntakeSpike1, intakeSpike1, spike1toShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
+    public PathChain startToShoot, preIntakeSpike2, intakeSpike2, spike2ToShoot, gateToShoot, preIntakeSpike1, intakeSpike1, spike1toShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
 
     public void buildPaths() {
         startToShoot = follower.pathBuilder()
@@ -29,9 +29,9 @@ public class BC12Paths extends BluePoseLib {
                 .addPath(new BezierLine(pIntake2Pose, intake2Pose))
                 .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
-        openGate = follower.pathBuilder()
-                .addPath(new BezierLine(intake2Pose, emptyPose))
-                .setConstantHeadingInterpolation(intake2Pose.getHeading())
+        spike2ToShoot = follower.pathBuilder()
+                .addPath(new BezierCurve(intake2Pose, pIntake2Pose, nearShootPose))
+                .setConstantHeadingInterpolation(nearShootPose.getHeading())
                 .build();
         gateToShoot = follower.pathBuilder()
                 .addPath(new BezierCurve(emptyPose, pIntake2Pose, nearShootPose))

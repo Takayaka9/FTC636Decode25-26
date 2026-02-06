@@ -49,7 +49,7 @@ public class RC12v5 extends OpMode {
                 manager.FSM.runNew(FSM.StateName.Intake);
                 if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.rc12Paths.openGate, false);
+                    manager.follower.followPath(manager.rc12Paths.spike2ToShoot, false);
                     manager.setPathState(3);
                 }
                 break;

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.RIstates.auto.system;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -9,16 +10,16 @@ import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 import java.util.concurrent.TimeUnit;
-
+@Configurable
 @Autonomous()
 public class RF6vTaka extends OpMode {
     SystemManager manager;
     boolean timing;
     boolean following;
     ElapsedTime shootTimer = new ElapsedTime();
-    public static double shootTime = 8;
+    public static double shootTime = 12;
     ElapsedTime intakeTime = new ElapsedTime();
-    public static double waitPls = 1;
+    public static double waitPls = 2;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
             case 0:
@@ -38,14 +39,17 @@ public class RF6vTaka extends OpMode {
                 }
                 else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
-                    manager.intakeController.run();
+                    manager.intakeController.reverse();
                     manager.follower.followPath(manager.rf6Paths.preIntakeSpike3, 0.5, true);
                     manager.setPathState(67);
                 }
                 break;
             case 67:
-                manager.intakeController.run();
+                if(manager.follower.isBusy()){
+                    manager.intakeController.reverse();
+                }
                 if(!manager.follower.isBusy()){
+                    manager.intakeController.run();
                     manager.follower.followPath(manager.rf6Paths.intakeSpike3, 0.5, true);
                     intakeTime.reset();
                     manager.setPathState(2);
@@ -66,10 +70,12 @@ public class RF6vTaka extends OpMode {
                 }
                 else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
+                    manager.intakeController.reverse();
                     manager.setPathState(4);
                 }
                 break;
             case 4:
+                manager.intakeController.reverse();
                 if (!manager.follower.isBusy()) {
                     manager.follower.followPath(manager.rf6Paths.shootToLeave);
                     manager.setPathState(5);
@@ -107,10 +113,10 @@ public class RF6vTaka extends OpMode {
     public void init() {
         manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, false, false);
         manager.init();
-        manager.setAlliance(1);
+        manager.setAlliance(2);
         manager.opmodeTimer.resetTimer();
         manager.rf6Paths.buildPaths();
-        manager.follower.setStartingPose(manager.bf12Paths.farStartPose);
+        manager.follower.setStartingPose(manager.rf6Paths.farStartPose);
         timing = false;
         following = false;
     }

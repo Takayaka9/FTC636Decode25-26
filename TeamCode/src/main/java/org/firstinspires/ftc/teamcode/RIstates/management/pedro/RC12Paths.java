@@ -14,7 +14,7 @@ public class RC12Paths extends RedPoseLib {
         this.follower = follower;
     }
 
-    public PathChain startToShoot, preIntakeSpike2, intakeSpike2, openGate, gateToShoot, preIntakeSpike1, intakeSpike1, spike1toShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
+    public PathChain startToShoot, preIntakeSpike2, intakeSpike2, spike2ToShoot, gateToShoot, preIntakeSpike1, intakeSpike1, spike1toShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
 
     public void buildPaths() {
         startToShoot = follower.pathBuilder()
@@ -29,8 +29,8 @@ public class RC12Paths extends RedPoseLib {
                 .addPath(new BezierLine(pIntake2Pose, intake2Pose))
                 .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
-        openGate = follower.pathBuilder()
-                .addPath(new BezierLine(intake2Pose, emptyPose))
+        spike2ToShoot = follower.pathBuilder()
+                .addPath(new BezierLine(intake2Pose, nearShootPose))
                 .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
         gateToShoot = follower.pathBuilder()
