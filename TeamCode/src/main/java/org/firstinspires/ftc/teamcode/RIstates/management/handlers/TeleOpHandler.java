@@ -147,6 +147,17 @@ public class TeleOpHandler {
             off = true;
         }
 
+
+        //backout
+        if (gamepad2.left_bumper && !changedLT) {
+            changedLT = true;
+            setTransition(FSM.StateName.Backout);
+            off = false;
+        } else if (!gamepad2.left_bumper && changedLT) {
+            changedLT = false;
+            off = true;
+        }
+
         //different logic which checks shootRunning for stop
 //        if (gamepad2.a && !changedA) {
 //            changedA = true;
@@ -162,16 +173,6 @@ public class TeleOpHandler {
             off = false;
         } else if (!gamepad2.a && changedA) {
             changedA = false;
-            off = true;
-        }
-
-        //backout
-        if (gamepad2.left_bumper && !changedLT) {
-            changedLT = true;
-            setTransition(FSM.StateName.Backout);
-            off = false;
-        } else if (!gamepad2.left_bumper && changedLT) {
-            changedLT = false;
             off = true;
         }
 

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.fsm.states;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 
 public class ShootState implements State {
     public boolean changed2X = false;
+    ElapsedTime reverseTime = new ElapsedTime();
     @Override
     public void initiate(SystemManager manager) {
         manager.shooterHandler.shooterRunning = true;
@@ -19,14 +21,16 @@ public class ShootState implements State {
         manager.shooterHandler.shoot();
         if (manager.gamepad2.x && !changed2X && manager.shooterHandler.inRange()) {
             manager.intakeController.run();
+            reverseTime.reset();
             changed2X = true;
         }
         else if (manager.gamepad2.left_bumper) {
-            manager.intakeController.reverse();
+            manager.intakeController.reverseABit(reverseTime);
             changed2X = true;
         }
         else if (!manager.gamepad2.x && !manager.gamepad2.right_bumper) {
             manager.intakeController.stop();
+            reverseTime.reset();
             changed2X = false;
         }
     }

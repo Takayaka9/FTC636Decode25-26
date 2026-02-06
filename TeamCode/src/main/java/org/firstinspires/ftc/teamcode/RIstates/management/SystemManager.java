@@ -153,8 +153,12 @@ public class SystemManager {
     public void teleStart() {
         teleOpHandler.start();
         opmodeTimer.resetTimer();
-        //follower.setStartingPose(poseStorage.getPose());
-        follower.setStartingPose(PoseStorage.endPose);
+        if(PoseStorage.endPose != null){
+            follower.setStartingPose(PoseStorage.endPose);
+        }
+        else{
+            follower.setStartingPose(center);
+        }
         follower.startTeleopDrive(true);
         gateServo.setPosition(0.32);
         FSM.runNew(org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM.StateName.AllianceSelect);

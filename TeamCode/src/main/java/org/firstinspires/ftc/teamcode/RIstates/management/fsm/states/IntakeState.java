@@ -10,6 +10,7 @@ public class IntakeState implements State {
     @Override
     public void initiate(SystemManager manager) {
         manager.intake.run();
+        manager.shooter.brake();
     }
 
     @Override
