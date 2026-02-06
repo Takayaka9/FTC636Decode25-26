@@ -16,17 +16,20 @@ public class BF6Paths extends BluePoseLib {
         this.follower = follower;
     }
 
-    public PathChain startToShoot, intakeSpike3, spike3toShoot, shootToLeave, abort;
+    public PathChain startToShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
 
     public void buildPaths() {
         startToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(farStartPose, farShootPose))
                 .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading())
                 .build();
+        preIntakeSpike3 = follower.pathBuilder()
+                .addPath(new BezierLine(farShootPose, pIntake3Pose))
+                .setConstantHeadingInterpolation(intake3Pose.getHeading())
+                .build();
         intakeSpike3 = follower.pathBuilder()
-                .addPath(new BezierCurve(farShootPose, pIntake3Pose ,intake3Pose))
-                .setLinearHeadingInterpolation(farShootPose.getHeading(), intake3Pose.getHeading())
-                .setVelocityConstraint(.5)
+                .addPath(new BezierLine(pIntake3Pose ,intake3Pose))
+                .setConstantHeadingInterpolation(intake3Pose.getHeading())
                 .build();
         spike3toShoot = follower.pathBuilder()
                 .addPath(new BezierLine(intake3Pose, farShootPose))

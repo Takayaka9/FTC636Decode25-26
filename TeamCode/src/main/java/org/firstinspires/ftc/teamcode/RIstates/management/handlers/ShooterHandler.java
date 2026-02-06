@@ -17,8 +17,6 @@ public class ShooterHandler {
     private final Shooter shooter;
     private final HoodController hoodController;
     private final IntakeController intakeController;
-//    private final LightController lightController;
-    //private final BallController ballController;
 
     public ShooterHandler(
             TelemetryManager telemetryM,
@@ -26,16 +24,12 @@ public class ShooterHandler {
             Shooter shooter,
             HoodController hoodController,
             IntakeController intakeController
-//            LightController lightController,
-            //BallController ballController
     ) {
         this.telemetryM = telemetryM;
         this.follower = follower;
         this.shooter = shooter;
         this.hoodController = hoodController;
         this.intakeController = intakeController;
-//        this.lightController = lightController;
-        //this.ballController = ballController;
     }
 
     public int alliance = 0;
@@ -46,11 +40,7 @@ public class ShooterHandler {
 
     public void shoot() {
             double targetDistance = getTargetDistance(follower, alliance);
-            //ballController.shootUpdateBallCount();
             shooter.shoot(targetDistance);
-            //hoodController.angleHood(targetDistance);
-            //intakeController.run();
-//            lightController.shooterLightingUpdate(ballController.getBallCount());
     }
     public void constantShoot() {
         shooter.test(500);
@@ -88,8 +78,6 @@ public class ShooterHandler {
 
     public void off(){
         shooter.stop();
-//        hoodController.passive();
-//        intakeController.stop();
     }
 
 
