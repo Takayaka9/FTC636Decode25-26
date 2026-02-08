@@ -61,7 +61,7 @@ public class RC12vTaka extends OpMode {
             case 2:
                 manager.intakeController.run();
                 if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
-                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop(); manager.intakeController.stop();
                     manager.follower.followPath(manager.rc12Paths.spike2ToShoot);
                     manager.setPathState(4);
                 }
@@ -105,7 +105,7 @@ public class RC12vTaka extends OpMode {
             case 6:
                 manager.intakeController.run();
                 if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
-                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop(); manager.intakeController.stop();
                     manager.follower.followPath(manager.rc12Paths.spike1toShoot);
                     manager.setPathState(7);
                 }
@@ -143,7 +143,7 @@ public class RC12vTaka extends OpMode {
             case 9:
                 manager.intakeController.run();
                 if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
-                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop(); manager.intakeController.stop();
                     manager.follower.followPath(manager.rc12Paths.spike3toShoot);
                     manager.setPathState(12);
                 }
@@ -167,7 +167,7 @@ public class RC12vTaka extends OpMode {
                 else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
                     manager.intakeController.stop();
-                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop();
                     manager.follower.followPath(manager.rc12Paths.shootToLeave);
                     manager.setPathState(11);
                 }

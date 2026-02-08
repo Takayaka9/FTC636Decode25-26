@@ -6,7 +6,7 @@ import com.pedropathing.geometry.Pose;
 @Configurable
 public abstract class RedPoseLib {
     public static int farStartX = 89; public static int farStartY = 9; public static int farStartR = 90;
-    public static int farShootX = 87; public static int farShootY = 15; public static int farShootR = 73;
+    public static int farShootX = 89; public static int farShootY = 15; public static int farShootR = 90;
     public static int nearStartX = 120; public static int nearStartY = 129; public static int nearStartR = 37;
     public static int nearShootX = 95; public static int nearShootY = 95; public static int nearShootR = 0;
     public static int PIntake3X = 95; public static int PIntake3Y = 35; public static int PIntake3R = 0;
@@ -16,8 +16,8 @@ public abstract class RedPoseLib {
     public static int PIntake1X = 95; public static int PIntake1Y = 87; public static int PIntake1R = 0;
     public static int Intake1X = 126; public static int Intake1Y = 87; public static int Intake1R = 0;
     public static int emptyX = 131; public static int emptyY = 60; public static int emptyR = 90;
-    public static int farLeaveX = 56; public static int farLeaveY = 36; public static int farLeaveR = 45;
-    public static int closeLeaveX = 56; public static int closeLeaveY = 36; public static int closeLeaveR = 45;
+    public static int farLeaveX = 90; public static int farLeaveY = 36; public static int farLeaveR = 90;
+    public static int closeLeaveX = 90; public static int closeLeaveY = 130; public static int closeLeaveR = 90;
 
 
     public final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));

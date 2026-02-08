@@ -77,6 +77,8 @@ public class SystemManager {
 
     private boolean isTeleop;
 
+    public int overpos = 0;
+
 
     public SystemManager(HardwareMap hardwareMap, Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, boolean isTeleOp, boolean testing) {
         ///DO NOT CHANGE THE INIT ORDER, add new stuff in it's respective place to avoid NullPointer
@@ -136,6 +138,7 @@ public class SystemManager {
         shooterHandler = new ShooterHandler(telemetryM, follower, shooter, hoodController, intakeController);
         limelightHandler = new LimelightHandler(limelightController, follower);
 
+        overpos = 0;
     }
 
     public FSM FSM;
@@ -170,7 +173,12 @@ public class SystemManager {
         telemetryM.update();
         teleOpHandler.update();
         driveController.update();
-        turret.trackGoal(shooterHandler.alliance);
+        overpos = (int) Math.round(gamepad2.left_stick_y * 1000);
+        if (gamepad2.dpad_down) {
+            turret.turnTurret(overpos);
+        } else if(!gamepad2.dpad_down){
+            turret.trackGoal(shooterHandler.alliance);
+        }
         //telemetryM.addData("intake distance", intakeDistanceSensor.test());
         //telemetryM.addData("turret distance", turretSensor.test());
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
@@ -214,7 +222,6 @@ public class SystemManager {
         //teleOpHandler.update();
         //driveController.teleopNorm();
         //FSM.update();
-        turret.trackGoal(shooterHandler.alliance);
         telemetryM.addData("Current state", FSM.getCurrentStateAsString());
         telemetryM.addData("Alliance", getAlliance());
         telemetryM.addData("turret pos", turret.turretPosition());

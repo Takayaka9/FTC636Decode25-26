@@ -10,9 +10,10 @@ import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 import java.util.concurrent.TimeUnit;
+
 @Configurable
 @Autonomous()
-public class RF6vTaka extends OpMode {
+public class RF6vDanu extends OpMode {
     SystemManager manager;
     boolean timing;
     boolean following;

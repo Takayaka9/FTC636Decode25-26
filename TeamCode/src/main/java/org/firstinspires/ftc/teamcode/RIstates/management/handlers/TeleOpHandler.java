@@ -18,9 +18,8 @@ public class TeleOpHandler {
 
     private final Follower follower;
 
-    Pose blueParkPose = new Pose(105.35, 37.8, Math.toRadians(90));
-    Pose redParkPose = new Pose(38.6, 37.8, Math.toRadians(90));
-    
+    final Pose blueParkPose = new Pose(105.35, 37.8, Math.toRadians(90));
+    final Pose redParkPose = new Pose(38.6, 37.8, Math.toRadians(90));
     public int alliance = 0;
 
     public int offset = 0;

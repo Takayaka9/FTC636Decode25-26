@@ -61,7 +61,7 @@ public class BF6vTaka extends OpMode {
             case 2:
                 manager.intakeController.run();
                 if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
-                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop();
                     manager.follower.followPath(manager.bf6Paths.spike3toShoot);
                     shootTimer.reset();
                     manager.setPathState(3);
