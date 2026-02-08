@@ -8,17 +8,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Configurable
 public class HoodTester extends OpMode {
     Servo h;
-    public static double position = 0;
+    private static double start = 1;
+    public static double position = 1;
     @Override
     public void init() {
         h = hardwareMap.get(Servo.class, "hood");
-        position = 0;
+        position = start;
     }
 
     @Override
     public void loop() {
-        if(gamepad2.a){
-            h.setPosition(position);
-        }
+        h.setPosition(position);
     }
 }
