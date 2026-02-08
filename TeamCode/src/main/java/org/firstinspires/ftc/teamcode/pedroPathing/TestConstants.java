@@ -17,11 +17,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class TestConstants {
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(11.62)
+
+            //TODO: delete this todo once we input forward zero power
             .forwardZeroPowerAcceleration(-34.545892)
+
+            //TODO: this runs in the direction it says it will on the DS
             .lateralZeroPowerAcceleration(-53.881418)
+
             .translationalPIDFCoefficients(new PIDFCoefficients(0.1, 0, 0.01, 0.00))
             .headingPIDFCoefficients(new PIDFCoefficients(0.68, 0, 0.02, 0.0))
             .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.43, 0.0, 0.01, 0.6, 0.00))
+            //TODO: centripetal probably wont change
             .centripetalScaling(0.0005);
 //    public static MecanumConstants driveConstants = new MecanumConstants()
 //            .maxPower(1)
