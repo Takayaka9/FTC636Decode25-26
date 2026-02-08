@@ -30,149 +30,120 @@ public class BC12vTaka extends OpMode {
         switch (manager.pathState) {
             case 0:
                 if (!following) {
-                    manager.follower.followPath(manager.bc12Paths.startToShoot);
+                    manager.follower.followPath(manager.bc12Paths.startToShoot, false);
                     following = true;
                 }
                 if (!manager.follower.isBusy()) {
-                    shootTimer.reset();
                     manager.setPathState(1);
                 }
                 break;
             case 1:
-                if (shootTimer.seconds() < shootTime) {
-                    manager.shooterHandler.shoot();
-                    manager.shooterHandler.autoShoot();
-                    emadTime.start();
+                if (!timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
+                    timing = true;
+                    manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                else if (!emadTime.done()) {
-                    manager.shooterHandler.off();
-                    manager.intakeController.reverse();
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
                 }
-                else if(shootTimer.seconds() > shootTime){
-                    manager.shooterHandler.off();
-                    manager.intakeController.stop();
-                    manager.follower.followPath(manager.bc12Paths.preIntakeSpike2, 0.5, true);
-                    manager.setPathState(13);
-                }
-                break;
-            case 13:
-                if(!manager.follower.isBusy()){
-                    manager.intakeController.run();
-                    manager.follower.followPath(manager.bc12Paths.intakeSpike2, 0.5, true);
-                    intakeTime.reset();
+                if (timing && flyTimer.done()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    timing = false;
+                    manager.follower.followPath(manager.bc12Paths.intakeSpike2, false);
                     manager.setPathState(2);
                 }
+                break;
             case 2:
-                manager.intakeController.run();
-                if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
+                manager.FSM.runNew(FSM.StateName.Intake);
+                if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.bc12Paths.spike2ToShoot);
+                    manager.follower.followPath(manager.bc12Paths.spike2ToShoot, false);
+                    manager.setPathState(3);
+                }
+                break;
+            case 3:
+                if (!manager.follower.isBusy()) {
+                    manager.follower.followPath(manager.bc12Paths.gateToShoot, false);
                     manager.setPathState(4);
                 }
                 break;
-//            case 3:
-//                if (!manager.follower.isBusy()) {
-//                    manager.follower.followPath(manager.bc12Paths.gateToShoot);
-//                    manager.setPathState(4);
-//                }
-//                break;
             case 4:
                 if (!manager.follower.isBusy()) {
-                    shootTimer.reset();
-                    manager.intakeController.stop();
                     manager.setPathState(5);
                 }
-                break;
             case 5:
-                if (shootTimer.seconds() < shootTime) {
-                    manager.shooterHandler.shoot();
-                    manager.shooterHandler.autoShoot();
-                    emadTime.start();
-                } else if (!emadTime.done()) {
-                    manager.shooterHandler.off();
-                    manager.intakeController.reverse();
-                } else if(shootTimer.seconds() > shootTime){
-                    manager.shooterHandler.off();
-                    manager.intakeController.stop();
-                    manager.follower.followPath(manager.bc12Paths.preIntakeSpike1, 0.5, true);
-                    manager.setPathState(14);
+                if (!timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
+                    timing = true;
+                    manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                break;
-            case 14:
-                if(!manager.follower.isBusy()){
-                    manager.intakeController.run();
-                    manager.follower.followPath(manager.bc12Paths.intakeSpike1, 0.5, true);
-                    intakeTime.reset();
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.follower.followPath(manager.bc12Paths.intakeSpike1, false);
+                    timing = false;
                     manager.setPathState(6);
                 }
+                break;
             case 6:
-                manager.intakeController.run();
-                if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
+                manager.FSM.runNew(FSM.StateName.Intake);
+                if (!manager.follower.isBusy()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.bc12Paths.spike1toShoot);
+                    manager.follower.followPath(manager.bc12Paths.spike1toShoot, false);
                     manager.setPathState(7);
                 }
-                break;
             case 7:
                 if (!manager.follower.isBusy()) {
-                    shootTimer.reset();
-                    manager.intakeController.stop();
                     manager.setPathState(8);
                 }
-                break;
             case 8:
-                if (shootTimer.seconds() < shootTime) {
-                    manager.shooterHandler.shoot();
-                    manager.shooterHandler.autoShoot();
-                    emadTime.start();
-                } else if (!emadTime.done()) {
-                    manager.shooterHandler.off();
-                    manager.intakeController.reverse();
-                } else if(shootTimer.seconds() > shootTime){
-                    manager.shooterHandler.off();
-                    manager.intakeController.stop();
-                    manager.follower.followPath(manager.bc12Paths.preIntakeSpike3, 0.5, true);
-                    manager.setPathState(15);
+                if (!timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
+                    timing = true;
+                    manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                break;
-            case 15:
-                if(!manager.follower.isBusy()){
-                    manager.intakeController.run();
-                    manager.follower.followPath(manager.bc12Paths.intakeSpike3, 0.5, true);
-                    intakeTime.reset();
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.follower.followPath(manager.bc12Paths.intakeSpike3, false);
+                    timing = false;
                     manager.setPathState(9);
                 }
-            case 9:
-                manager.intakeController.run();
-                if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
-                    manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.bc12Paths.spike3toShoot);
-                    manager.setPathState(12);
-                }
                 break;
-            case 12:
-                if(!manager.follower.isBusy()){
-                    shootTimer.reset();
-                    manager.intakeController.stop();
+            case 9:
+                manager.FSM.runNew(FSM.StateName.Intake);
+                if (!manager.follower.isBusy()) {
+                    manager.FSM.runNew(FSM.StateName.Norm);
+                    manager.follower.followPath(manager.bc12Paths.spike3toShoot, false);
                     manager.setPathState(10);
                 }
-                break;
             case 10:
-                if (shootTimer.seconds() < shootTime) {
-                    manager.shooterHandler.shoot();
-                    manager.shooterHandler.autoShoot();
+                if (!timing) {
+                    advanceTimer.start();
+                    flyTimer.start();
+                    timing = true;
+                    manager.FSM.runNew(FSM.StateName.Shoot);
                 }
-                else if(shootTimer.seconds() > shootTime){
-                    manager.shooterHandler.off();
-                    manager.intakeController.reverse();
+                if (timing && advanceTimer.done()) {
+                    manager.intakeController.shootRun();
+                }
+                if (timing && flyTimer.done()) {
                     manager.FSM.runNew(FSM.StateName.Norm);
-                    manager.follower.followPath(manager.bc12Paths.shootToLeave);
+                    manager.follower.followPath(manager.bc12Paths.shootToLeave, false);
+                    timing = false;
                     manager.setPathState(11);
                 }
                 break;
             case 11:
-                manager.intakeController.reverse();
                 break;
+
         }
     }
     ElapsedTime autoTime = new ElapsedTime();
