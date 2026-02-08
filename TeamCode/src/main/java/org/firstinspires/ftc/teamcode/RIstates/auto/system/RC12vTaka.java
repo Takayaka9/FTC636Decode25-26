@@ -21,7 +21,7 @@ public class RC12vTaka extends OpMode {
     public static double shootTime = 6;
     ElapsedTime intakeTime = new ElapsedTime();
     Timing.Timer emadTime;
-    private static int emadTimerLength;
+    private static int emadTimerLength = 1000;
     public static double waitPls = 1.5;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {

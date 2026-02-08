@@ -16,11 +16,14 @@ public class StatesTeleop3 extends OpMode {
 
     //    Subsystems + Follower
    private SystemManager manager;
-   //List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
+   List<LynxModule> allHubs;
 
     @Override
     public void loop() {
         manager.teleUpdate();
+        for (LynxModule hub : allHubs) {
+            hub.clearBulkCache();
+        }
     }
 
     @Override
@@ -28,9 +31,10 @@ public class StatesTeleop3 extends OpMode {
         manager = new SystemManager(hardwareMap, telemetry, gamepad1, gamepad2, true, false);
         manager.init();
         manager.FSM.runNew(FSM.StateName.Norm);
-//        for (LynxModule hub : allHubs) {
-//            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
-//        }
+        allHubs = hardwareMap.getAll(LynxModule.class);
+        for (LynxModule hub : allHubs) {
+            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+        }
     }
 
     @Override
