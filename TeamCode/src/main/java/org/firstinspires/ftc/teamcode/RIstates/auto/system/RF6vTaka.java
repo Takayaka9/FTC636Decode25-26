@@ -42,11 +42,12 @@ public class RF6vTaka extends OpMode {
                 }
                 else if (!emadTime.done()) {
                     manager.shooterHandler.off();
-                    manager.intakeController.reverse();
+                    manager.FSM.runNew(FSM.StateName.Backout);
                 }
                 else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
                     manager.intakeController.stop();
+                    manager.FSM.runNew(FSM.StateName.Norm);
                     manager.follower.followPath(manager.rf6Paths.preIntakeSpike3, 0.5, true);
                     manager.setPathState(67);
                 }
@@ -75,11 +76,12 @@ public class RF6vTaka extends OpMode {
                 }
                 else if (!emadTime.done()) {
                     manager.shooterHandler.off();
-                    manager.intakeController.reverse();
+                    manager.FSM.runNew(FSM.StateName.Backout);
                 }
                 else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
                     manager.intakeController.stop();
+                    manager.FSM.runNew(FSM.StateName.Norm);
                     manager.setPathState(4);
                 }
                 break;
