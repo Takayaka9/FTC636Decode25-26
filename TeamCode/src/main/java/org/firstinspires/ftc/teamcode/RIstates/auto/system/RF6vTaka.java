@@ -19,6 +19,8 @@ public class RF6vTaka extends OpMode {
     ElapsedTime shootTimer = new ElapsedTime();
     public static double shootTime = 12;
     ElapsedTime intakeTime = new ElapsedTime();
+    Timing.Timer emadTime;
+    private static int emadTimerLength;
     public static double waitPls = 2;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
@@ -36,18 +38,20 @@ public class RF6vTaka extends OpMode {
                 if (shootTimer.seconds() < shootTime) {
                     manager.shooterHandler.shoot();
                     manager.shooterHandler.autoShoot();
+                    emadTime.start();
+                }
+                else if (!emadTime.done()) {
+                    manager.shooterHandler.off();
+                    manager.intakeController.reverse();
                 }
                 else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
-                    manager.intakeController.reverse();
+                    manager.intakeController.stop();
                     manager.follower.followPath(manager.rf6Paths.preIntakeSpike3, 0.5, true);
                     manager.setPathState(67);
                 }
                 break;
             case 67:
-                if(manager.follower.isBusy()){
-                    manager.intakeController.reverse();
-                }
                 if(!manager.follower.isBusy()){
                     manager.intakeController.run();
                     manager.follower.followPath(manager.rf6Paths.intakeSpike3, 0.5, true);
@@ -67,15 +71,19 @@ public class RF6vTaka extends OpMode {
                 if (shootTimer.seconds() < shootTime) {
                     manager.shooterHandler.shoot();
                     manager.shooterHandler.autoShoot();
+                    emadTime.start();
+                }
+                else if (!emadTime.done()) {
+                    manager.shooterHandler.off();
+                    manager.intakeController.reverse();
                 }
                 else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
-                    manager.intakeController.reverse();
+                    manager.intakeController.stop();
                     manager.setPathState(4);
                 }
                 break;
             case 4:
-                manager.intakeController.reverse();
                 if (!manager.follower.isBusy()) {
                     manager.follower.followPath(manager.rf6Paths.shootToLeave);
                     manager.setPathState(5);
@@ -119,6 +127,7 @@ public class RF6vTaka extends OpMode {
         manager.follower.setStartingPose(manager.rf6Paths.farStartPose);
         timing = false;
         following = false;
+        emadTime = new Timing.Timer(emadTimerLength, TimeUnit.MILLISECONDS);
     }
     @Override
     public void init_loop() {

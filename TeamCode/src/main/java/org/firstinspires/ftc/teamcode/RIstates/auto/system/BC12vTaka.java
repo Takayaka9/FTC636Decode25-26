@@ -8,6 +8,9 @@ import com.seattlesolvers.solverslib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
+
+import java.util.concurrent.TimeUnit;
+
 @Configurable
 @Autonomous()
 public class BC12vTaka extends OpMode {
@@ -20,6 +23,9 @@ public class BC12vTaka extends OpMode {
     public static double shootTime = 6;
     ElapsedTime intakeTime = new ElapsedTime();
     public static double waitPls = 3;
+    private Timing.Timer emadTime;
+    private static int emadTimeLength = 1000;
+
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
             case 0:
@@ -36,18 +42,20 @@ public class BC12vTaka extends OpMode {
                 if (shootTimer.seconds() < shootTime) {
                     manager.shooterHandler.shoot();
                     manager.shooterHandler.autoShoot();
+                    emadTime.start();
+                }
+                else if (!emadTime.done()) {
+                    manager.shooterHandler.off();
+                    manager.intakeController.reverse();
                 }
                 else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
-                    manager.intakeController.reverse();
+                    manager.intakeController.stop();
                     manager.follower.followPath(manager.bc12Paths.preIntakeSpike2, 0.5, true);
                     manager.setPathState(13);
                 }
                 break;
             case 13:
-                if(manager.follower.isBusy()){
-                    manager.intakeController.reverse();
-                }
                 if(!manager.follower.isBusy()){
                     manager.intakeController.run();
                     manager.follower.followPath(manager.bc12Paths.intakeSpike2, 0.5, true);
@@ -79,18 +87,18 @@ public class BC12vTaka extends OpMode {
                 if (shootTimer.seconds() < shootTime) {
                     manager.shooterHandler.shoot();
                     manager.shooterHandler.autoShoot();
-                }
-                else if(shootTimer.seconds() > shootTime){
+                    emadTime.start();
+                } else if (!emadTime.done()) {
                     manager.shooterHandler.off();
                     manager.intakeController.reverse();
+                } else if(shootTimer.seconds() > shootTime){
+                    manager.shooterHandler.off();
+                    manager.intakeController.stop();
                     manager.follower.followPath(manager.bc12Paths.preIntakeSpike1, 0.5, true);
                     manager.setPathState(14);
                 }
                 break;
             case 14:
-                if(manager.follower.isBusy()){
-                    manager.intakeController.reverse();
-                }
                 if(!manager.follower.isBusy()){
                     manager.intakeController.run();
                     manager.follower.followPath(manager.bc12Paths.intakeSpike1, 0.5, true);
@@ -116,18 +124,18 @@ public class BC12vTaka extends OpMode {
                 if (shootTimer.seconds() < shootTime) {
                     manager.shooterHandler.shoot();
                     manager.shooterHandler.autoShoot();
-                }
-                else if(shootTimer.seconds() > shootTime){
+                    emadTime.start();
+                } else if (!emadTime.done()) {
                     manager.shooterHandler.off();
                     manager.intakeController.reverse();
+                } else if(shootTimer.seconds() > shootTime){
+                    manager.shooterHandler.off();
+                    manager.intakeController.stop();
                     manager.follower.followPath(manager.bc12Paths.preIntakeSpike3, 0.5, true);
                     manager.setPathState(15);
                 }
                 break;
             case 15:
-                if(manager.follower.isBusy()){
-                    manager.intakeController.reverse();
-                }
                 if(!manager.follower.isBusy()){
                     manager.intakeController.run();
                     manager.follower.followPath(manager.bc12Paths.intakeSpike3, 0.5, true);
@@ -201,6 +209,7 @@ public class BC12vTaka extends OpMode {
         manager.follower.setStartingPose(manager.bc12Paths.nearStartPose);
         timing = false;
         following = false;
+        emadTime = new Timing.Timer(1000, TimeUnit.MILLISECONDS);
     }
     @Override
     public void init_loop() {
