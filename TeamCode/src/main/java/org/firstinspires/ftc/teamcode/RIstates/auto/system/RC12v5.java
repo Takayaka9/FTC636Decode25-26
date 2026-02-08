@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.RIstates.auto.system;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.util.Timing;
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 import java.util.concurrent.TimeUnit;
-
+@Disabled
 @Autonomous()
 public class RC12v5 extends OpMode {
     SystemManager manager;

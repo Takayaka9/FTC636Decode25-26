@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.RIstates.auto.system;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 /// WIP
 //second command system auto which uses command system
+@Disabled
 @Autonomous()
 public class BF12v5 extends OpMode {
     SystemManager manager;

@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.RIstates;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.SystemManager;
-
+@Disabled
 @Configurable
 @TeleOp(name = "States TeleOp 2", group = "TeleOp")
 public class StatesTeleop2 extends LinearOpMode {
