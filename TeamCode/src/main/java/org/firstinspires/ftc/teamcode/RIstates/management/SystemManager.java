@@ -89,6 +89,8 @@ public class SystemManager {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
+        //TODO: new constants below this line are estimated for new drivetrain
+        //follower - Constants2.createFollower(hardwareMap);
 
 
 
