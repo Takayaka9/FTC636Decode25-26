@@ -99,7 +99,7 @@ public class BF6vTaka extends OpMode {
     @Override
     public void loop() {
         if(autoTime.seconds() > abortMission && !fled){
-            manager.follower.followPath(manager.rc12Paths.abort);
+            manager.follower.followPath(manager.bf6Paths.abort);
             fled = true;
         }
         else if(autoTime.seconds() > abortMission && fled){

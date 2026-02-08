@@ -118,9 +118,10 @@ public class Shooter {
         flyRight.setPower(-1);
         flyLeft.setPower(-1);
     }
+    public static double brake = -0.3;
     public void brake(){
-        flyRight.setPower(-0.3);
-        flyLeft.setPower(-0.3);
+        flyRight.setPower(brake);
+        flyLeft.setPower(brake);
     }
     public int averageVelocity () {
         double averageVelocity = ((flyRight.getVelocity() + flyLeft.getVelocity()) / 2);
