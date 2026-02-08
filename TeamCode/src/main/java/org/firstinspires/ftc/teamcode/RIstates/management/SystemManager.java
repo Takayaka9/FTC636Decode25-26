@@ -201,7 +201,7 @@ public class SystemManager {
 //        if(!shooterHandler.shooterRunning){
 //            shooter.test(600);
 //        }
-        //TODO: uncomment above once gate servo pos's are good
+        //uncomment above once gate servo pos's are good
 
         //shooterHandler.constantShoot();
     }

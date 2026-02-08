@@ -30,7 +30,7 @@ public class RC12Paths extends RedPoseLib {
                 .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
         spike2ToShoot = follower.pathBuilder()
-                .addPath(new BezierLine(intake2Pose, nearShootPose))
+                .addPath(new BezierCurve(intake2Pose, pIntake2Pose, nearShootPose))
                 .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
         gateToShoot = follower.pathBuilder()

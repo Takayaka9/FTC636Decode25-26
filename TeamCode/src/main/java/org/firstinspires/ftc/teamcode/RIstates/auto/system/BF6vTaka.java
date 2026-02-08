@@ -20,7 +20,7 @@ public class BF6vTaka extends OpMode {
     public static double shootTime = 12;
     ElapsedTime intakeTime = new ElapsedTime();
     Timing.Timer emadTime;
-    private static int emadTimerLength;
+    private static int emadTimerLength = 1000;
     public static double waitPls = 2;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
