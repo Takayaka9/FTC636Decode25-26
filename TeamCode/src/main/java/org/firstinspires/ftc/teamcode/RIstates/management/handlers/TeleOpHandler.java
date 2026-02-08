@@ -18,8 +18,8 @@ public class TeleOpHandler {
 
     private final Follower follower;
 
-    private Pose blueParkPose = null;
-    private Pose redParkPose = null;
+    Pose blueParkPose = new Pose(105.35, 37.8, Math.toRadians(90));
+    Pose redParkPose = new Pose(38.6, 37.8, Math.toRadians(90));
     
     public int alliance = 0;
 
@@ -32,8 +32,6 @@ public class TeleOpHandler {
         this.limelight = limelight;
         this.lift = liftServo;
         this.follower = follower;
-        blueParkPose = new Pose(105.35, 37.8, Math.toRadians(180));
-        redParkPose = new Pose(38.6, 37.8, Math.toRadians(0));
     }
 
     private boolean changedA = false;
@@ -104,18 +102,18 @@ public class TeleOpHandler {
             }
         }
 
-        if (gamepad2.dpad_down && !changedDown) {
-            changedDown = true;
-            offset = offset - 20;
-        } if (!gamepad2.dpad_down && changedDown) {
-            changedDown = false;
-        }
-        if (gamepad2.dpad_up && !changedUp) {
-            changedUp = true;
-            offset = offset + 20;
-        } if (!gamepad2.dpad_up && changedUp) {
-            changedUp = false;
-        }
+//        if (gamepad2.dpad_down && !changedDown) {
+//            changedDown = true;
+//            offset = offset - 20;
+//        } if (!gamepad2.dpad_down && changedDown) {
+//            changedDown = false;
+//        }
+//        if (gamepad2.dpad_up && !changedUp) {
+//            changedUp = true;
+//            offset = offset + 20;
+//        } if (!gamepad2.dpad_up && changedUp) {
+//            changedUp = false;
+//        }
 
         //shooter code)
 

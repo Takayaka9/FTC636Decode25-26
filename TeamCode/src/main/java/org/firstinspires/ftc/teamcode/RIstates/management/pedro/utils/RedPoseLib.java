@@ -11,10 +11,10 @@ public abstract class RedPoseLib {
     public static int nearShootX = 95; public static int nearShootY = 95; public static int nearShootR = 0;
     public static int PIntake3X = 95; public static int PIntake3Y = 35; public static int PIntake3R = 0;
     public static int Intake3X = 133; public static int Intake3Y = 35; public static int Intake3R = 0;
-    public static int PIntake2X = 95; public static int PIntake2Y = 55; public static int PIntake2R = 0;
-    public static int Intake2X = 133; public static int Intake2Y = 55; public static int Intake2R = 0;
-    public static int PIntake1X = 95; public static int PIntake1Y = 84; public static int PIntake1R = 0;
-    public static int Intake1X = 126; public static int Intake1Y = 84; public static int Intake1R = 0;
+    public static int PIntake2X = 95; public static int PIntake2Y = 62; public static int PIntake2R = 0;
+    public static int Intake2X = 125; public static int Intake2Y = 62; public static int Intake2R = 0;
+    public static int PIntake1X = 95; public static int PIntake1Y = 87; public static int PIntake1R = 0;
+    public static int Intake1X = 126; public static int Intake1Y = 87; public static int Intake1R = 0;
     public static int emptyX = 131; public static int emptyY = 60; public static int emptyR = 90;
     public static int farLeaveX = 56; public static int farLeaveY = 36; public static int farLeaveR = 45;
     public static int closeLeaveX = 56; public static int closeLeaveY = 36; public static int closeLeaveR = 45;

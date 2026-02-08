@@ -14,7 +14,7 @@ public class Intake {
         intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    double intakePower = 1;
+    public static double intakePower = 1;
     public void run(){
         intake.setPower(intakePower);
     }

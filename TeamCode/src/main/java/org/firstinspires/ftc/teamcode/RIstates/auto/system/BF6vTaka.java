@@ -21,7 +21,7 @@ public class BF6vTaka extends OpMode {
     ElapsedTime intakeTime = new ElapsedTime();
     Timing.Timer emadTime;
     private static int emadTimerLength = 1000;
-    public static double waitPls = 2;
+    public static double waitPls = 1;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
             case 0:
@@ -94,18 +94,18 @@ public class BF6vTaka extends OpMode {
         }
     }
     ElapsedTime autoTime = new ElapsedTime();
-    public static double abortMission = 28;
+    public static double abortMission = 27;
     public static boolean fled = false;
     @Override
     public void loop() {
         if(autoTime.seconds() > abortMission && !fled){
-            manager.follower.followPath(manager.rc12Paths.abort);
+            manager.follower.followPath(manager.bf6Paths.abort);
             fled = true;
         }
         else if(autoTime.seconds() > abortMission && fled){
             manager.turret.turnTurret(0);
         }
-        else{
+        else if(autoTime.seconds() < abortMission){
             autonomousPathUpdate();
             manager.turret.trackGoal(manager.shooterHandler.alliance);
         }
