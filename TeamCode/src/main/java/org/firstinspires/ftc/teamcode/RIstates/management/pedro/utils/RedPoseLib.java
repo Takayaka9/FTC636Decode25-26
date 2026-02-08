@@ -16,8 +16,8 @@ public abstract class RedPoseLib {
     public static int PIntake1X = 95; public static int PIntake1Y = 87; public static int PIntake1R = 0;
     public static int Intake1X = 126; public static int Intake1Y = 87; public static int Intake1R = 0;
     public static int emptyX = 131; public static int emptyY = 60; public static int emptyR = 90;
-    public static int farLeaveX = 93; public static int farLeaveY = 23; public static int farLeaveR = 45;
-    public static int closeLeaveX = 111; public static int closeLeaveY = 90; public static int closeLeaveR = 45;
+    public static int farLeaveX = 56; public static int farLeaveY = 36; public static int farLeaveR = 45;
+    public static int closeLeaveX = 56; public static int closeLeaveY = 36; public static int closeLeaveR = 45;
 
 
     public final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));

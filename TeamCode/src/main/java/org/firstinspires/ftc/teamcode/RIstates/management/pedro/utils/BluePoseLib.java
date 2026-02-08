@@ -16,8 +16,8 @@ public abstract class BluePoseLib {
     public static int PIntake1X = 40; public static int PIntake1Y = 84; public static int PIntake1R = 180;
     public static int Intake1X = 18; public static int Intake1Y = 84; public static int Intake1R = 180;
     public static int emptyX = 13; public static int emptyY = 60; public static int emptyR = 150;
-    public static int farLeaveX = 51; public static int farLeaveY = 23; public static int farLeaveR = 135;
-    public static int closeLeaveX = 33; public static int closeLeaveY = 72; public static int closeLeaveR = 135;
+    public static int farLeaveX = 40; public static int farLeaveY = 55; public static int farLeaveR = 135;
+    public static int closeLeaveX = 40; public static int closeLeaveY = 55; public static int closeLeaveR = 135;
 
     public final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
     public final Pose farShootPose = new Pose(farShootX, farShootY, Math.toRadians(farShootR));
