@@ -22,7 +22,7 @@ public class BC12vTaka extends OpMode {
     ElapsedTime shootTimer = new ElapsedTime();
     public static double shootTime = 6;
     ElapsedTime intakeTime = new ElapsedTime();
-    public static double waitPls = 3;
+    public static double waitPls = 1;
     private Timing.Timer emadTime;
     private static int emadTimeLength = 1000;
 
@@ -176,7 +176,7 @@ public class BC12vTaka extends OpMode {
         }
     }
     ElapsedTime autoTime = new ElapsedTime();
-    public static double abortMission = 28;
+    public static double abortMission = 27;
     public static boolean fled = false;
     @Override
     public void loop() {
@@ -187,7 +187,7 @@ public class BC12vTaka extends OpMode {
         else if(autoTime.seconds() > abortMission && fled){
             manager.turret.turnTurret(0);
         }
-        else{
+        else if(autoTime.seconds() < abortMission){
             autonomousPathUpdate();
             manager.turret.trackGoal(manager.shooterHandler.alliance);
         }

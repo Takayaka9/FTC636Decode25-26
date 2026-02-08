@@ -53,7 +53,7 @@ public class Turret {
             turretAngle = -Math.PI/2;
         }
 
-        ticksToMove = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2))) + offset;
+        ticksToMove = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));// + offset;
         turnTurret(ticksToMove);
     }
 
