@@ -15,17 +15,14 @@ import java.util.concurrent.TimeUnit;
 @Autonomous()
 public class BC12vTaka extends OpMode {
     SystemManager manager;
-    Timing.Timer flyTimer;
-    Timing.Timer advanceTimer;
     boolean timing;
     boolean following;
     ElapsedTime shootTimer = new ElapsedTime();
     public static double shootTime = 6;
     ElapsedTime intakeTime = new ElapsedTime();
+    Timing.Timer emadTime;
+    private static int emadTimerLength = 1000;
     public static double waitPls = 1;
-    private Timing.Timer emadTime;
-    private static int emadTimeLength = 1000;
-
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
             case 0:
@@ -43,8 +40,7 @@ public class BC12vTaka extends OpMode {
                     manager.shooterHandler.shoot();
                     manager.shooterHandler.autoShoot();
                     emadTime.start();
-                }
-                else if (!emadTime.done()) {
+                } else if (!emadTime.done()) {
                     manager.shooterHandler.off();
                     manager.intakeController.reverse();
                 }
@@ -65,7 +61,7 @@ public class BC12vTaka extends OpMode {
             case 2:
                 manager.intakeController.run();
                 if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
-                                        manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop(); manager.intakeController.stop();
+                    manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop(); manager.intakeController.stop();
                     manager.follower.followPath(manager.bc12Paths.spike2ToShoot);
                     manager.setPathState(4);
                 }
@@ -91,7 +87,8 @@ public class BC12vTaka extends OpMode {
                 } else if (!emadTime.done()) {
                     manager.shooterHandler.off();
                     manager.intakeController.reverse();
-                } else if(shootTimer.seconds() > shootTime){
+                }
+                else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
                     manager.intakeController.stop();
                     manager.follower.followPath(manager.bc12Paths.preIntakeSpike1, 0.5, true);
@@ -108,7 +105,7 @@ public class BC12vTaka extends OpMode {
             case 6:
                 manager.intakeController.run();
                 if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
-                                        manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop(); manager.intakeController.stop();
+                    manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop(); manager.intakeController.stop();
                     manager.follower.followPath(manager.bc12Paths.spike1toShoot);
                     manager.setPathState(7);
                 }
@@ -128,7 +125,8 @@ public class BC12vTaka extends OpMode {
                 } else if (!emadTime.done()) {
                     manager.shooterHandler.off();
                     manager.intakeController.reverse();
-                } else if(shootTimer.seconds() > shootTime){
+                }
+                else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
                     manager.intakeController.stop();
                     manager.follower.followPath(manager.bc12Paths.preIntakeSpike3, 0.5, true);
@@ -145,7 +143,7 @@ public class BC12vTaka extends OpMode {
             case 9:
                 manager.intakeController.run();
                 if (!manager.follower.isBusy() && intakeTime.seconds() > waitPls) {
-                                        manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop(); manager.intakeController.stop();
+                    manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop(); manager.intakeController.stop();
                     manager.follower.followPath(manager.bc12Paths.spike3toShoot);
                     manager.setPathState(12);
                 }
@@ -161,11 +159,15 @@ public class BC12vTaka extends OpMode {
                 if (shootTimer.seconds() < shootTime) {
                     manager.shooterHandler.shoot();
                     manager.shooterHandler.autoShoot();
+                    emadTime.start();
+                } else if (!emadTime.done()) {
+                    manager.shooterHandler.off();
+                    manager.intakeController.reverse();
                 }
                 else if(shootTimer.seconds() > shootTime){
                     manager.shooterHandler.off();
-                    manager.intakeController.reverse();
-                                        manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop();
+                    manager.intakeController.stop();
+                    manager.FSM.runNew(FSM.StateName.Norm); manager.intakeController.stop();
                     manager.follower.followPath(manager.bc12Paths.shootToLeave);
                     manager.setPathState(11);
                 }
@@ -209,7 +211,7 @@ public class BC12vTaka extends OpMode {
         manager.follower.setStartingPose(manager.bc12Paths.nearStartPose);
         timing = false;
         following = false;
-        emadTime = new Timing.Timer(1000, TimeUnit.MILLISECONDS);
+        emadTime = new Timing.Timer(emadTimerLength, TimeUnit.MILLISECONDS);
     }
     @Override
     public void init_loop() {

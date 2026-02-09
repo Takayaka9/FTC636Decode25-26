@@ -22,6 +22,8 @@ public class BF6vDanu extends OpMode {
     ElapsedTime intakeTime = new ElapsedTime();
     Timing.Timer emadTime;
     private static int emadTimerLength = 1000;
+    ElapsedTime delay = new ElapsedTime();
+    public static double wait = 10;
     public static double waitPls = 1;
     public void autonomousPathUpdate() {
         switch (manager.pathState) {
@@ -103,12 +105,12 @@ public class BF6vDanu extends OpMode {
             manager.follower.followPath(manager.bf6Paths.abort);
             fled = true;
         }
-        else if(autoTime.seconds() > abortMission && fled){
+        else if(autoTime.seconds() > abortMission && fled) {
             manager.turret.turnTurret(0);
         }
-        else if(autoTime.seconds() < abortMission){
+        else if(autoTime.seconds() < abortMission && delay.seconds() > wait){
             autonomousPathUpdate();
-            manager.turret.trackGoal(manager.shooterHandler.alliance);
+            //manager.turret.trackGoal(manager.shooterHandler.alliance);
         }
         //autonomousPathUpdate();
         manager.telemetryM.addData("path state", manager.pathState);
@@ -136,6 +138,8 @@ public class BF6vDanu extends OpMode {
     @Override
     public void start() {
         manager.opmodeTimer.resetTimer();
+        autoTime.reset();
+        delay.reset();
         manager.setPathState(0);
     }
     @Override

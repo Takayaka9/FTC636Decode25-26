@@ -20,8 +20,8 @@ public class Shooter {
     static double d2 = 50; static double r2 = 900;
     static double d3 = 75; static double r3 = 1000;
     static double d4 = 96; static double r4 = 1150;
-    static double d5 = 108; static double r5 = 1400;
-    static double d6 = 150; static double r6 = 1400;
+    static double d5 = 108; static double r5 = 1350;
+    static double d6 = 150; static double r6 = 1350;
 
     public Shooter(HardwareMap hardwareMap, String rightName, String leftName){
         flyRight = hardwareMap.get(DcMotorEx.class, rightName);
