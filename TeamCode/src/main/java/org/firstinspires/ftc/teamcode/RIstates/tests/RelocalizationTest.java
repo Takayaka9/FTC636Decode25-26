@@ -59,13 +59,12 @@ public class RelocalizationTest extends OpMode {
             if (result.isValid()) {
                 Pose3D llPose = result.getBotpose_MT2();
                 t.addData("ll pose", llPose.toString());
-                Pose2D pose2D = new Pose2D(DistanceUnit.METER, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.DEGREES, llPose.getOrientation().getYaw(AngleUnit.DEGREES));
-                t.addData("ftc pose in x", pose2D.getX(DistanceUnit.INCH));
-                t.addData("ftc pose in y", pose2D.getY(DistanceUnit.INCH));
-                Pose pedroPose = PoseConverter.pose2DToPose(pose2D, InvertedFTCCoordinates.INSTANCE);
-                pedroPose = pedroPose.getAsCoordinateSystem(PedroCoordinates.INSTANCE);
-                pedroPose = new Pose(pedroPose.getX() + 72, pedroPose.getY(), pedroPose.getHeading());
+                Pose2D aprilTag = new Pose2D(DistanceUnit.INCH, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.RADIANS, llPose.getOrientation().getYaw(AngleUnit.RADIANS));
+                Pose ftcStandard = PoseConverter.pose2DToPose(aprilTag, InvertedFTCCoordinates.INSTANCE);
+                Pose pedroPose = ftcStandard.getAsCoordinateSystem(PedroCoordinates.INSTANCE);
                 t.addData("pp (from ll) pose", pedroPose);
+                // If we want to set our pose, to what we were given by the Pose2D, we can add:
+                follower.setPose(pedroPose);
             }
         }
     }
