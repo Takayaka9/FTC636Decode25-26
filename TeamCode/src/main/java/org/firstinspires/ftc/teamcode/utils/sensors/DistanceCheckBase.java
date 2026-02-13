@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.color;
+package org.firstinspires.ftc.teamcode.utils.sensors;
 
 import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-abstract class DistanceCheckBase implements IsBallPresent{
+abstract class DistanceCheckBase implements IsBallPresent {
     protected final void Init(HardwareMap hardwareMap, TelemetryManager telemetryM, String name, RevColorSensorV3 sensor) {
 //        sensor = hardwareMap.get(RevColorSensorV3.class, name);
 //        sensor.setGain(1);

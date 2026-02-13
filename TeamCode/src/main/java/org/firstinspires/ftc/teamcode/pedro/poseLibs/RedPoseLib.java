@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils;
+package org.firstinspires.ftc.teamcode.pedro.poseLibs;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 
 @Configurable
-public abstract class RedPoseLib {
+public class RedPoseLib {
     public static int farStartX = 89; public static int farStartY = 9; public static int farStartR = 90;
     public static int farShootX = 87; public static int farShootY = 15; public static int farShootR = 73;
     public static int nearStartX = 120; public static int nearStartY = 129; public static int nearStartR = 37;
@@ -33,6 +33,5 @@ public abstract class RedPoseLib {
     public final Pose emptyPose = new Pose(emptyX, emptyY, Math.toRadians(emptyR));
     public final Pose farLeavePose = new Pose(farLeaveX, farLeaveY, Math.toRadians(farLeaveR));
     public final Pose closeLeavePose = new Pose(closeLeaveX, closeLeaveY, Math.toRadians(closeLeaveR));
-
 
 }

@@ -5,7 +5,7 @@ import static org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelig
 import com.pedropathing.follower.Follower;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.LimelightController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.timers.SolversTiming;
+import org.firstinspires.ftc.teamcode.utils.timers.SolversTiming;
 
 public class LimelightHandler {
     private final LimelightController llController;

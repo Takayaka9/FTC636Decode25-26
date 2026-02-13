@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.PwmControl;
 import com.qualcomm.robotcore.hardware.PwmControl.PwmRange;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.pwm.PwmConverter;
+import org.firstinspires.ftc.teamcode.utils.pwm.PwmConverter;
 
 public abstract class ServoImplExBase implements GamepadServoImplEx {
     ServoImplEx servo;

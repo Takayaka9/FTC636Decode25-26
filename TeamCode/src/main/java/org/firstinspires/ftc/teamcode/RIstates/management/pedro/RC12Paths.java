@@ -5,7 +5,7 @@ import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.RedPoseLib;
+import org.firstinspires.ftc.teamcode.pedro.poseLibs.RedPoseLib;
 
 public class RC12Paths extends RedPoseLib {
     Follower follower;

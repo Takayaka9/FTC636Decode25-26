@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.timers;
+package org.firstinspires.ftc.teamcode.utils.timers;
 
 public interface GenericTime {
     /**

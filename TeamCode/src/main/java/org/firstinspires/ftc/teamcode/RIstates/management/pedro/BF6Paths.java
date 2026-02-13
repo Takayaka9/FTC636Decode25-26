@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.pedro;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.BluePoseLib;
-import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.RedPoseLib;
+import org.firstinspires.ftc.teamcode.pedro.poseLibs.BluePoseLib;
 
 public class BF6Paths extends BluePoseLib {
     Follower follower;

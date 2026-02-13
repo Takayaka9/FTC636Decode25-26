@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils;
+package org.firstinspires.ftc.teamcode.pedro.poseLibs;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 
 @Configurable
-public abstract class BluePoseLib {
+public class BluePoseLib {
     public static int farStartX = 55; public static int farStartY = 9; public static int farStartR = 90;
     public static int farShootX = 57; public static int farShootY = 15; public static int farShootR = 107;
     public static int nearStartX = 24; public static int nearStartY = 129; public static int nearStartR = 143;
@@ -22,7 +22,7 @@ public abstract class BluePoseLib {
     public final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
     public final Pose farShootPose = new Pose(farShootX, farShootY, Math.toRadians(farShootR));
     public final Pose nearStartPose = new Pose(nearStartX, nearStartY, Math.toRadians(nearStartR));
-    public final Pose nearShootPose = new Pose(nearShootX, nearShootY,Math.toRadians(nearShootR));
+    public final Pose nearShootPose = new Pose(nearShootX, nearShootY, Math.toRadians(nearShootR));
     public final Pose pIntake3Pose = new Pose(PIntake3X, PIntake3Y, Math.toRadians(PIntake3R));
     public final Pose intake3Pose = new Pose(Intake3X, Intake3Y, Math.toRadians(Intake3R));
     public final Pose pIntake2Pose = new Pose(PIntake2X, PIntake2Y, Math.toRadians(PIntake2R));

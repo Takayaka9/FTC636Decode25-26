@@ -1,16 +1,18 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.pedro;
+package org.firstinspires.ftc.teamcode.pedro.paths;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
-import org.firstinspires.ftc.teamcode.pedro.poseLibs.RedPoseLib;
+import org.firstinspires.ftc.teamcode.utils.pedroUtils.interfaceUtils.PoseLibWrapper;
+import org.firstinspires.ftc.teamcode.utils.pedroUtils.interfaceUtils.BuildPaths;
+import org.firstinspires.ftc.teamcode.utils.alliance.Alliance;
 
-public class RF6Paths extends RedPoseLib {
+public class F6Paths extends PoseLibWrapper implements BuildPaths {
     Follower follower;
 
-    public RF6Paths(Follower follower) {
-        super();
+    public F6Paths(Follower follower, Alliance alliance) {
+        super(alliance);
         this.follower = follower;
     }
 

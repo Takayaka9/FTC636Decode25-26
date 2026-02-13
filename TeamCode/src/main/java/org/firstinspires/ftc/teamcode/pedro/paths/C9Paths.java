@@ -1,16 +1,18 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.pedro;
+package org.firstinspires.ftc.teamcode.pedro.paths;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
-import org.firstinspires.ftc.teamcode.pedro.poseLibs.BluePoseLib;
+import org.firstinspires.ftc.teamcode.utils.pedroUtils.interfaceUtils.BuildPaths;
+import org.firstinspires.ftc.teamcode.utils.pedroUtils.interfaceUtils.PoseLibWrapper;
+import org.firstinspires.ftc.teamcode.utils.alliance.Alliance;
 
-public class BC12Paths extends BluePoseLib {
+public class C9Paths extends PoseLibWrapper implements BuildPaths {
     Follower follower;
-    public BC12Paths(Follower follower) {
-        super();
+    public C9Paths(Follower follower, Alliance alliance) {
+        super(alliance);
         this.follower = follower;
     }
 
@@ -31,7 +33,7 @@ public class BC12Paths extends BluePoseLib {
                 .build();
         spike2ToShoot = follower.pathBuilder()
                 .addPath(new BezierCurve(intake2Pose, pIntake2Pose, nearShootPose))
-                .setConstantHeadingInterpolation(nearShootPose.getHeading())
+                .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
         gateToShoot = follower.pathBuilder()
                 .addPath(new BezierCurve(emptyPose, pIntake2Pose, nearShootPose))
@@ -62,12 +64,13 @@ public class BC12Paths extends BluePoseLib {
                 .setLinearHeadingInterpolation(intake3Pose.getHeading(), nearShootPose.getHeading())
                 .build();
         shootToLeave = follower.pathBuilder()
-                .addPath(new BezierLine(nearShootPose, nearLeavePose))
+                .addPath(new BezierLine(nearShootPose, closeLeavePose))
                 .setConstantHeadingInterpolation(nearShootPose.getHeading())
                 .build();
         abort = follower.pathBuilder()
-                .addPath(new BezierLine(follower.getPose(), nearLeavePose))
-                .setLinearHeadingInterpolation(follower.getPose().getHeading(), nearLeavePose.getHeading())
+                .addPath(new BezierLine(follower.getPose(), closeLeavePose))
+                .setLinearHeadingInterpolation(follower.getPose().getHeading(), closeLeavePose.getHeading())
                 .build();
     }
+
 }

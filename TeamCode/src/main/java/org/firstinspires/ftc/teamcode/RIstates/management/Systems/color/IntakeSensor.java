@@ -1,15 +1,16 @@
 package org.firstinspires.ftc.teamcode.RIstates.management.Systems.color;
 
 import com.bylazar.configurables.annotations.Configurable;
-import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.utils.sensors.DistanceCheckBase;
+import org.firstinspires.ftc.teamcode.utils.sensors.IsBallPresent;
 
 
 @Configurable
-public class IntakeSensor extends DistanceCheckBase implements IsBallPresent{
+public class IntakeSensor extends DistanceCheckBase implements IsBallPresent {
     public RevColorSensorV3 sensor;
     private static double noBallDistance = 57.5;
 

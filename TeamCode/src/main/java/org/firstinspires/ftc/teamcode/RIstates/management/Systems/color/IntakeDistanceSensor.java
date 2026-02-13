@@ -5,10 +5,12 @@ import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.utils.sensors.DistanceCheckBase;
+import org.firstinspires.ftc.teamcode.utils.sensors.IsBallPresent;
 
 
 @Configurable
-public class IntakeDistanceSensor extends DistanceCheckBase implements IsBallPresent{
+public class IntakeDistanceSensor extends DistanceCheckBase implements IsBallPresent {
     Rev2mDistanceSensor sensor;
 
     double noBallDistance = 90;

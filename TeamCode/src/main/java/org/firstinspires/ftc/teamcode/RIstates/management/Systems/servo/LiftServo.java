@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.timers.GenericTime;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Utilities.timers.SolversTiming;
+import org.firstinspires.ftc.teamcode.utils.timers.GenericTime;
+import org.firstinspires.ftc.teamcode.utils.timers.SolversTiming;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.CRServoBase;
 
 @Configurable

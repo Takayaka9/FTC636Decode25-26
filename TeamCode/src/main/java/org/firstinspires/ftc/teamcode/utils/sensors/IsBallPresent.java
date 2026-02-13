@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.color;
+package org.firstinspires.ftc.teamcode.utils.sensors;
 
 public interface IsBallPresent {
 

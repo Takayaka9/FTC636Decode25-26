@@ -1,0 +1,54 @@
+package org.firstinspires.ftc.teamcode.utils.commandUtils;
+
+public class CommandLoop extends CommandHandler{
+    public CommandLoop() {
+        super();
+    }
+
+
+    private void stopStopMap () {
+        String[] stopKeys = stoppingCommands.keySet().toArray(String[]::new);
+        for (int i = 0; i < stopKeys.length;) {
+            stoppingCommands.get(stopKeys[i]).stop();
+            stoppingCommands.remove(stopKeys[i]);
+            i++;
+        }
+    }
+
+    private void pushWaitMap () {
+        String[] waitingKeys = waitingCommands.keySet().toArray(String[]::new);
+        for (int i = 0; i < waitingKeys.length;) {
+            if (!checkRequirements(waitingCommands.get(waitingKeys[i]))) {
+                initializingCommands.put(waitingCommands.get(waitingKeys[i]).getClass().getName(), waitingCommands.get(waitingKeys[i]));
+                waitingCommands.remove(waitingCommands.get(waitingKeys[i]).getClass().getName());
+            }
+        }
+
+    }
+
+    private void initInitMap () {
+        String[] initKeys = initializingCommands.keySet().toArray(String[]::new);
+        for (int i = 0; i < initKeys.length;) {
+            initializingCommands.get(initKeys[i]).init();
+            initializingCommands.remove(initKeys[i]);
+            runningCommands.put(initializingCommands.get(initKeys[i]).getClass().getName(), initializingCommands.get(initKeys[i]));
+            i++;
+        }
+    }
+
+    private void loopRunningMap () {
+        String[] runningKeys = runningCommands.keySet().toArray(String[]::new);
+        for (int i = 0; i < runningKeys.length;) {
+            runningCommands.get(runningKeys[i]).loop();
+            i++;
+        }
+    }
+
+    /// MUST BE CALLED IN OpMode LOOP
+    public void loop() {
+        stopStopMap();
+        pushWaitMap();
+        initInitMap();
+        loopRunningMap();
+    }
+}
