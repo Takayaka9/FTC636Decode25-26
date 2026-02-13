@@ -5,5 +5,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp
 public class RicoInMexicoTele extends OpMode {
+    @Override
+    public void start() {
+        super.start();
+    }
 
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void loop() {
+
+    }
 }
