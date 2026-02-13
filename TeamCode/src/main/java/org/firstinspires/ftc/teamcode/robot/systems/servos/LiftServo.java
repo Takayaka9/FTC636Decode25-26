@@ -1,18 +1,19 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo;
+package org.firstinspires.ftc.teamcode.robot.systems.servos;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.utils.commandUtils.CommandLoop;
 import org.firstinspires.ftc.teamcode.utils.timers.GenericTime;
 import org.firstinspires.ftc.teamcode.utils.timers.SolversTiming;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.CRServoBase;
+import org.firstinspires.ftc.teamcode.utils.servo.CRServoBase;
 
 @Configurable
 public class LiftServo extends CRServoBase{
     GenericTime timer;
     int liftTime = 3000;
-    public LiftServo(HardwareMap hardwareMap) {
-        super(hardwareMap, "lift");
+    public LiftServo(CommandLoop maps, HardwareMap hardwareMap) {
+        super(maps, hardwareMap, "lift");
         timer = new SolversTiming();
         timer.create();
     }

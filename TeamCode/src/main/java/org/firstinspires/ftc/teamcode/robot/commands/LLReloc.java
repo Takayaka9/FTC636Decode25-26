@@ -1,34 +1,34 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight;
+package org.firstinspires.ftc.teamcode.robot.commands;
 
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ftc.InvertedFTCCoordinates;
 import com.pedropathing.ftc.PoseConverter;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
-import com.qualcomm.hardware.limelightvision.LLResultTypes;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
+import org.firstinspires.ftc.teamcode.robot.systems.Limelight;
+import org.firstinspires.ftc.teamcode.utils.commandUtils.BaseCommand;
+import org.firstinspires.ftc.teamcode.utils.commandUtils.CommandLoop;
 
-import java.util.List;
-
-public class LimelightController extends Limelight implements Controller {
+public class LLReloc extends BaseCommand {
     private int state;
     public static int motifID;
     public static boolean found;
     TelemetryManager telemetryM;
     Follower follower;
-    public LimelightController(HardwareMap hardwareMap, String name, Follower follower, TelemetryManager telemetryM){
-        super(hardwareMap, name);
+    Limelight limelight;
+    public LLReloc(CommandLoop maps, Limelight limelight, Follower follower, TelemetryManager telemetryM){
+        super(maps);
         this.telemetryM = telemetryM;
         this.follower = follower;
+        this.limelight = limelight;
         found = false;
+        addRequirement(limelight);
         //state = 0;
         //motifID = 0;
     }
@@ -43,18 +43,18 @@ public class LimelightController extends Limelight implements Controller {
     //inits ll and switches pipeline to 3. sets found to false for llhandler purposes
     @Override
     public void init() {
-        start();
-        limelight3A.pipelineSwitch(3);
+        limelight.limelight3A.start();
+        limelight.limelight3A.pipelineSwitch(3);
         found = false;
     }
 
     //states: motif (1), relocalization(3)
     @Override
-    public void update() {
+    public void loop() {
         /*
         if(state == 1){
-            limelight3A.pipelineSwitch(state);
-            LLResult result = limelight3A.getLatestResult();
+            limelight.limelight3A.pipelineSwitch(state);
+            LLResult result = limelight.limelight3A.getLatestResult();
             if(result != null && result.isValid()){
                 List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
                 for(LLResultTypes.FiducialResult r: fiducialResults){
@@ -69,8 +69,8 @@ public class LimelightController extends Limelight implements Controller {
 
          */
         //code to use megatag2 to relocalize robot using follower's heading
-        limelight3A.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
-        LLResult result = limelight3A.getLatestResult();
+        limelight.limelight3A.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
+        LLResult result = limelight.limelight3A.getLatestResult();
         if (result != null) {
             if (result.isValid()) {
                 Pose3D llPose = result.getBotpose_MT2();
@@ -92,13 +92,9 @@ public class LimelightController extends Limelight implements Controller {
     }
 
     @Override
-    public void end() {
+    public void stop() {
         stop();
         found = false;
     }
-
-    @Override
-    public errors updateError() {
-        return errors.RUNNING;
-    }
 }
+

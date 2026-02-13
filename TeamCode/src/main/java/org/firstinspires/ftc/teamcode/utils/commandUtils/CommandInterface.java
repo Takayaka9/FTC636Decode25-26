@@ -6,4 +6,5 @@ public interface CommandInterface {
     void loop();
     void stop();
     boolean prioritize = false;
+
 }

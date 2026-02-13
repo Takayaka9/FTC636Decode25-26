@@ -1,19 +1,17 @@
 package org.firstinspires.ftc.teamcode.utils.commandUtils;
 
-import org.firstinspires.ftc.robotcore.internal.system.PreferencesHelper;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 abstract class SystemMaps {
-    public Map<String, CommandBase> commands;
-    public Map<String, SubsystemBase> subsystems;
+    public Map<String, BaseCommand> commands;
+    public Map<String, BaseSubsystem> subsystems;
 
-    public Map<String, CommandBase> initializingCommands;
-    public Map<String, CommandBase> runningCommands;
-    public Map<String, CommandBase> stoppingCommands;
-    public Map<String, CommandBase> waitingCommands;
+    public Map<String, BaseCommand> initializingCommands;
+    public Map<String, BaseCommand> runningCommands;
+    public Map<String, BaseCommand> stoppingCommands;
+    public Map<String, BaseCommand> waitingCommands;
 
 
     public SystemMaps() {
@@ -24,16 +22,16 @@ abstract class SystemMaps {
         stoppingCommands = new HashMap<>();
         waitingCommands = new LinkedHashMap<>();
     }
-    public void addCommand(String name, CommandBase command) {
+    public void addCommand(String name, BaseCommand command) {
         commands.put(name, command);
     }
-    public void addSubsystem(String name, SubsystemBase subsystem) {
+    public void addSubsystem(String name, BaseSubsystem subsystem) {
         subsystems.put(name, subsystem);
     }
-    public CommandBase getCommand(String name) {
+    public BaseCommand getCommand(String name) {
         return commands.get(name);
     }
-    public SubsystemBase getSubsystem(String name) {
+    public BaseSubsystem getSubsystem(String name) {
         return subsystems.get(name);
     }
 }

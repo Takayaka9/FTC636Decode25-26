@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base;
+package org.firstinspires.ftc.teamcode.utils.servo;
 
 public interface GamepadServoImplEx {
     void setPosition(double position);

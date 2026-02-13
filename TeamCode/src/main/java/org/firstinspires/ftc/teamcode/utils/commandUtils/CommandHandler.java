@@ -6,7 +6,7 @@ abstract class CommandHandler extends SystemMaps {
     }
 
     //TODO: change so that it just uses the command's requirement map's keys
-    protected boolean checkRequirements(CommandBase command) {
+    protected boolean checkRequirements(BaseCommand command) {
         if (command != null) {
             String[] systemKeys = subsystems.keySet().toArray(String[]::new);
             String[] requirementKeys = command.requirements.keySet().toArray(String[]::new);
@@ -30,7 +30,7 @@ abstract class CommandHandler extends SystemMaps {
         return false;
     }
 
-    private boolean readyToStart (CommandBase command) {
+    private boolean readyToStart (BaseCommand command) {
         if (!runningCommands.containsKey(command.getClass().getName())
                 && !initializingCommands.containsKey(command.getClass().getName())
                 && !stoppingCommands.containsKey(command.getClass().getName())
@@ -41,7 +41,7 @@ abstract class CommandHandler extends SystemMaps {
         }
     }
 
-    private boolean readyToStop (CommandBase command) {
+    private boolean readyToStop (BaseCommand command) {
         if (!stoppingCommands.containsKey(command.getClass().getName())
                 & runningCommands.containsKey(command.getClass().getName())
                 & initializingCommands.containsKey(command.getClass().getName())
@@ -52,7 +52,7 @@ abstract class CommandHandler extends SystemMaps {
         }
     }
 
-    public void runCommand(CommandBase command) {
+    public void runCommand(BaseCommand command) {
         if (command != null && readyToStart(command)) {
             if (!checkRequirements(command)) {
                 initializingCommands.put(command.getClass().getName(), command);
@@ -62,7 +62,7 @@ abstract class CommandHandler extends SystemMaps {
         } else return;
     }
 
-    public void stopCommand(CommandBase command) {
+    public void stopCommand(BaseCommand command) {
         if (command != null && readyToStop(command)) {
             stoppingCommands.put(command.getClass().getName(), command);
             runningCommands.remove(command.getClass().getName());

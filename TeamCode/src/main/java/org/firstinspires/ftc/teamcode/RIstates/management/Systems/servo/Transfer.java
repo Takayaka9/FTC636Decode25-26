@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.CRServoBase;
+import org.firstinspires.ftc.teamcode.utils.servo.CRServoBase;
 
 public class Transfer extends CRServoBase {
     Gamepad gamepad2;

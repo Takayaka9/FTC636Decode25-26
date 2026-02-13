@@ -1,15 +1,19 @@
-package org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base;
+package org.firstinspires.ftc.teamcode.utils.servo;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.utils.commandUtils.BaseSubsystem;
+import org.firstinspires.ftc.teamcode.utils.commandUtils.CommandLoop;
+
 @Configurable
-public abstract class CRServoBase {
+public abstract class CRServoBase extends BaseSubsystem {
     HardwareMap hardwareMap;
     CRServo belt;
 //    DcMotorEx belt;
-    public CRServoBase(HardwareMap hardwareMap, String name) {
+    public CRServoBase(CommandLoop maps, HardwareMap hardwareMap, String name) {
+        super(maps);
         this.hardwareMap = hardwareMap;
         this.belt = hardwareMap.get(CRServo.class, name);
 //        this.belt = hardwareMap.get(DcMotorEx.class, name);

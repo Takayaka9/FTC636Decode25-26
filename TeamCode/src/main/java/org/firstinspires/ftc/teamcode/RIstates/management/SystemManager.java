@@ -5,13 +5,12 @@ import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.util.Timer;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.HoodController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
+import org.firstinspires.ftc.teamcode.robot.systems.servos.LiftServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.Transfer;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BC12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF12Paths;
@@ -19,8 +18,8 @@ import org.firstinspires.ftc.teamcode.RIstates.management.pedro.BF6Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RC12Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.RF6Paths;
 import org.firstinspires.ftc.teamcode.RIstates.management.pedro.utils.PoseStorage;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.base.GamepadServoImplEx;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.GateServo;
+import org.firstinspires.ftc.teamcode.utils.servo.GamepadServoImplEx;
+import org.firstinspires.ftc.teamcode.robot.systems.servos.Stopper;
 import org.firstinspires.ftc.teamcode.RIstates.management.handlers.LimelightHandler;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Controller;
@@ -37,6 +36,8 @@ import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Intake;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Drive.TeleOpDriveController;
+
+import kotlin.Suppress;
 
 public class SystemManager {
     public final Follower follower;
@@ -55,7 +56,6 @@ public class SystemManager {
     //public final BallController ballController;
     public final Controller driveController;
     public final LightController lightController;
-    public final LimelightController limelightController;
     public final LimelightHandler limelightHandler;
     public final PoseStorage poseStorage;
     public final Transfer transfer;
@@ -77,7 +77,8 @@ public class SystemManager {
 
     private boolean isTeleop;
 
-
+    @Suppress(names = "ALL")
+    @SuppressWarnings("ALL")
     public SystemManager(HardwareMap hardwareMap, Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, boolean isTeleOp, boolean testing) {
         ///DO NOT CHANGE THE INIT ORDER, add new stuff in it's respective place to avoid NullPointer
 
@@ -111,7 +112,7 @@ public class SystemManager {
 //        intakeSensor = new IntakeSensor(hardwareMap);
         intakeDistanceSensor = new IntakeDistanceSensor(hardwareMap);
         turretSensor = new TurretSensor(hardwareMap);
-        gateServo = new GateServo(hardwareMap);
+        gateServo = new Stopper(hardwareMap);
         liftServo = new LiftServo(hardwareMap);
         transfer = new Transfer(hardwareMap, gamepad2);
 

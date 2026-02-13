@@ -5,7 +5,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.LimelightController;
-import org.firstinspires.ftc.teamcode.RIstates.management.Systems.servo.LiftServo;
+import org.firstinspires.ftc.teamcode.robot.systems.servos.LiftServo;
 import org.firstinspires.ftc.teamcode.RIstates.management.fsm.FSM;
 
 public class TeleOpHandler {
