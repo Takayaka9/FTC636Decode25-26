@@ -22,22 +22,7 @@ public class TeleOpDriveController implements Controller {
     }
 
     public void update () {
-        if (gamepad.left_trigger < 0.3) {
-            follower.setTeleOpDrive(
-                    -gamepad.left_stick_y*1,
-                    -gamepad.left_stick_x*1,
-                    -gamepad.right_stick_x*0.45,
-                    true
-            );
-        }
-        if (gamepad.left_trigger > 0.3) {
-            follower.setTeleOpDrive(
-                    -gamepad.left_stick_y*0.35,
-                    -gamepad.left_stick_x*0.35,
-                    -gamepad.right_stick_x*0.25,
-                    true
-            );
-        }
+
     }
 
 }
