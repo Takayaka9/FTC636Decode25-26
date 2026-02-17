@@ -8,7 +8,7 @@
 //import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Hood;
 //import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Intake;
 //import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Limelight.Limelight;
-//import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Shooter;
+//import org.firstinspires.ftc.teamcode.RIstates.management.Systems.TakaShooter;
 //import org.firstinspires.ftc.teamcode.RIstates.management.Systems.Turret;
 //import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 //
@@ -17,7 +17,7 @@
 //    Hood hood;
 //    Limelight limelight;
 //    Intake intake;
-//    Shooter shooter;
+//    TakaShooter shooter;
 //    Follower follower;
 //    TelemetryManager t;
 //    @Override
@@ -27,7 +27,7 @@
 //        turret = new Turret(hardwareMap, follower, "t");
 //        hood = new Hood(hardwareMap, "h");
 //        intake = new Intake(hardwareMap, "i");
-//        shooter = new Shooter(hardwareMap, "rs", "ls");
+//        shooter = new TakaShooter(hardwareMap, "rs", "ls");
 //    }
 //
 //    @Override

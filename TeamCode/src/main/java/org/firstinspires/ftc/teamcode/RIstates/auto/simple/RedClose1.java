@@ -9,7 +9,7 @@
 //import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 //
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Intake;
-//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
+//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.TakaShooter;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.HoodController;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Turret;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.ShooterHandler;
@@ -23,7 +23,7 @@
 //    private int pathState;
 //
 //    //subsystems
-//    private Shooter shooter;
+//    private TakaShooter shooter;
 //    private HoodController hoodController;
 //    private Turret turret;
 //    private ShooterHandler shooterHandler;
@@ -156,7 +156,7 @@
 //        telemetry.update();
 //
 //        //subsystems
-//        shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
+//        shooter = new TakaShooter(hardwareMap, "flyRight", "flyLeft");
 //        hoodController = new HoodController(hardwareMap, "servo");
 //        turret = new Turret(hardwareMap, "turret");
 //        shooterHandler = new ShooterHandler(shooter, hoodController, turret, follower);

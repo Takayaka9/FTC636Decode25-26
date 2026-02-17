@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Disabled
 @Configurable
-@TeleOp(name = "New Shooter Test", group = "TeleOp")
+@TeleOp(name = "New TakaShooter Test", group = "TeleOp")
 public class NewShooterTester extends OpMode {
     public DcMotorEx flyTop;
     public DcMotorEx flyBottom;

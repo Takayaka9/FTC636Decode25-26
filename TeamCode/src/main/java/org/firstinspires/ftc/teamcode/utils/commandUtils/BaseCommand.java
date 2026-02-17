@@ -5,7 +5,7 @@ import java.util.Map;
 
 public abstract class BaseCommand implements CommandInterface{
     Map<String, BaseSubsystem> requirements;
-    public BaseCommand(SystemMaps maps) {
+    public BaseCommand(CommandLoop maps) {
         requirements = new HashMap<>();
         maps.addCommand(this.getClass().getName(), this);
     }

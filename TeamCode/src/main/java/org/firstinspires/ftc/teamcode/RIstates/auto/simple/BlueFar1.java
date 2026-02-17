@@ -11,7 +11,7 @@
 //import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.HoodController;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Intake;
-//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Shooter;
+//import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.TakaShooter;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.ShooterHandler;
 //import org.firstinspires.ftc.teamcode.RIstates.management.handlers.FSM.states.controllers.subsystems.Turret;
 //
@@ -25,7 +25,7 @@
 //    private int pathState;
 //
 //    //subs
-//    private Shooter shooter;
+//    private TakaShooter shooter;
 //    private HoodController hoodController;
 //    private Turret turret;
 //    private ShooterHandler shooterHandler;
@@ -190,7 +190,7 @@
 //        telemetry.addData("heading", follower.getPose().getHeading());
 //        telemetry.update();
 //        //subs
-//        shooter = new Shooter(hardwareMap, "flyRight", "flyLeft");
+//        shooter = new TakaShooter(hardwareMap, "flyRight", "flyLeft");
 //        hoodController = new HoodController(hardwareMap, "servo");
 //        turret = new Turret(hardwareMap, "turret");
 //        shooterHandler = new ShooterHandler(shooter, hoodController, turret, follower);

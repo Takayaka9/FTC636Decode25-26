@@ -12,8 +12,8 @@ import com.seattlesolvers.solverslib.util.InterpLUT;
 public class Shooter {
     TelemetryManager telemetryM;
     private final InterpLUT lut = new InterpLUT();
-    public final DcMotorEx flyRight;
-    public final DcMotorEx flyLeft;
+    public final DcMotorEx shooter1;
+    public final DcMotorEx shooter2;
     private ElapsedTime pidTime = new ElapsedTime();
 
     static double d1 = 36; static double r1 = 900;
@@ -24,13 +24,13 @@ public class Shooter {
     static double d6 = 150; static double r6 = 1400;
 
     public Shooter(HardwareMap hardwareMap, String rightName, String leftName){
-        flyRight = hardwareMap.get(DcMotorEx.class, rightName);
-        flyLeft = hardwareMap.get(DcMotorEx.class, leftName);
-        flyRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        flyLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        flyRight.setDirection(DcMotorEx.Direction.REVERSE);
-        flyRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        flyLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        shooter1 = hardwareMap.get(DcMotorEx.class, rightName);
+        shooter2 = hardwareMap.get(DcMotorEx.class, leftName);
+        shooter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        shooter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        shooter1.setDirection(DcMotorEx.Direction.REVERSE);
+        shooter1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        shooter2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         lut.add(0, r1);
         lut.add(d1, r1);
         lut.add(d2, r2);
@@ -50,8 +50,8 @@ public class Shooter {
     }
 
     public void stop(){
-        flyRight.setPower(0);
-        flyLeft.setPower(0);
+        shooter1.setPower(0);
+        shooter2.setPower(0);
     }
 
 
@@ -64,7 +64,7 @@ public class Shooter {
     private double lastError;
     public double outputRight; // basically the same as the normal PIDControl
     public void updateRight(double target){
-        double error = target-(flyRight.getVelocity());
+        double error = target-(shooter1.getVelocity());
         double dt = pidTime.seconds();
         if (dt < 0.0001) dt = 0.0001;
         integralSum += error* dt;
@@ -76,8 +76,8 @@ public class Shooter {
 
         outputRight = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (target * Kf);
 
-        flyRight.setPower(outputRight);
-        //flyLeft.setPower(output); //in case we switch back to one pid
+        shooter1.setPower(outputRight);
+        //shooter2.setPower(output); //in case we switch back to one pid
     }
 
     ElapsedTime pidLeft = new ElapsedTime();
@@ -85,7 +85,7 @@ public class Shooter {
     double integralSumLeft;
     public double outputLeft = 0; // basically the same as the normal PIDControl
     public void updateLeft(double target){
-        double error = target-(flyLeft.getVelocity());
+        double error = target-(shooter2.getVelocity());
         double dt = pidLeft.seconds();
         if (dt < 0.0001) dt = 0.0001;
         integralSumLeft += error* dt;
@@ -97,11 +97,11 @@ public class Shooter {
 
         outputLeft = (error * Kp) + (derivative * Kd) + (integralSumLeft * Ki) + (target * Kf);
 
-        flyLeft.setPower(outputLeft);
+        shooter2.setPower(outputLeft);
     }
 
     public double getError(){
-        //return getShooterTPS(distance) - flyRight.getVelocity();
+        //return getShooterTPS(distance) - shooter1.getVelocity();
         return lastError;
     }
 
@@ -115,16 +115,16 @@ public class Shooter {
     }
 
     public void reverse() {
-        flyRight.setPower(-1);
-        flyLeft.setPower(-1);
+        shooter1.setPower(-1);
+        shooter2.setPower(-1);
     }
     public static double brake = -0.3;
     public void brake(){
-        flyRight.setPower(brake);
-        flyLeft.setPower(brake);
+        shooter1.setPower(brake);
+        shooter2.setPower(brake);
     }
     public int averageVelocity () {
-        double averageVelocity = ((flyRight.getVelocity() + flyLeft.getVelocity()) / 2);
+        double averageVelocity = ((shooter1.getVelocity() + shooter2.getVelocity()) / 2);
         return (int) (Math.round(averageVelocity));
     }
 }
