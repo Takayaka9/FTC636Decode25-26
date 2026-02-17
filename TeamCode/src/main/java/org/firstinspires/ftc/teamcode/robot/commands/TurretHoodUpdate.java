@@ -25,7 +25,7 @@ public class TurretHoodUpdate extends BaseCommand {
 
     @Override
     public void loop() {
-        //turret.
+        turret.trackGoal(CurrentAlliance.alliance);
         hood.angleHood(getTargetDistance.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
     }
 

@@ -57,13 +57,8 @@ public class Turret {
         turnTurret(ticksToMove);
     }
 
-    ElapsedTime turretTime = new ElapsedTime();
-    double lastTurretError;
-    double turretIntegral;
-    public static double turretKp = 0.03;
-    public static double turretKd = 0;
-    public static double turretKi = 0;
-    public static double I_MAX = 500;
+
+
 
     /*
    turnTurret is a method to move the turret using PID + FF(?)
