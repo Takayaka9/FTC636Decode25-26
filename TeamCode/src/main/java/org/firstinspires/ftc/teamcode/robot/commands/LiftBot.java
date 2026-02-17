@@ -9,6 +9,7 @@ public class LiftBot extends BaseCommand {
     public LiftBot (CommandLoop maps, LiftServo lift) {
         super(maps);
         this.lift = lift;
+        addRequirement(lift);
     }
 
     @Override

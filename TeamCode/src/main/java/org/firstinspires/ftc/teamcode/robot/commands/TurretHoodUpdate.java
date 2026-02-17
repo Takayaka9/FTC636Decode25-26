@@ -17,6 +17,7 @@ public class TurretHoodUpdate extends BaseCommand {
 
     public TurretHoodUpdate(CommandLoop maps, Turret turret, HoodServo hood, Follower follower) {
         super(maps);
+        addRequirement(turret, hood);
         this.turret = turret;
         this.hood = hood;
         this.getTargetDistance = new GetTargetDistance();
