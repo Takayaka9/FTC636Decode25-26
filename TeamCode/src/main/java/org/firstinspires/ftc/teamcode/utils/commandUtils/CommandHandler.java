@@ -83,7 +83,7 @@ abstract class CommandHandler extends SystemMaps {
         }
     }
 
-    public void emadIsADumbass(BaseCommand command, Boolean use) {
+    private void emadIsADumbass(BaseCommand command, Boolean use) {
         if (command != null) {
             String[] systemKeys = subsystems.keySet().toArray(String[]::new);
             String[] requirementKeys = command.requirements.keySet().toArray(String[]::new);

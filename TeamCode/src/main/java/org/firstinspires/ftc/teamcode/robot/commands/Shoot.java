@@ -17,12 +17,12 @@ public class Shoot extends BaseCommand {
     Follower follower;
     TelemetryManager telemetryM;
 
-    public Shoot(CommandLoop maps, Transfer transfer, TakaShooter shooter, GetTargetDistance getTargetDistance, Follower follower, TelemetryManager telemetryM) {
+    public Shoot(CommandLoop maps, Transfer transfer, TakaShooter shooter, Follower follower, TelemetryManager telemetryM) {
         super(maps);
         addRequirement(transfer, shooter);
         this.transfer = transfer;
         this.shooter = shooter;
-        this.getTargetDistance = getTargetDistance;
+        this.getTargetDistance = new GetTargetDistance();
         this.follower = follower;
         this.telemetryM = telemetryM;
     }

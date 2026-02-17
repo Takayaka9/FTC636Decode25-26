@@ -14,6 +14,7 @@ public class Transfer extends ServoImplExBase {
     @Configurable
     static class TransferPower {
         public static double power = 1;
+        public static double reversePower = -1;
     }
     private DcMotorEx transfer;
     public Transfer(CommandLoop maps, HardwareMap hardwareMap) {
@@ -24,6 +25,9 @@ public class Transfer extends ServoImplExBase {
 
     public void run() {
         transfer.setPower(TransferPower.power);
+    }
+    public void reverse() {
+        transfer.setPower(TransferPower.reversePower);
     }
 
     public void stop() {
