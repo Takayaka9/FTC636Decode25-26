@@ -39,7 +39,9 @@ public class CommandLoop extends CommandHandler{
     private void loopRunningMap () {
         String[] runningKeys = runningCommands.keySet().toArray(String[]::new);
         for (int i = 0; i < runningKeys.length;) {
-            runningCommands.get(runningKeys[i]).loop();
+            if (runningCommands.get(runningKeys[i]) != null) {
+                runningCommands.get(runningKeys[i]).loop();
+            }
             i++;
         }
     }
