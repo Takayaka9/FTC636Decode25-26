@@ -19,7 +19,8 @@ public class Shoot extends BaseCommand {
 
     public Shoot(CommandLoop maps, Transfer transfer, TakaShooter shooter, Follower follower, TelemetryManager telemetryM) {
         super(maps);
-        addRequirement(transfer, shooter);
+        //TODO: add shooter back into requirements if we need to
+        addRequirement(transfer);
         this.transfer = transfer;
         this.shooter = shooter;
         this.getTargetDistance = new GetTargetDistance();
@@ -30,19 +31,19 @@ public class Shoot extends BaseCommand {
     @Override
     public void init() {
         transfer.stop();
-        shooter.stop();
+//        shooter.stop();
     }
 
     @Override
     public void loop() {
-        shooter.runForDistance(getTargetDistance.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
+//        shooter.runForDistance(getTargetDistance.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
         autoShoot();
     }
 
     @Override
     public void stop() {
         transfer.stop();
-        shooter.stop();
+//        shooter.stop();
     }
 
     public static double allowedError = 50;
