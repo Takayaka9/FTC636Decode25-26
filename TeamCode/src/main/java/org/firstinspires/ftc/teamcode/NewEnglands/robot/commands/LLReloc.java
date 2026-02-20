@@ -7,6 +7,7 @@ import com.pedropathing.ftc.PoseConverter;
 import com.pedropathing.geometry.PedroCoordinates;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -23,6 +24,7 @@ public class LLReloc extends BaseCommand {
     TelemetryManager telemetryM;
     Follower follower;
     Limelight limelight;
+    Gamepad gamepad1;
     public LLReloc(CommandLoop maps, Limelight limelight, Follower follower, TelemetryManager telemetryM){
         super(maps);
         this.telemetryM = telemetryM;
@@ -46,13 +48,15 @@ public class LLReloc extends BaseCommand {
     public void init() {
         limelight.limelight3A.start();
         limelight.limelight3A.pipelineSwitch(3);
-
+        follower.startTeleopDrive();
         found = false;
     }
 
     //states: motif (1), relocalization(3)
     @Override
     public void loop() {
+        follower.update();
+        follower.setTeleOpDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
         /*
         if(state == 1){
             limelight.limelight3A.pipelineSwitch(state);
@@ -67,7 +71,6 @@ public class LLReloc extends BaseCommand {
                 }
             }
         }
-
 
          */
         //code to use megatag2 to relocalize robot using follower's heading
