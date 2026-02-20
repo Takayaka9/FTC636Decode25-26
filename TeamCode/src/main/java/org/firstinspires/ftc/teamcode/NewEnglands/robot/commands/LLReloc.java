@@ -4,6 +4,7 @@ import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ftc.InvertedFTCCoordinates;
 import com.pedropathing.ftc.PoseConverter;
+import com.pedropathing.geometry.PedroCoordinates;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
 
@@ -45,6 +46,7 @@ public class LLReloc extends BaseCommand {
     public void init() {
         limelight.limelight3A.start();
         limelight.limelight3A.pipelineSwitch(3);
+
         found = false;
     }
 
@@ -75,9 +77,12 @@ public class LLReloc extends BaseCommand {
             if (result.isValid()) {
                 Pose3D llPose = result.getBotpose_MT2();
                 telemetryM.addData("limelight pose", llPose.toString());
-                Pose2D pose2D = new Pose2D(DistanceUnit.INCH, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.DEGREES, llPose.getOrientation().getYaw(AngleUnit.DEGREES));
-                Pose pedroPose = PoseConverter.pose2DToPose(pose2D, InvertedFTCCoordinates.INSTANCE);
-                follower.setPose(pedroPose);
+                Pose2D aprilTag = new Pose2D(DistanceUnit.INCH, llPose.getPosition().x, llPose.getPosition().y, AngleUnit.RADIANS, llPose.getOrientation().getYaw(AngleUnit.RADIANS));
+                Pose ftcStandard = PoseConverter.pose2DToPose(aprilTag, InvertedFTCCoordinates.INSTANCE);
+                Pose pedroPose = ftcStandard.getAsCoordinateSystem(PedroCoordinates.INSTANCE);
+                telemetryM.addData("pp pose", pedroPose.toString());
+                telemetryM.addData("follower pose", follower.getPose());
+                //follower.setPose(pedroPose);
                 found = true;
             }
         }
