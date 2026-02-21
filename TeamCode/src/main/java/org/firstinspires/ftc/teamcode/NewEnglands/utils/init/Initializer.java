@@ -70,10 +70,10 @@ public abstract class Initializer {
 
         intake = new Intake(commandLoop, transfer);
         liftBot = new LiftBot(commandLoop,liftServo);
-        reloc = new LLReloc(commandLoop, limelight, follower, telemetryM);
+        reloc = new LLReloc(commandLoop, limelight, follower, gamepad1, telemetryM);
         makeMoves = new MakeMoves(commandLoop, follower, gamepad1);
         outake = new Outake(commandLoop, transfer);
-        shoot = new Shoot(commandLoop, transfer, shooter, follower, telemetryM);
+        shoot = new Shoot(commandLoop, transfer, shooter, stopper, follower, telemetryM);
         turretHoodUpdate = new TurretHoodUpdate(commandLoop, turret, hoodServo, follower);
     }
 

@@ -23,15 +23,16 @@ public class LLReloc extends BaseCommand {
     private int state;
     public static int motifID;
     public static boolean found;
-    TelemetryManager telemetryM;
-    Follower follower;
-    Limelight limelight;
-    Gamepad gamepad1;
-    public LLReloc(CommandLoop maps, Limelight limelight, Follower follower, TelemetryManager telemetryM){
+    private final TelemetryManager telemetryM;
+    private final Follower follower;
+    private final Limelight limelight;
+    private final Gamepad gamepad1;
+    public LLReloc(CommandLoop maps, Limelight limelight, Follower follower, Gamepad gamepad1, TelemetryManager telemetryM){
         super(maps);
         this.telemetryM = telemetryM;
         this.follower = follower;
         this.limelight = limelight;
+        this.gamepad1 = gamepad1;
         found = false;
         addRequirement(limelight);
         //state = 0;

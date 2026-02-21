@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
 public class LiftBot extends BaseCommand {
-    LiftServo lift;
+    private final LiftServo lift;
     public LiftBot (CommandLoop maps, LiftServo lift) {
         super(maps);
         this.lift = lift;

@@ -1,11 +1,16 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 public class CommandLoop extends CommandHandler{
     public CommandLoop() {
         super();
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private void stopStopMap () {
         String[] stopKeys = stoppingCommands.keySet().toArray(String[]::new);
         for (int i = 0; i < stopKeys.length;) {
@@ -15,6 +20,7 @@ public class CommandLoop extends CommandHandler{
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private void pushWaitMap () {
         String[] waitingKeys = waitingCommands.keySet().toArray(String[]::new);
         for (int i = 0; i < waitingKeys.length;) {
@@ -26,6 +32,7 @@ public class CommandLoop extends CommandHandler{
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private void initInitMap () {
         String[] initKeys = initializingCommands.keySet().toArray(String[]::new);
         for (int i = 0; i < initKeys.length;) {
@@ -36,6 +43,7 @@ public class CommandLoop extends CommandHandler{
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private void loopRunningMap () {
         String[] runningKeys = runningCommands.keySet().toArray(String[]::new);
         for (int i = 0; i < runningKeys.length;) {

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils;
 
+import android.os.Build;
+
 abstract class CommandHandler extends SystemMaps {
     public CommandHandler() {
         super();
@@ -8,8 +10,14 @@ abstract class CommandHandler extends SystemMaps {
     //TODO: change so that it just uses the command's requirement map's keys
     protected boolean checkRequirements(BaseCommand command) {
         if (command != null) {
-            String[] systemKeys = subsystems.keySet().toArray(String[]::new);
-            String[] requirementKeys = command.requirements.keySet().toArray(String[]::new);
+            String[] systemKeys = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                systemKeys = subsystems.keySet().toArray(String[]::new);
+            }
+            String[] requirementKeys = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requirementKeys = command.requirements.keySet().toArray(String[]::new);
+            }
             String[] matchedKeys = new String[0];
             for (int i = 0; i < command.requirements.size();) {
                 for (int j = 0; j < subsystems.size(); j++) {
@@ -85,8 +93,14 @@ abstract class CommandHandler extends SystemMaps {
 
     private void emadIsADumbass(BaseCommand command, Boolean use) {
         if (command != null) {
-            String[] systemKeys = subsystems.keySet().toArray(String[]::new);
-            String[] requirementKeys = command.requirements.keySet().toArray(String[]::new);
+            String[] systemKeys = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                systemKeys = subsystems.keySet().toArray(String[]::new);
+            }
+            String[] requirementKeys = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requirementKeys = command.requirements.keySet().toArray(String[]::new);
+            }
             String[] matchedKeys = new String[0];
             for (int i = 0; i < command.requirements.size();) {
                 for (int j = 0; j < subsystems.size(); j++) {
