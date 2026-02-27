@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.NewEnglands.robot.systems;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -29,8 +30,6 @@ public class Turret extends BaseSubsystem {
     public static final double TICKS_PER_REV = 145.1;
     public double goalAngle;
     public double ticksToMove;
-
-
     /* Function to move the turret to a certain angle
     Requires color (1 for blue, 2 for red) and follower object
     Calls turnTurret with required inputs to move the turret
@@ -59,7 +58,6 @@ public class Turret extends BaseSubsystem {
         ticksToMove = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
         turnTurret(ticksToMove);
     }
-
     @Configurable
     public static class TurretPID {
         public static double Kp = 0.03;
@@ -67,7 +65,6 @@ public class Turret extends BaseSubsystem {
         public static double Ki = 0;
         public static double I_MAX = 500;
     }
-
     ElapsedTime turretTime = new ElapsedTime();
     double lastTurretError;
     double turretIntegral;
@@ -93,9 +90,29 @@ public class Turret extends BaseSubsystem {
         //telemetryM.addData("turret desired position", tPosition);
         //telemetryM.addData("turret motor power", Math.max(-1, Math.min(1, output)));
     }
+    GetTargetDistance getTargetDistance;
+    Pose lastPose;
+    double lastDistance;
+    public double getAngleVelocity(Alliance alliance){
+        Pose current = follower.getPose();
+        double currDistance;
+        if(alliance == Alliance.BLUE){
+            currDistance = getTargetDistance.getTargetDistance(current, Alliance.BLUE);
+        }
+        else if(alliance == Alliance.RED){
+            currDistance = getTargetDistance.getTargetDistance(current, Alliance.RED);
+        }
+        else {
+            currDistance = 10;
+        }
+        double moved = lastPose.distanceFrom(current);
+        double angle = Math.acos((Math.pow(lastDistance, 2) + Math.pow(currDistance, 2) - Math.pow(moved, 2))/(2*currDistance*lastDistance));
+        lastPose = current;
+        lastDistance = currDistance;
+        return angle;
+    }
 
     public double turretPosition(){
         return turret.getCurrentPosition();
     }
-
 }
