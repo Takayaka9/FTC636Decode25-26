@@ -106,9 +106,33 @@ public class Turret extends BaseSubsystem {
             currDistance = 10;
         }
         double moved = lastPose.distanceFrom(current);
+//        double dx = current.getPose().getX() - lastPose.getX();
+//        double dy = current.getPose().getY() - lastPose.getY();
         double angle = Math.acos((Math.pow(lastDistance, 2) + Math.pow(currDistance, 2) - Math.pow(moved, 2))/(2*currDistance*lastDistance));
         lastPose = current;
         lastDistance = currDistance;
+//        if(dx > 0 && dy < 0){
+//            return -angle;
+//        }
+//        if(dx < 0 && dy > 0){
+//            return angle;
+//        }
+//        if(dx > 0 && dy > 0){
+//            if(current.getPose().getX() > current.getPose().getY()){
+//                return angle;
+//            }
+//            if(current.getPose().getX() < current.getPose().getY()){
+//                return - angle;
+//            }
+//        }
+//        if(dx < 0 && dy < 0){
+//            if(current.getPose().getX() > current.getPose().getY()){
+//                return angle;
+//            }
+//            if(current.getPose().getX() < current.getPose().getY()){
+//                return - angle;
+//            }
+//        }
         return angle;
     }
 
