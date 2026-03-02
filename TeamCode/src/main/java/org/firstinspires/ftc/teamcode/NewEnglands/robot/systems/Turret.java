@@ -93,24 +93,33 @@ public class Turret extends BaseSubsystem {
     GetTargetDistance getTargetDistance;
     Pose lastPose;
     double lastDistance;
+    public double angleMultiplier = 0.1;
+    public double magnitudeMultiplier = 0.1;
     public double getAngleVelocity(Alliance alliance){
-        Pose current = follower.getPose();
-        double currDistance;
+        double angleGoal;
+        double magnitude = follower.getVelocity().getMagnitude();
+        double velAngle = follower.getVelocity().getTheta();
         if(alliance == Alliance.BLUE){
-            currDistance = getTargetDistance.getTargetDistance(current, Alliance.BLUE);
+            angleGoal = Math.atan2(GetTargetDistance.goalPoses.blueY - follower.getPose().getY(), GetTargetDistance.goalPoses.blueX - follower.getPose().getX());
         }
         else if(alliance == Alliance.RED){
-            currDistance = getTargetDistance.getTargetDistance(current, Alliance.RED);
+            angleGoal = Math.atan2(GetTargetDistance.goalPoses.redY - follower.getPose().getY(), GetTargetDistance.goalPoses.redX - follower.getPose().getX());
         }
-        else {
-            currDistance = 10;
+        else{
+            angleGoal = 0;
         }
-        double moved = lastPose.distanceFrom(current);
+        double angle = Math.abs(angleGoal - velAngle);
+        double magGoal = (angleMultiplier*angle)*(magnitude*magnitudeMultiplier);
+        if(velAngle > angleGoal){
+            return magGoal;
+        }
+        return -magGoal;
+        //        double moved = lastPose.distanceFrom(current);
 //        double dx = current.getPose().getX() - lastPose.getX();
 //        double dy = current.getPose().getY() - lastPose.getY();
-        double angle = Math.acos((Math.pow(lastDistance, 2) + Math.pow(currDistance, 2) - Math.pow(moved, 2))/(2*currDistance*lastDistance));
-        lastPose = current;
-        lastDistance = currDistance;
+//        double angle = Math.acos((Math.pow(lastDistance, 2) + Math.pow(currDistance, 2) - Math.pow(moved, 2))/(2*currDistance*lastDistance));
+//        lastPose = current;
+//        lastDistance = currDistance;
 //        if(dx > 0 && dy < 0){
 //            return -angle;
 //        }
@@ -133,7 +142,6 @@ public class Turret extends BaseSubsystem {
 //                return - angle;
 //            }
 //        }
-        return angle;
     }
 
     public double turretPosition(){
