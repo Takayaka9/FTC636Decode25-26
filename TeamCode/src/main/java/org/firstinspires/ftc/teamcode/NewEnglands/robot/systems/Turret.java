@@ -69,6 +69,7 @@ public class Turret extends BaseSubsystem {
     double lastTurretError;
     double turretIntegral;
     double output;
+    //PID to turn turret
     public void turnTurret(double tPosition){
         double cPosition = turret.getCurrentPosition(); //TODO: change 0 to getPosition
         double error = tPosition - cPosition;
@@ -97,8 +98,14 @@ public class Turret extends BaseSubsystem {
     public double magnitudeMultiplier = 1;
     public double getOffset(Alliance alliance){
         double angleGoal;
+
+        //inches per second the bot is moving at
         double magnitude = follower.getVelocity().getMagnitude();
+
+        //what direction the bot is moving in
         double velAngle = follower.getVelocity().getTheta();
+
+        //get the angle to the goal from bot pos, same as turret aiming
         if(alliance == Alliance.BLUE){
             angleGoal = Math.atan2(GetTargetDistance.goalPoses.blueY - follower.getPose().getY(), GetTargetDistance.goalPoses.blueX - follower.getPose().getX());
         }
@@ -108,40 +115,18 @@ public class Turret extends BaseSubsystem {
         else{
             angleGoal = 0;
         }
+
+        //calculate how much the bot is moving laterally to the goal (further from direct line to goal = more lateral movement)
         double angle = Math.abs(angleGoal - velAngle);
+
+        //total velocity relative to the goal (sorta, the values are messed up but it's chill)
         double magGoal = (angleMultiplier*angle)*(magnitude*magnitudeMultiplier);
+
+        //return pos/neg values depending on moving left or right
         if(velAngle > angleGoal){
             return magGoal;
         }
         return -magGoal;
-        //        double moved = lastPose.distanceFrom(current);
-//        double dx = current.getPose().getX() - lastPose.getX();
-//        double dy = current.getPose().getY() - lastPose.getY();
-//        double angle = Math.acos((Math.pow(lastDistance, 2) + Math.pow(currDistance, 2) - Math.pow(moved, 2))/(2*currDistance*lastDistance));
-//        lastPose = current;
-//        lastDistance = currDistance;
-//        if(dx > 0 && dy < 0){
-//            return -angle;
-//        }
-//        if(dx < 0 && dy > 0){
-//            return angle;
-//        }
-//        if(dx > 0 && dy > 0){
-//            if(current.getPose().getX() > current.getPose().getY()){
-//                return angle;
-//            }
-//            if(current.getPose().getX() < current.getPose().getY()){
-//                return - angle;
-//            }
-//        }
-//        if(dx < 0 && dy < 0){
-//            if(current.getPose().getX() > current.getPose().getY()){
-//                return angle;
-//            }
-//            if(current.getPose().getX() < current.getPose().getY()){
-//                return - angle;
-//            }
-//        }
     }
 
     public double turretPosition(){
