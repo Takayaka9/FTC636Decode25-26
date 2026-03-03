@@ -56,7 +56,7 @@ public class Turret extends BaseSubsystem {
         }
 
         ticksToMove = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
-        turnTurret(ticksToMove);
+        turnTurret(ticksToMove + getOffset(alliance));
     }
     @Configurable
     public static class TurretPID {
@@ -93,9 +93,9 @@ public class Turret extends BaseSubsystem {
     GetTargetDistance getTargetDistance;
     Pose lastPose;
     double lastDistance;
-    public double angleMultiplier = 0.1;
-    public double magnitudeMultiplier = 0.1;
-    public double getAngleVelocity(Alliance alliance){
+    public double angleMultiplier = 1;
+    public double magnitudeMultiplier = 1;
+    public double getOffset(Alliance alliance){
         double angleGoal;
         double magnitude = follower.getVelocity().getMagnitude();
         double velAngle = follower.getVelocity().getTheta();
