@@ -13,7 +13,7 @@ public class PedroLoops extends Initializer {
     // plan is to create a pedroloops object and then run its methods
     // the selected pathupdate class will handle most of the work
     public PedroLoops(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry, PathUpdate pathUpdate, Alliance alliance) {
-        super(gamepad1, gamepad2, hardwareMap, telemetry, alliance);
+        super(gamepad1, gamepad2, hardwareMap, telemetry);
     }
 
     public void init() {

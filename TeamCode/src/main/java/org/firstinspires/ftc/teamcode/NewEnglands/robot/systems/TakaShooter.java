@@ -17,7 +17,9 @@ public class TakaShooter extends BaseSubsystem {
         public static double Kp = 0.3;
         public static double Ki = 0;
         public static double Kd = 0;
-        public static double Kf = 0.00036;
+        public static double Kv = 0;
+        public static double Ks = 0;
+        //public static double Kf = 0.00036;
         static double d1 = 36; static double r1 = 900;
         static double d2 = 50; static double r2 = 900;
         static double d3 = 75; static double r3 = 1000;
@@ -70,7 +72,7 @@ public class TakaShooter extends BaseSubsystem {
         pidTime1.reset();
 
 
-        output1 = (error * shooterTune.Kp) + (derivative * shooterTune.Kd) + (integralSum1 * shooterTune.Ki) + (target * shooterTune.Kf);
+        output1 = (error * shooterTune.Kp) + (derivative * shooterTune.Kd) + (integralSum1 * shooterTune.Ki) + shooterTune.Ks + (target * shooterTune.Kv);
 
         shooter1.setPower(output1);
     }
@@ -91,7 +93,7 @@ public class TakaShooter extends BaseSubsystem {
         pidTime2.reset();
 
 
-        output2 = (error * shooterTune.Kp) + (derivative * shooterTune.Kd) + (integralSum2 * shooterTune.Ki) + (target * shooterTune.Kf);
+        output2 = (error * shooterTune.Kp) + (derivative * shooterTune.Kd) + (integralSum2 * shooterTune.Ki) + shooterTune.Ks + (target * shooterTune.Kv);
 
         shooter2.setPower(output2);
     }

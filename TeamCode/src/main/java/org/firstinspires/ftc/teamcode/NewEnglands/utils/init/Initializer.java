@@ -23,37 +23,36 @@ import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Turret;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.HoodServo;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.LiftServo;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.Stopper;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
-public abstract class Initializer {
+public class Initializer {
 
     //dependencies
-    public final TelemetryManager telemetryM;
-    public final Follower follower;
+    private final TelemetryManager telemetryM;
+    private final Follower follower;
 
     public final CommandLoop commandLoop;
 
-    private final HoodServo hoodServo;
-    private final LiftServo liftServo;
-    private final Stopper stopper;
-    private final Light light;
-    private final Limelight limelight;
-    private final TakaShooter shooter;
-    private final Transfer transfer;
-    private final Turret turret;
+    public final HoodServo hoodServo;
+    public final LiftServo liftServo;
+    public final Stopper stopper;
+    public final Light light;
+    public final Limelight limelight;
+    public final TakaShooter shooter;
+    public final Transfer transfer;
+    public final Turret turret;
 
-    private final Intake intake;
-    private final LiftBot liftBot;
-    private final LLReloc reloc;
-    private final MakeMoves makeMoves;
-    private final Outake outake;
-    private final Shoot shoot;
-    private final TurretHoodUpdate turretHoodUpdate;
+    public final Intake intake;
+    public final LiftBot liftBot;
+    public final LLReloc reloc;
+    public final MakeMoves makeMoves;
+    public final Outake outake;
+    public final Shoot shoot;
+    public final TurretHoodUpdate turretHoodUpdate;
 
 
 
-    public Initializer(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry, Alliance alliance) {
+    public Initializer(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = Constants2.createFollower(hardwareMap);
 

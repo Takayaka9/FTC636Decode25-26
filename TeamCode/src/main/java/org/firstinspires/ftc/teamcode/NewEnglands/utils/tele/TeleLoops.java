@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.interfaceUtil
 
 public class TeleLoops extends Initializer {
     public TeleLoops(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry, PathUpdate pathUpdate, Alliance alliance) {
-        super(gamepad1, gamepad2, hardwareMap, telemetry, alliance);
+        super(gamepad1, gamepad2, hardwareMap, telemetry);
     }
 
     public void init() {
