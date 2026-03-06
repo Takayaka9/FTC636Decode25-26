@@ -1,0 +1,25 @@
+package org.firstinspires.ftc.teamcode.RIstates.tests;
+
+import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
+@Configurable
+@TeleOp
+public class KickstandTester extends OpMode {
+    Servo liftLeft;
+    Servo liftRight;
+    public static double leftPos = 0;
+    public static double rightPos = 0;
+    @Override
+    public void init() {
+        liftLeft = hardwareMap.get(Servo.class, "liftLeft");
+        liftRight = hardwareMap.get(Servo.class, "liftRight");
+    }
+
+    @Override
+    public void loop() {
+        liftLeft.setPosition(leftPos);
+        liftRight.setPosition(rightPos);
+    }
+}
