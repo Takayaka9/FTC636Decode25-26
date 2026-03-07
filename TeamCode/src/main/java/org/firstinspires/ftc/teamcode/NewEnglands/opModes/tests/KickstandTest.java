@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class KickstandTest extends OpMode {
     Servo liftLeft;
     Servo liftRight;
-    public static double liftLeftPos;
-    public static double liftRightPos;
+    public static double leftPos = 1;
+    //public static double rightPos = 0;
     @Override
     public void init() {
         liftLeft = hardwareMap.get(Servo.class, "liftLeft");
@@ -19,7 +19,7 @@ public class KickstandTest extends OpMode {
 
     @Override
     public void loop() {
-        liftLeft.setPosition(liftLeftPos);
-        liftRight.setPosition(liftRightPos);
+        liftLeft.setPosition(leftPos);
+        liftRight.setPosition(1-leftPos);
     }
 }
