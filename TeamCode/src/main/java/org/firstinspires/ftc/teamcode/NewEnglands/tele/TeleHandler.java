@@ -38,7 +38,7 @@ public class TeleHandler extends Initializer {
         liftY.update();
     }
 
-    public void init() {
+    public void start() {
         commandLoop.runCommand(turretHoodUpdate);
         commandLoop.runCommand(shoot);
         commandLoop.runCommand(makeMoves);

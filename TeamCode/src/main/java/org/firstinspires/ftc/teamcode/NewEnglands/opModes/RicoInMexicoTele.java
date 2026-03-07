@@ -12,6 +12,10 @@ public class RicoInMexicoTele extends OpMode {
     public void init() {
         teleHandler = new TeleHandler(gamepad1, gamepad1,hardwareMap, telemetry);
     }
+    @Override
+    public void start() {
+        teleHandler.start();
+    }
 
     @Override
     public void loop() {

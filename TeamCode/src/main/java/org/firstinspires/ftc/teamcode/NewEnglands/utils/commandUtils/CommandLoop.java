@@ -35,7 +35,9 @@ public class CommandLoop extends CommandHandler{
         for (int i = 0; i < initKeys.length;) {
             initializingCommands.get(initKeys[i]).init();
             initializingCommands.remove(initKeys[i]);
-            runningCommands.put(initializingCommands.get(initKeys[i]).getClass().getName(), initializingCommands.get(initKeys[i]));
+            if (initializingCommands.get(initKeys[i]).getClass() != null) {
+                runningCommands.put(initializingCommands.get(initKeys[i]).getClass().getName(), initializingCommands.get(initKeys[i]));
+            }
             i++;
         }
     }
