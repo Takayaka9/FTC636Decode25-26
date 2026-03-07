@@ -11,7 +11,7 @@ public class InputMap {
         this.gamepad = gamepad;
     }
 
-    public boolean update() {
+    public boolean checkInput() {
         switch (input) {
             case a:
                 return gamepad.a;

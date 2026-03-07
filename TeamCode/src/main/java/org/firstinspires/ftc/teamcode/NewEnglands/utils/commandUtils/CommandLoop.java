@@ -56,6 +56,12 @@ public class CommandLoop extends CommandHandler{
 
     /// MUST BE CALLED IN OpMode LOOP
     public void loop() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            stopStopMap();
+            pushWaitMap();
+            initInitMap();
+            loopRunningMap();
+        }
         stopStopMap();
         pushWaitMap();
         initInitMap();
