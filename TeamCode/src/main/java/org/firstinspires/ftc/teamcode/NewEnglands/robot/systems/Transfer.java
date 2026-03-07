@@ -5,10 +5,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsystem;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.ServoImplExBase;
 
-public class Transfer extends ServoImplExBase {
+public class Transfer extends BaseSubsystem {
     @Configurable
     static class TransferPower {
         public static double power = 1;
@@ -16,7 +17,7 @@ public class Transfer extends ServoImplExBase {
     }
     private DcMotorEx transfer;
     public Transfer(CommandLoop maps, HardwareMap hardwareMap) {
-        super(maps, "transfer", hardwareMap);
+        super(maps);
         transfer = hardwareMap.get(DcMotorEx.class, "transfer");
         transfer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }

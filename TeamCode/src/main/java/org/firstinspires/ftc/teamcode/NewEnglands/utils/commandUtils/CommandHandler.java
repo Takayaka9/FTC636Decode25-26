@@ -11,13 +11,9 @@ abstract class CommandHandler extends SystemMaps {
     protected boolean checkRequirements(BaseCommand command) {
         if (command != null) {
             String[] systemKeys = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                systemKeys = subsystems.keySet().toArray(String[]::new);
-            }
+            systemKeys = subsystems.keySet().toArray(new String[0]);
             String[] requirementKeys = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                requirementKeys = command.requirements.keySet().toArray(String[]::new);
-            }
+            requirementKeys = command.requirements.keySet().toArray(new String[0]);
             String[] matchedKeys = new String[0];
             for (int i = 0; i < command.requirements.size();) {
                 for (int j = 0; j < subsystems.size(); j++) {
@@ -94,13 +90,9 @@ abstract class CommandHandler extends SystemMaps {
     private void emadIsADumbass(BaseCommand command, Boolean use) {
         if (command != null) {
             String[] systemKeys = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                systemKeys = subsystems.keySet().toArray(String[]::new);
-            }
+            systemKeys = subsystems.keySet().toArray(new String[0]);
             String[] requirementKeys = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                requirementKeys = command.requirements.keySet().toArray(String[]::new);
-            }
+            requirementKeys = command.requirements.keySet().toArray(new String[0]);
             String[] matchedKeys = new String[0];
             for (int i = 0; i < command.requirements.size();) {
                 for (int j = 0; j < subsystems.size(); j++) {

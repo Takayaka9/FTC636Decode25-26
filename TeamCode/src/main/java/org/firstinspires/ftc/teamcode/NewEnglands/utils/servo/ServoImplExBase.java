@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsyst
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.pwm.PwmConverter;
 
-public abstract class ServoImplExBase extends BaseSubsystem implements GamepadServoImplEx {
+public class ServoImplExBase extends BaseSubsystem implements GamepadServoImplEx {
     ServoImplEx servo;
     PwmRange range;
 
