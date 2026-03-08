@@ -9,5 +9,4 @@ public enum GamepadInput {
     right_bumper,
     right_trigger,
     left_trigger,
-    none
 }
