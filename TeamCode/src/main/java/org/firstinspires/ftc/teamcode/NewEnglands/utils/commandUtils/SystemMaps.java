@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -55,21 +56,44 @@ abstract class SystemMaps {
         }
 
         Set<Class<?>> classSet = new HashSet<>();
-        while (entries.hasMoreElements()) {
-            String className = entries.nextElement();
-            if (className.startsWith("org.firstinspires.ftc.teamcode.NewEnglands.robot.commands")) {
-                try {
-                    Class<?> clazz = Class.forName(className);
-                    classSet.add(clazz);
-                } catch (ClassNotFoundException exeption) {
-                    //noinspection CallToPrintStackTrace
-                    exeption.printStackTrace();
+        if (entries != null) {
+            while (entries.hasMoreElements()) {
+                String className = entries.nextElement();
+                if (className.startsWith("org.firstinspires.ftc.teamcode.NewEnglands.robot.commands")) {
+                    try {
+                        Class<?> clazz = Class.forName(className);
+                        classSet.add(clazz);
+                    } catch (ClassNotFoundException exeption) {
+                        //noinspection CallToPrintStackTrace
+                        exeption.printStackTrace();
+                    }
+                    // check annotations
                 }
-                // check annotations
             }
         }
         return classSet;
+    }
 
+    protected void constructCommands() {
+        Set<Class<?>> classes = getCommandClasses();
+
+        for (Class<?> clazz : classes) {
+            for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
+                if (constructor.isAnnotationPresent(Command.class)) {
+                    try {
+                        BaseCommand construction = (BaseCommand) constructor.newInstance();
+                        addCommand(construction.toString(), construction);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    } catch (InstantiationException e) {
+                        throw new RuntimeException(e);
+                    } catch (InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+        }
     }
 }
 
