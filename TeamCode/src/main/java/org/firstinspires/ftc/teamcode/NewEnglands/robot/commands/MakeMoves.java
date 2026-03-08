@@ -4,12 +4,13 @@ import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.Command;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
 public class MakeMoves extends BaseCommand {
     private final Follower follower;
     private final Gamepad gamepad;
-
+    @Command
     public MakeMoves(CommandLoop maps, Follower follower, Gamepad gamepad1) {
         super();
         this.follower = follower;

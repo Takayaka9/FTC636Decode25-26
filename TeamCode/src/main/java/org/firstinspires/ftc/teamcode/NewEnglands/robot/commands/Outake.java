@@ -2,10 +2,12 @@ package org.firstinspires.ftc.teamcode.NewEnglands.robot.commands;
 
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Transfer;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.Command;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
 public class Outake extends BaseCommand {
     private final Transfer transfer;
+    @Command
     public Outake(CommandLoop maps, Transfer transfer) {
         super();
         addRequirement(transfer);

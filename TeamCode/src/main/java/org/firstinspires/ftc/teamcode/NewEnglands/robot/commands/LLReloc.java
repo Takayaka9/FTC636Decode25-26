@@ -15,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 //import org.firstinspires.ftc.teamcode.NewEnglands.pedroPathing.Drawing;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Limelight;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.Command;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.Drawing;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
@@ -27,6 +28,7 @@ public class LLReloc extends BaseCommand {
     private final Follower follower;
     private final Limelight limelight;
     private final Gamepad gamepad1;
+    @Command
     public LLReloc(CommandLoop maps, Limelight limelight, Follower follower, Gamepad gamepad1, TelemetryManager telemetryM){
         super();
         this.telemetryM = telemetryM;

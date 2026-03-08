@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Transfer;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.Stopper;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.GetTargetDistance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.Command;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
 import java.util.concurrent.TimeUnit;
@@ -28,6 +29,7 @@ public class Shoot extends BaseCommand {
         public static int delayTime = 1000;
     }
 
+    @Command
     public Shoot(CommandLoop maps, Transfer transfer, TakaShooter shooter, Stopper stopper, Follower follower, TelemetryManager telemetryM) {
         super();
         //TODO: add shooter back into requirements if we need to
