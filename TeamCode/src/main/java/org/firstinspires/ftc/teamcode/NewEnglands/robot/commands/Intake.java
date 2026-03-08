@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop
 public class Intake extends BaseCommand {
     private final Transfer transfer;
     public Intake(CommandLoop maps, Transfer transfer) {
-        super(maps);
+        super();
         addRequirement(transfer);
         this.transfer = transfer;
     }

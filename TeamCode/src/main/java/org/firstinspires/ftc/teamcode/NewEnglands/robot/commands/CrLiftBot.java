@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop
 public class CrLiftBot extends BaseCommand {
     private final CrLiftServo lift;
     public CrLiftBot(CommandLoop maps, CrLiftServo lift) {
-        super(maps);
+        super();
         this.lift = lift;
         addRequirement(lift);
     }

@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop
 
 public class AllianceBlue extends BaseCommand {
     public AllianceBlue(CommandLoop maps) {
-        super(maps);
+        super();
     }
 
     @Override

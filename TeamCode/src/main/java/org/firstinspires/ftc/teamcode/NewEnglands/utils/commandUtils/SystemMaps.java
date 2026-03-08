@@ -1,8 +1,17 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils;
 
+import android.content.Context;
+
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+
+import dalvik.system.DexFile;
 
 abstract class SystemMaps {
     protected Map<String, BaseCommand> commands;
@@ -12,7 +21,6 @@ abstract class SystemMaps {
     protected Map<String, BaseCommand> runningCommands;
     protected Map<String, BaseCommand> stoppingCommands;
     protected Map<String, BaseCommand> waitingCommands;
-
 
     protected SystemMaps() {
         commands = new HashMap<>();
@@ -33,6 +41,35 @@ abstract class SystemMaps {
     }
     protected BaseSubsystem getSubsystem(String name) {
         return subsystems.get(name);
+    }
+
+    protected Set<Class<?>> getCommandClasses() {
+        Enumeration<String> entries = null;
+        try {
+            @Deprecated
+            DexFile dex = new DexFile("dex");
+            entries = dex.entries();
+        } catch (IOException e) {
+            //noinspection CallToPrintStackTrace
+            e.printStackTrace();
+        }
+
+        Set<Class<?>> classSet = new HashSet<>();
+        while (entries.hasMoreElements()) {
+            String className = entries.nextElement();
+            if (className.startsWith("org.firstinspires.ftc.teamcode.NewEnglands.robot.commands")) {
+                try {
+                    Class<?> clazz = Class.forName(className);
+                    classSet.add(clazz);
+                } catch (ClassNotFoundException exeption) {
+                    //noinspection CallToPrintStackTrace
+                    exeption.printStackTrace();
+                }
+                // check annotations
+            }
+        }
+        return classSet;
+
     }
 }
 

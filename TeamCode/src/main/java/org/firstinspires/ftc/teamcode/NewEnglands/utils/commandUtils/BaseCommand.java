@@ -5,9 +5,8 @@ import java.util.Map;
 
 public abstract class BaseCommand implements CommandInterface{
     Map<String, BaseSubsystem> requirements;
-    public BaseCommand(CommandLoop maps) {
+    public BaseCommand() {
         requirements = new HashMap<>();
-        maps.addCommand(this.getClass().getName(), this);
     }
     public void addRequirement(BaseSubsystem... subsystem) {
         int num = 0;
@@ -17,7 +16,6 @@ public abstract class BaseCommand implements CommandInterface{
         }
     }
 
-    public void create() {}
     public void init() {}
     public void loop() {}
     public void stop() {}

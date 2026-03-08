@@ -11,7 +11,7 @@ public class MakeMoves extends BaseCommand {
     private final Gamepad gamepad;
 
     public MakeMoves(CommandLoop maps, Follower follower, Gamepad gamepad1) {
-        super(maps);
+        super();
         this.follower = follower;
         this.gamepad = gamepad1;
     }

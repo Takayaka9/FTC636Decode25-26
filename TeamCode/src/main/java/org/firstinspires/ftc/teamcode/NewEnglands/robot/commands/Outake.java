@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop
 public class Outake extends BaseCommand {
     private final Transfer transfer;
     public Outake(CommandLoop maps, Transfer transfer) {
-        super(maps);
+        super();
         addRequirement(transfer);
         this.transfer = transfer;
     }

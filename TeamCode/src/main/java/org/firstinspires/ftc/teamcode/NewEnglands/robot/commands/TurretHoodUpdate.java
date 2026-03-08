@@ -16,7 +16,7 @@ public class TurretHoodUpdate extends BaseCommand {
     private final Follower follower;
 
     public TurretHoodUpdate(CommandLoop maps, Turret turret, HoodServo hood, Follower follower) {
-        super(maps);
+        super();
         addRequirement(turret, hood);
         this.turret = turret;
         this.hood = hood;

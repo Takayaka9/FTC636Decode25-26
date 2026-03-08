@@ -13,7 +13,7 @@ public class ConstantShoot extends BaseCommand {
     private final GetTargetDistance getTargetDistance;
     private final Follower follower;
     public ConstantShoot(CommandLoop maps, TakaShooter shooter, Follower follower) {
-        super(maps);
+        super();
         getTargetDistance = new GetTargetDistance();
         this.shooter = shooter;
         this.follower = follower;
