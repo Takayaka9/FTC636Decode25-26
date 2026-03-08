@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsystem;
 
 public class TakaShooter extends BaseSubsystem {
@@ -34,8 +33,8 @@ public class TakaShooter extends BaseSubsystem {
     DcMotorEx shooter2;
     public static int targetTPS = 0;
 
-    public TakaShooter(CommandLoop maps, HardwareMap hardwareMap) {
-        super(maps);
+    public TakaShooter(HardwareMap hardwareMap) {
+        super();
         shooter1 = hardwareMap.get(DcMotorEx.class, "shooter1");
         shooter2 = hardwareMap.get(DcMotorEx.class, "shooter2");
         shooter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);

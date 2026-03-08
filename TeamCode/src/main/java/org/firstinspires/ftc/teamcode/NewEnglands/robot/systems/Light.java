@@ -3,13 +3,12 @@ package org.firstinspires.ftc.teamcode.NewEnglands.robot.systems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsystem;
 
 public class Light extends BaseSubsystem {
     Servo light;
-    public Light(CommandLoop maps, HardwareMap hardwareMap) {
-        super(maps);
+    public Light(HardwareMap hardwareMap) {
+        super();
         light = hardwareMap.get(Servo.class, "light");
     }
 

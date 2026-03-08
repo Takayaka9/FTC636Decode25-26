@@ -13,7 +13,7 @@ public abstract class CRServoBase extends BaseSubsystem {
     CRServo belt;
 //    DcMotorEx belt;
     public CRServoBase(CommandLoop maps, HardwareMap hardwareMap, String name) {
-        super(maps);
+        super();
         this.hardwareMap = hardwareMap;
         this.belt = hardwareMap.get(CRServo.class, name);
 //        this.belt = hardwareMap.get(DcMotorEx.class, name);

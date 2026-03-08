@@ -7,7 +7,6 @@ import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.HoodServo
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.GetTargetDistance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
 public class TurretHoodUpdate extends BaseCommand {
     private final Turret turret;
@@ -15,8 +14,8 @@ public class TurretHoodUpdate extends BaseCommand {
     private final GetTargetDistance getTargetDistance;
     private final Follower follower;
 
-    public TurretHoodUpdate(CommandLoop maps, Turret turret, HoodServo hood, Follower follower) {
-        super(maps);
+    public TurretHoodUpdate(Turret turret, HoodServo hood, Follower follower) {
+        super();
         addRequirement(turret, hood);
         this.turret = turret;
         this.hood = hood;

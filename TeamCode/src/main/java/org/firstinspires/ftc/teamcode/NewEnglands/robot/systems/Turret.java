@@ -12,14 +12,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.GetTargetDistance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsystem;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
 public class Turret extends BaseSubsystem {
     DcMotorEx turret;
     private final Follower follower;
     private final Gamepad gamepad2;
-    public Turret(CommandLoop maps, HardwareMap hardwareMap, Follower follower, Gamepad gamepad2) {
-        super(maps);
+    public Turret(HardwareMap hardwareMap, Follower follower, Gamepad gamepad2) {
+        super();
         turret = hardwareMap.get(DcMotorEx.class, "turret");
         turret.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -4,7 +4,6 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.GamepadServoImplEx;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.ServoImplExBase;
 
@@ -13,7 +12,7 @@ public class HoodServo extends ServoImplExBase implements GamepadServoImplEx {
     double start = 0.85;
     double end = 1;
     private final InterpLUT lut = new InterpLUT();
-    public HoodServo (CommandLoop maps, HardwareMap hardwareMap) {
+    public HoodServo (HardwareMap hardwareMap) {
         super(maps,"hood", hardwareMap);
         lut.add(0, 1);
         lut.add(d1, p1);

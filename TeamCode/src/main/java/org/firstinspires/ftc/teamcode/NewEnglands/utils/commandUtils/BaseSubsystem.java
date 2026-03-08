@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils;
 
 public abstract class BaseSubsystem {
-    public BaseSubsystem(CommandLoop maps) {
-        maps.addSubsystem(this.getClass().getName(), this);
-    }
+    public BaseSubsystem() {}
     static boolean inUse = false;
 }

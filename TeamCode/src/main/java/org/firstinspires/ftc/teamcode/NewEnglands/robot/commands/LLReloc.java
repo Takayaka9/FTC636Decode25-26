@@ -28,7 +28,7 @@ public class LLReloc extends BaseCommand {
     private final Limelight limelight;
     private final Gamepad gamepad1;
     public LLReloc(CommandLoop maps, Limelight limelight, Follower follower, Gamepad gamepad1, TelemetryManager telemetryM){
-        super(maps);
+        super();
         this.telemetryM = telemetryM;
         this.follower = follower;
         this.limelight = limelight;

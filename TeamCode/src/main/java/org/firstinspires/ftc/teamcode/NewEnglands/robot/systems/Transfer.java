@@ -6,8 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsystem;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.ServoImplExBase;
 
 public class Transfer extends BaseSubsystem {
     @Configurable
@@ -16,8 +14,8 @@ public class Transfer extends BaseSubsystem {
         public static double reversePower = -1;
     }
     private DcMotorEx transfer;
-    public Transfer(CommandLoop maps, HardwareMap hardwareMap) {
-        super(maps);
+    public Transfer(HardwareMap hardwareMap) {
+        super();
         transfer = hardwareMap.get(DcMotorEx.class, "transfer");
         transfer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }

@@ -6,14 +6,13 @@ import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.TakaShooter;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.GetTargetDistance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
 public class ConstantShoot extends BaseCommand {
     private final TakaShooter shooter;
     private final GetTargetDistance getTargetDistance;
     private final Follower follower;
-    public ConstantShoot(CommandLoop maps, TakaShooter shooter, Follower follower) {
-        super(maps);
+    public ConstantShoot(TakaShooter shooter, Follower follower) {
+        super();
         getTargetDistance = new GetTargetDistance();
         this.shooter = shooter;
         this.follower = follower;

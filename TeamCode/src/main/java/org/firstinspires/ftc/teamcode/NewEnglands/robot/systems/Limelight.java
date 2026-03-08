@@ -10,7 +10,7 @@ public class Limelight extends BaseSubsystem {
     public Limelight3A limelight3A;
 
     public Limelight(CommandLoop maps, HardwareMap hardwareMap) {
-        super(maps);
+        super();
         limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
     }
 

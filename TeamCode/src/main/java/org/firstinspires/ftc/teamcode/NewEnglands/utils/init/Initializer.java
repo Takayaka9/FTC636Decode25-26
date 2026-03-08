@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.NewEnglands.pedroPathing.Constants2;
+import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.AllianceBlue;
+import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.AllianceRed;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.ConstantShoot;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.Intake;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.LLReloc;
@@ -55,6 +57,8 @@ public class Initializer {
     public final Shoot shoot;
     public final ConstantShoot constantShoot;
     public final TurretHoodUpdate turretHoodUpdate;
+    public final AllianceBlue blue;
+    public final AllianceRed red;
 
 
 
@@ -64,25 +68,28 @@ public class Initializer {
 
         commandLoop = new CommandLoop();
 
-        hoodServo = new HoodServo(commandLoop, hardwareMap);
-//        crLiftServo = new CrLiftServo(commandLoop, hardwareMap);
-        liftServo = new LiftServo(commandLoop, hardwareMap);
-        stopper = new Stopper(commandLoop, hardwareMap);
-        light = new Light(commandLoop, hardwareMap);
-//        limelight = new Limelight(commandLoop, hardwareMap);
-        shooter = new TakaShooter(commandLoop, hardwareMap);
-        transfer = new Transfer(commandLoop, hardwareMap);
-        turret = new Turret(commandLoop, hardwareMap, follower, gamepad2);
+        hoodServo = new HoodServo(hardwareMap);
+//        crLiftServo = new CrLiftServo(hardwareMap);
+        liftServo = new LiftServo(hardwareMap);
+        stopper = new Stopper(hardwareMap);
+        light = new Light(hardwareMap);
+//        limelight = new Limelight(hardwareMap);
+        shooter = new TakaShooter(hardwareMap);
+        transfer = new Transfer(hardwareMap);
+        turret = new Turret(hardwareMap, follower, gamepad2);
 
-        intake = new Intake(commandLoop, transfer);
-//        crLiftBot = new CrLiftBot(commandLoop, crLiftServo);
-        liftBot = new LiftBot(commandLoop, liftServo);
-//        reloc = new LLReloc(commandLoop, limelight, follower, gamepad1, telemetryM);
-        makeMoves = new MakeMoves(commandLoop, follower, gamepad1);
-        outake = new Outake(commandLoop, transfer);
-        shoot = new Shoot(commandLoop, transfer, shooter, stopper, follower, telemetryM);
-        constantShoot = new ConstantShoot(commandLoop, shooter, follower);
-        turretHoodUpdate = new TurretHoodUpdate(commandLoop, turret, hoodServo, follower);
+        intake = new Intake(transfer);
+//        crLiftBot = new CrLiftBot(crLiftServo);
+        liftBot = new LiftBot(liftServo);
+//        reloc = new LLReloc(limelight, follower, gamepad1, telemetryM);
+        makeMoves = new MakeMoves(follower, gamepad1);
+        outake = new Outake(transfer);
+        shoot = new Shoot(transfer, shooter, stopper, follower, telemetryM);
+        constantShoot = new ConstantShoot(shooter, follower);
+        turretHoodUpdate = new TurretHoodUpdate(turret, hoodServo, follower);
+        blue = new AllianceBlue();
+        red = new AllianceRed();
+
     }
 
 
