@@ -36,7 +36,6 @@ public class Initializer {
     private final TelemetryManager telemetryM;
     private final Follower follower;
 
-    public final CommandLoop commandLoop;
 
     public final HoodServo hoodServo;
 //    public final CrLiftServo crLiftServo;
@@ -66,7 +65,6 @@ public class Initializer {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = Constants2.createFollower(hardwareMap);
 
-        commandLoop = new CommandLoop();
 
         hoodServo = new HoodServo(hardwareMap);
 //        crLiftServo = new CrLiftServo(hardwareMap);

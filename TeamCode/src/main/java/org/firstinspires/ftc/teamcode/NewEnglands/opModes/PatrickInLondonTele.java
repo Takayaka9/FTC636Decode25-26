@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.NewEnglands.tele.TeleHandler;
 
 @TeleOp
-public class RicoInMexicoTele extends OpMode {
+public class PatrickInLondonTele extends OpMode {
     public TeleHandler teleHandler;
     @Override
     public void init() {
