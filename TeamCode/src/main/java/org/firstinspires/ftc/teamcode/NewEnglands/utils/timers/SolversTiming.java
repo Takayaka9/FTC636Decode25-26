@@ -16,13 +16,13 @@ public class SolversTiming extends Timing implements GenericTime {
      */
     public void resetThenStart(){
         timer.start();
-    };
+    }
     public void pause(){
         timer.pause();
-    };
+    }
     public void resume(){
         timer.resume();
-    };
+    }
     public boolean checkFinished(){
         if (timer.done()) {
             return true;
@@ -30,8 +30,8 @@ public class SolversTiming extends Timing implements GenericTime {
         else {
             return false;
         }
-    };
+    }
     public void setLength(int lengthInMilliseconds){
         length = lengthInMilliseconds;
-    };
+    }
 }

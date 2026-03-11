@@ -5,15 +5,16 @@ import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.interfaceUtils.BuildPaths;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.interfaceUtils.PoseLibWrapper;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.BuildPaths;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.PoseLibWrapper;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 
-public class C9Paths extends PoseLibWrapper implements BuildPaths {
+public final class C9Paths extends PoseLibWrapper implements BuildPaths {
     Follower follower;
     public C9Paths(Follower follower, Alliance alliance) {
         super(alliance);
         this.follower = follower;
+        buildPaths();
     }
 
     public PathChain startToShoot, preIntakeSpike2, intakeSpike2, spike2ToShoot, gateToShoot, preIntakeSpike1, intakeSpike1, spike1toShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;

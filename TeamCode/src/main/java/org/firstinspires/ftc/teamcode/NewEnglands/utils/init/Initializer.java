@@ -33,8 +33,8 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop
 public class Initializer {
 
     //dependencies
-    private final TelemetryManager telemetryM;
-    private final Follower follower;
+    public final TelemetryManager telemetryM;
+    public final Follower follower;
 
 
     public final HoodServo hoodServo;
@@ -62,10 +62,12 @@ public class Initializer {
 
 
     public Initializer(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
+        /// lil stuff
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = Constants2.createFollower(hardwareMap);
 
 
+        /// Subsystems
         hoodServo = new HoodServo(hardwareMap);
 //        crLiftServo = new CrLiftServo(hardwareMap);
         liftServo = new LiftServo(hardwareMap);
@@ -76,6 +78,8 @@ public class Initializer {
         transfer = new Transfer(hardwareMap);
         turret = new Turret(hardwareMap, follower, gamepad2);
 
+
+        ///commands
         intake = new Intake(transfer);
 //        crLiftBot = new CrLiftBot(crLiftServo);
         liftBot = new LiftBot(liftServo);
@@ -92,3 +96,4 @@ public class Initializer {
 
 
 }
+
