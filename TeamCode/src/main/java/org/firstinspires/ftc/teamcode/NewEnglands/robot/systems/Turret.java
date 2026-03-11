@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.GetTargetDistance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsystem;
+import org.jetbrains.annotations.NotNull;
 
 public class Turret extends BaseSubsystem {
     DcMotorEx turret;
@@ -35,7 +36,9 @@ public class Turret extends BaseSubsystem {
      */
     public void trackGoal(Alliance alliance){
         if(alliance == Alliance.UNSELECTED){
-            ticksToMove = (gamepad2.left_stick_x * 300);
+            if (gamepad2 != null) {
+                ticksToMove = (gamepad2.left_stick_x * 300);
+            }
             turnTurret(ticksToMove);
             return;
         }

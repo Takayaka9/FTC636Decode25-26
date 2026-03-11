@@ -17,21 +17,23 @@ public class MakeMoves extends BaseCommand {
 
     @Override
     public void loop() {
-        if (gamepad.left_trigger < 0.3) {
-            follower.setTeleOpDrive(
-                    -gamepad.left_stick_y*1,
-                    -gamepad.left_stick_x*1,
-                    -gamepad.right_stick_x*0.75,
-                    true
-            );
-        }
-        if (gamepad.left_trigger > 0.3) {
-            follower.setTeleOpDrive(
-                    -gamepad.left_stick_y*0.35,
-                    -gamepad.left_stick_x*0.35,
-                    -gamepad.right_stick_x*0.25,
-                    false
-            );
+        if (gamepad != null) {
+            if (gamepad.left_trigger < 0.3) {
+                follower.setTeleOpDrive(
+                        -gamepad.left_stick_y*1,
+                        -gamepad.left_stick_x*1,
+                        -gamepad.right_stick_x*0.75,
+                        true
+                );
+            }
+            if (gamepad.left_trigger > 0.3) {
+                follower.setTeleOpDrive(
+                        -gamepad.left_stick_y*0.35,
+                        -gamepad.left_stick_x*0.35,
+                        -gamepad.right_stick_x*0.25,
+                        false
+                );
+            }
         }
     }
 
