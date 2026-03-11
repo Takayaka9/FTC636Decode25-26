@@ -4,6 +4,6 @@ public interface PathUpdate {
     void init();
     void start();
     void update();
-    void autonomousPathUpdate(int pathState);
+    void autonomousPathUpdate();
 
 }

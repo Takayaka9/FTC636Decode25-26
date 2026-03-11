@@ -6,14 +6,12 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.BuildPaths;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.PoseLibWrapper;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.BasePathChain;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 
-public final class C9Paths extends PoseLibWrapper implements BuildPaths {
-    Follower follower;
+public final class C9Paths extends BasePathChain implements BuildPaths {
     public C9Paths(Follower follower, Alliance alliance) {
-        super(alliance);
-        this.follower = follower;
+        super(alliance, follower);
         buildPaths();
     }
 

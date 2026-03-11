@@ -4,19 +4,18 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.PoseLibWrapper;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.BasePathChain;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.BuildPaths;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 
-public final class F12Paths extends PoseLibWrapper implements BuildPaths {
-    Follower follower;
+public final class F12Paths extends BasePathChain implements BuildPaths {
     public F12Paths(Follower follower, Alliance alliance) {
-        super(alliance);
-        this.follower = follower;
+        super(alliance, follower);
         buildPaths();
     }
     public PathChain fs0, pi1, i1, cs1, pi2, i2, cs2, pi3, i3, fs3, l, abort;
 
+    @Override
     public void buildPaths() {
 
         fs0 = follower.pathBuilder()
