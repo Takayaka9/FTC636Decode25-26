@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils;
 
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -14,11 +15,11 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.timers.GenericTime;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.timers.SolversTiming;
 
 abstract class PedroUpdate extends Initializer {
-    public final Control intakeRB;
-    public final Control outtakeLB;
-    public final Control shootA;
-    public final Control liftY;
-    public final Control constants;
+    public final Control intakeControl;
+    public final Control outtakeControl;
+    public final Control shootControl;
+    public final Control liftControl;
+    public final Control constantControls;
     public final ElapsedTime opModeTimer = new ElapsedTime();
     public final GenericTime shootTimer = new SolversTiming();
     public final GenericTime fleeTimer = new SolversTiming();
@@ -29,17 +30,25 @@ abstract class PedroUpdate extends Initializer {
     public PedroUpdate(HardwareMap hardwareMap, Telemetry telemetry, Alliance alliance) {
         super(null, null, hardwareMap, telemetry);
         CurrentAlliance.alliance = alliance;
-        intakeRB = new Control(ControlType.Hold, intake);
-        outtakeLB = new Control(ControlType.Hold, outake);
-        shootA = new Control(ControlType.Hold, shoot);
-        liftY = new Control(ControlType.Toggle, liftBot);
-        constants = new Control(ControlType.Continuous, turretHoodUpdate, shoot, makeMoves);
+        intakeControl = new Control(ControlType.Hold, intake);
+        outtakeControl = new Control(ControlType.Hold, outake);
+        shootControl = new Control(ControlType.Hold, shoot);
+        liftControl = new Control(ControlType.Toggle, liftBot);
+        constantControls = new Control(ControlType.Continuous, turretHoodUpdate, shoot, makeMoves);
         shootTimer.create();
         shootTimer.setLength(AutoConstants.shootTime);
         fleeTimer.create();
         fleeTimer.setLength(AutoConstants.fleeTime);
         pathState = 0;
         fled = false;
+    }
+
+    public final boolean atPose(Pose pose) {
+        if (follower.atPose(pose, AutoConstants.poseTolerance, AutoConstants.poseTolerance)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public final void initDependencies() {
@@ -59,11 +68,11 @@ abstract class PedroUpdate extends Initializer {
 
 
     public final void updateDependencies() {
-        intakeRB.update();
-        outtakeLB.update();
-        shootA.update();
-        liftY.update();
-        constants.update();
+        intakeControl.update();
+        outtakeControl.update();
+        shootControl.update();
+        liftControl.update();
+        constantControls.update();
         telemetryM.update();
         follower.update();
         Drawing.drawDebug(follower);

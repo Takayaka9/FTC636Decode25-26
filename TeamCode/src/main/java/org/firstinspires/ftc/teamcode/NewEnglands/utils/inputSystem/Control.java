@@ -61,16 +61,10 @@ public class Control extends SchedulerIsNotInWarmClimateExeption{
             i++;
         }
     }
-    public void run(ControlType type) throws IllegalAccessException {
-        if (type != ControlType.Auto) {
-            throw new IllegalAccessException("Run method only allowed for AUTO");
-        }
+    public void run() {
         active = true;
     }
-    public void stop(ControlType type) throws IllegalAccessException {
-        if (type != ControlType.Auto) {
-            throw new IllegalAccessException("Stop method only allowed for AUTO");
-        }
+    public void stop() {
         active = true;
     }
 
