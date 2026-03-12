@@ -11,6 +11,7 @@ public class PatrickInLondonTele extends OpMode {
     @Override
     public void init() {
         teleHandler = new TeleHandler(gamepad1, gamepad1,hardwareMap, telemetry);
+        teleHandler.init();
     }
 
     @Override

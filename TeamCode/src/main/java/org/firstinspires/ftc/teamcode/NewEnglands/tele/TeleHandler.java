@@ -22,10 +22,10 @@ public class TeleHandler extends Initializer {
         super(gamepad1, gamepad2, hardwareMap, telemetry);
         allianceBlueX = new Control(GamepadInput.x, gamepad1, ControlType.Hold, blue);
         allianceRedB = new Control(GamepadInput.b, gamepad1, ControlType.Hold, red);
-        intakeRB = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, intake);
-        outtakeLB = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, outake);
-        shootA = new Control(GamepadInput.a, gamepad1, ControlType.Hold, shoot);
-        liftY = new Control(GamepadInput.y, gamepad1, ControlType.Toggle, liftBot);
+        intakeRB = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, intake);
+        outtakeLB = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake);
+        shootA = new Control(GamepadInput.a, gamepad2, ControlType.Hold, shoot);
+        liftY = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, liftBot);
         constants = new Control(ControlType.Continuous, turretHoodUpdate, shoot, makeMoves);
     }
 
