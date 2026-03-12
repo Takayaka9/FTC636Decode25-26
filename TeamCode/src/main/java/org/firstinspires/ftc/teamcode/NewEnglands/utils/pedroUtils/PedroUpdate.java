@@ -23,8 +23,8 @@ abstract class PedroUpdate extends Initializer {
     public final ElapsedTime opModeTimer = new ElapsedTime();
     public final GenericTime shootTimer = new SolversTiming();
     public final GenericTime fleeTimer = new SolversTiming();
-    public boolean fled = false;
-    public int pathState = 0;
+    public boolean fled;
+    public int pathState;
 
 
     public PedroUpdate(HardwareMap hardwareMap, Telemetry telemetry, Alliance alliance) {

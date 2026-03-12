@@ -50,10 +50,29 @@ public class C9PathUpdate extends BasePathUpdate {
                     follower.followPath(paths.spike2ToShoot);
                     pathState = 5;
                 }
+                break;
             case 5:
                 if (atPose(paths.nearShootPose)) {
-
+                    shootTimer.resetThenStart();
+                    shootControl.run();
+                    pathState = 6;
                 }
+                break;
+            case 6:
+                if (shootTimer.checkFinished()) {
+                    shootControl.stop();
+                    follower.followPath(paths.preIntakeSpike1);
+                    pathState = 7;
+                }
+                break;
+            case 7:
+                if (atPose(paths.pIntake2Pose)) {
+                    intakeControl.run();
+                    follower.followPath(paths.intakeSpike1);
+                    pathState = 8;
+                }
+                break;
+            case 8:
 
         }
     }
