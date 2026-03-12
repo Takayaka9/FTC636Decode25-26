@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.CrLiftBot;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.LiftBot;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.MakeMoves;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.Outake;
+import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.ResetForTele;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.Shoot;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.TurretHoodUpdate;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Light;
@@ -47,6 +48,7 @@ public class Initializer {
     public final Transfer transfer;
     public final Turret turret;
 
+
     public final Intake intake;
 //    public final CrLiftBot crLiftBot;
     public final LiftBot liftBot;
@@ -58,6 +60,7 @@ public class Initializer {
     public final TurretHoodUpdate turretHoodUpdate;
     public final AllianceBlue blue;
     public final AllianceRed red;
+    public final ResetForTele resetForTele;
 
 
 
@@ -91,6 +94,7 @@ public class Initializer {
         turretHoodUpdate = new TurretHoodUpdate(turret, hoodServo, follower);
         blue = new AllianceBlue();
         red = new AllianceRed();
+        resetForTele = new ResetForTele(turret);
 
     }
 

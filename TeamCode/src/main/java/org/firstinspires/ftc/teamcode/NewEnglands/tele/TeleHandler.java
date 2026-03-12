@@ -16,7 +16,7 @@ public class TeleHandler extends Initializer {
     private final Control outtakeLB;
     private final Control shootA;
     private final Control liftY;
-    private final Control constants;
+    private final Control constantControls;
 
     public TeleHandler(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
         super(gamepad1, gamepad2, hardwareMap, telemetry);
@@ -26,7 +26,7 @@ public class TeleHandler extends Initializer {
         outtakeLB = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake);
         shootA = new Control(GamepadInput.a, gamepad2, ControlType.Hold, shoot);
         liftY = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, liftBot);
-        constants = new Control(ControlType.Continuous, turretHoodUpdate, shoot, makeMoves);
+        constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves);
     }
 
 
@@ -43,7 +43,7 @@ public class TeleHandler extends Initializer {
         outtakeLB.update();
         shootA.update();
         liftY.update();
-        constants.update();
+        constantControls.update();
     }
 
 //    public void stop() {}

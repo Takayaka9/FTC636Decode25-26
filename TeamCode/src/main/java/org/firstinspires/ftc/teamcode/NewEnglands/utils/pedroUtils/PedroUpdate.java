@@ -18,8 +18,8 @@ abstract class PedroUpdate extends Initializer {
     public final Control intakeControl;
     public final Control outtakeControl;
     public final Control shootControl;
-    public final Control liftControl;
     public final Control constantControls;
+    private final Control zeroTurretControl;
     public final ElapsedTime opModeTimer = new ElapsedTime();
     public final GenericTime shootTimer = new SolversTiming();
     public final GenericTime fleeTimer = new SolversTiming();
@@ -30,11 +30,11 @@ abstract class PedroUpdate extends Initializer {
     public PedroUpdate(HardwareMap hardwareMap, Telemetry telemetry, Alliance alliance) {
         super(null, null, hardwareMap, telemetry);
         CurrentAlliance.alliance = alliance;
-        intakeControl = new Control(ControlType.Hold, intake);
-        outtakeControl = new Control(ControlType.Hold, outake);
-        shootControl = new Control(ControlType.Hold, shoot);
-        liftControl = new Control(ControlType.Toggle, liftBot);
-        constantControls = new Control(ControlType.Continuous, turretHoodUpdate, shoot, makeMoves);
+        intakeControl = new Control(ControlType.Auto, intake);
+        outtakeControl = new Control(ControlType.Auto, outake);
+        shootControl = new Control(ControlType.Auto, shoot);
+        constantControls = new Control(ControlType.Auto, turretHoodUpdate);
+        zeroTurretControl = new Control(ControlType.Auto, resetForTele);
         shootTimer.create();
         shootTimer.setLength(AutoConstants.shootTime);
         fleeTimer.create();
@@ -51,6 +51,12 @@ abstract class PedroUpdate extends Initializer {
         }
     }
 
+    public final void zeroTurret() {
+        constantControls.stop();
+        shootControl.stop();
+        zeroTurretControl.run();
+    }
+
     public final void initDependencies() {
         opModeTimer.reset();
         Drawing.init();
@@ -64,6 +70,7 @@ abstract class PedroUpdate extends Initializer {
         opModeTimer.reset();
         pathState = 0;
         fled = false;
+        constantControls.run();
     }
 
 
@@ -71,7 +78,6 @@ abstract class PedroUpdate extends Initializer {
         intakeControl.update();
         outtakeControl.update();
         shootControl.update();
-        liftControl.update();
         constantControls.update();
         telemetryM.update();
         follower.update();

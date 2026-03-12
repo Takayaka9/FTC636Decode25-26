@@ -32,8 +32,8 @@ public class Control extends SchedulerIsNotInWarmClimateExeption{
         }
     }
     public Control (ControlType type, BaseCommand... command) throws IllegalArgumentException {
-        if (type != ControlType.Auto & type != ControlType.Continuous) {
-            throw new IllegalArgumentException("Control type must be Auto or Continuous otherwise controls must be specified");
+        if (type != ControlType.Auto) {
+            throw new IllegalArgumentException("Control type must be Auto or Continuous otherwise inputs must be specified");
         }
         this.type = type;
         commandSet = new HashSet<>();
@@ -97,12 +97,6 @@ public class Control extends SchedulerIsNotInWarmClimateExeption{
                     stopSet();
                     active = false;
                 }
-                break;
-            case Continuous:
-                if (!active){
-                    runSet();
-                }
-                active = true;
                 break;
             case Auto:
                 if (active) {
