@@ -18,6 +18,7 @@ public final class F6Paths extends BasePathChain implements BuildPaths {
     public PathChain startToShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
 
     public void buildPaths() {
+        follower.pathBuilder().setGlobalTangentHeadingInterpolation();
         startToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(farStartPose, farShootPose))
                 .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading())
