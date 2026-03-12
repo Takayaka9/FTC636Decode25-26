@@ -99,7 +99,10 @@ public class Control extends SchedulerIsNotInWarmClimateExeption{
                 }
                 break;
             case Continuous:
-                runSet();
+                if (!active){
+                    runSet();
+                }
+                active = true;
                 break;
             case Auto:
                 if (active) {
@@ -107,6 +110,7 @@ public class Control extends SchedulerIsNotInWarmClimateExeption{
                 } else if (!active) {
                     stopSet();
                 }
+                break;
         }
     }
 
