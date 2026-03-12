@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.LLReloc;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.CrLiftBot;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.LiftBot;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.MakeMoves;
+import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.OhNoWeFucked;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.Outake;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.ResetForTele;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.Shoot;
@@ -61,6 +62,9 @@ public class Initializer {
     public final AllianceBlue blue;
     public final AllianceRed red;
     public final ResetForTele resetForTele;
+    public final OhNoWeFucked ohNoWeFucked;
+
+
 
 
 
@@ -91,10 +95,11 @@ public class Initializer {
         outake = new Outake(transfer);
         shoot = new Shoot(transfer, shooter, stopper, follower, telemetryM);
         constantShoot = new ConstantShoot(shooter, follower);
-        turretHoodUpdate = new TurretHoodUpdate(turret, hoodServo, follower);
+        turretHoodUpdate = new TurretHoodUpdate(turret, hoodServo, follower, gamepad2);
         blue = new AllianceBlue();
         red = new AllianceRed();
         resetForTele = new ResetForTele(turret);
+        ohNoWeFucked = new OhNoWeFucked(turret, gamepad2);
 
     }
 

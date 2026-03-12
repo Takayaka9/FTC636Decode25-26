@@ -27,21 +27,14 @@ public class Turret extends BaseSubsystem {
         this.follower = follower;
         this.gamepad2 = gamepad2;
     }
-    public static final double TICKS_PER_REV = 145.1;
-    public double goalAngle;
-    public double ticksToMove;
+    private static final double TICKS_PER_REV = 145.1;
+    private double goalAngle;
+    private double ticksToMove;
     /* Function to move the turret to a certain angle
     Requires color (1 for blue, 2 for red) and follower object
     Calls turnTurret with required inputs to move the turret
      */
     public void trackGoal(Alliance alliance){
-        if(alliance == Alliance.UNSELECTED){
-            if (gamepad2 != null) {
-                ticksToMove = (gamepad2.left_stick_x * 300);
-            }
-            turnTurret(ticksToMove);
-            return;
-        }
         if(alliance == Alliance.BLUE){
             goalAngle = Math.atan2(GetTargetDistance.goalPoses.blueY - follower.getPose().getY(), GetTargetDistance.goalPoses.blueX - follower.getPose().getX());
         }
@@ -61,16 +54,16 @@ public class Turret extends BaseSubsystem {
         turnTurret(ticksToMove + getOffset(alliance));
     }
     @Configurable
-    public static class TurretPID {
-        public static double Kp = 0.03;
-        public static double Kd = 0;
-        public static double Ki = 0;
-        public static double I_MAX = 500;
+    private static class TurretPID {
+        private static double Kp = 0.03;
+        private static double Kd = 0;
+        private static double Ki = 0;
+        private static double I_MAX = 500;
     }
-    ElapsedTime turretTime = new ElapsedTime();
-    double lastTurretError;
-    double turretIntegral;
-    double output;
+    private ElapsedTime turretTime = new ElapsedTime();
+    private double lastTurretError;
+    private double turretIntegral;
+    private double output;
     //PID to turn turret
     public void turnTurret(double tPosition){
         double cPosition = turret.getCurrentPosition(); //TODO: change 0 to getPosition
@@ -93,12 +86,12 @@ public class Turret extends BaseSubsystem {
         //telemetryM.addData("turret desired position", tPosition);
         //telemetryM.addData("turret motor power", Math.max(-1, Math.min(1, output)));
     }
-    GetTargetDistance getTargetDistance;
-    Pose lastPose;
-    double lastDistance;
-    public double angleMultiplier = 1;
-    public double magnitudeMultiplier = 1;
-    public double getOffset(Alliance alliance){
+    private GetTargetDistance getTargetDistance;
+    private Pose lastPose;
+    private double lastDistance;
+    private double angleMultiplier = 1;
+    private double magnitudeMultiplier = 1;
+    private double getOffset(Alliance alliance){
         double angleGoal;
 
         //inches per second the bot is moving at
@@ -129,6 +122,12 @@ public class Turret extends BaseSubsystem {
             return magGoal;
         }
         return -magGoal;
+    }
+
+    public void resetEncoder(){
+        turret.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public double turretPosition(){
