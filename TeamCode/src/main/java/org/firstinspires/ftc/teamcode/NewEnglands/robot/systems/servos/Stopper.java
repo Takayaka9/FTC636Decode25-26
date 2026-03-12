@@ -13,7 +13,7 @@ public class Stopper extends ServoImplExBase implements GamepadServoImplEx {
     public double open = 0;
     public double closed = .6;
     public Stopper(HardwareMap hardwareMap) {
-        super(maps,"stopper", hardwareMap);
+        super("stopper", hardwareMap);
     }
     public void close() {
         setPosition(closed);

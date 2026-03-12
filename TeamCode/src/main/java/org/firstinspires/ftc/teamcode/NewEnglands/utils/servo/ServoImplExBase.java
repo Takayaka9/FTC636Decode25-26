@@ -16,7 +16,7 @@ public class ServoImplExBase extends BaseSubsystem implements GamepadServoImplEx
 
     PwmConverter converter;
 
-    public ServoImplExBase(CommandLoop maps, String name, HardwareMap hardwareMap) {
+    public ServoImplExBase(String name, HardwareMap hardwareMap) {
         super();
         servo = hardwareMap.get(ServoImplEx.class, name);
         converter = new PwmConverter();

@@ -33,16 +33,17 @@ public class TurretHoodUpdate extends BaseCommand {
     public void loop() {
         if (gamepad != null) {
             if (gamepad.x) {
-                turret.turnTurret(Math.round(gamepad.left_stick_x * 100));
+                double overPos = turret.turretPosition() + gamepad.left_stick_x * Turret.TurretConstants.overrideSensitivity;
+                turret.turnTurret(Math.round(overPos));
                 overridden = true;
             } else if (overridden) {
                 turret.resetEncoder();
                 overridden = false;
             } else {
-                turret.trackGoal(CurrentAlliance.alliance);
+                turret.trackGoal();
             }
         } else {
-            turret.trackGoal(CurrentAlliance.alliance);
+            turret.trackGoal();
         }
         hood.angleHood(getTargetDistance.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
     }

@@ -13,7 +13,7 @@ public class HoodServo extends ServoImplExBase implements GamepadServoImplEx {
     double end = 1;
     private final InterpLUT lut = new InterpLUT();
     public HoodServo (HardwareMap hardwareMap) {
-        super(maps,"hood", hardwareMap);
+        super("hood", hardwareMap);
         lut.add(0, 1);
         lut.add(d1, p1);
         lut.add(d2, p2);

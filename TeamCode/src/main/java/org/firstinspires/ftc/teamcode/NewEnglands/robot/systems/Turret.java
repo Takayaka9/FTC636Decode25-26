@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.GetTargetDistance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsystem;
-import org.jetbrains.annotations.NotNull;
 
 public class Turret extends BaseSubsystem {
     DcMotorEx turret;
@@ -29,12 +29,13 @@ public class Turret extends BaseSubsystem {
     }
     private static final double TICKS_PER_REV = 145.1;
     private double goalAngle;
-    private double ticksToMove;
+    private double targetPos;
     /* Function to move the turret to a certain angle
     Requires color (1 for blue, 2 for red) and follower object
     Calls turnTurret with required inputs to move the turret
      */
-    public void trackGoal(Alliance alliance){
+    public void trackGoal(){
+        Alliance alliance = CurrentAlliance.alliance;
         if(alliance == Alliance.BLUE){
             goalAngle = Math.atan2(GetTargetDistance.goalPoses.blueY - follower.getPose().getY(), GetTargetDistance.goalPoses.blueX - follower.getPose().getX());
         }
@@ -50,15 +51,16 @@ public class Turret extends BaseSubsystem {
             turretAngle = -Math.PI/2;
         }
 
-        ticksToMove = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
-        turnTurret(ticksToMove + getOffset(alliance));
+        targetPos = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
+        turnTurret(targetPos + getOffset(alliance));
     }
     @Configurable
-    private static class TurretPID {
+    public static class TurretConstants {
         private static double Kp = 0.03;
         private static double Kd = 0;
         private static double Ki = 0;
         private static double I_MAX = 500;
+        public static double overrideSensitivity = 10;
     }
     private ElapsedTime turretTime = new ElapsedTime();
     private double lastTurretError;
@@ -78,7 +80,7 @@ public class Turret extends BaseSubsystem {
         turretTime.reset();
 
 
-        output = (error * TurretPID.Kp) + (derivative * TurretPID.Kd) + (turretIntegral * TurretPID.Ki) ;
+        output = (error * TurretConstants.Kp) + (derivative * TurretConstants.Kd) + (turretIntegral * TurretConstants.Ki) ;
 
         turret.setPower(output);
 
