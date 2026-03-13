@@ -18,9 +18,6 @@ public class OhNoWeFucked extends BaseCommand {
     }
 
     @Override
-    public void init() {}
-
-    @Override
     public void loop() {
         turret.turnTurret(Math.round(gamepad.left_stick_x * 100));
     }

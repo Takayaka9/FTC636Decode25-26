@@ -26,7 +26,7 @@ public class TeleHandler extends Initializer {
         outtakeLB = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake);
         shootA = new Control(GamepadInput.a, gamepad2, ControlType.Hold, shoot);
         liftY = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, liftBot);
-        constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves);
+        constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves, constantFlywheelSpin);
     }
 
 

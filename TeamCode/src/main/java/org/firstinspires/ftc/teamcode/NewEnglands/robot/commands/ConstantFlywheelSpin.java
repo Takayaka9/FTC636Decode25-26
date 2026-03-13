@@ -7,11 +7,11 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.CurrentAlliance
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.GetTargetDistance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
 
-public class ConstantShoot extends BaseCommand {
+public class ConstantFlywheelSpin extends BaseCommand {
     private final TakaShooter shooter;
     private final GetTargetDistance getTargetDistance;
     private final Follower follower;
-    public ConstantShoot(TakaShooter shooter, Follower follower) {
+    public ConstantFlywheelSpin(TakaShooter shooter, Follower follower) {
         super();
         getTargetDistance = new GetTargetDistance();
         this.shooter = shooter;

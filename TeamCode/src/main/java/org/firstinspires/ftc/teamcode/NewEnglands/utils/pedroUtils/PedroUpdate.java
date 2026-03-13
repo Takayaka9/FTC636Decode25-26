@@ -33,7 +33,7 @@ abstract class PedroUpdate extends Initializer {
         intakeControl = new Control(ControlType.Auto, intake);
         outtakeControl = new Control(ControlType.Auto, outake);
         shootControl = new Control(ControlType.Auto, shoot);
-        constantControls = new Control(ControlType.Auto, turretHoodUpdate);
+        constantControls = new Control(ControlType.Auto, turretHoodUpdate, constantFlywheelSpin);
         zeroTurretControl = new Control(ControlType.Auto, resetForTele);
         shootTimer.create();
         shootTimer.setLength(AutoConstants.shootTime);
@@ -44,7 +44,7 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final boolean atPose(Pose pose) {
-        if (follower.atPose(pose, AutoConstants.poseTolerance, AutoConstants.poseTolerance)) {
+        if (follower.atPose(pose, AutoConstants.globalPoseTolerance, AutoConstants.globalPoseTolerance)) {
             return true;
         } else {
             return false;
@@ -73,7 +73,6 @@ abstract class PedroUpdate extends Initializer {
         constantControls.run();
     }
 
-
     public final void updateDependencies() {
         intakeControl.update();
         outtakeControl.update();
@@ -84,6 +83,5 @@ abstract class PedroUpdate extends Initializer {
         Drawing.drawDebug(follower);
         telemetryM.addData("Path State", pathState);
     }
-
 
 }

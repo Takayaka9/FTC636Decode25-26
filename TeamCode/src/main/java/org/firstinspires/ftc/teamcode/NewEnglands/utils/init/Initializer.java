@@ -10,10 +10,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.NewEnglands.pedroPathing.Constants2;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.AllianceBlue;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.AllianceRed;
-import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.ConstantShoot;
+import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.ConstantFlywheelSpin;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.Intake;
-import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.LLReloc;
-import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.CrLiftBot;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.LiftBot;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.MakeMoves;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.OhNoWeFucked;
@@ -22,15 +20,12 @@ import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.ResetForTele;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.Shoot;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.TurretHoodUpdate;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Light;
-import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Limelight;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.TakaShooter;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Transfer;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Turret;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.HoodServo;
-import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.CrLiftServo;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.LiftServo;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.Stopper;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
 public class Initializer {
 
@@ -57,7 +52,7 @@ public class Initializer {
     public final MakeMoves makeMoves;
     public final Outake outake;
     public final Shoot shoot;
-    public final ConstantShoot constantShoot;
+    public final ConstantFlywheelSpin constantFlywheelSpin;
     public final TurretHoodUpdate turretHoodUpdate;
     public final AllianceBlue blue;
     public final AllianceRed red;
@@ -94,7 +89,7 @@ public class Initializer {
         makeMoves = new MakeMoves(follower, gamepad1);
         outake = new Outake(transfer);
         shoot = new Shoot(transfer, shooter, stopper, follower, telemetryM);
-        constantShoot = new ConstantShoot(shooter, follower);
+        constantFlywheelSpin = new ConstantFlywheelSpin(shooter, follower);
         turretHoodUpdate = new TurretHoodUpdate(turret, hoodServo, follower, gamepad2);
         blue = new AllianceBlue();
         red = new AllianceRed();

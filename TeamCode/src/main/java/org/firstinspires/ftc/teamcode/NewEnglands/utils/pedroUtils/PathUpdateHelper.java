@@ -11,16 +11,18 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.CurrentAlliance;
 
 public final class PathUpdateHelper {
+
     public static void update(BasePathUpdate pathUpdate) {
         pathUpdate.updateDependencies();
         if (pathUpdate.fleeTimer.checkFinished() && !pathUpdate.fled) {
             pathUpdate.follower.followPath(createFleePath(pathUpdate));
         } else if (pathUpdate.fleeTimer.checkFinished() && pathUpdate.fled) {
-            //TODO: Zero Turret Command and Control!!!!
+            pathUpdate.zeroTurret();
         } else {
             pathUpdate.autonomousPathUpdate();
         }
     }
+
     private static PathChain createFleePath(BasePathUpdate pathUpdate) {
         Pose fleePose = null;
         switch (CurrentAlliance.alliance) {
@@ -39,4 +41,5 @@ public final class PathUpdateHelper {
                 .build();
         return fleePath;
     }
+
 }
