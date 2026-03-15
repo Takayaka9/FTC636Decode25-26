@@ -16,6 +16,8 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.init.Initializer;
 
 
+
+//TODO: FIX TO NOT USE COMMAND LOOP IF WE NEED THIS
 @Configurable
 @TeleOp
 public class LUTTester extends OpMode {
@@ -34,11 +36,14 @@ public class LUTTester extends OpMode {
     @Override
     public void loop() {
         follower.update();
+
+//        TODO: EVEN WITH NEW SYSTEM THE COMMANDS WOULD BE CALLED INCORRECTLY
+//        TODO: CHANGE LOGIC SO THAT THEY ARE ONLY CALLED ONCE
         if(gamepad1.right_bumper){
-            initializer.commandLoop.runCommand(initializer.intake);
+//            initializer.commandLoop.runCommand(initializer.intake);
         }
         else{
-            initializer.commandLoop.stopCommand(initializer.intake);
+//            initializer.commandLoop.stopCommand(initializer.intake);
         }
         double d1 = 36;  double r1 = 900;
         double d2 = 50;  double r2 = 900;
