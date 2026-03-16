@@ -9,7 +9,6 @@ public class CrLiftBot extends BaseCommand {
     public CrLiftBot(CommandLoop maps, CrLiftServo lift) {
         super();
         this.lift = lift;
-        addRequirement(lift);
     }
 
     @Override

@@ -8,7 +8,6 @@ public class LiftBot extends BaseCommand {
     public LiftBot(LiftServo lift) {
         super();
         this.lift = lift;
-        addRequirement(lift);
         this.lift.up();
     }
 

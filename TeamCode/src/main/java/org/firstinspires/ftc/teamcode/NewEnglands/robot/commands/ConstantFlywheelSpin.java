@@ -14,7 +14,6 @@ public class ConstantFlywheelSpin extends BaseCommand {
         super();
         this.shooter = shooter;
         this.follower = follower;
-        addRequirement(shooter);
     }
 
     @Override

@@ -7,7 +7,6 @@ public class Outake extends BaseCommand {
     private final Transfer transfer;
     public Outake(Transfer transfer) {
         super();
-        addRequirement(transfer);
         this.transfer = transfer;
     }
 

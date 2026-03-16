@@ -29,7 +29,6 @@ public class Shoot extends BaseCommand {
     public Shoot(Transfer transfer, TakaShooter shooter, Stopper stopper, Follower follower, TelemetryManager telemetryM) {
         super();
         //TODO: add shooter back into requirements if we need to
-        addRequirement(transfer, stopper);
         this.transfer = transfer;
         this.shooter = shooter;
         this.stopper = stopper;

@@ -7,7 +7,6 @@ public class Intake extends BaseCommand {
     private final Transfer transfer;
     public Intake(Transfer transfer) {
         super();
-        addRequirement(transfer);
         this.transfer = transfer;
     }
 

@@ -34,7 +34,6 @@ public class LLReloc extends BaseCommand {
         this.limelight = limelight;
         this.gamepad1 = gamepad1;
         found = false;
-        addRequirement(limelight);
         //state = 0;
         //motifID = 0;
     }

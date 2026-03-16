@@ -18,7 +18,6 @@ public class TurretHoodUpdate extends BaseCommand {
 
     public TurretHoodUpdate(Turret turret, HoodServo hood, Follower follower, Gamepad gamepad) {
         super();
-        addRequirement(turret, hood);
         this.turret = turret;
         this.hood = hood;
         this.follower = follower;
