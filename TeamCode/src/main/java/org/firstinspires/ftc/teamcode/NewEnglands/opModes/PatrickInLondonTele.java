@@ -3,19 +3,18 @@ package org.firstinspires.ftc.teamcode.NewEnglands.opModes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.tele.TeleHandler;
+import org.firstinspires.ftc.teamcode.NewEnglands.tele.TeleControls;
 
 @TeleOp
 public class PatrickInLondonTele extends OpMode {
-    public TeleHandler teleHandler;
+    public TeleControls teleControls;
     @Override
     public void init() {
-        teleHandler = new TeleHandler(gamepad1, gamepad1,hardwareMap, telemetry);
-        teleHandler.init();
+        teleControls = new TeleControls(gamepad1, gamepad1,hardwareMap, telemetry);
     }
 
     @Override
     public void loop() {
-        teleHandler.update();
+        teleControls.update();
     }
 }

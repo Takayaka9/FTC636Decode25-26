@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.inputSystem.Control;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.inputSystem.ControlType;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.inputSystem.GamepadInput;
 
-public class TeleHandler extends Initializer {
+public class TeleControls extends Initializer {
     private final Control allianceBlueX;
     private final Control allianceRedB;
     private final Control intakeRB;
@@ -18,7 +18,7 @@ public class TeleHandler extends Initializer {
     private final Control liftY;
     private final Control constantControls;
 
-    public TeleHandler(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
+    public TeleControls(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
         super(gamepad1, gamepad2, hardwareMap, telemetry);
         allianceBlueX = new Control(GamepadInput.x, gamepad1, ControlType.Hold, blue);
         allianceRedB = new Control(GamepadInput.b, gamepad1, ControlType.Hold, red);
@@ -30,7 +30,7 @@ public class TeleHandler extends Initializer {
     }
 
 
-    public void init() {}
+//    public void init() {}
 
 //    public void init_loop() {}
 
