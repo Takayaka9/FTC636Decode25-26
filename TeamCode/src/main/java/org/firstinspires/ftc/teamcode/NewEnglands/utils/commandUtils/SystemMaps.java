@@ -7,7 +7,6 @@ import java.util.Map;
 abstract class SystemMaps {
     protected Map<String, BaseCommand> commands;
     protected Map<String, BaseSubsystem> subsystems;
-
     protected Map<String, BaseCommand> initializingCommands;
     protected Map<String, BaseCommand> runningCommands;
     protected Map<String, BaseCommand> stoppingCommands;
