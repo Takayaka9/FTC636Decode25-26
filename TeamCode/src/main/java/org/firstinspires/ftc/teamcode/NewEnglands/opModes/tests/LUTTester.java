@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.opModes.tests;
 
 import org.firstinspires.ftc.teamcode.NewEnglands.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.GetTargetDistance;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.TDistHelper;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
@@ -9,8 +9,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.Intake;
-import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.LLReloc;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.TakaShooter;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.init.Initializer;
@@ -25,7 +23,7 @@ public class LUTTester extends OpMode {
     Alliance alliance;
     InterpLUT lut;
     TakaShooter shooter;
-    GetTargetDistance distance;
+    TDistHelper distance;
     Follower follower;
     @Override
     public void init() {

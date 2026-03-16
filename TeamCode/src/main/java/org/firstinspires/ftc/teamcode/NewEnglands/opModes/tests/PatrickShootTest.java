@@ -1,4 +1,54 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.opModes.tests;
 
-public class PatrickShootTest {
+import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.init.Initializer;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.inputSystem.Control;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.inputSystem.ControlType;
+
+/**
+ * Shoot Tester for testing LUT calibration, initializes the whole robot as standard.
+ * Had a bit too much fun with this one, probably should have been simpler
+ */
+@TeleOp
+public class PatrickShootTest extends OpMode {
+    Initializer i = null;
+    Control opModeShoot = null;
+    enum action {
+        op,
+        test,
+        off
+    }
+    @Configurable
+    public static class PatrickShootTestParams {
+        static action currentAction = action.off;
+        static int testSpeed = 500;
+    }
+
+    @Override
+    public void init() {
+        i = new Initializer(gamepad1, gamepad2, hardwareMap, telemetry);
+        opModeShoot = new Control(ControlType.Auto, i.constantFlywheelSpin);
+    }
+
+    @Override
+    public void loop() {
+        opModeShoot.update();
+        switch (PatrickShootTestParams.currentAction) {
+            case op:
+                opModeShoot.run();
+                break;
+            case test:
+                opModeShoot.stop();
+                i.shooter.test(PatrickShootTestParams.testSpeed);
+                break;
+            case off:
+                opModeShoot.stop();
+                i.shooter.stop();
+                break;
+        }
+        FlywheelTelemetryHelper.loop(i);
+    }
 }

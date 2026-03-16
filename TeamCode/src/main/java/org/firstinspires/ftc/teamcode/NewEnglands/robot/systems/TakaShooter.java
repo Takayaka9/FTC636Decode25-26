@@ -123,7 +123,7 @@ public class TakaShooter extends BaseSubsystem {
         update1(tps);
     }
     /// CALC NEEDED TPS WITH LUT
-    private int getShooterTPS(double targetDistance){
+    public int getShooterTPS(double targetDistance){
         return (int) Math.round(lut.get(targetDistance));
     }
     /// RETRIEVES AVERAGE VELOCITY OF BOTH SHOOTERS
