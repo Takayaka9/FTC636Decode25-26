@@ -16,7 +16,6 @@ public abstract class BaseCommand implements CommandInterface{
 //        }
 //    }
 
-    public void create() {}
     public void init() {}
     public void loop() {}
     public void stop() {}

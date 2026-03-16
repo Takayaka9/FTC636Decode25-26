@@ -8,8 +8,6 @@ import org.firstinspires.ftc.teamcode.NewEnglands.pedro.autoConstants.RedPoseLib
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 
 public abstract class BasePathChain {
-    private final BluePoseLib bluePoseLib;
-    private final RedPoseLib redPoseLib;
     public final Follower follower;
     public Pose farStartPose;
     public Pose farShootPose;
@@ -26,38 +24,50 @@ public abstract class BasePathChain {
     public Pose closeLeavePose;
     public BasePathChain(Alliance alliance, Follower follower) {
         this.follower = follower;
-        redPoseLib = new RedPoseLib();
-        bluePoseLib = new BluePoseLib();
         switch (alliance) {
             case RED:
-                farStartPose = redPoseLib.farStartPose;
-                farShootPose = redPoseLib.farShootPose;
-                nearStartPose = redPoseLib.nearStartPose;
-                nearShootPose = redPoseLib.nearShootPose;
-                pIntake3Pose = redPoseLib.pIntake3Pose;
-                intake3Pose = redPoseLib.intake3Pose;
-                pIntake2Pose = redPoseLib.pIntake2Pose;
-                intake2Pose = redPoseLib.intake2Pose;
-                pIntake1Pose = redPoseLib.pIntake1Pose;
-                intake1Pose = redPoseLib.intake1Pose;
-                emptyPose = redPoseLib.emptyPose;
-                farLeavePose = redPoseLib.farLeavePose;
-                closeLeavePose = redPoseLib.closeLeavePose;
+                farStartPose = RedPoseLib.farStartPose;
+                farShootPose = RedPoseLib.farShootPose;
+                nearStartPose = RedPoseLib.nearStartPose;
+                nearShootPose = RedPoseLib.nearShootPose;
+                pIntake3Pose = RedPoseLib.pIntake3Pose;
+                intake3Pose = RedPoseLib.intake3Pose;
+                pIntake2Pose = RedPoseLib.pIntake2Pose;
+                intake2Pose = RedPoseLib.intake2Pose;
+                pIntake1Pose = RedPoseLib.pIntake1Pose;
+                intake1Pose = RedPoseLib.intake1Pose;
+                emptyPose = RedPoseLib.emptyPose;
+                farLeavePose = RedPoseLib.farLeavePose;
+                closeLeavePose = RedPoseLib.closeLeavePose;
                 break;
             case BLUE:
-                farStartPose = bluePoseLib.farStartPose;
-                farShootPose = bluePoseLib.farShootPose;
-                nearStartPose = bluePoseLib.nearStartPose;
-                nearShootPose = bluePoseLib.nearShootPose;
-                pIntake3Pose = bluePoseLib.pIntake3Pose;
-                intake3Pose = bluePoseLib.intake3Pose;
-                pIntake2Pose = bluePoseLib.pIntake2Pose;
-                intake2Pose = bluePoseLib.intake2Pose;
-                pIntake1Pose = bluePoseLib.pIntake1Pose;
-                intake1Pose = bluePoseLib.intake1Pose;
-                emptyPose = bluePoseLib.emptyPose;
-                farLeavePose = bluePoseLib.farLeavePose;
-                closeLeavePose = bluePoseLib.nearLeavePose;
+                farStartPose = BluePoseLib.farStartPose;
+                farShootPose = BluePoseLib.farShootPose;
+                nearStartPose = BluePoseLib.nearStartPose;
+                nearShootPose = BluePoseLib.nearShootPose;
+                pIntake3Pose = BluePoseLib.pIntake3Pose;
+                intake3Pose = BluePoseLib.intake3Pose;
+                pIntake2Pose = BluePoseLib.pIntake2Pose;
+                intake2Pose = BluePoseLib.intake2Pose;
+                pIntake1Pose = BluePoseLib.pIntake1Pose;
+                intake1Pose = BluePoseLib.intake1Pose;
+                emptyPose = BluePoseLib.emptyPose;
+                farLeavePose = BluePoseLib.farLeavePose;
+                closeLeavePose = BluePoseLib.nearLeavePose;
+            default:
+                farStartPose = null;
+                farShootPose = null;
+                nearStartPose = null;
+                nearShootPose = null;
+                pIntake3Pose = null;
+                intake3Pose = null;
+                pIntake2Pose = null;
+                intake2Pose = null;
+                pIntake1Pose = null;
+                intake1Pose = null;
+                emptyPose = null;
+                farLeavePose = null;
+                closeLeavePose = null;
         }
     }
 
