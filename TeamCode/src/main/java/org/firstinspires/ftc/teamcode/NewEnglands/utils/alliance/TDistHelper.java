@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 
-public final class GetTargetDistance {
+public abstract class TDistHelper {
     /*
     Get Target Distance is a method to retrieve target distance
     inputs: robotPose, (turret) mode
@@ -18,8 +18,8 @@ public final class GetTargetDistance {
         public static double redY = 140;
     }
 
-    private double targetDistance = 0;
-    public double getTargetDistance(Pose currentPose, Alliance alliance){
+    public static double getTargetDistance(Pose currentPose, Alliance alliance){
+        double targetDistance = 0;
         if (alliance == Alliance.RED){
             Pose redGoal = new Pose(goalPoses.redX, goalPoses.redY);
             targetDistance = currentPose.distanceFrom(redGoal);

@@ -27,11 +27,10 @@ public class TakaShooter extends BaseSubsystem {
         static double d6 = 150; static double r6 = 1400;
         public static double brake = -0.3;
     }
-    TelemetryManager telemetryM;
     private final InterpLUT lut = new InterpLUT();
-    DcMotorEx shooter1;
-    DcMotorEx shooter2;
-    public static int targetTPS = 0;
+    private DcMotorEx shooter1;
+    private DcMotorEx shooter2;
+    private static int targetTPS = 0;
 
     public TakaShooter(HardwareMap hardwareMap) {
         super();

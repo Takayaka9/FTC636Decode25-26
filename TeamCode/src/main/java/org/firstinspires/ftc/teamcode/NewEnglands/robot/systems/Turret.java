@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.CurrentAlliance;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.GetTargetDistance;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.TDistHelper;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsystem;
 
 public class Turret extends BaseSubsystem {
@@ -37,10 +37,10 @@ public class Turret extends BaseSubsystem {
     public void trackGoal(){
         Alliance alliance = CurrentAlliance.alliance;
         if(alliance == Alliance.BLUE){
-            goalAngle = Math.atan2(GetTargetDistance.goalPoses.blueY - follower.getPose().getY(), GetTargetDistance.goalPoses.blueX - follower.getPose().getX());
+            goalAngle = Math.atan2(TDistHelper.goalPoses.blueY - follower.getPose().getY(), TDistHelper.goalPoses.blueX - follower.getPose().getX());
         }
         if(alliance == Alliance.RED){
-            goalAngle = Math.atan2(GetTargetDistance.goalPoses.redY - follower.getPose().getY(), GetTargetDistance.goalPoses.redX - follower.getPose().getX());
+            goalAngle = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
         }
         double robotHeading = follower.getHeading();
         double turretAngle = goalAngle - robotHeading;
@@ -88,7 +88,7 @@ public class Turret extends BaseSubsystem {
         //telemetryM.addData("turret desired position", tPosition);
         //telemetryM.addData("turret motor power", Math.max(-1, Math.min(1, output)));
     }
-    private GetTargetDistance getTargetDistance;
+    private TDistHelper TDistHelper;
     private Pose lastPose;
     private double lastDistance;
     private double angleMultiplier = 1;
@@ -104,10 +104,10 @@ public class Turret extends BaseSubsystem {
 
         //get the angle to the goal from bot pos, same as turret aiming
         if(alliance == Alliance.BLUE){
-            angleGoal = Math.atan2(GetTargetDistance.goalPoses.blueY - follower.getPose().getY(), GetTargetDistance.goalPoses.blueX - follower.getPose().getX());
+            angleGoal = Math.atan2(TDistHelper.goalPoses.blueY - follower.getPose().getY(), TDistHelper.goalPoses.blueX - follower.getPose().getX());
         }
         else if(alliance == Alliance.RED){
-            angleGoal = Math.atan2(GetTargetDistance.goalPoses.redY - follower.getPose().getY(), GetTargetDistance.goalPoses.redX - follower.getPose().getX());
+            angleGoal = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
         }
         else{
             angleGoal = 0;
