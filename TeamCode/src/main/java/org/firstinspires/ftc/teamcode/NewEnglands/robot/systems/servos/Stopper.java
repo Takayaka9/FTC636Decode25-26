@@ -3,11 +3,11 @@ package org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.GamepadServoImplEx;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.ServoImplexInterface;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.ServoImplExBase;
 
 @Configurable
-public class Stopper extends ServoImplExBase implements GamepadServoImplEx {
+public class Stopper extends ServoImplExBase implements ServoImplexInterface {
     public double open = 0;
     public double closed = .6;
     public Stopper(HardwareMap hardwareMap) {

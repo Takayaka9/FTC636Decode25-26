@@ -4,11 +4,11 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.GamepadServoImplEx;
+import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.ServoImplexInterface;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.ServoImplExBase;
 
 @Configurable
-public class HoodServo extends ServoImplExBase implements GamepadServoImplEx {
+public class HoodServo extends ServoImplExBase implements ServoImplexInterface {
     private final InterpLUT lut = new InterpLUT();
     public HoodServo (HardwareMap hardwareMap) {
         super("hood", hardwareMap);

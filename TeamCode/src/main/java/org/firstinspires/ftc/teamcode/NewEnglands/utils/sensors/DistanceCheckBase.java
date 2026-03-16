@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
+@Deprecated
 abstract class DistanceCheckBase implements IsBallPresent {
     protected final void Init(HardwareMap hardwareMap, TelemetryManager telemetryM, String name, RevColorSensorV3 sensor) {
 //        sensor = hardwareMap.get(RevColorSensorV3.class, name);

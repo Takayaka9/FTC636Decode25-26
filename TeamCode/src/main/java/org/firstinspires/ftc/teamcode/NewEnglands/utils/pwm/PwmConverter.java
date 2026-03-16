@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.NewEnglands.utils.pwm;
 import com.qualcomm.robotcore.hardware.PwmControl;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
+@Deprecated
 public class PwmConverter {
     public double convert(double input) {
         int multiplied = (int) input * 1000;

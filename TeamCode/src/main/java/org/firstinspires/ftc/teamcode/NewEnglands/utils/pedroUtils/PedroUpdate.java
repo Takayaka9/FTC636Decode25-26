@@ -44,11 +44,7 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final boolean atPose(Pose pose) {
-        if (follower.atPose(pose, AutoConstants.globalPoseTolerance, AutoConstants.globalPoseTolerance)) {
-            return true;
-        } else {
-            return false;
-        }
+        return follower.atPose(pose, AutoConstants.globalPoseTolerance, AutoConstants.globalPoseTolerance);
     }
 
     public final void zeroTurret() {

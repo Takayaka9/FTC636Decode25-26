@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SolversTiming extends Timing implements GenericTime {
     private static int length = 1000;
-    Timer timer;
+    Timer timer = null;
 
     public void create() {
         timer = new Timer(length, TimeUnit.MILLISECONDS);
@@ -24,12 +24,7 @@ public class SolversTiming extends Timing implements GenericTime {
         timer.resume();
     }
     public boolean checkFinished(){
-        if (timer.done()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return timer.done();
     }
     public void setLength(int lengthInMilliseconds){
         length = lengthInMilliseconds;
