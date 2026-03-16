@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.NewEnglands.pedro.AutoConstants;
+import org.firstinspires.ftc.teamcode.NewEnglands.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.init.Initializer;

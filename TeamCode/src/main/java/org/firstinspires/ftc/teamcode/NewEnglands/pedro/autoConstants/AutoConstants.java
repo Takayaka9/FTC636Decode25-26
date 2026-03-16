@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.NewEnglands.pedro;
+package org.firstinspires.ftc.teamcode.NewEnglands.pedro.autoConstants;
 
 import com.bylazar.configurables.annotations.Configurable;
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.NewEnglands.pedro.poseLibs;
+package org.firstinspires.ftc.teamcode.NewEnglands.pedro.autoConstants;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;

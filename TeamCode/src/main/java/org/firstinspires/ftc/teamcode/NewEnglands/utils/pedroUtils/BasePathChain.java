@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.pedro.poseLibs.BluePoseLib;
-import org.firstinspires.ftc.teamcode.NewEnglands.pedro.poseLibs.RedPoseLib;
+import org.firstinspires.ftc.teamcode.NewEnglands.pedro.autoConstants.BluePoseLib;
+import org.firstinspires.ftc.teamcode.NewEnglands.pedro.autoConstants.RedPoseLib;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.Alliance;
 
 public abstract class BasePathChain {
