@@ -9,8 +9,6 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.ServoImplExBase;
 
 @Configurable
 public class HoodServo extends ServoImplExBase implements GamepadServoImplEx {
-    double start = 0.85;
-    double end = 1;
     private final InterpLUT lut = new InterpLUT();
     public HoodServo (HardwareMap hardwareMap) {
         super("hood", hardwareMap);
@@ -32,15 +30,13 @@ public class HoodServo extends ServoImplExBase implements GamepadServoImplEx {
     static double d5 = 108; static double p5 = 0.85;
     static double d6 = 150; static double p6 = 0.85;
 
-    public double angle;
     public void angleHood(double targetDistance) {
-        angle = lut.get(targetDistance);
+        double angle = lut.get(targetDistance);
         setPosition(angle);
     }
 
-    public static double passive = 1;
     public void passive(){
-        setPosition(passive);
+        setPosition(1);
     }
 
     public void increment(boolean positive){
