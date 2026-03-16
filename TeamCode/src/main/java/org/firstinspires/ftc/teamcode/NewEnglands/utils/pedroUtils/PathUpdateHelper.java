@@ -25,8 +25,10 @@ public final class PathUpdateHelper {
         switch (CurrentAlliance.alliance) {
             case RED:
                 fleePose = new Pose(96, 58);
+                break;
             case BLUE:
                 fleePose = new Pose(48, 58);
+                break;
         }
 
         PathChain fleePath;
