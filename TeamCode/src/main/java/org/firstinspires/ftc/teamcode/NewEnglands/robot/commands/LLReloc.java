@@ -17,17 +17,15 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.Limelight;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.pedroUtils.Drawing;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
-import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
+@Deprecated
 public class LLReloc extends BaseCommand {
-    private int state;
-    public static int motifID;
-    public static boolean found;
+    public static boolean found = false;
     private final TelemetryManager telemetryM;
     private final Follower follower;
     private final Limelight limelight;
     private final Gamepad gamepad1;
-    public LLReloc(CommandLoop maps, Limelight limelight, Follower follower, Gamepad gamepad1, TelemetryManager telemetryM){
+    public LLReloc(Limelight limelight, Follower follower, Gamepad gamepad1, TelemetryManager telemetryM){
         super();
         this.telemetryM = telemetryM;
         this.follower = follower;
@@ -45,7 +43,7 @@ public class LLReloc extends BaseCommand {
 
      */
 
-    //inits ll and switches pipeline to 3. sets found to false for llhandler purposes
+    //init ll and switches pipeline to 3. sets found to false for llHandler purposes
     @Override
     public void init() {
         limelight.limelight3A.start();
@@ -77,7 +75,7 @@ public class LLReloc extends BaseCommand {
         }
 
          */
-        //code to use megatag2 to relocalize robot using follower's heading
+        //code to use megaTag2 to relocalize robot using follower's heading
         limelight.limelight3A.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
         LLResult result = limelight.limelight3A.getLatestResult();
         if (result != null) {
@@ -100,12 +98,10 @@ public class LLReloc extends BaseCommand {
 
          */
 
-        telemetryM.addData("pipeline", state);
     }
 
     @Override
     public void stop() {
-        stop();
         found = false;
     }
 }
