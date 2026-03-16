@@ -13,7 +13,7 @@ public class Transfer extends BaseSubsystem {
         public static double power = 1;
         public static double reversePower = -1;
     }
-    private DcMotorEx transfer;
+    private final DcMotorEx transfer;
     public Transfer(HardwareMap hardwareMap) {
         super();
         transfer = hardwareMap.get(DcMotorEx.class, "transfer");
