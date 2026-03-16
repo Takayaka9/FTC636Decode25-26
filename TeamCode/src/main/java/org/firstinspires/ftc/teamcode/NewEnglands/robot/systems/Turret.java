@@ -2,10 +2,8 @@ package org.firstinspires.ftc.teamcode.NewEnglands.robot.systems;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -17,7 +15,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsyst
 public class Turret extends BaseSubsystem {
     DcMotorEx turret;
     private final Follower follower;
-    public Turret(HardwareMap hardwareMap, Follower follower, Gamepad gamepad2) {
+    public Turret(HardwareMap hardwareMap, Follower follower) {
         super();
         turret = hardwareMap.get(DcMotorEx.class, "turret");
         turret.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -26,13 +24,15 @@ public class Turret extends BaseSubsystem {
         this.follower = follower;
     }
     private static final double TICKS_PER_REV = 145.1;
-    private double goalAngle;
-    private double targetPos;
-    /* Function to move the turret to a certain angle
-    Requires color (1 for blue, 2 for red) and follower object
-    Calls turnTurret with required inputs to move the turret
+    private double goalAngle = 0;
+
+    /**
+     *  Function to move the turret to a certain angle
+     *  Requires color (1 for blue, 2 for red) and follower object
+     *  Calls turnTurret with required inputs to move the turret
      */
     public void trackGoal(){
+        double targetPos;
         Alliance alliance = CurrentAlliance.alliance;
         if(alliance == Alliance.BLUE){
             goalAngle = Math.atan2(TDistHelper.goalPoses.blueY - follower.getPose().getY(), TDistHelper.goalPoses.blueX - follower.getPose().getX());
@@ -53,26 +53,26 @@ public class Turret extends BaseSubsystem {
         turnTurret(targetPos + getOffset(alliance));
     }
 
+    @SuppressWarnings("FieldMayBeFinal")
     @Configurable
     public static class TurretConstants {
         private static double Kp = 0.03;
         private static double Kd = 0;
         private static double Ki = 0;
-        private static double I_MAX = 500;
-        public static double overrideSensitivity = 10;
+        public static final double overrideSensitivity = 10;
+        private static double angleMultiplier = 1;
+        private static double magnitudeMultiplier = 1;
     }
 
-    private ElapsedTime turretTime = new ElapsedTime();
-    private double lastTurretError;
-    private double turretIntegral;
-    private double output;
     //PID to turn turret
+    private final ElapsedTime turretTime = new ElapsedTime();
+    private double lastTurretError = 0;
     public void turnTurret(double tPosition){
         double cPosition = turret.getCurrentPosition(); //TODO: change 0 to getPosition
         double error = tPosition - cPosition;
         double dt = turretTime.seconds();
         if (dt < 0.0001) dt = 0.0001;
-        turretIntegral = error * dt;
+        double turretIntegral = error * dt;
         //turretIntegral = Math.max(-I_MAX, Math.min(I_MAX, turretIntegral));
         double derivative = (error- lastTurretError)/ dt;
         lastTurretError = error;
@@ -80,19 +80,11 @@ public class Turret extends BaseSubsystem {
         turretTime.reset();
 
 
-        output = (error * TurretConstants.Kp) + (derivative * TurretConstants.Kd) + (turretIntegral * TurretConstants.Ki) ;
+        double output = (error * TurretConstants.Kp) + (derivative * TurretConstants.Kd) + (turretIntegral * TurretConstants.Ki) ;
 
         turret.setPower(output);
-
-        //telemetryM.addData("current position", cPosition);
-        //telemetryM.addData("turret desired position", tPosition);
-        //telemetryM.addData("turret motor power", Math.max(-1, Math.min(1, output)));
     }
 
-    private Pose lastPose;
-    private double lastDistance;
-    private double angleMultiplier = 1;
-    private double magnitudeMultiplier = 1;
     private double getOffset(Alliance alliance){
         double angleGoal;
 
@@ -117,7 +109,7 @@ public class Turret extends BaseSubsystem {
         double angle = Math.abs(angleGoal - velAngle);
 
         //total velocity relative to the goal (sorta, the values are messed up but it's chill)
-        double magGoal = (angleMultiplier*angle)*(magnitude*magnitudeMultiplier);
+        double magGoal = (TurretConstants.angleMultiplier*angle)*(magnitude*TurretConstants.magnitudeMultiplier);
 
         //return pos/neg values depending on moving left or right
         if(velAngle > angleGoal){

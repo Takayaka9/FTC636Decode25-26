@@ -78,7 +78,7 @@ public class Initializer {
 //        limelight = new Limelight(hardwareMap);
         shooter = new TakaShooter(hardwareMap);
         transfer = new Transfer(hardwareMap);
-        turret = new Turret(hardwareMap, follower, gamepad2);
+        turret = new Turret(hardwareMap, follower);
 
 
         ///commands
