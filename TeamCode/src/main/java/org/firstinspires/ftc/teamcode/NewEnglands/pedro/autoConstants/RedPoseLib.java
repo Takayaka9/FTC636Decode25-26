@@ -5,19 +5,19 @@ import com.pedropathing.geometry.Pose;
 
 @Configurable
 public abstract class RedPoseLib {
-    public static int farStartX = 89; public static int farStartY = 9; public static int farStartR = 90;
-    public static int farShootX = 87; public static int farShootY = 15; public static int farShootR = 73;
-    public static int nearStartX = 120; public static int nearStartY = 129; public static int nearStartR = 37;
-    public static int nearShootX = 95; public static int nearShootY = 95; public static int nearShootR = 0;
-    public static int PIntake3X = 95; public static int PIntake3Y = 35; public static int PIntake3R = 0;
-    public static int Intake3X = 133; public static int Intake3Y = 35; public static int Intake3R = 0;
-    public static int PIntake2X = 95; public static int PIntake2Y = 62; public static int PIntake2R = 0;
-    public static int Intake2X = 125; public static int Intake2Y = 62; public static int Intake2R = 0;
-    public static int PIntake1X = 95; public static int PIntake1Y = 87; public static int PIntake1R = 0;
-    public static int Intake1X = 126; public static int Intake1Y = 87; public static int Intake1R = 0;
-    public static int emptyX = 131; public static int emptyY = 60; public static int emptyR = 90;
-    public static int farLeaveX = 56; public static int farLeaveY = 36; public static int farLeaveR = 45;
-    public static int closeLeaveX = 56; public static int closeLeaveY = 36; public static int closeLeaveR = 45;
+    private static int farStartX = 89; private static int farStartY = 9; private static int farStartR = 90;
+    private static int farShootX = 87; private static int farShootY = 15; private static int farShootR = 73;
+    private static int nearStartX = 120; private static int nearStartY = 129; private static int nearStartR = 37;
+    private static int nearShootX = 95; private static int nearShootY = 95; private static int nearShootR = 0;
+    private static int PIntake3X = 95; private static int PIntake3Y = 35; private static int PIntake3R = 0;
+    private static int Intake3X = 133; private static int Intake3Y = 35; private static int Intake3R = 0;
+    private static int PIntake2X = 95; private static int PIntake2Y = 62; private static int PIntake2R = 0;
+    private static int Intake2X = 125; private static int Intake2Y = 62; private static int Intake2R = 0;
+    private static int PIntake1X = 95; private static int PIntake1Y = 87; private static int PIntake1R = 0;
+    private static int Intake1X = 126; private static int Intake1Y = 87; private static int Intake1R = 0;
+    private static int emptyX = 131; private static int emptyY = 60; private static int emptyR = 90;
+    private static int farLeaveX = 56; private static int farLeaveY = 36; private static int farLeaveR = 45;
+    private static int closeLeaveX = 56; private static int closeLeaveY = 36; private static int closeLeaveR = 45;
 
 
     public static final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
