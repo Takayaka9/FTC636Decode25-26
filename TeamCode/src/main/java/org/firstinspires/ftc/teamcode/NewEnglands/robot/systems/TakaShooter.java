@@ -56,8 +56,8 @@ public class TakaShooter extends BaseSubsystem {
     private final ElapsedTime pidTime1 = new ElapsedTime();
     private double integralSum1 = 0;
     private double lastError1 = 0;
-    private void updateRight(double target) {
-        double output1;
+    private double output1 = 0;
+    private void update1(double target) {
         double error = target-(shooter1.getVelocity());
         double dt = pidTime1.seconds();
         if (dt < 0.0001) dt = 0.0001;
@@ -77,8 +77,8 @@ public class TakaShooter extends BaseSubsystem {
     private final ElapsedTime pidTime2 = new ElapsedTime();
     private double lastError2 = 0;
     private double integralSum2 = 0;
-    private void updateLeft(double target) {
-        double output2;
+    private double output2 = 0;
+    private void update2(double target) {
         double error = target-(shooter2.getVelocity());
         double dt = pidTime2.seconds();
         if (dt < 0.0001) dt = 0.0001;
@@ -98,8 +98,8 @@ public class TakaShooter extends BaseSubsystem {
 
     /// MAIN RUN METHOD
     public void runForDistance(double distance){
-        updateRight(getShooterTPS(distance));
-        updateLeft(getShooterTPS(distance));
+        update1(getShooterTPS(distance));
+        update2(getShooterTPS(distance));
     }
     /// SET POWER ZERO (DO NOT CALL RUN FOR DISTANCE WHEN USING THIS)
     public void stop(){
@@ -119,25 +119,33 @@ public class TakaShooter extends BaseSubsystem {
     }
     /// TEST METHOD FOR PID
     public void test(double tps) {
-        updateLeft(tps);
-        updateRight(tps);
+        update2(tps);
+        update1(tps);
     }
     /// CALC NEEDED TPS WITH LUT
     private int getShooterTPS(double targetDistance){
         return (int) Math.round(lut.get(targetDistance));
     }
     /// RETRIEVES AVERAGE VELOCITY OF BOTH SHOOTERS
-    public int averageVelocity () {
+    public int getAverageVelocity() {
         double averageVelocity = ((shooter1.getVelocity() + shooter2.getVelocity()) / 2);
         return (int) (Math.round(averageVelocity));
     }
     /// SHOOTER 1 TPS
-    public int shooter1tps() {
+    public int getShooter1tps() {
         return (int) Math.round(shooter1.getVelocity());
     }
     /// SHOOTER 2 TPS
-    public int shooter2tps() {
+    public int getShooter2tps() {
         return (int) Math.round(shooter2.getVelocity());
+    }
+    /// SET POWER FOR MOTOR ONE
+    public double get1Power() {
+        return output1;
+    }
+    /// SET POWER FOR MOTOR TWO
+    public double get2Power() {
+        return output2;
     }
     /// LAST ERROR
     public double getError(){
