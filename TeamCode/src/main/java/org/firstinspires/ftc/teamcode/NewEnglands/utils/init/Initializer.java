@@ -88,7 +88,7 @@ public class Initializer {
 //        reloc = new LLReloc(limelight, follower, gamepad1, telemetryM);
         makeMoves = new MakeMoves(follower, gamepad1);
         outake = new Outake(transfer);
-        shoot = new Shoot(transfer, shooter, stopper, follower, telemetryM);
+        shoot = new Shoot(transfer, shooter, stopper);
         constantFlywheelSpin = new ConstantFlywheelSpin(shooter, follower);
         turretHoodUpdate = new TurretHoodUpdate(turret, hoodServo, follower, gamepad2);
         blue = new AllianceBlue();

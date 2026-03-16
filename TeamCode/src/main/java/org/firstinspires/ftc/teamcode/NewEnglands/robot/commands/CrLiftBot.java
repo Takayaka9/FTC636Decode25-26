@@ -4,6 +4,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.robot.systems.servos.CrLiftSer
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.CommandLoop;
 
+@Deprecated
 public class CrLiftBot extends BaseCommand {
     private final CrLiftServo lift;
     public CrLiftBot(CommandLoop maps, CrLiftServo lift) {

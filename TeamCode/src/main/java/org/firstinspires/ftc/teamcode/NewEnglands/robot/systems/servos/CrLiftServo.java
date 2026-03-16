@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.timers.GenericTime;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.timers.SolversTiming;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.servo.CRServoBase;
 
-@Configurable
+@Deprecated
 public class CrLiftServo extends CRServoBase{
     GenericTime timer;
     int liftTime = 3000;
