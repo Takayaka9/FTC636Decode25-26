@@ -38,25 +38,20 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
 
     private void constructArray(BaseCommand... command) {
         commandArray = new BaseCommand[command.length];
-        for (int i = 0; i < command.length;) {
-            commandArray[i] = command[i];
-            i++;
-        }
+        commandArray = command;
     }
 
     private void runSet() {
-        for (int i =0; i < commandArray.length;) {
-            LoopCommand(commandArray[i], state);
+        for (BaseCommand command : commandArray) {
+            LoopCommand(command, state);
             state = WeNeeeeedToGetGoooder.LOOPING;
-            i++;
         }
     }
     private void stopSet() {
-        for (int i =0; i < commandArray.length;) {
-            StopCommand(commandArray[i], state);
-            state = WeNeeeeedToGetGoooder.OFF;
-            i++;
+        for (BaseCommand command : commandArray) {
+            StopCommand(command, state);
         }
+        state = WeNeeeeedToGetGoooder.OFF;
     }
     public void run() {
         active = true;
