@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.robot.systems;
 
 import com.bylazar.configurables.annotations.Configurable;
-import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -28,9 +27,8 @@ public class TakaShooter extends BaseSubsystem {
         public static double brake = -0.3;
     }
     private final InterpLUT lut = new InterpLUT();
-    private DcMotorEx shooter1;
-    private DcMotorEx shooter2;
-    private static int targetTPS = 0;
+    private final DcMotorEx shooter1;
+    private final DcMotorEx shooter2;
 
     public TakaShooter(HardwareMap hardwareMap) {
         super();
@@ -55,11 +53,11 @@ public class TakaShooter extends BaseSubsystem {
 
 
     //PID 1
-    private ElapsedTime pidTime1 = new ElapsedTime();
-    private double integralSum1;
-    private double lastError1;
-    private double output1;
+    private final ElapsedTime pidTime1 = new ElapsedTime();
+    private double integralSum1 = 0;
+    private double lastError1 = 0;
     private void updateRight(double target) {
+        double output1;
         double error = target-(shooter1.getVelocity());
         double dt = pidTime1.seconds();
         if (dt < 0.0001) dt = 0.0001;
@@ -76,11 +74,11 @@ public class TakaShooter extends BaseSubsystem {
     }
 
     //PID 2
-    private ElapsedTime pidTime2 = new ElapsedTime();
-    private double lastError2;
-    private double integralSum2;
-    private double output2 = 0;
+    private final ElapsedTime pidTime2 = new ElapsedTime();
+    private double lastError2 = 0;
+    private double integralSum2 = 0;
     private void updateLeft(double target) {
+        double output2;
         double error = target-(shooter2.getVelocity());
         double dt = pidTime2.seconds();
         if (dt < 0.0001) dt = 0.0001;
@@ -126,10 +124,7 @@ public class TakaShooter extends BaseSubsystem {
     }
     /// CALC NEEDED TPS WITH LUT
     private int getShooterTPS(double targetDistance){
-        int calcTPS = (int) Math.round(lut.get(targetDistance));
-        //telemetryM.addData("Calculated TPS", calcTPS);
-        targetTPS = calcTPS;
-        return calcTPS;
+        return (int) Math.round(lut.get(targetDistance));
     }
     /// RETRIEVES AVERAGE VELOCITY OF BOTH SHOOTERS
     public int averageVelocity () {
