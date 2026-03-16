@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsyst
 
 public class TakaShooter extends BaseSubsystem {
     @Configurable
-    public static class shooterTune {
+    private static class shooterTune {
         public static double Kp = 0.3;
         public static double Ki = 0;
         public static double Kd = 0;
@@ -59,7 +59,7 @@ public class TakaShooter extends BaseSubsystem {
     private double integralSum1;
     private double lastError1;
     private double output1;
-    public void updateRight(double target) {
+    private void updateRight(double target) {
         double error = target-(shooter1.getVelocity());
         double dt = pidTime1.seconds();
         if (dt < 0.0001) dt = 0.0001;
@@ -76,11 +76,11 @@ public class TakaShooter extends BaseSubsystem {
     }
 
     //PID 2
-    ElapsedTime pidTime2 = new ElapsedTime();
-    double lastError2;
-    double integralSum2;
-    public double output2 = 0;
-    public void updateLeft(double target) {
+    private ElapsedTime pidTime2 = new ElapsedTime();
+    private double lastError2;
+    private double integralSum2;
+    private double output2 = 0;
+    private void updateLeft(double target) {
         double error = target-(shooter2.getVelocity());
         double dt = pidTime2.seconds();
         if (dt < 0.0001) dt = 0.0001;
@@ -98,37 +98,53 @@ public class TakaShooter extends BaseSubsystem {
 
 
 
-    //utils
+    /// MAIN RUN METHOD
     public void runForDistance(double distance){
         updateRight(getShooterTPS(distance));
         updateLeft(getShooterTPS(distance));
     }
+    /// SET POWER ZERO (DO NOT CALL RUN FOR DISTANCE WHEN USING THIS)
     public void stop(){
         shooter1.setPower(0);
         shooter2.setPower(0);
     }
+    /// REVERSES THE SHOOTER
     public void reverse() {
         shooter1.setPower(-1);
         shooter2.setPower(-1);
     }
+    /// SLIGHT REVERSE FOR BRAKING
+    /// SETS POWER TO BRAKE POWER
     public void brake(){
         shooter1.setPower(shooterTune.brake);
         shooter2.setPower(shooterTune.brake);
     }
+    /// TEST METHOD FOR PID
     public void test(double tps) {
         updateLeft(tps);
         updateRight(tps);
     }
-    public int getShooterTPS(double targetDistance){
+    /// CALC NEEDED TPS WITH LUT
+    private int getShooterTPS(double targetDistance){
         int calcTPS = (int) Math.round(lut.get(targetDistance));
         //telemetryM.addData("Calculated TPS", calcTPS);
         targetTPS = calcTPS;
         return calcTPS;
     }
+    /// RETRIEVES AVERAGE VELOCITY OF BOTH SHOOTERS
     public int averageVelocity () {
         double averageVelocity = ((shooter1.getVelocity() + shooter2.getVelocity()) / 2);
         return (int) (Math.round(averageVelocity));
     }
+    /// SHOOTER 1 TPS
+    public int shooter1tps() {
+        return (int) Math.round(shooter1.getVelocity());
+    }
+    /// SHOOTER 2 TPS
+    public int shooter2tps() {
+        return (int) Math.round(shooter2.getVelocity());
+    }
+    /// LAST ERROR
     public double getError(){
         //return getShooterTPS(distance) - shooter1.getVelocity();
         return lastError1;
