@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.opModes.tests;
 
-import org.firstinspires.ftc.teamcode.NewEnglands.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.alliance.TDistHelper;
 
 import com.bylazar.configurables.annotations.Configurable;

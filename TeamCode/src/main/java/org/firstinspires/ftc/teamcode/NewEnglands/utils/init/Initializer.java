@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.NewEnglands.pedroPathing.Constants2;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants2;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.AllianceBlue;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.AllianceRed;
 import org.firstinspires.ftc.teamcode.NewEnglands.robot.commands.ConstantFlywheelSpin;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.NewEnglands.pedroPathing;
+package org.firstinspires.ftc.teamcode.pedroPathing;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.control.FilteredPIDFCoefficients;
@@ -16,22 +16,15 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Configurable
-public class Constants2 {
+public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(13.92)
-
-            //TODO: delete this todo once we input forward zero power
             .forwardZeroPowerAcceleration(-35.14331)
-
-            //TODO: this runs in the direction it says it will on the DS delete when done
             .lateralZeroPowerAcceleration(-50.949577)
-            .translationalPIDFCoefficients(new PIDFCoefficients(0.1, 0, 0.012, 0.00))
+            .translationalPIDFCoefficients(new PIDFCoefficients(0.11, 0, 0.011, 0.00))
             .headingPIDFCoefficients(new PIDFCoefficients(0.68, 0, 0.02, 0.0))
-            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.33, 0.0, 0.023, 0.6, 0.00))
-            //TODO: centripetal probably wont change
+            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.2, 0.0, 0.02, 0.6, 0.00))
             .centripetalScaling(0.00065);
-
-            //TODO: run the triangle tester the triangle is slightly curved outward sphero-triangle :)
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
             .rightFrontMotorName("fr")
@@ -62,4 +55,5 @@ public class Constants2 {
                 .pinpointLocalizer(localizerConstants)
                 .build();
     }
+
 }
