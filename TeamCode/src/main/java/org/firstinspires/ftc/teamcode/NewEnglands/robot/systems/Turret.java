@@ -17,7 +17,6 @@ import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsyst
 public class Turret extends BaseSubsystem {
     DcMotorEx turret;
     private final Follower follower;
-    private final Gamepad gamepad2;
     public Turret(HardwareMap hardwareMap, Follower follower, Gamepad gamepad2) {
         super();
         turret = hardwareMap.get(DcMotorEx.class, "turret");
@@ -25,7 +24,6 @@ public class Turret extends BaseSubsystem {
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.follower = follower;
-        this.gamepad2 = gamepad2;
     }
     private static final double TICKS_PER_REV = 145.1;
     private double goalAngle;
@@ -54,6 +52,7 @@ public class Turret extends BaseSubsystem {
         targetPos = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
         turnTurret(targetPos + getOffset(alliance));
     }
+
     @Configurable
     public static class TurretConstants {
         private static double Kp = 0.03;
@@ -62,6 +61,7 @@ public class Turret extends BaseSubsystem {
         private static double I_MAX = 500;
         public static double overrideSensitivity = 10;
     }
+
     private ElapsedTime turretTime = new ElapsedTime();
     private double lastTurretError;
     private double turretIntegral;
@@ -88,7 +88,7 @@ public class Turret extends BaseSubsystem {
         //telemetryM.addData("turret desired position", tPosition);
         //telemetryM.addData("turret motor power", Math.max(-1, Math.min(1, output)));
     }
-    private TDistHelper TDistHelper;
+
     private Pose lastPose;
     private double lastDistance;
     private double angleMultiplier = 1;
