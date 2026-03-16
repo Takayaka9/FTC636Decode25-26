@@ -24,7 +24,6 @@ public abstract class BasePathChain {
     public Pose emptyPose;
     public Pose farLeavePose;
     public Pose closeLeavePose;
-    public void buildPaths() {}
     public BasePathChain(Alliance alliance, Follower follower) {
         this.follower = follower;
         redPoseLib = new RedPoseLib();
