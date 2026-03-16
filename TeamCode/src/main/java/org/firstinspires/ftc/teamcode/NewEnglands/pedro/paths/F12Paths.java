@@ -15,6 +15,7 @@ public final class F12Paths extends BasePathChain implements BuildPaths {
     }
     public PathChain fs0, pi1, i1, cs1, pi2, i2, cs2, pi3, i3, fs3, l, abort;
 
+    @Override
     public void buildPaths() {
         follower.pathBuilder().setGlobalTangentHeadingInterpolation();
         fs0 = follower.pathBuilder()

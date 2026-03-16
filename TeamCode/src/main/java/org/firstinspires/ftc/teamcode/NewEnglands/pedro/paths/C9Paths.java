@@ -19,6 +19,7 @@ public final class C9Paths extends BasePathChain implements BuildPaths {
 //            gateToShoot,
             preIntakeSpike1, intakeSpike1, spike1toShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
 
+    @Override
     public void buildPaths() {
         follower.pathBuilder().setGlobalTangentHeadingInterpolation();
         startToShoot = follower.pathBuilder()
