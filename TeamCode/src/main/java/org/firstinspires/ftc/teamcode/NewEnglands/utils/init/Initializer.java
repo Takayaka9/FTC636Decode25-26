@@ -63,7 +63,7 @@ public class Initializer {
 
 
 
-    public Initializer(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
+    public Initializer(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry ignoredTelemetry) {
         /// lil stuff
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = Constants2.createFollower(hardwareMap);

@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils;
 
 public interface CommandInterface {
-    void create();
     void init();
     void loop();
     void stop();
+    @Deprecated
     boolean prioritize = false;
 
 }
