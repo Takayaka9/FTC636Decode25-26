@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Deprecated
 abstract class SystemMaps {
     protected Map<String, BaseCommand> commands;
     protected Map<String, BaseSubsystem> subsystems;

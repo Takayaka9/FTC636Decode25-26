@@ -4,6 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+@Deprecated
 public class CommandLoop extends CommandHandler{
     public CommandLoop() {
         super();

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils;
 
 import android.os.Build;
 
+@Deprecated
 abstract class CommandHandler extends SystemMaps {
     public CommandHandler() {
         super();
