@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseSubsystem;
 
+
+@SuppressWarnings("unused")
 public class Light extends BaseSubsystem {
     Servo light;
     public Light(HardwareMap hardwareMap) {
