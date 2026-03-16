@@ -11,6 +11,7 @@ public class KickstandTest extends OpMode {
     Servo liftRight;
     public static double leftPos = 1;
     //public static double rightPos = 0;
+
     @Override
     public void init() {
         liftLeft = hardwareMap.get(Servo.class, "liftLeft");
