@@ -4,43 +4,40 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.NewEnglands.utils.commandUtils.BaseCommand;
 
-import java.util.HashSet;
-
-public class Control extends SchedulerIsNotInWarmClimateExeption{
+public final class Control extends SchedulerIsNotInWarmClimateExeption{
     private final ControlType type;
-    private InputMap map;
-    private final HashSet<BaseCommand> commandSet;
-    private final BaseCommand[] commandArray = new BaseCommand[0];
+    private final InputMap map;
+    private BaseCommand[] commandArray;
     private WeNeeeeedToGetGoooder state = WeNeeeeedToGetGoooder.OFF;
     private boolean active = false;
     private boolean released = true;
 
+    /// Constructor for input based control types (gamepad activated)
     public Control (GamepadInput input, Gamepad gamepad, ControlType type, BaseCommand... command) throws IllegalArgumentException {
         if (type != ControlType.Hold & type != ControlType.Toggle) {
             throw new IllegalArgumentException("Control type must be Toggle or Hold otherwise controls should not be specified");
         }
+
         this.type = type;
         this.map = new InputMap(input, gamepad);
-        commandSet = new HashSet<>();
-        for (int i = 0; i < command.length;) {
-            commandSet.add(command[i]);
-            i++;
-        }
-        for (int i = 0; i < command.length;) {
-            commandArray[i] = command[i];
-            i++;
-        }
+
+        constructArray(command);
     }
+
+    /// Constructor for auto control-type (code activated)
     public Control (ControlType type, BaseCommand... command) throws IllegalArgumentException {
         if (type != ControlType.Auto) {
             throw new IllegalArgumentException("Control type must be Auto or Continuous otherwise inputs must be specified");
         }
+
         this.type = type;
-        commandSet = new HashSet<>();
-        for (int i = 0; i < command.length;) {
-            commandSet.add(command[i]);
-            i++;
-        }
+        this.map = null;
+
+        constructArray(command);
+    }
+
+    private void constructArray(BaseCommand... command) {
+        commandArray = new BaseCommand[command.length];
         for (int i = 0; i < command.length;) {
             commandArray[i] = command[i];
             i++;
@@ -48,14 +45,14 @@ public class Control extends SchedulerIsNotInWarmClimateExeption{
     }
 
     private void runSet() {
-        for (int i =0; i < commandSet.size();) {
+        for (int i =0; i < commandArray.length;) {
             LoopCommand(commandArray[i], state);
             state = WeNeeeeedToGetGoooder.LOOPING;
             i++;
         }
     }
     private void stopSet() {
-        for (int i =0; i < commandSet.size();) {
+        for (int i =0; i < commandArray.length;) {
             StopCommand(commandArray[i], state);
             state = WeNeeeeedToGetGoooder.OFF;
             i++;
@@ -72,6 +69,7 @@ public class Control extends SchedulerIsNotInWarmClimateExeption{
         public void update() {
         switch (type) {
             case Toggle:
+                assert map != null;
                 if (map.checkInput() && !active) {
                     runSet();
                     active = true;
@@ -89,6 +87,7 @@ public class Control extends SchedulerIsNotInWarmClimateExeption{
                 }
                 break;
             case Hold:
+                assert map != null;
                 if (map.checkInput()) {
                     runSet();
                     active = true;
@@ -101,7 +100,7 @@ public class Control extends SchedulerIsNotInWarmClimateExeption{
             case Auto:
                 if (active) {
                     runSet();
-                } else if (!active) {
+                } else {
                     stopSet();
                 }
                 break;

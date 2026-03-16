@@ -26,13 +26,9 @@ public class InputMap {
             case right_bumper:
                 return gamepad.right_bumper;
             case right_trigger:
-                if (gamepad.right_trigger > 0.3) {
-                    return true;
-                } else return false;
+                return gamepad.right_trigger > 0.3;
             case left_trigger:
-                if (gamepad.left_trigger > 0.3) {
-                    return true;
-                } else return false;
+                return gamepad.left_trigger > 0.3;
             default:
                 return false;
         }

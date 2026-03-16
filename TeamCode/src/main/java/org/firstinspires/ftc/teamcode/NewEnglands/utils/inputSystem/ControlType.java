@@ -4,5 +4,4 @@ public enum ControlType {
     Toggle,
     Hold,
     Auto,
-    Linear
 }
