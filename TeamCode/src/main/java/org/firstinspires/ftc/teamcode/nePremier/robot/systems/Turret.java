@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 
 public class Turret extends BaseSubsystem {
-    DcMotorEx turret;
+    private final DcMotorEx turret;
     private final Follower follower;
     public Turret(HardwareMap hardwareMap, Follower follower) {
         super();

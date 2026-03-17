@@ -9,19 +9,19 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 
 public abstract class BasePathChain {
     public final Follower follower;
-    public Pose farStartPose;
-    public Pose farShootPose;
-    public Pose nearStartPose;
-    public Pose nearShootPose;
-    public Pose pIntake3Pose;
-    public Pose intake3Pose;
-    public Pose pIntake2Pose;
-    public Pose intake2Pose;
-    public Pose pIntake1Pose;
-    public Pose intake1Pose;
-    public Pose emptyPose;
-    public Pose farLeavePose;
-    public Pose closeLeavePose;
+    public final Pose farStartPose;
+    public final Pose farShootPose;
+    public final Pose nearStartPose;
+    public final Pose nearShootPose;
+    public final Pose pIntake3Pose;
+    public final Pose intake3Pose;
+    public final Pose pIntake2Pose;
+    public final Pose intake2Pose;
+    public final Pose pIntake1Pose;
+    public final Pose intake1Pose;
+    public final Pose emptyPose;
+    public final Pose farLeavePose;
+    public final Pose closeLeavePose;
     public BasePathChain(Alliance alliance, Follower follower) {
         this.follower = follower;
         switch (alliance) {

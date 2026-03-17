@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem
 
 @SuppressWarnings("unused")
 public class Light extends BaseSubsystem {
-    Servo light;
+    final Servo light;
     public Light(HardwareMap hardwareMap) {
         super();
         light = hardwareMap.get(Servo.class, "light");

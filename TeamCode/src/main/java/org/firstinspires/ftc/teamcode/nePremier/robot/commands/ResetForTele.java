@@ -4,7 +4,7 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Turret;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
 public class ResetForTele extends BaseCommand {
-    Turret turret;
+    final Turret turret;
 //    Control[] controls;
     public ResetForTele (Turret turret
 //            , Control... controlsToStop

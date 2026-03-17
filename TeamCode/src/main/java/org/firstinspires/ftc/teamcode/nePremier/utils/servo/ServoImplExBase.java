@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 
 public class ServoImplExBase extends BaseSubsystem implements ServoImplexInterface {
-    ServoImplEx servo;
+    final ServoImplEx servo;
     PwmRange range = null;
 
 //    PwmConverter converter;

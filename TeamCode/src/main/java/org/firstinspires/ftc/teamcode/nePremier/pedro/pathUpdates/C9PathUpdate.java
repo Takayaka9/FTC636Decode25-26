@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
 
 public class C9PathUpdate extends BasePathUpdate {
-    C9Paths paths;
+    final C9Paths paths;
     public C9PathUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
         paths = new C9Paths(follower, alliance);

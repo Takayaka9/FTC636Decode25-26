@@ -14,11 +14,12 @@ public class Shoot extends BaseCommand {
     private final Transfer transfer;
     private final TakaShooter shooter;
     private final Stopper stopper;
-    Timing.Timer stopperDelay;
+    private final Timing.Timer stopperDelay;
 
     @Configurable
-    private static class shootConfig {
+    public static class shootConfig {
         public static int delayTime = 1000;
+        public static double allowedError = 50;
     }
 
     public Shoot(Transfer transfer, TakaShooter shooter, Stopper stopper) {
@@ -51,10 +52,8 @@ public class Shoot extends BaseCommand {
 //        shooter.stop();
     }
 
-    public static double allowedError = 50;
-
     public boolean inRPMRange() {
-        return Math.abs(shooter.getError()) < allowedError;
+        return Math.abs(shooter.getError()) < shootConfig.allowedError;
     }
 
     public void autoShoot() {

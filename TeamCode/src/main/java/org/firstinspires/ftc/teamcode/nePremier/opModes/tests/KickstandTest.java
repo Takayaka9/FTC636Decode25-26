@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class KickstandTest extends OpMode {
     Servo liftLeft = null;
     Servo liftRight = null;
-    public static double leftPos = 1;
+    public static final double leftPos = 1;
     //public static double rightPos = 0;
 
     @Override

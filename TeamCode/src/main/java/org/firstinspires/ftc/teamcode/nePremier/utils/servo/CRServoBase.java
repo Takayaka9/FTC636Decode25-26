@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem
 
 @Configurable
 public abstract class CRServoBase extends BaseSubsystem {
-    HardwareMap hardwareMap;
-    CRServo belt;
+    final HardwareMap hardwareMap;
+    final CRServo belt;
 //    DcMotorEx belt;
     public CRServoBase(HardwareMap hardwareMap, String name) {
         super();
@@ -18,7 +18,7 @@ public abstract class CRServoBase extends BaseSubsystem {
 //        this.belt = hardwareMap.get(DcMotorEx.class, name);
     }
 
-    public static double beltPower = 0.5;
+    public static final double beltPower = 0.5;
 
     public void run() {
         belt.setPower(beltPower);

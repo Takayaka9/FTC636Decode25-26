@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Turret;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
 public class OhNoWeFucked extends BaseCommand {
-    Turret turret;
+    final Turret turret;
     Gamepad gamepad = null;
     public OhNoWeFucked(Turret turret, Gamepad gamepad) {
         super();
