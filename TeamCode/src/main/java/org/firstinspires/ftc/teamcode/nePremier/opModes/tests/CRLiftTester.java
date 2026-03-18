@@ -10,17 +10,18 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.NewCRLiftSe
 public class CRLiftTester extends OpMode {
     NewCRLiftServo servoSystem = null;
 
-    enum testStates {
+    public enum testStates {
         OFF,
         Forward,
         Backward
     }
 
-    testStates currentState = testStates.OFF;
+    public static testStates currentState = testStates.OFF;
 
     @Override
     public void init() {
         servoSystem = new NewCRLiftServo(hardwareMap);
+        currentState = testStates.OFF;
     }
 
     @Override

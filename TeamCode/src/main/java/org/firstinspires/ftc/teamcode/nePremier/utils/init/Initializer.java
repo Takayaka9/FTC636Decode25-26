@@ -7,7 +7,10 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLift;
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLiftDown;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.NewCRLiftServo;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants2;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceBlue;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceRed;
@@ -36,18 +39,20 @@ public class Initializer {
 
     public final HoodServo hoodServo;
 //    public final CrLiftServo crLiftServo;
-    public final LiftServo liftServo;
+//    public final LiftServo liftServo;
     public final Stopper stopper;
     public final Light light;
 //    public final Limelight limelight;
     public final TakaShooter shooter;
     public final Transfer transfer;
     public final Turret turret;
+    public final NewCRLiftServo liftServo;
 
 
     public final TransferRun transferRun;
 //    public final CrLiftBot crLiftBot;
-    public final LiftBot liftBot;
+    public final NewCRLift liftBot;
+    public final NewCRLiftDown liftDown;
 //    public final LLReloc reloc;
     public final MakeMoves makeMoves;
     public final Outake outake;
@@ -72,7 +77,7 @@ public class Initializer {
         /// Subsystems
         hoodServo = new HoodServo(hardwareMap);
 //        crLiftServo = new CrLiftServo(hardwareMap);
-        liftServo = new LiftServo(hardwareMap);
+        liftServo = new NewCRLiftServo(hardwareMap);
         stopper = new Stopper(hardwareMap);
         light = new Light(hardwareMap);
 //        limelight = new Limelight(hardwareMap);
@@ -84,7 +89,8 @@ public class Initializer {
         ///commands
         transferRun = new TransferRun(transfer);
 //        crLiftBot = new CrLiftBot(crLiftServo);
-        liftBot = new LiftBot(liftServo);
+        liftBot = new NewCRLift(liftServo);
+        liftDown = new NewCRLiftDown(liftServo);
 //        reloc = new LLReloc(limelight, follower, gamepad1, telemetryM);
         makeMoves = new MakeMoves(follower, gamepad1);
         outake = new Outake(transfer);

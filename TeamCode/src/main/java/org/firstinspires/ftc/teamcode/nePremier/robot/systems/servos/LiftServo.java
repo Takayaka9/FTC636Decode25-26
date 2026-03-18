@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 
+@Deprecated
 public class LiftServo extends BaseSubsystem {
     private static class LiftPositions {
         public static double upR = 0;

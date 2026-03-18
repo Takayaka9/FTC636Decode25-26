@@ -15,8 +15,9 @@ public class TeleControls extends Initializer {
     private final Control intakeRB;
     private final Control outtakeLB;
     private final Control shootA;
-    private final Control liftY;
+    private final Control liftB;
     private final Control constantControls;
+    private final Control downY;
 
     public TeleControls(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
         super(gamepad1, gamepad2, hardwareMap, telemetry);
@@ -25,7 +26,8 @@ public class TeleControls extends Initializer {
         intakeRB = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, transferRun);
         outtakeLB = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake);
         shootA = new Control(GamepadInput.a, gamepad2, ControlType.Hold, shoot);
-        liftY = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, liftBot);
+        liftB = new Control(GamepadInput.b, gamepad2, ControlType.Hold, liftBot);
+        downY = new Control(GamepadInput.y, gamepad2, ControlType.Hold, liftDown);
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves, constantFlywheelSpin);
     }
 
@@ -44,7 +46,8 @@ public class TeleControls extends Initializer {
         intakeRB.update();
         outtakeLB.update();
         shootA.update();
-        liftY.update();
+        liftB.update();
+        downY.update();
         constantControls.update();
     }
 
