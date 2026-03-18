@@ -7,11 +7,11 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants2;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceBlue;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceRed;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.ConstantFlywheelSpin;
-import org.firstinspires.ftc.teamcode.nePremier.robot.commands.Intake;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.LiftBot;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.MakeMoves;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.OhNoWeFucked;
@@ -45,7 +45,7 @@ public class Initializer {
     public final Turret turret;
 
 
-    public final Intake intake;
+    public final TransferRun transferRun;
 //    public final CrLiftBot crLiftBot;
     public final LiftBot liftBot;
 //    public final LLReloc reloc;
@@ -82,7 +82,7 @@ public class Initializer {
 
 
         ///commands
-        intake = new Intake(transfer);
+        transferRun = new TransferRun(transfer);
 //        crLiftBot = new CrLiftBot(crLiftServo);
         liftBot = new LiftBot(liftServo);
 //        reloc = new LLReloc(limelight, follower, gamepad1, telemetryM);

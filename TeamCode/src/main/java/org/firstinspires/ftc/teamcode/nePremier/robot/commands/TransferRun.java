@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.nePremier.robot.commands;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Transfer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
-public class Intake extends BaseCommand {
+public class TransferRun extends BaseCommand {
     private final Transfer transfer;
-    public Intake(Transfer transfer) {
+    public TransferRun(Transfer transfer) {
         super();
         this.transfer = transfer;
     }

@@ -22,7 +22,7 @@ public class TeleControls extends Initializer {
         super(gamepad1, gamepad2, hardwareMap, telemetry);
         allianceBlueX = new Control(GamepadInput.x, gamepad1, ControlType.Hold, blue);
         allianceRedB = new Control(GamepadInput.b, gamepad1, ControlType.Hold, red);
-        intakeRB = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, intake);
+        intakeRB = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, transferRun);
         outtakeLB = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake);
         shootA = new Control(GamepadInput.a, gamepad2, ControlType.Hold, shoot);
         liftY = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, liftBot);

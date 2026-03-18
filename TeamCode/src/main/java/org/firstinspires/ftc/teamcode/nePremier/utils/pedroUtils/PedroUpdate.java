@@ -30,7 +30,7 @@ abstract class PedroUpdate extends Initializer {
     public PedroUpdate(HardwareMap hardwareMap, Telemetry telemetry, Alliance alliance) {
         super(null, null, hardwareMap, telemetry);
         CurrentAlliance.alliance = alliance;
-        intakeControl = new Control(ControlType.Auto, intake);
+        intakeControl = new Control(ControlType.Auto, transferRun);
         outtakeControl = new Control(ControlType.Auto, outake);
         shootControl = new Control(ControlType.Auto, shoot);
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, constantFlywheelSpin);

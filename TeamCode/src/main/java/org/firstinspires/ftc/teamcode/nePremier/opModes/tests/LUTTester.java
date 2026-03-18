@@ -38,10 +38,10 @@ public class LUTTester extends OpMode {
 //        TODO: EVEN WITH NEW SYSTEM THE COMMANDS WOULD BE CALLED INCORRECTLY
 //        TODO: CHANGE LOGIC SO THAT THEY ARE ONLY CALLED ONCE
 //        if(gamepad1.right_bumper){
-//            initializer.commandLoop.runCommand(initializer.intake);
+//            initializer.commandLoop.runCommand(initializer.transferRun);
 //        }
 //        else{
-//            initializer.commandLoop.stopCommand(initializer.intake);
+//            initializer.commandLoop.stopCommand(initializer.transferRun);
 //        }
         double d1 = 36;  double r1 = 900;
         double d2 = 50;  double r2 = 900;
