@@ -34,7 +34,9 @@ public class TeleControls extends Initializer {
 
 //    public void init_loop() {}
 
-//    public void start() {}
+    public void start() {
+        constantControls.run();
+    }
 
     public void update() {
         allianceBlueX.update();

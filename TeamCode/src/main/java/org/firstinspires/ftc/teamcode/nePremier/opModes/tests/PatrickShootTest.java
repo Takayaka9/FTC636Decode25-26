@@ -29,6 +29,7 @@ public class PatrickShootTest extends OpMode {
 
     @Override
     public void init() {
+        PatrickShootTestParams.currentAction = action.off;
         i = new Initializer(gamepad1, gamepad2, hardwareMap, telemetry);
         opModeShoot = new Control(ControlType.Auto, i.constantFlywheelSpin);
     }
