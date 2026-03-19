@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.nePremier.robot.commands;
 
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
@@ -13,6 +14,7 @@ public class MakeMoves extends BaseCommand {
         super();
         this.follower = follower;
         this.gamepad = gamepad1;
+        follower.setStartingPose(new Pose(0, 0));
     }
 
     @Override

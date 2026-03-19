@@ -14,6 +14,11 @@ public class PatrickInLondonTele extends OpMode {
     }
 
     @Override
+    public void start() {
+        teleControls.start();
+    }
+
+    @Override
     public void loop() {
         teleControls.update();
     }

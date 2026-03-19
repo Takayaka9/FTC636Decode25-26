@@ -36,7 +36,7 @@ public class TakaShooter extends BaseSubsystem {
         shooter2 = hardwareMap.get(DcMotorEx.class, "shooter2");
         shooter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         shooter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        shooter1.setDirection(DcMotorEx.Direction.REVERSE);
+        shooter2.setDirection(DcMotorEx.Direction.REVERSE);
         shooter1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         shooter2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         lut.add(0, shooterTune.r1);
@@ -69,7 +69,9 @@ public class TakaShooter extends BaseSubsystem {
 
 
         output1 = (error * shooterTune.Kp) + (derivative * shooterTune.Kd) + (integralSum1 * shooterTune.Ki) + shooterTune.Ks + (target * shooterTune.Kv);
-
+        if (output1 < 0) {
+            output1 = 0;
+        }
         shooter1.setPower(output1);
     }
 
@@ -90,7 +92,9 @@ public class TakaShooter extends BaseSubsystem {
 
 
         output2 = (error * shooterTune.Kp) + (derivative * shooterTune.Kd) + (integralSum2 * shooterTune.Ki) + shooterTune.Ks + (target * shooterTune.Kv);
-
+        if (output1 < 0) {
+            output1 = 0;
+        }
         shooter2.setPower(output2);
     }
 
