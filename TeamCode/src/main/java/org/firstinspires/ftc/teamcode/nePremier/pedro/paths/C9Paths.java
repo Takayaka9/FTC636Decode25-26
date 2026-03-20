@@ -15,7 +15,11 @@ public final class C9Paths extends BasePathChain implements BuildPaths {
         buildPaths();
     }
 
-    public PathChain startToShoot, preIntakeSpike2, intakeSpike2, spike2ToShoot, preIntakeSpike1, intakeSpike1, spike1toShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
+    public PathChain startToShoot;
+    public PathChain preIntakeSpike2, intakeSpike2, spike2ToShoot;
+    public PathChain preIntakeSpike1, intakeSpike1, spike1toShoot;
+    public PathChain preIntakeSpike3, intakeSpike3, spike3toShoot;
+    public PathChain shootToLeave, abort;
 
     @Override
     public void buildPaths() {
