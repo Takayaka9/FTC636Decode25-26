@@ -46,8 +46,8 @@ public class LLReloc extends BaseCommand {
     //init ll and switches pipeline to 3. sets found to false for llHandler purposes
     @Override
     public void init() {
-        limelight.limelight3A.start();
-        limelight.limelight3A.pipelineSwitch(3);
+        limelight.ll.start();
+        limelight.ll.pipelineSwitch(3);
         follower.startTeleopDrive();
         found = false;
         Drawing.init();
@@ -76,8 +76,8 @@ public class LLReloc extends BaseCommand {
 
          */
         //code to use megaTag2 to relocalize robot using follower's heading
-        limelight.limelight3A.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
-        LLResult result = limelight.limelight3A.getLatestResult();
+        limelight.ll.updateRobotOrientation(Math.toDegrees(follower.getPose().getHeading() + Math.PI/2));
+        LLResult result = limelight.ll.getLatestResult();
         if (result != null) {
             if (result.isValid()) {
                 Pose3D llPose = result.getBotpose_MT2();

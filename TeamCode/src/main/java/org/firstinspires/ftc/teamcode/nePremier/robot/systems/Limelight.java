@@ -6,16 +6,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.CommandLoop;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 
+@Deprecated
 public class Limelight extends BaseSubsystem {
-    public final Limelight3A limelight3A;
+    public final Limelight3A ll;
 
     public Limelight(CommandLoop maps, HardwareMap hardwareMap) {
         super();
-        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
-    }
+        ll = hardwareMap.get(Limelight3A.class, "limelight");
 
-    public void switchPipeline(int pipeline){
-        limelight3A.pipelineSwitch(pipeline);
+        //init ll and switches pipeline to 3.
     }
-
 }

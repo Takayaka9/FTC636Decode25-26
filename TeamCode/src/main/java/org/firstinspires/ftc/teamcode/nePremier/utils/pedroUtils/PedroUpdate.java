@@ -33,7 +33,7 @@ abstract class PedroUpdate extends Initializer {
         intakeControl = new Control(ControlType.Auto, transferRun);
         outtakeControl = new Control(ControlType.Auto, outake);
         shootControl = new Control(ControlType.Auto, shoot);
-        constantControls = new Control(ControlType.Auto, turretHoodUpdate, constantFlywheelSpin);
+        constantControls = new Control(ControlType.Auto, turretHoodUpdate, constantFlywheelSpin, draw);
         zeroTurretControl = new Control(ControlType.Auto, resetForTele);
         shootTimer.create();
         shootTimer.setLength(AutoConstants.shootTime);
@@ -55,7 +55,6 @@ abstract class PedroUpdate extends Initializer {
 
     public final void initDependencies() {
         opModeTimer.reset();
-        Drawing.init();
         pathState = 0;
         fled = false;
     }
@@ -76,7 +75,6 @@ abstract class PedroUpdate extends Initializer {
         constantControls.update();
         telemetryM.update();
         follower.update();
-        Drawing.drawDebug(follower);
         telemetryM.addData("Path State", pathState);
     }
 
