@@ -48,6 +48,7 @@ public class TeleControls extends Initializer {
         shootA.update();
         liftB.update();
         downY.update();
+        follower.update();
         constantControls.update();
     }
 
