@@ -10,7 +10,7 @@ public class PatrickInLondonTele extends OpMode {
     public TeleControls teleControls = null;
     @Override
     public void init() {
-        teleControls = new TeleControls(gamepad1, gamepad1,hardwareMap, telemetry);
+        teleControls = new TeleControls(gamepad1, gamepad2, hardwareMap, telemetry);
     }
 
     @Override
