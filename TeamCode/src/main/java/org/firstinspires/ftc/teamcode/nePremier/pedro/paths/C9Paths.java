@@ -15,9 +15,7 @@ public final class C9Paths extends BasePathChain implements BuildPaths {
         buildPaths();
     }
 
-    public PathChain startToShoot, preIntakeSpike2, intakeSpike2, spike2ToShoot,
-//            gateToShoot,
-            preIntakeSpike1, intakeSpike1, spike1toShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
+    public PathChain startToShoot, preIntakeSpike2, intakeSpike2, spike2ToShoot, preIntakeSpike1, intakeSpike1, spike1toShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort;
 
     @Override
     public void buildPaths() {
@@ -38,10 +36,6 @@ public final class C9Paths extends BasePathChain implements BuildPaths {
                 .addPath(new BezierCurve(intake2Pose, pIntake2Pose, nearShootPose))
                 .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
-//        gateToShoot = follower.pathBuilder()
-//                .addPath(new BezierCurve(emptyPose, pIntake2Pose, nearShootPose))
-//                .setLinearHeadingInterpolation(emptyPose.getHeading(), nearShootPose.getHeading())
-//                .build();
         preIntakeSpike1 = follower.pathBuilder()
                 .addPath(new BezierLine(nearShootPose, pIntake1Pose))
                 .setConstantHeadingInterpolation(intake1Pose.getHeading())
