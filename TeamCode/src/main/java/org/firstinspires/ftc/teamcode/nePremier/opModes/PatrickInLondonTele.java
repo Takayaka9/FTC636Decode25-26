@@ -22,4 +22,9 @@ public class PatrickInLondonTele extends OpMode {
     public void loop() {
         teleControls.update();
     }
+
+    @Override
+    public void stop() {
+        teleControls.stop();
+    }
 }

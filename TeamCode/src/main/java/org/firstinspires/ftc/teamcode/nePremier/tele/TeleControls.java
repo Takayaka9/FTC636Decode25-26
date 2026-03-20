@@ -19,6 +19,7 @@ public class TeleControls extends Initializer {
     private final Control constantControls;
     private final Control downY;
 
+    /// THIS CONSTRUCTOR SERVES AS OUR INIT METHOD
     public TeleControls(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
         super(gamepad1, gamepad2, hardwareMap, telemetry);
         allianceBlueX = new Control(GamepadInput.x, gamepad1, ControlType.Hold, blue);
@@ -30,9 +31,6 @@ public class TeleControls extends Initializer {
         downY = new Control(GamepadInput.y, gamepad2, ControlType.Hold, liftDown);
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves, constantFlywheelSpin, draw, localizer);
     }
-
-
-//    public void init() {}
 
 //    public void init_loop() {}
 
@@ -51,6 +49,8 @@ public class TeleControls extends Initializer {
         constantControls.update();
     }
 
-//    public void stop() {}
+    public void stop() {
+        constantControls.stop();
+    }
 
 }
