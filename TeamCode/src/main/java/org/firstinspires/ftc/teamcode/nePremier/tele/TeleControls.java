@@ -50,6 +50,7 @@ public class TeleControls extends Initializer {
         downY.update();
         follower.update();
         constantControls.update();
+        telemetryM.update();
     }
 
     public void stop() {
