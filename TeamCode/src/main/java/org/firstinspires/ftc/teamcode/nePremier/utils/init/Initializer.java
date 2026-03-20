@@ -7,10 +7,12 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.Draw;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLift;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLiftDown;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.NewCRLiftServo;
+import org.firstinspires.ftc.teamcode.nePremier.utils.fusionLL.Localizer;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants2;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceBlue;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceRed;
@@ -47,6 +49,8 @@ public class Initializer {
     public final Transfer transfer;
     public final Turret turret;
     public final NewCRLiftServo liftServo;
+    public final Draw draw;
+    public final Localizer localizer;
 
 
     public final TransferRun transferRun;
@@ -101,7 +105,8 @@ public class Initializer {
         red = new AllianceRed();
         resetForTele = new ResetForTele(turret);
         ohNoWeFucked = new OhNoWeFucked(turret, gamepad2);
-
+        draw = new Draw(follower);
+        localizer = new Localizer(hardwareMap, follower, light);
     }
 
 
