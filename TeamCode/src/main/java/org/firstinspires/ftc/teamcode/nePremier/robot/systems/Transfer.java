@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.nePremier.robot.systems;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
@@ -17,6 +18,7 @@ public class Transfer extends BaseSubsystem {
     public Transfer(HardwareMap hardwareMap) {
         super();
         transfer = hardwareMap.get(DcMotorEx.class, "transfer");
+        transfer.setDirection(DcMotorEx.Direction.REVERSE);
         transfer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
