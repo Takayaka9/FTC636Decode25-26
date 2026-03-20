@@ -50,7 +50,7 @@ public class Initializer {
     public final Turret turret;
     public final NewCRLiftServo liftServo;
     public final Draw draw;
-    public final Localizer localizer;
+//    public final Localizer localizer;
 
 
     public final TransferRun transferRun;
@@ -106,7 +106,7 @@ public class Initializer {
         resetForTele = new ResetForTele(turret);
         ohNoWeFucked = new OhNoWeFucked(turret, gamepad2);
         draw = new Draw(follower);
-        localizer = new Localizer(hardwareMap, follower, light);
+//        localizer = new Localizer(hardwareMap, follower, light);
     }
 
 
