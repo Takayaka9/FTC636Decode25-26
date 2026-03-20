@@ -28,12 +28,17 @@ public class Localizer extends BaseCommand implements Localize {
     @Override
     public void loop() {
         Pose nPose = localize();
-        if (compare(nPose)) {
-            follower.setPose(nPose);
-            light.green();
+        if (nPose != null) {
+            if (compare(nPose)) {
+                follower.setPose(nPose);
+                light.green();
+            } else {
+                light.blue();
+            }
         } else {
-            light.blue();
+            light.red();
         }
+
     }
 
     @Override
