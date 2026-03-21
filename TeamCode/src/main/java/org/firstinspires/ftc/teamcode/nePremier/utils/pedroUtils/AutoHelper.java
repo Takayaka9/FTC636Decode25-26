@@ -5,9 +5,11 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.BluePoseLib;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.RedPoseLib;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 
-public final class PathUpdateHelper {
+public final class AutoHelper {
 
     public static void update(BasePathUpdate pathUpdate) {
         pathUpdate.updateDependencies();

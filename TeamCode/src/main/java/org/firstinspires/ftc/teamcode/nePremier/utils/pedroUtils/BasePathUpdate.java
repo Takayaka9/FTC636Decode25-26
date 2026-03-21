@@ -23,7 +23,7 @@ public abstract class BasePathUpdate extends PedroUpdate implements PathUpdate {
 
     @Override
     public void update() {
-        PathUpdateHelper.update(this);
+        AutoHelper.update(this);
         updateDependencies();
     }
 }
