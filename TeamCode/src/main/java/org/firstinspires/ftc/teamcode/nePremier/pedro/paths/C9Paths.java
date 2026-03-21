@@ -64,12 +64,6 @@ public final class C9Paths extends BasePathChain implements BuildPaths {
                 .addPath(new BezierLine(intake3Pose, nearShootPose))
                 .setLinearHeadingInterpolation(intake3Pose.getHeading(), nearShootPose.getHeading())
                 .build();
-        shootToLeave = follower.pathBuilder()
-                .addPath(new BezierLine(nearShootPose, closeLeavePose))
-                .build();
-        abort = follower.pathBuilder()
-                .addPath(new BezierLine(follower.getPose(), closeLeavePose))
-                .build();
     }
 
 }

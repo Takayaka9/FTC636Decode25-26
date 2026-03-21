@@ -20,8 +20,6 @@ public class BasePathChain {
     public final Pose pIntake1Pose;
     public final Pose intake1Pose;
     public final Pose emptyPose;
-    public final Pose farLeavePose;
-    public final Pose closeLeavePose;
     public BasePathChain(Alliance alliance, Follower follower) {
         this.follower = follower;
         switch (alliance) {
@@ -37,8 +35,6 @@ public class BasePathChain {
                 pIntake1Pose = RedPoseLib.pIntake1Pose;
                 intake1Pose = RedPoseLib.intake1Pose;
                 emptyPose = RedPoseLib.emptyPose;
-                farLeavePose = RedPoseLib.farLeavePose;
-                closeLeavePose = RedPoseLib.closeLeavePose;
                 break;
             case BLUE:
                 farStartPose = BluePoseLib.farStartPose;
@@ -52,8 +48,6 @@ public class BasePathChain {
                 pIntake1Pose = BluePoseLib.pIntake1Pose;
                 intake1Pose = BluePoseLib.intake1Pose;
                 emptyPose = BluePoseLib.emptyPose;
-                farLeavePose = BluePoseLib.farLeavePose;
-                closeLeavePose = BluePoseLib.closeLeavePose;
                 break;
             default:
                 farStartPose = null;
@@ -67,8 +61,6 @@ public class BasePathChain {
                 pIntake1Pose = null;
                 intake1Pose = null;
                 emptyPose = null;
-                farLeavePose = null;
-                closeLeavePose = null;
         }
     }
 

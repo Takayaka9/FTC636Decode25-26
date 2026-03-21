@@ -59,13 +59,5 @@ public final class F12Paths extends BasePathChain implements BuildPaths {
                 .addPath(new BezierLine(intake3Pose, farShootPose))
                 .setLinearHeadingInterpolation(intake3Pose.getHeading(), farShootPose.getHeading())
                 .build();
-
-        l = follower.pathBuilder().addPath(new BezierLine(farShootPose, farLeavePose))
-                .setLinearHeadingInterpolation(farShootPose.getHeading(), farLeavePose.getHeading())
-                .build();
-        abort = follower.pathBuilder()
-                .addPath(new BezierLine(follower.getPose(), farLeavePose))
-                .setLinearHeadingInterpolation(follower.getPose().getHeading(), farLeavePose.getHeading())
-                .build();
     }
 }
