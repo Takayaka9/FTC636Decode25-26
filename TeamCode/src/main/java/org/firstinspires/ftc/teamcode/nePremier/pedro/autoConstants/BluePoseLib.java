@@ -3,21 +3,22 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 
+@SuppressWarnings("NonFinalStaticVariableUsedInClassInitialization")
 @Configurable
 public final class BluePoseLib {
-    private static final int farStartX = 55; private static final int farStartY = 9; private static final int farStartR = 90;
-    private static final int farShootX = 57; private static final int farShootY = 15; private static final int farShootR = 107;
-    private static final int nearStartX = 24; private static final int nearStartY = 129; private static final int nearStartR = 143;
-    private static final int nearShootX = 49; private static final int nearShootY = 95; private static final int nearShootR = 180;
-    private static final int PIntake3X = 40; private static final int PIntake3Y = 35; private static final int PIntake3R = 180;
-    private static final int Intake3X = 11; private static final int Intake3Y = 35; private static final int Intake3R = 180;
-    private static final int PIntake2X = 50; private static final int PIntake2Y = 60; private static final int PIntake2R = 180;
-    private static final int Intake2X = 11; private static final int Intake2Y = 60; private static final int Intake2R = 180;
-    private static final int PIntake1X = 40; private static final int PIntake1Y = 84; private static final int PIntake1R = 180;
-    private static final int Intake1X = 18; private static final int Intake1Y = 84; private static final int Intake1R = 180;
-    private static final int emptyX = 13; private static final int emptyY = 60; private static final int emptyR = 150;
-    private static final int farLeaveX = 40; private static final int farLeaveY = 55; private static final int farLeaveR = 135;
-    private static final int closeLeaveX = 40; private static final int closeLeaveY = 55; private static final int closeLeaveR = 135;
+    public static int farStartX = 55; public static int farStartY = 9; public static int farStartR = 90;
+    public static int farShootX = 57; public static int farShootY = 15; public static int farShootR = 107;
+    public static int nearStartX = 24; public static int nearStartY = 129; public static int nearStartR = 143;
+    public static int nearShootX = 49; public static int nearShootY = 95; public static int nearShootR = 180;
+    public static int PIntake3X = 40; public static int PIntake3Y = 35; public static int PIntake3R = 180;
+    public static int Intake3X = 11; public static int Intake3Y = 35; public static int Intake3R = 180;
+    public static int PIntake2X = 50; public static int PIntake2Y = 60; public static int PIntake2R = 180;
+    public static int Intake2X = 11; public static int Intake2Y = 60; public static int Intake2R = 180;
+    public static int PIntake1X = 40; public static int PIntake1Y = 84; public static int PIntake1R = 180;
+    public static int Intake1X = 18; public static int Intake1Y = 84; public static int Intake1R = 180;
+    public static int emptyX = 13; public static int emptyY = 60; public static int emptyR = 150;
+    public static int farLeaveX = 40; public static int farLeaveY = 55; public static int farLeaveR = 135;
+    public static int closeLeaveX = 40; public static int closeLeaveY = 55; public static int closeLeaveR = 135;
 
     public static final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
     public static final Pose farShootPose = new Pose(farShootX, farShootY, Math.toRadians(farShootR));
