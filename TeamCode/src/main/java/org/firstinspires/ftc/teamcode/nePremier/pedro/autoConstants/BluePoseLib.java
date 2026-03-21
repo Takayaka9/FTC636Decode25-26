@@ -3,24 +3,9 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 
-@SuppressWarnings("NonFinalStaticVariableUsedInClassInitialization")
 @Configurable
 public final class BluePoseLib {
-    public static int farStartX = 55; public static int farStartY = 9; public static int farStartR = 90;
-    public static int farShootX = 57; public static int farShootY = 15; public static int farShootR = 107;
-    public static int nearStartX = 24; public static int nearStartY = 129; public static int nearStartR = 143;
-    public static int nearShootX = 49; public static int nearShootY = 95; public static int nearShootR = 180;
-    public static int PIntake3X = 40; public static int PIntake3Y = 35; public static int PIntake3R = 180;
-    public static int Intake3X = 11; public static int Intake3Y = 35; public static int Intake3R = 180;
-    public static int PIntake2X = 50; public static int PIntake2Y = 60; public static int PIntake2R = 180;
-    public static int Intake2X = 11; public static int Intake2Y = 60; public static int Intake2R = 180;
-    public static int PIntake1X = 40; public static int PIntake1Y = 84; public static int PIntake1R = 180;
-    public static int Intake1X = 18; public static int Intake1Y = 84; public static int Intake1R = 180;
-    public static int emptyX = 13; public static int emptyY = 60; public static int emptyR = 150;
-    public static int farLeaveX = 40; public static int farLeaveY = 55; public static int farLeaveR = 135;
-    public static int closeLeaveX = 40; public static int closeLeaveY = 55; public static int closeLeaveR = 135;
-
-    public static final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
+    public static final Pose farStartPose = RedPoseLib.farStartPose.getPose().mirror();
     public static final Pose farShootPose = new Pose(farShootX, farShootY, Math.toRadians(farShootR));
     public static final Pose nearStartPose = new Pose(nearStartX, nearStartY, Math.toRadians(nearStartR));
     public static final Pose nearShootPose = new Pose(nearShootX, nearShootY, Math.toRadians(nearShootR));
@@ -31,6 +16,4 @@ public final class BluePoseLib {
     public static final Pose pIntake1Pose = new Pose(PIntake1X, PIntake1Y, Math.toRadians(PIntake1R));
     public static final Pose intake1Pose = new Pose(Intake1X, Intake1Y, Math.toRadians(Intake1R));
     public static final Pose emptyPose = new Pose(emptyX, emptyY, Math.toRadians(emptyR));
-    public static final Pose farLeavePose = new Pose(farLeaveX, farLeaveY, Math.toRadians(farLeaveR));
-    public static final Pose nearLeavePose = new Pose(closeLeaveX, closeLeaveY, Math.toRadians(closeLeaveR));
 }

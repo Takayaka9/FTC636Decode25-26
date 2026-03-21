@@ -6,7 +6,7 @@ import com.pedropathing.geometry.Pose;
 @SuppressWarnings("NonFinalStaticVariableUsedInClassInitialization")
 @Configurable
 public final class RedPoseLib {
-    public static int farStartX = 89; public static int farStartY = 9; public static int farStartR = 90;
+    public static int farStartX = 89; public static int farStartY = 8; public static int farStartR = 90;
     public static int farShootX = 87; public static int farShootY = 15; public static int farShootR = 73;
     public static int nearStartX = 120; public static int nearStartY = 129; public static int nearStartR = 37;
     public static int nearShootX = 95; public static int nearShootY = 95; public static int nearShootR = 0;
@@ -17,8 +17,6 @@ public final class RedPoseLib {
     public static int PIntake1X = 95; public static int PIntake1Y = 87; public static int PIntake1R = 0;
     public static int Intake1X = 126; public static int Intake1Y = 87; public static int Intake1R = 0;
     public static int emptyX = 131; public static int emptyY = 60; public static int emptyR = 90;
-    public static int farLeaveX = 56; public static int farLeaveY = 36; public static int farLeaveR = 45;
-    public static int closeLeaveX = 56; public static int closeLeaveY = 36; public static int closeLeaveR = 45;
 
 
     public static final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
@@ -32,7 +30,5 @@ public final class RedPoseLib {
     public static final Pose pIntake1Pose = new Pose(PIntake1X, PIntake1Y, Math.toRadians(PIntake1R));
     public static final Pose intake1Pose = new Pose(Intake1X, Intake1Y, Math.toRadians(Intake1R));
     public static final Pose emptyPose = new Pose(emptyX, emptyY, Math.toRadians(emptyR));
-    public static final Pose farLeavePose = new Pose(farLeaveX, farLeaveY, Math.toRadians(farLeaveR));
-    public static final Pose closeLeavePose = new Pose(closeLeaveX, closeLeaveY, Math.toRadians(closeLeaveR));
 
 }

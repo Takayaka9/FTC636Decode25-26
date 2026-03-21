@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.BluePoseLib;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.RedPoseLib;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 
-public abstract class BasePathChain {
+public class BasePathChain {
     public final Follower follower;
     public final Pose farStartPose;
     public final Pose farShootPose;
@@ -53,7 +53,7 @@ public abstract class BasePathChain {
                 intake1Pose = BluePoseLib.intake1Pose;
                 emptyPose = BluePoseLib.emptyPose;
                 farLeavePose = BluePoseLib.farLeavePose;
-                closeLeavePose = BluePoseLib.nearLeavePose;
+                closeLeavePose = BluePoseLib.closeLeavePose;
                 break;
             default:
                 farStartPose = null;
