@@ -37,10 +37,12 @@ public class TeleControls extends Initializer {
 //    public void init_loop() {}
 
     public void start() {
+        follower.update();
         constantControls.run();
     }
 
     public void update() {
+        follower.update();
         allianceBlueX.update();
         allianceRedB.update();
         intakeRB.update();
@@ -48,7 +50,6 @@ public class TeleControls extends Initializer {
         shootA.update();
         liftB.update();
         downY.update();
-        follower.update();
         constantControls.update();
         telemetryM.update();
     }

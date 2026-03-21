@@ -41,10 +41,11 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
     }
 
     private void runSet() {
+        WeNeeeeedToGetGoooder currentState = state;
         for (BaseCommand command : commandArray) {
-            LoopCommand(command, state);
-            state = WeNeeeeedToGetGoooder.LOOPING;
+            LoopCommand(command, currentState);
         }
+        state = WeNeeeeedToGetGoooder.LOOPING;
     }
     private void stopSet() {
         for (BaseCommand command : commandArray) {
