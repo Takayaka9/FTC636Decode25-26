@@ -12,11 +12,11 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem
 public class TakaShooter extends BaseSubsystem {
     @Configurable
     private static class shooterTune {
-        public static double Kp = 0.3;
-        public static double Ki = 0;
+        public static double Kp = 0.01;
+        public static double Ki = 0.0005;
         public static double Kd = 0;
-        public static double Kv = 0;
-        public static double Ks = 0;
+        public static double Kv = 0.00069;
+        public static double Ks = 0.155;
         //public static double Kf = 0.00036;
         static double d1 = 36; static double r1 = 900;
         static double d2 = 50; static double r2 = 900;

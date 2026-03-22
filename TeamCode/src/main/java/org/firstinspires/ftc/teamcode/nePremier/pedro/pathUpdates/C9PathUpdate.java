@@ -112,13 +112,6 @@ public class C9PathUpdate extends BasePathUpdate {
                     pathState = 14;
                 }
                 break;
-            case 14:
-                if (shootTimer.checkFinished()) {
-                    shootControl.stop();
-                    follower.followPath(paths.shootToLeave);
-                }
-                break;
-
         }
     }
 }
