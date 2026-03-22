@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.nePremier.tele.TeleControls;
 
-@TeleOp
+@TeleOp(name = "aRicoInMexico")
 public class PatrickInLondonTele extends OpMode {
     public TeleControls teleControls = null;
     @Override
