@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 
 public class FlywheelTelemetryHelper {
     public static void loop(Initializer i) {
+        i.telemetryM.update();
         i.telemetryM.addData(
                 "target distance - 1ft = 12u (pedro pose unit)",
                 TDistHelper.getTargetDistance(i.follower.getPose(), CurrentAlliance.alliance)
@@ -39,6 +40,14 @@ public class FlywheelTelemetryHelper {
         i.telemetryM.addData(
                 "average velocity in tps",
                 i.shooter.getAverageVelocity()
+        );
+        i.telemetryM.addData(
+                "error",
+                i.shooter.getError()
+        );
+        i.telemetryM.addData(
+                "kpON",
+                i.shooter.getKpOn()
         );
     }
 }
