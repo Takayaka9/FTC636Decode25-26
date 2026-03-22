@@ -17,13 +17,15 @@ public class TakaShooter extends BaseSubsystem {
         public static double Kd = 0;
         public static double Kv = 0.00069;
         public static double Ks = 0.155;
+        public static double minActiveTps = 900;
+        public static double integralLimit = 2000;
         //public static double Kf = 0.00036;
         static double d1 = 36; static double r1 = 900;
         static double d2 = 50; static double r2 = 900;
         static double d3 = 75; static double r3 = 1000;
         static double d4 = 96; static double r4 = 1150;
-        static double d5 = 108; static double r5 = 1400;
-        static double d6 = 150; static double r6 = 1400;
+        static double d5 = 108; static double r5 = 1600;
+        static double d6 = 150; static double r6 = 1600;
         public static double brake = -0.3;
     }
     private final InterpLUT lut = new InterpLUT();
@@ -58,21 +60,7 @@ public class TakaShooter extends BaseSubsystem {
     private double lastError1 = 0;
     private double output1 = 0;
     private void update1(double target) {
-        double error = target-(shooter1.getVelocity());
-        double dt = pidTime1.seconds();
-        if (dt < 0.0001) dt = 0.0001;
-        integralSum1 += error* dt;
-        double derivative = (error- lastError1)/ dt;
-        lastError1 = error;
-
-        pidTime1.reset();
-
-
-        output1 = (error * shooterTune.Kp) + (derivative * shooterTune.Kd) + (integralSum1 * shooterTune.Ki) + shooterTune.Ks + (target * shooterTune.Kv);
-        if (output1 < 0) {
-            output1 = 0;
-        }
-        shooter1.setPower(output1);
+        output1 = updateShooterMotor(shooter1, target, pidTime1, true);
     }
 
     //PID 2
@@ -81,21 +69,59 @@ public class TakaShooter extends BaseSubsystem {
     private double integralSum2 = 0;
     private double output2 = 0;
     private void update2(double target) {
-        double error = target-(shooter2.getVelocity());
-        double dt = pidTime2.seconds();
-        if (dt < 0.0001) dt = 0.0001;
-        integralSum2 += error* dt;
-        double derivative = (error- lastError2)/ dt;
-        lastError2 = error;
+        output2 = updateShooterMotor(shooter2, target, pidTime2, false);
+    }
 
-        pidTime2.reset();
-
-
-        output2 = (error * shooterTune.Kp) + (derivative * shooterTune.Kd) + (integralSum2 * shooterTune.Ki) + shooterTune.Ks + (target * shooterTune.Kv);
-        if (output1 < 0) {
-            output1 = 0;
+    private double updateShooterMotor(DcMotorEx shooter, double target, ElapsedTime pidTime, boolean isShooterOne) {
+        if (target < shooterTune.minActiveTps) {
+            resetControllerState(isShooterOne, pidTime);
+            shooter.setPower(0);
+            return 0;
         }
-        shooter2.setPower(output2);
+
+        double error = target - shooter.getVelocity();
+        double dt = Math.max(pidTime.seconds(), 0.0001);
+
+        double integralSum = (isShooterOne ? integralSum1 : integralSum2) + (error * dt);
+        integralSum = clamp(integralSum, -shooterTune.integralLimit, shooterTune.integralLimit);
+
+        double lastError = isShooterOne ? lastError1 : lastError2;
+        double derivative = (error - lastError) / dt;
+        double feedForward = shooterTune.Ks + (target * shooterTune.Kv);
+        double output = feedForward
+                + (error * shooterTune.Kp)
+                + (integralSum * shooterTune.Ki)
+                + (derivative * shooterTune.Kd);
+        output = clamp(output, 0, 1);
+
+        if (isShooterOne) {
+            integralSum1 = integralSum;
+            lastError1 = error;
+        } else {
+            integralSum2 = integralSum;
+            lastError2 = error;
+        }
+
+        pidTime.reset();
+        shooter.setPower(output);
+        return output;
+    }
+
+    private void resetControllerState(boolean isShooterOne, ElapsedTime pidTime) {
+        if (isShooterOne) {
+            integralSum1 = 0;
+            lastError1 = 0;
+            output1 = 0;
+        } else {
+            integralSum2 = 0;
+            lastError2 = 0;
+            output2 = 0;
+        }
+        pidTime.reset();
+    }
+
+    private double clamp(double value, double min, double max) {
+        return Math.max(min, Math.min(max, value));
     }
 
 
@@ -107,17 +133,23 @@ public class TakaShooter extends BaseSubsystem {
     }
     /// SET POWER ZERO (DO NOT CALL RUN FOR DISTANCE WHEN USING THIS)
     public void stop(){
+        resetControllerState(true, pidTime1);
+        resetControllerState(false, pidTime2);
         shooter1.setPower(0);
         shooter2.setPower(0);
     }
     /// REVERSES THE SHOOTER
     public void reverse() {
+        resetControllerState(true, pidTime1);
+        resetControllerState(false, pidTime2);
         shooter1.setPower(-1);
         shooter2.setPower(-1);
     }
     /// SLIGHT REVERSE FOR BRAKING
     /// SETS POWER TO BRAKE POWER
     public void brake(){
+        resetControllerState(true, pidTime1);
+        resetControllerState(false, pidTime2);
         shooter1.setPower(shooterTune.brake);
         shooter2.setPower(shooterTune.brake);
     }
