@@ -12,13 +12,15 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem
 public class TakaShooter extends BaseSubsystem {
     @Configurable
     private static class shooterTune {
-        public static double Kp = 0.01;
+        public static double Kp = 10;
+         ;
         public static double Ki = 0.0005;
         public static double Kd = 0;
-        public static double Kv = 0.00069;
-        public static double Ks = 0.155;
+        public static double Kv = 0.0004;
+        public static double Ks = 0.3;
         public static double minActiveTps = 900;
         public static double integralLimit = 2000;
+        public static double maxError = 3;
         //public static double Kf = 0.00036;
         static double d1 = 36; static double r1 = 900;
         static double d2 = 50; static double r2 = 900;
@@ -72,6 +74,7 @@ public class TakaShooter extends BaseSubsystem {
         output2 = updateShooterMotor(shooter2, target, pidTime2, false);
     }
 
+    private static boolean kpON = false;
     private double updateShooterMotor(DcMotorEx shooter, double target, ElapsedTime pidTime, boolean isShooterOne) {
         if (target < shooterTune.minActiveTps) {
             resetControllerState(isShooterOne, pidTime);
@@ -88,10 +91,19 @@ public class TakaShooter extends BaseSubsystem {
         double lastError = isShooterOne ? lastError1 : lastError2;
         double derivative = (error - lastError) / dt;
         double feedForward = shooterTune.Ks + (target * shooterTune.Kv);
-        double output = feedForward
-                + (error * shooterTune.Kp)
-                + (integralSum * shooterTune.Ki)
-                + (derivative * shooterTune.Kd);
+        double output = 0;
+        if (error > shooterTune.maxError) {
+            kpON = true;
+            output = feedForward
+                    + (error * shooterTune.Kp)
+                    + (integralSum * shooterTune.Ki)
+                    + (derivative * shooterTune.Kd);
+        } else {
+            kpON = false;
+            output = feedForward
+                    + (integralSum * shooterTune.Ki)
+                    + (derivative * shooterTune.Kd);
+        }
         output = clamp(output, 0, 1);
 
         if (isShooterOne) {
@@ -187,6 +199,10 @@ public class TakaShooter extends BaseSubsystem {
     public double getError(){
         //return getShooterTPS(distance) - shooter1.getVelocity();
         return lastError1;
+    }
+    /// kpON or off
+    public boolean getKpOn(){
+        return kpON;
     }
 
 }
