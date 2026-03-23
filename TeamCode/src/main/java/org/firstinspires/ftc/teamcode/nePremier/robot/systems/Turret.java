@@ -87,7 +87,7 @@ public class Turret extends BaseSubsystem {
 
         turret.setPower(output);
     }
-    // Legacy moving-average filter (kept for reference)
+    // taka moving average filter
     // private final ArrayList<Double> lowPassFilter = new ArrayList<>(5);
     private double filteredMagGoal = 0.0;
     private boolean filteredMagGoalInit = false;
@@ -126,7 +126,7 @@ public class Turret extends BaseSubsystem {
         }
         magGoal = filteredMagGoal;
 
-        // Legacy moving-average filter (kept for reference)
+        // taka moving average filter
         // if (lowPassFilter.size() > 4) {
         //     lowPassFilter.remove(0);
         // }
