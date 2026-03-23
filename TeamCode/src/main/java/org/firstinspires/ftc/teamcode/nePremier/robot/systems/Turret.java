@@ -12,6 +12,8 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 
+import java.util.ArrayList;
+
 public class Turret extends BaseSubsystem {
     private final DcMotorEx turret;
     private final Follower follower;
@@ -62,6 +64,7 @@ public class Turret extends BaseSubsystem {
         public static final double overrideSensitivity = 10;
         private static double angleMultiplier = 1;
         private static double magnitudeMultiplier = 1;
+        private static double lowPassAlpha = 0.2;
     }
 
     //PID to turn turret
@@ -84,7 +87,10 @@ public class Turret extends BaseSubsystem {
 
         turret.setPower(output);
     }
-
+    // Legacy moving-average filter (kept for reference)
+    // private final ArrayList<Double> lowPassFilter = new ArrayList<>(5);
+    private double filteredMagGoal = 0.0;
+    private boolean filteredMagGoalInit = false;
     private double getOffset(Alliance alliance){
         double angleGoal;
 
@@ -111,17 +117,41 @@ public class Turret extends BaseSubsystem {
         //total velocity relative to the goal (sorta, the values are messed up but it's chill)
         double magGoal = (TurretConstants.angleMultiplier*angle)*(magnitude*TurretConstants.magnitudeMultiplier);
 
+        if (!filteredMagGoalInit) {
+            filteredMagGoal = magGoal;
+            filteredMagGoalInit = true;
+        } else {
+            double alpha = TurretConstants.lowPassAlpha;
+            filteredMagGoal = (alpha * magGoal) + ((1.0 - alpha) * filteredMagGoal);
+        }
+        magGoal = filteredMagGoal;
+
+        // Legacy moving-average filter (kept for reference)
+        // if (lowPassFilter.size() > 4) {
+        //     lowPassFilter.remove(0);
+        // }
+        // lowPassFilter.add(magGoal);
+        // magGoal = averageList(lowPassFilter);
+
         //return pos/neg values depending on moving left or right
         if(velAngle > angleGoal){
-            return magGoal;
+            return -magGoal;
         }
-        return -magGoal;
+        return magGoal;
     }
 
     public void resetEncoder(){
         turret.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    public double averageList(ArrayList<Double> list){
+        double sum = 0;
+        for(int i = 0; i < list.size(); i++){
+            sum += list.get(i);
+        }
+        return sum / list.size();
     }
 
     public double turretPosition(){
