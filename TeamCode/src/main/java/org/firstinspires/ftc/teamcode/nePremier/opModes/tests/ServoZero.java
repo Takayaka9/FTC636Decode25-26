@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.nePremier.opModes.tests;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -13,6 +14,7 @@ public class ServoZero extends OpMode {
         none
     }
 
+    @Configurable
     public static class servoTestParams {
         public static servoSelect pickServo = servoSelect.none;
         public static double position = 0;

@@ -27,8 +27,8 @@ public class TeleControls extends Initializer {
         intakeRB = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, transferRun);
         outtakeLB = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake);
         shootA = new Control(GamepadInput.a, gamepad2, ControlType.Hold, shoot);
-        liftB = new Control(GamepadInput.b, gamepad2, ControlType.Hold, liftBot);
-        downY = new Control(GamepadInput.y, gamepad2, ControlType.Hold, liftDown);
+        liftB = new Control(GamepadInput.a, gamepad1, ControlType.Hold, liftBot);
+        downY = new Control(GamepadInput.y, gamepad1, ControlType.Hold, liftDown);
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves, constantFlywheelSpin, draw
 //              , localizer
                 );

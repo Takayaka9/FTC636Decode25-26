@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.servo.ServoImplExBase;
 
 @Configurable
 public class Stopper extends ServoImplExBase implements ServoImplexInterface {
-    public double open = 0;
-    public double closed = .6;
+    public double open = 1;
+    public double closed = 0;
     public Stopper(HardwareMap hardwareMap) {
         super("stopper", hardwareMap);
     }
