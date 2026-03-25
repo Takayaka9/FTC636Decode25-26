@@ -13,8 +13,7 @@ public class TakaShooter extends BaseSubsystem {
     @Configurable
     private static class shooterTune {
         public static double Kp = 10;
-         ;
-        public static double Ki = 0.0005;
+//        public static double Ki = 0.0005;
         public static double Kd = 0;
         public static double Kv = 0.0004;
         public static double Ks = 0.3;
@@ -96,12 +95,10 @@ public class TakaShooter extends BaseSubsystem {
             kpON = true;
             output = feedForward
                     + (error * shooterTune.Kp)
-                    + (integralSum * shooterTune.Ki)
                     + (derivative * shooterTune.Kd);
         } else {
             kpON = false;
             output = feedForward
-                    + (integralSum * shooterTune.Ki)
                     + (derivative * shooterTune.Kd);
         }
         output = clamp(output, 0, 1);
