@@ -13,12 +13,10 @@ public class TakaShooter extends BaseSubsystem {
     @Configurable
     private static class shooterTune {
         public static double Kp = 10;
-//        public static double Ki = 0.0005;
         public static double Kd = 0;
         public static double Kv = 0.0004;
         public static double Ks = 0.3;
         public static double minActiveTps = 900;
-        public static double integralLimit = 2000;
         public static double maxError = 3;
         //public static double Kf = 0.00036;
         static double d1 = 36; static double r1 = 900;
@@ -57,7 +55,6 @@ public class TakaShooter extends BaseSubsystem {
 
     //PID 1
     private final ElapsedTime pidTime1 = new ElapsedTime();
-    private double integralSum1 = 0;
     private double lastError1 = 0;
     private double output1 = 0;
     private void update1(double target) {
@@ -67,7 +64,6 @@ public class TakaShooter extends BaseSubsystem {
     //PID 2
     private final ElapsedTime pidTime2 = new ElapsedTime();
     private double lastError2 = 0;
-    private double integralSum2 = 0;
     private double output2 = 0;
     private void update2(double target) {
         output2 = updateShooterMotor(shooter2, target, pidTime2, false);
@@ -81,17 +77,15 @@ public class TakaShooter extends BaseSubsystem {
             return 0;
         }
 
-        double error = target - shooter.getVelocity();
+        double measuredVelocity = getMeasuredVelocity(shooter);
+        double error = target - measuredVelocity;
         double dt = Math.max(pidTime.seconds(), 0.0001);
-
-        double integralSum = (isShooterOne ? integralSum1 : integralSum2) + (error * dt);
-        integralSum = clamp(integralSum, -shooterTune.integralLimit, shooterTune.integralLimit);
 
         double lastError = isShooterOne ? lastError1 : lastError2;
         double derivative = (error - lastError) / dt;
         double feedForward = shooterTune.Ks + (target * shooterTune.Kv);
         double output = 0;
-        if (error > shooterTune.maxError) {
+        if (Math.abs(error) > shooterTune.maxError) {
             kpON = true;
             output = feedForward
                     + (error * shooterTune.Kp)
@@ -104,10 +98,8 @@ public class TakaShooter extends BaseSubsystem {
         output = clamp(output, 0, 1);
 
         if (isShooterOne) {
-            integralSum1 = integralSum;
             lastError1 = error;
         } else {
-            integralSum2 = integralSum;
             lastError2 = error;
         }
 
@@ -118,11 +110,9 @@ public class TakaShooter extends BaseSubsystem {
 
     private void resetControllerState(boolean isShooterOne, ElapsedTime pidTime) {
         if (isShooterOne) {
-            integralSum1 = 0;
             lastError1 = 0;
             output1 = 0;
         } else {
-            integralSum2 = 0;
             lastError2 = 0;
             output2 = 0;
         }
@@ -131,6 +121,10 @@ public class TakaShooter extends BaseSubsystem {
 
     private double clamp(double value, double min, double max) {
         return Math.max(min, Math.min(max, value));
+    }
+
+    private double getMeasuredVelocity(DcMotorEx shooter) {
+        return Math.abs(shooter.getVelocity());
     }
 
 
@@ -173,16 +167,16 @@ public class TakaShooter extends BaseSubsystem {
     }
     /// RETRIEVES AVERAGE VELOCITY OF BOTH SHOOTERS
     public int getAverageVelocity() {
-        double averageVelocity = ((shooter1.getVelocity() + shooter2.getVelocity()) / 2);
+        double averageVelocity = ((getMeasuredVelocity(shooter1) + getMeasuredVelocity(shooter2)) / 2);
         return (int) (Math.round(averageVelocity));
     }
     /// SHOOTER 1 TPS
     public int getShooter1tps() {
-        return (int) Math.round(shooter1.getVelocity());
+        return (int) Math.round(getMeasuredVelocity(shooter1));
     }
     /// SHOOTER 2 TPS
     public int getShooter2tps() {
-        return (int) Math.round(shooter2.getVelocity());
+        return (int) Math.round(getMeasuredVelocity(shooter2));
     }
     /// SET POWER FOR MOTOR ONE
     public double get1Power() {
