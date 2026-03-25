@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.Drawing;
 
 public class Draw extends BaseCommand {
     private final Follower follower;
+
     public Draw(Follower follower) {
         this.follower = follower;
     }
@@ -15,9 +16,9 @@ public class Draw extends BaseCommand {
     public void init() {
         Drawing.init();
     }
+
     @Override
     public void loop() {
         Drawing.drawDebug(follower);
-
     }
 }

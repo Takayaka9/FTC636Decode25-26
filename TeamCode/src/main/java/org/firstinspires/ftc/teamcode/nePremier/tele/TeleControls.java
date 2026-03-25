@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.GamepadInput;
+import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.Drawing;
 
 public class TeleControls extends Initializer {
     private final Control allianceBlueX;
@@ -22,6 +23,7 @@ public class TeleControls extends Initializer {
     /// THIS CONSTRUCTOR SERVES AS OUR INIT METHOD
     public TeleControls(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
         super(gamepad1, gamepad2, hardwareMap, telemetry);
+        Drawing.init();
         allianceBlueX = new Control(GamepadInput.x, gamepad1, ControlType.Hold, blue);
         allianceRedB = new Control(GamepadInput.b, gamepad1, ControlType.Hold, red);
         intakeRB = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, transferRun);
@@ -42,7 +44,6 @@ public class TeleControls extends Initializer {
     }
 
     public void update() {
-        follower.update();
         allianceBlueX.update();
         allianceRedB.update();
         intakeRB.update();
@@ -51,6 +52,7 @@ public class TeleControls extends Initializer {
         liftB.update();
         downY.update();
         constantControls.update();
+        follower.update();
         telemetryM.update();
     }
 
