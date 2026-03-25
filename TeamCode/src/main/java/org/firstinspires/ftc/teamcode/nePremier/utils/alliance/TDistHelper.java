@@ -8,7 +8,7 @@ public abstract class TDistHelper {
     Get Target Distance is a method to retrieve target distance
     inputs: robotPose, (turret) mode
     outputs: targetDistance (also printed to panels)
-    !! It is never needed to call this method - it is called in shoot !!
+    !! It is never needed to call this method - it is called in shootCommand !!
      */
     @Configurable
     public static class goalPoses {

@@ -12,12 +12,10 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLift;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLiftDown;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.NewCRLiftServo;
-import org.firstinspires.ftc.teamcode.nePremier.utils.fusionLL.Localizer;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants2;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceBlue;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceRed;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.ConstantFlywheelSpin;
-import org.firstinspires.ftc.teamcode.nePremier.robot.commands.LiftBot;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.MakeMoves;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.OhNoWeFucked;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.Outake;
@@ -29,7 +27,6 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.systems.TakaShooter;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Transfer;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Turret;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.HoodServo;
-import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.LiftServo;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.Stopper;
 
 public class Initializer {
@@ -60,7 +57,7 @@ public class Initializer {
 //    public final LLReloc reloc;
     public final MakeMoves makeMoves;
     public final Outake outake;
-    public final Shoot shoot;
+    public final Shoot shootCommand;
     public final ConstantFlywheelSpin constantFlywheelSpin;
     public final TurretHoodUpdate turretHoodUpdate;
     public final AllianceBlue blue;
@@ -98,7 +95,7 @@ public class Initializer {
 //        reloc = new LLReloc(limelight, follower, gamepad1, telemetryM);
         makeMoves = new MakeMoves(follower, gamepad1);
         outake = new Outake(transfer);
-        shoot = new Shoot(transfer, shooter, stopper);
+        shootCommand = new Shoot(transfer, shooter, stopper);
         constantFlywheelSpin = new ConstantFlywheelSpin(shooter, follower);
         turretHoodUpdate = new TurretHoodUpdate(turret, hoodServo, follower, gamepad2);
         blue = new AllianceBlue();
