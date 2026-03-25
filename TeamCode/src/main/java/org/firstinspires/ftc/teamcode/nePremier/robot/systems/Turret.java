@@ -43,7 +43,7 @@ public class Turret extends BaseSubsystem {
             goalAngle = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
         }
         double robotHeading = follower.getHeading();
-        double turretAngle = goalAngle - robotHeading;
+        double turretAngle = (goalAngle - robotHeading);// + getOffset(alliance);
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
@@ -52,7 +52,7 @@ public class Turret extends BaseSubsystem {
         }
 
         targetPos = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
-        turnTurret(targetPos + getOffset(alliance));
+        turnTurret(targetPos);
     }
 
     @SuppressWarnings("FieldMayBeFinal")
@@ -62,8 +62,8 @@ public class Turret extends BaseSubsystem {
         private static double Kd = 0;
         private static double Ki = 0;
         public static final double overrideSensitivity = 10;
-        private static double angleMultiplier = 1;
-        private static double magnitudeMultiplier = 1;
+        private static double angleMultiplier = 0.01;
+        private static double magnitudeMultiplier = 0.01;
         private static double lowPassAlpha = 0.2;
     }
 
