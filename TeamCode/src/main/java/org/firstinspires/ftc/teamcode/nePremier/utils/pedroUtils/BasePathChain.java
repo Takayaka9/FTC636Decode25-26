@@ -13,13 +13,14 @@ public class BasePathChain {
     public final Pose farShootPose;
     public final Pose nearStartPose;
     public final Pose nearShootPose;
-    public final Pose pIntake3Pose;
+    public final Pose intakeP3Pose;
     public final Pose intake3Pose;
-    public final Pose pIntake2Pose;
+    public final Pose intakeP2Pose;
     public final Pose intake2Pose;
-    public final Pose pIntake1Pose;
+    public final Pose intakeP1Pose;
     public final Pose intake1Pose;
     public final Pose emptyPose;
+    public final Pose emptyPPose;
     public BasePathChain(Alliance alliance, Follower follower) {
         this.follower = follower;
         switch (alliance) {
@@ -28,39 +29,42 @@ public class BasePathChain {
                 farShootPose = RedPoseLib.farShootPose;
                 nearStartPose = RedPoseLib.nearStartPose;
                 nearShootPose = RedPoseLib.nearShootPose;
-                pIntake3Pose = RedPoseLib.pIntake3Pose;
+                intakeP3Pose = RedPoseLib.intakeP3Pose;
                 intake3Pose = RedPoseLib.intake3Pose;
-                pIntake2Pose = RedPoseLib.pIntake2Pose;
+                intakeP2Pose = RedPoseLib.intakeP2Pose;
                 intake2Pose = RedPoseLib.intake2Pose;
-                pIntake1Pose = RedPoseLib.pIntake1Pose;
+                intakeP1Pose = RedPoseLib.intakeP1Pose;
                 intake1Pose = RedPoseLib.intake1Pose;
                 emptyPose = RedPoseLib.emptyPose;
+                emptyPPose = RedPoseLib.emptyPPose;
                 break;
             case BLUE:
                 farStartPose = BluePoseLib.farStartPose;
                 farShootPose = BluePoseLib.farShootPose;
                 nearStartPose = BluePoseLib.nearStartPose;
                 nearShootPose = BluePoseLib.nearShootPose;
-                pIntake3Pose = BluePoseLib.pIntake3Pose;
+                intakeP3Pose = BluePoseLib.intakeP3Pose;
                 intake3Pose = BluePoseLib.intake3Pose;
-                pIntake2Pose = BluePoseLib.pIntake2Pose;
+                intakeP2Pose = BluePoseLib.intakeP2Pose;
                 intake2Pose = BluePoseLib.intake2Pose;
-                pIntake1Pose = BluePoseLib.pIntake1Pose;
+                intakeP1Pose = BluePoseLib.intakeP1Pose;
                 intake1Pose = BluePoseLib.intake1Pose;
                 emptyPose = BluePoseLib.emptyPose;
+                emptyPPose = RedPoseLib.emptyPPose;
                 break;
             default:
                 farStartPose = null;
                 farShootPose = null;
                 nearStartPose = null;
                 nearShootPose = null;
-                pIntake3Pose = null;
+                intakeP3Pose = null;
                 intake3Pose = null;
-                pIntake2Pose = null;
+                intakeP2Pose = null;
                 intake2Pose = null;
-                pIntake1Pose = null;
+                intakeP1Pose = null;
                 intake1Pose = null;
                 emptyPose = null;
+                emptyPPose = null;
         }
     }
 

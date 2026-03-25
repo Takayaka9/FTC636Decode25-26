@@ -16,7 +16,7 @@ public final class C9Paths extends BasePathChain implements BuildPaths {
     }
 
     public PathChain startToShoot;
-    public PathChain preIntakeSpike2, intakeSpike2, spike2ToShoot;
+    public PathChain preIntakeSpike2, intakeSpike2, spike2ToShoot, spike2andEmpty, emptyToShoot;
     public PathChain preIntakeSpike1, intakeSpike1, spike1toShoot;
     public PathChain preIntakeSpike3, intakeSpike3, spike3toShoot;
 
@@ -28,23 +28,27 @@ public final class C9Paths extends BasePathChain implements BuildPaths {
                 .setLinearHeadingInterpolation(nearStartPose.getHeading(), nearShootPose.getHeading())
                 .build();
         preIntakeSpike2 = follower.pathBuilder()
-                .addPath(new BezierLine(nearShootPose, pIntake2Pose))
+                .addPath(new BezierLine(nearShootPose, intakeP2Pose))
                 .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
         intakeSpike2 = follower.pathBuilder()
-                .addPath(new BezierLine(pIntake2Pose, intake2Pose))
+                .addPath(new BezierLine(nearShootPose, intakeP2Pose))
+                .setConstantHeadingInterpolation(intake2Pose.getHeading())
+                .addPath(new BezierLine(intakeP2Pose, intake2Pose))
                 .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
         spike2ToShoot = follower.pathBuilder()
-                .addPath(new BezierCurve(intake2Pose, pIntake2Pose, nearShootPose))
+                .addPath(new BezierCurve(intake2Pose, intakeP2Pose, nearShootPose))
                 .setConstantHeadingInterpolation(intake2Pose.getHeading())
                 .build();
         preIntakeSpike1 = follower.pathBuilder()
-                .addPath(new BezierLine(nearShootPose, pIntake1Pose))
+                .addPath(new BezierLine(nearShootPose, intakeP1Pose))
                 .setConstantHeadingInterpolation(intake1Pose.getHeading())
                 .build();
         intakeSpike1 = follower.pathBuilder()
-                .addPath(new BezierLine(pIntake1Pose, intake1Pose))
+                .addPath(new BezierLine(nearShootPose, intakeP1Pose))
+                .setConstantHeadingInterpolation(intake1Pose.getHeading())
+                .addPath(new BezierLine(intakeP1Pose, intake1Pose))
                 .setConstantHeadingInterpolation(intake1Pose.getHeading())
                 .build();
         spike1toShoot = follower.pathBuilder()
@@ -52,16 +56,28 @@ public final class C9Paths extends BasePathChain implements BuildPaths {
                 .setLinearHeadingInterpolation(intake1Pose.getHeading(), nearShootPose.getHeading())
                 .build();
         preIntakeSpike3 = follower.pathBuilder()
-                .addPath(new BezierLine(nearShootPose, pIntake3Pose))
+                .addPath(new BezierLine(nearShootPose, intakeP3Pose))
                 .setConstantHeadingInterpolation(intake3Pose.getHeading())
                 .build();
         intakeSpike3 = follower.pathBuilder()
-                .addPath(new BezierLine(pIntake3Pose, intake3Pose))
+                .addPath(new BezierLine(nearShootPose, intakeP3Pose))
+                .setConstantHeadingInterpolation(intake3Pose.getHeading())
+                .addPath(new BezierLine(intakeP3Pose, intake3Pose))
                 .setConstantHeadingInterpolation(intake3Pose.getHeading())
                 .build();
         spike3toShoot = follower.pathBuilder()
                 .addPath(new BezierLine(intake3Pose, nearShootPose))
                 .setLinearHeadingInterpolation(intake3Pose.getHeading(), nearShootPose.getHeading())
+                .build();
+        spike2andEmpty = follower.pathBuilder()
+                .addPath(new BezierLine(intake2Pose, emptyPPose))
+                .setLinearHeadingInterpolation(intake2Pose.getHeading(), emptyPPose.getHeading())
+                .addPath(new BezierLine(emptyPPose, emptyPose))
+                .setConstantHeadingInterpolation(emptyPPose.getHeading())
+                .build();
+        emptyToShoot = follower.pathBuilder()
+                .addPath(new BezierLine(emptyPose, nearShootPose))
+                .setLinearHeadingInterpolation(emptyPose.getHeading(), nearShootPose.getHeading())
                 .build();
     }
 

@@ -25,11 +25,11 @@ public final class F6Paths extends BasePathChain implements BuildPaths {
                 .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading())
                 .build();
         preIntakeSpike3 = follower.pathBuilder()
-                .addPath(new BezierLine(farShootPose, pIntake3Pose))
+                .addPath(new BezierLine(farShootPose, intakeP3Pose))
                 .setConstantHeadingInterpolation(intake3Pose.getHeading())
                 .build();
         intakeSpike3 = follower.pathBuilder()
-                .addPath(new BezierLine(pIntake3Pose ,intake3Pose))
+                .addPath(new BezierLine(intakeP3Pose ,intake3Pose))
                 .setConstantHeadingInterpolation(intake3Pose.getHeading())
                 .build();
         spike3toShoot = follower.pathBuilder()

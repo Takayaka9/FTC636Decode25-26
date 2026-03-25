@@ -45,7 +45,7 @@ public class Constants {
             .forwardPodY(3.6266)
             .strafePodX(-3.54205);
 
-    public static PathConstraints pathConstraints = new PathConstraints(0.99, 0.1,50, 1.5);
+    public static PathConstraints pathConstraints = new PathConstraints(0.96, 0.1,50, 1.5);
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)
                 .pathConstraints(pathConstraints)

@@ -36,7 +36,7 @@ public class C9PathUpdate extends BasePathUpdate {
                 }
                 break;
             case 3:
-                if (atPose(paths.pIntake2Pose)) {
+                if (atPose(paths.intakeP2Pose)) {
                     intakeControl.run();
                     follower.followPath(paths.intakeSpike2);
                     pathState = 4;
@@ -64,7 +64,7 @@ public class C9PathUpdate extends BasePathUpdate {
                 }
                 break;
             case 7:
-                if (atPose(paths.pIntake2Pose)) {
+                if (atPose(paths.intakeP2Pose)) {
                     intakeControl.run();
                     follower.followPath(paths.intakeSpike1);
                     pathState = 8;
@@ -92,7 +92,7 @@ public class C9PathUpdate extends BasePathUpdate {
                 }
                 break;
             case 11:
-                if (atPose(paths.pIntake3Pose)) {
+                if (atPose(paths.intakeP3Pose)) {
                     intakeControl.run();
                     follower.followPath(paths.intakeSpike3);
                     pathState = 12;
