@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.commands.OhNoWeFucked;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.Outake;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.ResetForTele;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.Shoot;
-import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TurretHoodUpdate;
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.FuckedTurretHoodUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Light;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.TakaShooter;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Transfer;
@@ -59,7 +59,7 @@ public class Initializer {
     public final Outake outake;
     public final Shoot shootCommand;
     public final ConstantFlywheelSpin constantFlywheelSpin;
-    public final TurretHoodUpdate turretHoodUpdate;
+    public final FuckedTurretHoodUpdate turretHoodUpdate;
     public final AllianceBlue blue;
     public final AllianceRed red;
     public final ResetForTele resetForTele;
@@ -97,11 +97,11 @@ public class Initializer {
         outake = new Outake(transfer);
         shootCommand = new Shoot(transfer, shooter, stopper);
         constantFlywheelSpin = new ConstantFlywheelSpin(shooter, follower);
-        turretHoodUpdate = new TurretHoodUpdate(turret, hoodServo, follower, gamepad2);
+        ohNoWeFucked = new OhNoWeFucked(turret, gamepad2);
+        turretHoodUpdate = new FuckedTurretHoodUpdate(turret, hoodServo, follower, gamepad2, ohNoWeFucked);
         blue = new AllianceBlue();
         red = new AllianceRed();
         resetForTele = new ResetForTele(turret);
-        ohNoWeFucked = new OhNoWeFucked(turret, gamepad2);
         draw = new Draw(follower);
 //        localizer = new Localizer(hardwareMap, follower, light);
     }

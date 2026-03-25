@@ -48,3 +48,13 @@ dependencies {
     implementation("org.solverslib:core:0.3.3")
     implementation("org.solverslib:pedroPathing:0.3.3")
 }
+
+// Android Studio sync resolves generated *RuntimeClasspathCopy configurations.
+// Gradle 8.9 rejects them if they are both consumable and resolvable, so force
+// those generated copies to behave as resolution-only configurations.
+configurations.configureEach {
+    if (name.endsWith("RuntimeClasspathCopy")) {
+        canBeConsumed = false
+        canBeResolved = true
+    }
+}

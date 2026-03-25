@@ -59,6 +59,9 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
     public void stop() {
         active = false;
     }
+    public boolean isRunning() {
+        return active;
+    }
 
 
         public void update() {
