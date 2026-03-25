@@ -8,20 +8,7 @@
 // please think carefully as to whether such customizations are really necessary
 // before doing so.
 
-
 // Custom definitions may go here
-//Dairy (for Sloth)
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            url "https://repo.dairy.foundation/releases"
-        }
-    }
-    dependencies {
-        classpath "dev.frozenmilk:Load:0.2.4"
-    }
-}
 
 // Include common definitions from above.
 apply from: '../build.common.gradle'
@@ -44,11 +31,9 @@ repositories {
     maven {
         url = "https://mymaven.bylazar.com/releases"
     }
-    // Dairy releases repository
     maven {
         url = "https://repo.dairy.foundation/releases"
     }
-    // Dairy snapshots repository
     maven {
         url = "https://repo.dairy.foundation/snapshots"
     }
@@ -58,15 +43,8 @@ repositories {
 dependencies {
     //default:
     implementation project(':FtcRobotController')
-    // Bylazar: panels:
-    //implementation("com.bylazar:fullpanels:1.0.11")
     implementation("com.bylazar.sloth:fullpanels:0.2.4+1.0.12")
     //SolversLib:
     implementation("org.solverslib:core:0.3.3")
     implementation("org.solverslib:pedroPathing:0.3.3")
-    //Sloth
-    implementation("dev.frozenmilk.sinister:Sloth:0.2.4")
 }
-
-//for Sloth
-apply plugin: 'dev.frozenmilk.sinister.sloth.load'
