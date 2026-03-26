@@ -19,8 +19,8 @@ public class TakaShooter extends BaseSubsystem {
         public static double minActiveTps = 900;
         public static double maxError = 3;
         //public static double Kf = 0.00036;
-        static double d1 = 36; static double r1 = 950;
-        static double d2 = 53.6; static double r2 = 1040;
+        static double d1 = 36; static double r1 = 950;//tuned
+        static double d2 = 53.6; static double r2 = 1040;//tuned
         static double d3 = 73.5; static double r3 = 1075;//tuned
         static double d4 = 100; static double r4 = 1125;//tuned
         static double d5 = 108; static double r5 = 1600;
