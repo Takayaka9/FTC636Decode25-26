@@ -23,10 +23,10 @@ public class HoodServo extends ServoImplExBase implements ServoImplexInterface {
         lut.createLUT();
     }
 
-    static double d1 = 36; static double p1 = 0.96;
-    static double d2 = 50; static double p2 = 0.95;
-    static double d3 = 75; static double p3 = 0.92;
-    static double d4 = 96; static double p4 = 0.85;
+    static double d1 = 36; static double p1 = 0.945;
+    static double d2 = 53.6; static double p2 = 0.865;
+    static double d3 = 73.5; static double p3 = 0.85;//tuned
+    static double d4 = 100; static double p4 = 0.85;//tuned
     static double d5 = 108; static double p5 = 0.85;
     static double d6 = 150; static double p6 = 0.85;
 

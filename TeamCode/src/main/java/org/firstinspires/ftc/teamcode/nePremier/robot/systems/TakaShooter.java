@@ -12,17 +12,17 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem
 public class TakaShooter extends BaseSubsystem {
     @Configurable
     private static class shooterTune {
-        public static double Kp = 10;
+        public static double Kp = 0.8;
         public static double Kd = 0;
-        public static double Kv = 0.0004;
-        public static double Ks = 0.3;
+        public static double Kv = 0.00049;
+        public static double Ks = 0.17;
         public static double minActiveTps = 900;
         public static double maxError = 3;
         //public static double Kf = 0.00036;
-        static double d1 = 36; static double r1 = 900;
-        static double d2 = 50; static double r2 = 900;
-        static double d3 = 75; static double r3 = 1000;
-        static double d4 = 96; static double r4 = 1150;
+        static double d1 = 36; static double r1 = 950;
+        static double d2 = 53.6; static double r2 = 1040;
+        static double d3 = 73.5; static double r3 = 1075;//tuned
+        static double d4 = 100; static double r4 = 1125;//tuned
         static double d5 = 108; static double r5 = 1600;
         static double d6 = 150; static double r6 = 1600;
         public static double brake = -0.3;
@@ -57,44 +57,72 @@ public class TakaShooter extends BaseSubsystem {
     private final ElapsedTime pidTime1 = new ElapsedTime();
     private double lastError1 = 0;
     private double output1 = 0;
+//    private void update1(double target) {
+//        output1 = updateShooterMotor(shooter1, target, pidTime1, true);
+//    }
     private void update1(double target) {
-        output1 = updateShooterMotor(shooter1, target, pidTime1, true);
+        output1 = updateShooterMotor(shooter1, target, true);
     }
 
     //PID 2
     private final ElapsedTime pidTime2 = new ElapsedTime();
     private double lastError2 = 0;
     private double output2 = 0;
+//    private void update2(double target) {
+//        output2 = updateShooterMotor(shooter2, target, pidTime2, false);
+//    }
     private void update2(double target) {
-        output2 = updateShooterMotor(shooter2, target, pidTime2, false);
+        output2 = updateShooterMotor(shooter2, target, false);
     }
 
     private static boolean kpON = false;
-    private double updateShooterMotor(DcMotorEx shooter, double target, ElapsedTime pidTime, boolean isShooterOne) {
-        if (target < shooterTune.minActiveTps) {
-            resetControllerState(isShooterOne, pidTime);
-            shooter.setPower(0);
-            return 0;
-        }
+//    private double updateShooterMotor(DcMotorEx shooter, double target, ElapsedTime pidTime, boolean isShooterOne) {
+//        if (target < shooterTune.minActiveTps) {
+//            resetControllerState(isShooterOne, pidTime);
+//            shooter.setPower(0);
+//            return 0;
+//        }
+//
+//        double measuredVelocity = getMeasuredVelocity(shooter);
+//        double error = target - measuredVelocity;
+//        double dt = Math.max(pidTime.seconds(), 0.0001);
+//
+//        double lastError = isShooterOne ? lastError1 : lastError2;
+//        double derivative = (error - lastError) / dt;
+//        double feedForward = shooterTune.Ks + (target * shooterTune.Kv);
+//        double output = 0;
+//        if (Math.abs(error) > shooterTune.maxError) {
+//            kpON = true;
+//            output = feedForward
+//                    + (error * shooterTune.Kp)
+//                    + (derivative * shooterTune.Kd);
+//        } else {
+//            kpON = false;
+//            output = feedForward
+//                    + (derivative * shooterTune.Kd);
+//        }
+//        output = clamp(output, 0, 1);
+//
+//        if (isShooterOne) {
+//            lastError1 = error;
+//        } else {
+//            lastError2 = error;
+//        }
+//
+//        pidTime.reset();
+//        shooter.setPower(output);
+//        return output;
+//    }
 
+    private double updateShooterMotor(DcMotorEx shooter, double target, boolean isShooterOne) {
         double measuredVelocity = getMeasuredVelocity(shooter);
         double error = target - measuredVelocity;
-        double dt = Math.max(pidTime.seconds(), 0.0001);
+        //double dt = Math.max(pidTime.seconds(), 0.0001);
 
         double lastError = isShooterOne ? lastError1 : lastError2;
-        double derivative = (error - lastError) / dt;
+        //double derivative = (error - lastError) / dt;
         double feedForward = shooterTune.Ks + (target * shooterTune.Kv);
-        double output = 0;
-        if (Math.abs(error) > shooterTune.maxError) {
-            kpON = true;
-            output = feedForward
-                    + (error * shooterTune.Kp)
-                    + (derivative * shooterTune.Kd);
-        } else {
-            kpON = false;
-            output = feedForward
-                    + (derivative * shooterTune.Kd);
-        }
+        double output = error*shooterTune.Kp + feedForward;
         output = clamp(output, 0, 1);
 
         if (isShooterOne) {
@@ -103,7 +131,7 @@ public class TakaShooter extends BaseSubsystem {
             lastError2 = error;
         }
 
-        pidTime.reset();
+        //pidTime.reset();
         shooter.setPower(output);
         return output;
     }

@@ -4,11 +4,14 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Transfer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
+import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.GamepadInput;
 
 /**
  * Shoot Tester for testing LUT calibration, initializes the whole robot as standard.
@@ -18,6 +21,9 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
 public class PatrickShootTest extends OpMode {
     Initializer i = null;
     Control opModeShoot = null;
+    Transfer transfer;
+    TransferRun tRunn;
+    Control runt;
     enum action {
         op,
         test,
@@ -33,12 +39,16 @@ public class PatrickShootTest extends OpMode {
     public void init() {
         i = new Initializer(gamepad1, gamepad2, hardwareMap, telemetry);
         opModeShoot = new Control(ControlType.Auto, i.constantFlywheelSpin);
+        transfer = new Transfer(hardwareMap);
+        tRunn = new TransferRun(transfer);
+        runt = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, tRunn);
     }
 
     @Override
     public void loop() {
         i.follower.update();
         opModeShoot.update();
+        runt.update();
         switch (PatrickShootTestParams.currentAction) {
             case op:
                 opModeShoot.run();
