@@ -50,6 +50,8 @@ public class ForShootingLUTShit extends OpMode {
         shooter.test(tps);
         h.setPosition(hPos);
         t.addData("distance", TDistHelper.getTargetDistance(f.getPose(), Alliance.RED));
+        t.addData("power", shooter.get1Power());
+        t.addData("velocity", shooter.getAverageVelocity());
         runt.update();
     }
 }
