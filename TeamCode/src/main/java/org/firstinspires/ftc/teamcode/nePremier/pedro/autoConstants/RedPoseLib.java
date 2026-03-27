@@ -14,10 +14,11 @@ public final class RedPoseLib {
     public static int Intake3X = 133; public static int Intake3Y = 35; public static int Intake3R = 0;
     public static int intakeP2X = 95; public static int intakeP2Y = 60; public static int intakeP2R = 0;
     public static int Intake2X = 125; public static int Intake2Y = 60; public static int Intake2R = 0;
-    public static int intakeP1X = 95; public static int intakeP1Y = 87; public static int intakeP1R = 0;
-    public static int Intake1X = 126; public static int Intake1Y = 87; public static int Intake1R = 0;
+    public static int intakeP1X = 95; public static int intakeP1Y = 84; public static int intakeP1R = 0;
+    public static int Intake1X = 126; public static int Intake1Y = 84; public static int Intake1R = 0;
     public static int emptyX = 128; public static int emptyY = 67; public static int emptyR = 90;
     public static int emptyPX = 114; public static int emptyPY = 67; public static int emptyPR = 90;
+    public static int gateX = 131; public static int gateY = 61; public static int gateR = 26;
 
     public static final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
     public static final Pose farShootPose = new Pose(farShootX, farShootY, Math.toRadians(farShootR));
@@ -31,5 +32,5 @@ public final class RedPoseLib {
     public static final Pose intake1Pose = new Pose(Intake1X, Intake1Y, Math.toRadians(Intake1R));
     public static final Pose emptyPose = new Pose(emptyX, emptyY, Math.toRadians(emptyR));
     public static final Pose emptyPPose = new Pose(emptyPX, emptyPY, Math.toRadians(emptyPR));
-
+    public static final Pose gatePose = new Pose(gateX, gateY, Math.toRadians(gateR));
 }
