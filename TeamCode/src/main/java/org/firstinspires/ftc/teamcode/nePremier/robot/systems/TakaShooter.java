@@ -115,7 +115,7 @@ public class TakaShooter extends BaseSubsystem {
 //    }
 
     private double updateShooterMotor(DcMotorEx shooter, double target, boolean isShooterOne) {
-        double measuredVelocity = getMeasuredVelocity(shooter);
+        double measuredVelocity = getMeasuredVelocity(shooter1); //CHANGE FOR GOOD ENCODER HERE
         double error = target - measuredVelocity;
         //double dt = Math.max(pidTime.seconds(), 0.0001);
 
@@ -157,7 +157,7 @@ public class TakaShooter extends BaseSubsystem {
 
 
 
-    /// MAIN RUN METHOD
+    /// MAIN PUBLIC RUN METHOD
     public void runForDistance(double distance){
         update1(getShooterTPS(distance));
         update2(getShooterTPS(distance));
