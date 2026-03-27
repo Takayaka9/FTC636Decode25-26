@@ -14,7 +14,7 @@ public class MakeMoves extends BaseCommand {
         super();
         this.follower = follower;
         this.gamepad = gamepad1;
-        this.follower.setStartingPose(new Pose(0, 0, 0));
+        this.follower.setStartingPose(new Pose(72, 72, 0));
         this.follower.update();
     }
 
