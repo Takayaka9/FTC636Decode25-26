@@ -43,7 +43,7 @@ public class Turret extends BaseSubsystem {
             goalAngle = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
         }
         double robotHeading = follower.getHeading();
-        double turretAngle = (goalAngle - robotHeading) + getOffset();
+        double turretAngle = (goalAngle - robotHeading);// + getOffset();
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
