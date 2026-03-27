@@ -66,6 +66,7 @@ abstract class PedroUpdate extends Initializer {
         pathState = 0;
         fled = false;
         constantControls.run();
+        stopper.close();
     }
 
     public final void updateDependencies() {

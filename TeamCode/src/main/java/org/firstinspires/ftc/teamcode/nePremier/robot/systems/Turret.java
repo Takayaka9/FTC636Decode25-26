@@ -43,7 +43,7 @@ public class Turret extends BaseSubsystem {
             goalAngle = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
         }
         double robotHeading = follower.getHeading();
-        double turretAngle = (goalAngle - robotHeading);// + getOffset(alliance);
+        double turretAngle = (goalAngle - robotHeading) + getOffset();
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
@@ -91,7 +91,7 @@ public class Turret extends BaseSubsystem {
     // private final ArrayList<Double> lowPassFilter = new ArrayList<>(5);
     private double filteredMagGoal = 0.0;
     private boolean filteredMagGoalInit = false;
-    private double getOffset(Alliance alliance){
+    private double getOffset(){
         double angleGoal;
 
         //inches per second the bot is moving at
@@ -101,10 +101,10 @@ public class Turret extends BaseSubsystem {
         double velAngle = follower.getVelocity().getTheta();
 
         //get the angle to the goal from bot pos, same as turret aiming
-        if(alliance == Alliance.BLUE){
+        if(CurrentAlliance.alliance == Alliance.BLUE){
             angleGoal = Math.atan2(TDistHelper.goalPoses.blueY - follower.getPose().getY(), TDistHelper.goalPoses.blueX - follower.getPose().getX());
         }
-        else if(alliance == Alliance.RED){
+        else if(CurrentAlliance.alliance == Alliance.RED){
             angleGoal = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
         }
         else{

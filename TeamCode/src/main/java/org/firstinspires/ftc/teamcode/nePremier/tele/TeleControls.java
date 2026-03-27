@@ -27,8 +27,8 @@ public class TeleControls extends Initializer {
         Drawing.init();
         allianceBlue = new Control(GamepadInput.x, gamepad1, ControlType.Hold, blue);
         allianceRed = new Control(GamepadInput.b, gamepad1, ControlType.Hold, red);
-        intake = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, transferRun);
-        outtake = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake);
+        intake = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, transferRun);
+        outtake = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, outake);
         shoot = new Control(GamepadInput.a, gamepad2, ControlType.Hold, shootCommand);
         weFucked = new Control(GamepadInput.x, gamepad2, ControlType.Toggle, ohNoWeFucked);
         liftUp = new Control(GamepadInput.a, gamepad1, ControlType.Hold, liftBot);
@@ -43,6 +43,7 @@ public class TeleControls extends Initializer {
     public void start() {
         follower.update();
         constantControls.run();
+        stopper.close();
     }
 
     public void update() {

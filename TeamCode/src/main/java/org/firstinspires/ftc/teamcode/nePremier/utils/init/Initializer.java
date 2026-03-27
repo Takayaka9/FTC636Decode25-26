@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLift;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLiftDown;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.NewCRLiftServo;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants2;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceBlue;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceRed;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.ConstantFlywheelSpin;
@@ -72,7 +72,7 @@ public class Initializer {
     public Initializer(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry ignoredTelemetry) {
         /// lil stuff
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
-        follower = Constants2.createFollower(hardwareMap);
+        follower = Constants.createFollower(hardwareMap);
 
 
         /// Subsystems
