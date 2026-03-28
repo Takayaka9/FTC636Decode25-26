@@ -90,13 +90,22 @@ public class Turret extends BaseSubsystem {
     }
     // taka moving average filter
     // private final ArrayList<Double> lowPassFilter = new ArrayList<>(5);
-    private double filteredMagGoal = 0.0;
-    private boolean filteredMagGoalInit = false;
+    private double filteredMagnitude = 0.0;
+    private boolean filteredMagnitudeInit = false;
     private double getOffset(){
         double angleGoal;
 
         //inches per second the bot is moving at
         double magnitude = follower.getVelocity().getMagnitude();
+
+        //low pass filter
+        if (!filteredMagnitudeInit) {
+            filteredMagnitude = magnitude;
+            filteredMagnitudeInit = true;
+        } else {
+            double alpha = TurretConstants.lowPassAlpha;
+            filteredMagnitude = (alpha * magnitude) + ((1.0 - alpha) * filteredMagnitude);
+        }
 
         //what direction the bot is moving in
         double velAngle = follower.getVelocity().getTheta();
@@ -116,16 +125,9 @@ public class Turret extends BaseSubsystem {
         double angle = angleGoal - velAngle;
 
         //total velocity relative to the goal (sorta, the values are messed up but it's chill)
-        double magGoal = (TurretConstants.angleMultiplier*angle)*(magnitude*TurretConstants.magnitudeMultiplier);
+        double magGoal = (TurretConstants.angleMultiplier*angle)*(filteredMagnitude*TurretConstants.magnitudeMultiplier);
 
-        //low pass filter
-        if (!filteredMagGoalInit) {
-            filteredMagGoal = magGoal;
-            filteredMagGoalInit = true;
-        } else {
-            double alpha = TurretConstants.lowPassAlpha;
-            filteredMagGoal = (alpha * magGoal) + ((1.0 - alpha) * filteredMagGoal);
-        }
+
 
         //emad simple filter for max change
 //        double delta = magGoal - filteredMagGoal;
