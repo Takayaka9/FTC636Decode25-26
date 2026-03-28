@@ -8,4 +8,5 @@ public  class AutoConstants {
     public static int fleeTime = 27000; //In milliseconds
     public static double fleePathTValue = 0.5;
     public static double globalPoseTolerance = 5;
+    public static double globalTValue = 0.9;
 }

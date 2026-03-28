@@ -5,12 +5,13 @@ import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BuildPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathChain;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 
-public final class C9Paths extends BasePathChain implements BuildPaths {
-    public C9Paths(Follower follower, Alliance alliance) {
+public final class C12Paths extends BasePathChain implements BuildPaths {
+    public C12Paths(Follower follower, Alliance alliance) {
         super(alliance, follower);
         buildPaths();
     }
@@ -23,6 +24,7 @@ public final class C9Paths extends BasePathChain implements BuildPaths {
     @Override
     public void buildPaths() {
         follower.pathBuilder().setGlobalTangentHeadingInterpolation();
+        follower.pathBuilder().setTValueConstraint(AutoConstants.globalTValue);
         startToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(nearStartPose, nearShootPose))
                 .setLinearHeadingInterpolation(nearStartPose.getHeading(), nearShootPose.getHeading())

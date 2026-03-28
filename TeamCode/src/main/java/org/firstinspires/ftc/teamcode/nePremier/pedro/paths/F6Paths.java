@@ -4,6 +4,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathChain;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BuildPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
@@ -20,6 +21,7 @@ public final class F6Paths extends BasePathChain implements BuildPaths {
     @Override
     public void buildPaths() {
         follower.pathBuilder().setGlobalTangentHeadingInterpolation();
+        follower.pathBuilder().setTValueConstraint(AutoConstants.globalTValue);
         startToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(farStartPose, farShootPose))
                 .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading())

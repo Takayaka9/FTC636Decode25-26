@@ -3,15 +3,16 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.C9Paths;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.C12Paths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
 
-public class C9PathUpdate extends BasePathUpdate {
-    final C9Paths paths;
-    public C9PathUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
+@Deprecated
+public class C9PathUpdateOld extends BasePathUpdate {
+    final C12Paths paths;
+    public C9PathUpdateOld(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
-        paths = new C9Paths(follower, alliance);
+        paths = new C12Paths(follower, alliance);
     }
 
     @Override
