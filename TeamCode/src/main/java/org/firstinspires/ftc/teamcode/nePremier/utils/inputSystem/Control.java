@@ -40,7 +40,7 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
         commandArray = command;
     }
 
-    private void runSet() {
+    private void runSet0() {
         WeNeeeeedToGetGoooder currentState = state;
         for (BaseCommand command : commandArray) {
             LoopCommand(command, currentState);
@@ -69,25 +69,25 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
             case Toggle:
                 assert map != null;
                 if (map.checkInput() && !active) {
-                    runSet();
+                    runSet0();
                     active = true;
                     released = false;
                 }
                 if (active) {
-                    runSet();
+                    runSet0();
                 }
                 if (!map.checkInput() && !released) {
                     released = true;
                 }
                 if (map.checkInput() && active && released) {
-                    runSet();
+                    runSet0();
                     active = false;
                 }
                 break;
             case Hold:
                 assert map != null;
                 if (map.checkInput()) {
-                    runSet();
+                    runSet0();
                     active = true;
                 }
                 if (!map.checkInput() && active) {
@@ -97,7 +97,7 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
                 break;
             case Auto:
                 if (active) {
-                    runSet();
+                    runSet0();
                 } else {
                     stopSet();
                 }
