@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.paths;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
@@ -20,6 +21,7 @@ public final class C12Paths extends BasePathChain implements BuildPaths {
     public PathChain preIntakeSpike2, intakeSpike2, spike2ToShoot, spike2andEmpty, emptyToShoot;
     public PathChain preIntakeSpike1, intakeSpike1, spike1toShoot;
     public PathChain preIntakeSpike3, intakeSpike3, spike3toShoot;
+    public PathChain shootToGate, gateToShoot;
 
     @Override
     public void buildPaths() {
@@ -80,6 +82,14 @@ public final class C12Paths extends BasePathChain implements BuildPaths {
         emptyToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(emptyPose, nearShootPose))
                 .setLinearHeadingInterpolation(emptyPose.getHeading(), nearShootPose.getHeading())
+                .build();
+        shootToGate = follower.pathBuilder()
+                .addPath(new BezierLine(nearShootPose, gatePose))
+                .setTangentHeadingInterpolation()
+                .build();
+        gateToShoot = follower.pathBuilder()
+                .addPath(new BezierCurve(gatePose, new Pose(96, 61, Math.toRadians(0)), nearShootPose))
+                .setLinearHeadingInterpolation(gatePose.getHeading(), nearShootPose.getHeading())
                 .build();
     }
 

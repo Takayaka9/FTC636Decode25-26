@@ -56,6 +56,34 @@ public class C12PathUpdate extends BasePathUpdate {
                     pathState = 6;
                 }
                 break;
+            case 67:
+                if (shootTimer.checkFinished()) {
+                    shootControl.stop();
+                    follower.followPath(p.shootToGate);
+                    intakeControl.run();
+                    pathState = 68;
+                }
+                break;
+            case 68:
+                if(!follower.isBusy()){
+                    //TODO: add timer
+                    pathState = 69;
+                }
+                break;
+            case 69:
+                if(!follower.isBusy()){ //TODO: change to timer completion NOT !follower.busy()
+                    follower.followPath(p.gateToShoot);
+                    pathState = 70;
+                }
+                break;
+            case 70:
+                if(!follower.isBusy()){
+                    intakeControl.stop();
+                    shootTimer.resetThenStart();
+                    shootControl.run();
+                    pathState = 67; //TODO: change to 6 if implemented
+                }
+                break;
             case 6:
                 if (shootTimer.checkFinished()) {
                     shootControl.stop();
