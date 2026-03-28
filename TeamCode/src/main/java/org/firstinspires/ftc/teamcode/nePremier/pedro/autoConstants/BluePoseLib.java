@@ -15,4 +15,5 @@ public final class BluePoseLib {
     public static final Pose intake1Pose = RedPoseLib.intakeP1Pose.getPose().mirror();
     public static final Pose emptyPose = RedPoseLib.intakeP1Pose.getPose().mirror();
     public static final Pose emptyPPose = RedPoseLib.emptyPPose.getPose().mirror();
+    public static final Pose gatePose = RedPoseLib.gatePose.getPose().mirror();
 }
