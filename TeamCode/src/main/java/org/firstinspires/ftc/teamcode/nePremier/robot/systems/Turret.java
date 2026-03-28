@@ -65,6 +65,7 @@ public class Turret extends BaseSubsystem {
         private static double angleMultiplier = 0.01;
         private static double magnitudeMultiplier = 0.01;
         private static double lowPassAlpha = 0.2;
+        private static double maxChange = 0.05;
     }
 
     //PID to turn turret
@@ -117,6 +118,7 @@ public class Turret extends BaseSubsystem {
         //total velocity relative to the goal (sorta, the values are messed up but it's chill)
         double magGoal = (TurretConstants.angleMultiplier*angle)*(magnitude*TurretConstants.magnitudeMultiplier);
 
+        //low pass filter
         if (!filteredMagGoalInit) {
             filteredMagGoal = magGoal;
             filteredMagGoalInit = true;
@@ -124,7 +126,17 @@ public class Turret extends BaseSubsystem {
             double alpha = TurretConstants.lowPassAlpha;
             filteredMagGoal = (alpha * magGoal) + ((1.0 - alpha) * filteredMagGoal);
         }
-        magGoal = filteredMagGoal;
+
+        //emad simple filter for max change
+//        double delta = magGoal - filteredMagGoal;
+//        delta = Math.max(-TurretConstants.maxChange, Math.min(TurretConstants.maxChange, delta));
+//        filteredMagGoal += delta;
+
+        //emad other simpler filter
+//        if (Math.abs(magGoal) < TurretConstants.maxChange) {
+//            magGoal = 0;
+//        }
+
 
         // taka moving average filter
         // if (lowPassFilter.size() > 4) {
