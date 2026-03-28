@@ -81,7 +81,7 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
                 }
                 if (map.checkInput() && active && released) {
                     runSet();
-                    active = true;
+                    active = false;
                 }
                 break;
             case Hold:

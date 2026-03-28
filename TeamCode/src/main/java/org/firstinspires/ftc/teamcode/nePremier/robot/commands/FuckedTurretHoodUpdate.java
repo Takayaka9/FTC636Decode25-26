@@ -25,7 +25,7 @@ public class FuckedTurretHoodUpdate extends BaseCommand {
         this.turret = turret;
         this.hood = hood;
         this.follower = follower;
-        weFucked = new Control(GamepadInput.x, gamepad, ControlType.Toggle, ohNoWeFucked);
+        weFucked = new Control(GamepadInput.x, gamepad, ControlType.Hold, ohNoWeFucked);
     }
 
     @Override
@@ -34,7 +34,6 @@ public class FuckedTurretHoodUpdate extends BaseCommand {
         if (!weFucked.isRunning()) {
             turret.trackGoal();
         }
-
         hood.angleHood(TDistHelper.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
     }
 
