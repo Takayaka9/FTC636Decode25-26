@@ -113,7 +113,7 @@ public class Turret extends BaseSubsystem {
         }
 
         //calculate how much the bot is moving laterally to the goal (further from direct line to goal = more lateral movement)
-        double angle = Math.abs(angleGoal - velAngle);
+        double angle = angleGoal - velAngle;
 
         //total velocity relative to the goal (sorta, the values are messed up but it's chill)
         double magGoal = (TurretConstants.angleMultiplier*angle)*(magnitude*TurretConstants.magnitudeMultiplier);
@@ -138,7 +138,7 @@ public class Turret extends BaseSubsystem {
 //        }
 
 
-        // taka moving average filter
+        // taka moving  average filter
         // if (lowPassFilter.size() > 4) {
         //     lowPassFilter.remove(0);
         // }
@@ -146,9 +146,9 @@ public class Turret extends BaseSubsystem {
         // magGoal = averageList(lowPassFilter);
 
         //return pos/neg values depending on moving left or right
-        if(velAngle > angleGoal){
-            return -magGoal;
-        }
+//        if(velAngle > angleGoal){
+//            return -magGoal;
+//        }
         return magGoal;
     }
 
