@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BuildPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathChain;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 
-public final class C12Paths extends BasePathChain implements BuildPaths {
-    public C12Paths(Follower follower, Alliance alliance) {
+public final class CPaths extends BasePathChain implements BuildPaths {
+    public CPaths(Follower follower, Alliance alliance) {
         super(alliance, follower);
         buildPaths();
     }

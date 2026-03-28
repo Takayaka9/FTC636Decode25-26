@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.C12Paths;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.F6Paths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;

@@ -7,23 +7,22 @@ import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.CPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
 
-@Deprecated
-public class C9PathUpdateOld extends BasePathUpdate {
-    final CPaths paths;
-    public C9PathUpdateOld(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
+public class CAlliancePathUpdate extends BasePathUpdate {
+    final CPaths p;
+    public CAlliancePathUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
-        paths = new CPaths(follower, alliance);
+        p = new CPaths(follower, alliance);
     }
 
     @Override
     public void autonomousPathUpdate() {
         switch(pathState) {
             case 0:
-                follower.followPath(paths.startToShoot);
+                follower.followPath(p.startToShoot);
                 pathState = 1;
                 break;
             case 1:
-                if (atPose(paths.nearShootPose)) {
+                if (!follower.isBusy()) {
                     shootTimer.resetThenStart();
                     shootControl.run();
                     pathState = 2;
@@ -32,86 +31,89 @@ public class C9PathUpdateOld extends BasePathUpdate {
             case 2:
                 if (shootTimer.checkFinished()) {
                     shootControl.stop();
-                    follower.followPath(paths.preIntakeSpike2);
+                    follower.followPath(p.intakeSpike2);
+                    intakeControl.run();
                     pathState = 3;
                 }
                 break;
             case 3:
-                if (atPose(paths.intakeP2Pose)) {
-                    intakeControl.run();
-                    follower.followPath(paths.intakeSpike2);
+                if (!follower.isBusy()) {
+                    follower.followPath(p.spike2andEmpty);
                     pathState = 4;
                 }
                 break;
             case 4:
-                if (atPose(paths.intake2Pose)) {
-                    intakeControl.stop();
-                    follower.followPath(paths.spike2ToShoot);
+                if(!follower.isBusy()){
+                    follower.followPath(p.emptyToShoot);
                     pathState = 5;
                 }
                 break;
             case 5:
-                if (atPose(paths.nearShootPose)) {
+                if (!follower.isBusy()) {
+                    intakeControl.stop();
                     shootTimer.resetThenStart();
                     shootControl.run();
                     pathState = 6;
                 }
                 break;
+            case 67:
+                if (shootTimer.checkFinished()) {
+                    shootControl.stop();
+                    follower.followPath(p.shootToGate);
+                    intakeControl.run();
+                    pathState = 68;
+                }
+                break;
+            case 68:
+                if(!follower.isBusy()){
+                    //TODO: add timer
+                    pathState = 69;
+                }
+                break;
+            case 69:
+                if(!follower.isBusy()){ //TODO: change to timer completion NOT !follower.busy()
+                    follower.followPath(p.gateToShoot);
+                    pathState = 70;
+                }
+                break;
+            case 70:
+                if(!follower.isBusy()){
+                    intakeControl.stop();
+                    shootTimer.resetThenStart();
+                    shootControl.run();
+                    pathState = 67; //TODO: change to 6 if implemented
+                }
+                break;
             case 6:
                 if (shootTimer.checkFinished()) {
                     shootControl.stop();
-                    follower.followPath(paths.preIntakeSpike1);
+                    follower.followPath(p.intakeSpike1);
+                    intakeControl.run();
                     pathState = 7;
                 }
                 break;
             case 7:
-                if (atPose(paths.intakeP2Pose)) {
-                    intakeControl.run();
-                    follower.followPath(paths.intakeSpike1);
+                if (!follower.isBusy()) {
+                    follower.followPath(p.spike1toShoot);
                     pathState = 8;
                 }
                 break;
             case 8:
-                if (atPose(paths.intake1Pose)) {
+                if (!follower.isBusy()) {
                     intakeControl.stop();
-                    follower.followPath(paths.spike1toShoot);
+                    shootTimer.resetThenStart();
+                    shootControl.run();
                     pathState = 9;
                 }
                 break;
+
             case 9:
-                if (atPose(paths.nearShootPose)) {
-                    shootTimer.resetThenStart();
-                    shootControl.run();
+                if (shootTimer.checkFinished()) {
+                    shootControl.stop();
                     pathState = 10;
                 }
                 break;
             case 10:
-                if (shootTimer.checkFinished()) {
-                    shootControl.stop();
-                    follower.followPath(paths.preIntakeSpike3);
-                    pathState = 11;
-                }
-                break;
-            case 11:
-                if (atPose(paths.intakeP3Pose)) {
-                    intakeControl.run();
-                    follower.followPath(paths.intakeSpike3);
-                    pathState = 12;
-                }
-                break;
-            case 12:
-                if (atPose(paths.intake3Pose)) {
-                    intakeControl.stop();
-                    follower.followPath(paths.spike3toShoot);
-                    pathState = 13;
-                }
-                break;
-            case 13:
-                if (atPose(paths.nearShootPose)) {
-                    shootTimer.resetThenStart();
-                    shootControl.run();
-                    pathState = 14;
-                }
                 break;
         }
     }
