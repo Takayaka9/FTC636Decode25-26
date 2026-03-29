@@ -7,7 +7,7 @@ import com.pedropathing.paths.PathChain;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathChain;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BuildPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
-
+@Deprecated
 public final class F12Paths extends BasePathChain implements BuildPaths {
     public F12Paths(Follower follower, Alliance alliance) {
         super(alliance, follower);

@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BuildPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathChain;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 
-public final class C12Paths extends BasePathChain implements BuildPaths {
-    public C12Paths(Follower follower, Alliance alliance) {
+public final class CPaths extends BasePathChain implements BuildPaths {
+    public CPaths(Follower follower, Alliance alliance) {
         super(alliance, follower);
         buildPaths();
     }
@@ -56,8 +56,8 @@ public final class C12Paths extends BasePathChain implements BuildPaths {
                 .setConstantHeadingInterpolation(intake1Pose.getHeading())
                 .build();
         spike1toShoot = follower.pathBuilder()
-                .addPath(new BezierLine(intake1Pose, nearShootPose))
-                .setLinearHeadingInterpolation(intake1Pose.getHeading(), nearShootPose.getHeading())
+                .addPath(new BezierLine(intake1Pose, finalShootPose))
+                .setConstantHeadingInterpolation(finalShootPose.getHeading())
                 .build();
         preIntakeSpike3 = follower.pathBuilder()
                 .addPath(new BezierLine(nearShootPose, intakeP3Pose))
