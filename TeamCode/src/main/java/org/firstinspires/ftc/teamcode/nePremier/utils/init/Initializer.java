@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.Draw;
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.SimpleLoc;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.ToggleMap;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLift;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLiftDown;
@@ -69,6 +70,7 @@ public class Initializer {
     public final ResetForTele resetForTele;
     public final OhNoWeFucked ohNoWeFucked;
     public final ToggleMap toggleMap;
+    public final SimpleLoc simpleLoc;
 
 
 
@@ -111,6 +113,7 @@ public class Initializer {
         resetForTele = new ResetForTele(turret);
         draw = new Draw(follower);
         toggleMap = new ToggleMap();
+        simpleLoc = new SimpleLoc(follower);
 //        localizer = new Localizer(hardwareMap, follower, light);
     }
 
