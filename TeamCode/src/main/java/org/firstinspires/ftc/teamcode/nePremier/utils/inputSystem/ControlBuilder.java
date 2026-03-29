@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
+@Deprecated
 public class ControlBuilder {
     GamepadInput input = null;
     Gamepad gamepad = null;

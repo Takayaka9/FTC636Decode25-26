@@ -11,6 +11,8 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
     private WeNeeeeedToGetGoooder state = WeNeeeeedToGetGoooder.OFF;
     private boolean active = false;
     private boolean released = true;
+    private boolean mapped = false;
+    private int mapKey = 0;
 
     /// Constructor for input based control types (gamepad activated)
     public Control (GamepadInput input, Gamepad gamepad, ControlType type, BaseCommand... command) throws IllegalArgumentException {
@@ -18,6 +20,19 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
             throw new IllegalArgumentException("Control type must be Toggle or Hold otherwise controls should not be specified");
         }
 
+        this.type = type;
+        this.map = new InputMap(input, gamepad);
+
+        constructArray(command);
+    }
+
+    /// Constructor for input based control types (gamepad activated)
+    public Control (GamepadInput input, Gamepad gamepad, ControlType type, int map, BaseCommand... command) throws IllegalArgumentException {
+        if (type != ControlType.Hold & type != ControlType.Toggle) {
+            throw new IllegalArgumentException("Control type must be Toggle or Hold otherwise controls should not be specified");
+        }
+        activateMap();
+        this.mapKey = map;
         this.type = type;
         this.map = new InputMap(input, gamepad);
 
@@ -39,32 +54,11 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
     private void constructArray(BaseCommand... command) {
         commandArray = command;
     }
-
-    private void runSet0() {
-        WeNeeeeedToGetGoooder currentState = state;
-        for (BaseCommand command : commandArray) {
-            LoopCommand(command, currentState);
-        }
-        state = WeNeeeeedToGetGoooder.LOOPING;
-    }
-    private void stopSet() {
-        for (BaseCommand command : commandArray) {
-            StopCommand(command, state);
-        }
-        state = WeNeeeeedToGetGoooder.OFF;
-    }
-    public void run() {
-        active = true;
-    }
-    public void stop() {
-        active = false;
-    }
-    public boolean isRunning() {
-        return active;
+    private int getMap(){
+        return DriverMap.getMap();
     }
 
-
-        public void update() {
+    private void updateScheduler() {
         switch (type) {
             case Toggle:
                 assert map != null;
@@ -104,6 +98,37 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
                 break;
         }
     }
+    private void runSet0() {
+        WeNeeeeedToGetGoooder currentState = state;
+        for (BaseCommand command : commandArray) {
+            LoopCommand(command, currentState);
+        }
+        state = WeNeeeeedToGetGoooder.LOOPING;
+    }
+    private void stopSet() {
+        for (BaseCommand command : commandArray) {
+            StopCommand(command, state);
+        }
+        state = WeNeeeeedToGetGoooder.OFF;
+    }
 
+    public void update() {
+        if (!mapped) updateScheduler();
+        else if (getMap() == mapKey) updateScheduler();
+        else stopSet();
+    }
+
+    public void run() {
+        active = true;
+    }
+    public void stop() {
+        active = false;
+    }
+    public void activateMap() {
+        mapped = true;
+    }
+    public boolean isRunning() {
+        return active;
+    }
 
 }
