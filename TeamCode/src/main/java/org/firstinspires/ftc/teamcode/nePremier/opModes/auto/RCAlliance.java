@@ -3,18 +3,19 @@ package org.firstinspires.ftc.teamcode.nePremier.opModes.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.CAlliancePathUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.CSoloPathUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PathUpdate;
 
 @Autonomous
-public class BF6v0 extends OpMode {
+public class RCAlliance extends OpMode {
 
     PathUpdate pathUpdate = null;
 
     @Override
     public void init() {
-        pathUpdate = new CSoloPathUpdate(Alliance.BLUE, hardwareMap, telemetry);
+        pathUpdate = new CAlliancePathUpdate(Alliance.RED, hardwareMap, telemetry);
         pathUpdate.init();
     }
 

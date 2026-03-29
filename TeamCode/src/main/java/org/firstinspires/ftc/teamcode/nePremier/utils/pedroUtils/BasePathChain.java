@@ -11,6 +11,7 @@ public class BasePathChain {
     public final Follower follower;
     public final Pose farStartPose;
     public final Pose farShootPose;
+    public final Pose farIntakePose;
     public final Pose nearStartPose;
     public final Pose nearShootPose;
     public final Pose intakeP3Pose;
@@ -21,13 +22,17 @@ public class BasePathChain {
     public final Pose intake1Pose;
     public final Pose emptyPose;
     public final Pose emptyPPose;
+    public final Pose wallIntakePPose;
+    public final Pose wallIntakePose;
     public final Pose gatePose;
+    public final Pose finalShootPose;
     public BasePathChain(Alliance alliance, Follower follower) {
         this.follower = follower;
         switch (alliance) {
             case RED:
                 farStartPose = RedPoseLib.farStartPose;
                 farShootPose = RedPoseLib.farShootPose;
+                farIntakePose = RedPoseLib.farIntakePose;
                 nearStartPose = RedPoseLib.nearStartPose;
                 nearShootPose = RedPoseLib.nearShootPose;
                 intakeP3Pose = RedPoseLib.intakeP3Pose;
@@ -38,11 +43,15 @@ public class BasePathChain {
                 intake1Pose = RedPoseLib.intake1Pose;
                 emptyPose = RedPoseLib.emptyPose;
                 emptyPPose = RedPoseLib.emptyPPose;
+                wallIntakePPose = RedPoseLib.wallIntakePPose;
+                wallIntakePose = RedPoseLib.wallIntakePose;
                 gatePose = RedPoseLib.gatePose;
+                finalShootPose = RedPoseLib.finalShootPose;
                 break;
             case BLUE:
                 farStartPose = BluePoseLib.farStartPose;
                 farShootPose = BluePoseLib.farShootPose;
+                farIntakePose = BluePoseLib.farIntakePose;
                 nearStartPose = BluePoseLib.nearStartPose;
                 nearShootPose = BluePoseLib.nearShootPose;
                 intakeP3Pose = BluePoseLib.intakeP3Pose;
@@ -53,11 +62,15 @@ public class BasePathChain {
                 intake1Pose = BluePoseLib.intake1Pose;
                 emptyPose = BluePoseLib.emptyPose;
                 emptyPPose = BluePoseLib.emptyPPose;
+                wallIntakePPose = BluePoseLib.wallIntakePPose;
+                wallIntakePose = BluePoseLib.wallIntakePose;
                 gatePose = BluePoseLib.gatePose;
+                finalShootPose = BluePoseLib.finalShootPose;
                 break;
             default:
                 farStartPose = null;
                 farShootPose = null;
+                farIntakePose = null;
                 nearStartPose = null;
                 nearShootPose = null;
                 intakeP3Pose = null;
@@ -68,7 +81,10 @@ public class BasePathChain {
                 intake1Pose = null;
                 emptyPose = null;
                 emptyPPose = null;
+                wallIntakePPose = null;
+                wallIntakePose = null;
                 gatePose = null;
+                finalShootPose = null;
         }
     }
 

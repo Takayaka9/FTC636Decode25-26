@@ -56,8 +56,8 @@ public final class CPaths extends BasePathChain implements BuildPaths {
                 .setConstantHeadingInterpolation(intake1Pose.getHeading())
                 .build();
         spike1toShoot = follower.pathBuilder()
-                .addPath(new BezierLine(intake1Pose, nearShootPose))
-                .setLinearHeadingInterpolation(intake1Pose.getHeading(), nearShootPose.getHeading())
+                .addPath(new BezierLine(intake1Pose, finalShootPose))
+                .setConstantHeadingInterpolation(finalShootPose.getHeading())
                 .build();
         preIntakeSpike3 = follower.pathBuilder()
                 .addPath(new BezierLine(nearShootPose, intakeP3Pose))

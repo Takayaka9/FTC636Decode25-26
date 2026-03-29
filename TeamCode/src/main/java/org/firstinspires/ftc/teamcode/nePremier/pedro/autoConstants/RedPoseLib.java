@@ -8,6 +8,7 @@ import com.pedropathing.geometry.Pose;
 public final class RedPoseLib {
     public static int farStartX = 89; public static int farStartY = 8; public static int farStartR = 90;
     public static int farShootX = 87; public static int farShootY = 15; public static int farShootR = 73;
+    public static int farIntakeX = 135; public static int farIntakeY = 15; public static int farIntakeR = 0;
     public static int nearStartX = 120; public static int nearStartY = 129; public static int nearStartR = 37;
     public static int nearShootX = 95; public static int nearShootY = 95; public static int nearShootR = 0;
     public static int intakeP3X = 95; public static int intakeP3Y = 35; public static int intakeP3R = 0;
@@ -19,9 +20,13 @@ public final class RedPoseLib {
     public static int emptyX = 128; public static int emptyY = 67; public static int emptyR = 90;
     public static int emptyPX = 114; public static int emptyPY = 67; public static int emptyPR = 90;
     public static int gateX = 131; public static int gateY = 61; public static int gateR = 26;
+    public static int finalShootX = 87; public static int finalShootY = 111; public static int finalShootR = 0;
+    public static int wallIntakePX = 135; public static int wallIntakePY = 26; public static int wallIntakePR = 270;
+    public static int wallIntakeX = 135; public static int wallIntakeY = 9; public static int wallIntakeR = 270;
 
     public static final Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
     public static final Pose farShootPose = new Pose(farShootX, farShootY, Math.toRadians(farShootR));
+    public static final Pose farIntakePose = new Pose(farIntakeX, farIntakeY, Math.toRadians(farIntakeR));
     public static final Pose nearStartPose = new Pose(nearStartX, nearStartY, Math.toRadians(nearStartR));
     public static final Pose nearShootPose = new Pose(nearShootX, nearShootY, Math.toRadians(nearShootR));
     public static final Pose intakeP3Pose = new Pose(intakeP3X, intakeP3Y, Math.toRadians(intakeP3R));
@@ -33,4 +38,7 @@ public final class RedPoseLib {
     public static final Pose emptyPose = new Pose(emptyX, emptyY, Math.toRadians(emptyR));
     public static final Pose emptyPPose = new Pose(emptyPX, emptyPY, Math.toRadians(emptyPR));
     public static final Pose gatePose = new Pose(gateX, gateY, Math.toRadians(gateR));
+    public static final Pose finalShootPose = new Pose(finalShootX, finalShootY, Math.toRadians(finalShootR));
+    public static final Pose wallIntakePPose = new Pose(wallIntakePX, wallIntakePY, Math.toRadians(wallIntakePR));
+    public static final Pose wallIntakePose = new Pose(wallIntakeX, wallIntakeY, Math.toRadians(wallIntakeR));
 }

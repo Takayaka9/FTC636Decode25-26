@@ -87,14 +87,14 @@ public class CSoloPathUpdate extends BasePathUpdate {
             case 6:
                 if (shootTimer.checkFinished()) {
                     shootControl.stop();
-                    follower.followPath(p.intakeSpike1);
+                    follower.followPath(p.intakeSpike3);
                     intakeControl.run();
                     pathState = 7;
                 }
                 break;
             case 7:
                 if (!follower.isBusy()) {
-                    follower.followPath(p.spike1toShoot);
+                    follower.followPath(p.spike3toShoot);
                     pathState = 8;
                 }
                 break;
@@ -110,13 +110,13 @@ public class CSoloPathUpdate extends BasePathUpdate {
                 if (shootTimer.checkFinished()) {
                     intakeControl.run();
                     shootControl.stop();
-                    follower.followPath(p.intakeSpike3);
+                    follower.followPath(p.intakeSpike1);
                     pathState = 10;
                 }
                 break;
             case 10:
                 if (!follower.isBusy()) {
-                    follower.followPath(p.spike3toShoot);
+                    follower.followPath(p.spike1toShoot);
                     pathState = 11;
                 }
                 break;
