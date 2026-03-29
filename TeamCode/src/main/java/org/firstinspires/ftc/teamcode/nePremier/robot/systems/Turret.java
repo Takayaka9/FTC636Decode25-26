@@ -27,14 +27,15 @@ public class Turret extends BaseSubsystem {
     }
     private static final double TICKS_PER_REV = 145.1;
     private double goalAngle = 0;
-
+    private double turretAngle = 0;
+    private double targetPos;
     /**
      *  Function to move the turret to a certain angle
      *  Requires color (1 for blue, 2 for red) and follower object
      *  Calls turnTurret with required inputs to move the turret
      */
     public void trackGoal(){
-        double targetPos;
+
         Alliance alliance = CurrentAlliance.alliance;
         if(alliance == Alliance.BLUE){
             goalAngle = Math.atan2(TDistHelper.goalPoses.blueY - follower.getPose().getY(), TDistHelper.goalPoses.blueX - follower.getPose().getX());
@@ -43,7 +44,7 @@ public class Turret extends BaseSubsystem {
             goalAngle = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
         }
         double robotHeading = follower.getHeading();
-        double turretAngle = (goalAngle - robotHeading);// + getOffset();
+        turretAngle = (goalAngle - robotHeading);// + getOffset();
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
@@ -59,7 +60,7 @@ public class Turret extends BaseSubsystem {
     @Configurable
     public static class TurretConstants {
         private static double Kp = 0.03;
-        private static double Kd = 0;
+        private static double Kf = 0.1;
         private static double Ki = 0;
         public static final double overrideSensitivity = 10;
         private static double angleMultiplier = 0.01;
@@ -78,13 +79,14 @@ public class Turret extends BaseSubsystem {
         if (dt < 0.0001) dt = 0.0001;
         double turretIntegral = error * dt;
         //turretIntegral = Math.max(-I_MAX, Math.min(I_MAX, turretIntegral));
-        double derivative = (error- lastTurretError)/ dt;
+        double derivative = (error-lastTurretError)/dt;
         lastTurretError = error;
 
         turretTime.reset();
 
 
-        double output = (error * TurretConstants.Kp) + (derivative * TurretConstants.Kd) + (turretIntegral * TurretConstants.Ki) ;
+        double output = (error * TurretConstants.Kp) + (getGoalAngleDerivative() * TurretConstants.Kf) + (turretIntegral * TurretConstants.Ki);
+
 
         turret.setPower(output);
     }
@@ -167,8 +169,21 @@ public class Turret extends BaseSubsystem {
         }
         return sum / list.size();
     }
-
     public double turretPosition(){
         return turret.getCurrentPosition();
+    }
+    double lastTargetPos = 0;
+    ElapsedTime angleTime = new ElapsedTime();
+    public double getGoalAngleDerivative(){
+        double angleChange = targetPos - lastTargetPos;
+        double dt = angleTime.seconds();
+        if(dt < 0.0001){dt = 0.0001;}
+        double derivative = angleChange / dt;
+
+
+        lastTargetPos = targetPos;
+        angleTime.reset();
+
+        return derivative;
     }
 }
