@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
+import org.firstinspires.ftc.teamcode.nePremier.utils.filters.LowPassFilter;
+import com.pedropathing.math.MathFunctions;
 
 import java.util.ArrayList;
 
@@ -44,7 +46,7 @@ public class Turret extends BaseSubsystem {
             goalAngle = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
         }
         double robotHeading = follower.getHeading();
-        turretAngle = (goalAngle - robotHeading);// + getOffset();
+        turretAngle = (goalAngle - robotHeading) + follower.getAngularVelocity()*TurretConstants.Kf;// + getOffset();
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
@@ -75,39 +77,31 @@ public class Turret extends BaseSubsystem {
     public void turnTurret(double tPosition){
         double cPosition = turret.getCurrentPosition(); //TODO: change 0 to getPosition
         double error = tPosition - cPosition;
+
         double dt = turretTime.seconds();
         if (dt < 0.0001) dt = 0.0001;
-        double turretIntegral = error * dt;
-        //turretIntegral = Math.max(-I_MAX, Math.min(I_MAX, turretIntegral));
         double derivative = (error-lastTurretError)/dt;
+
         lastTurretError = error;
 
         turretTime.reset();
 
-
-        double output = (error * TurretConstants.Kp) + (getGoalAngleDerivative() * TurretConstants.Kf) + (turretIntegral * TurretConstants.Ki);
+        double output = (error * TurretConstants.Kp);
 
 
         turret.setPower(output);
     }
     // taka moving average filter
     // private final ArrayList<Double> lowPassFilter = new ArrayList<>(5);
-    private double filteredMagnitude = 0.0;
-    private boolean filteredMagnitudeInit = false;
-    private double getOffset(){
+    LowPassFilter lowPassFilter = new LowPassFilter(TurretConstants.lowPassAlpha);
+    private double getVelocityOffset(){
         double angleGoal;
 
         //inches per second the bot is moving at
         double magnitude = follower.getVelocity().getMagnitude();
 
-        //low pass filter
-        if (!filteredMagnitudeInit) {
-            filteredMagnitude = magnitude;
-            filteredMagnitudeInit = true;
-        } else {
-            double alpha = TurretConstants.lowPassAlpha;
-            filteredMagnitude = (alpha * magnitude) + ((1.0 - alpha) * filteredMagnitude);
-        }
+        lowPassFilter.setAlpha(TurretConstants.lowPassAlpha);
+        double filteredMagnitude = lowPassFilter.update(magnitude);
 
         //what direction the bot is moving in
         double velAngle = follower.getVelocity().getTheta();
@@ -124,10 +118,10 @@ public class Turret extends BaseSubsystem {
         }
 
         //calculate how much the bot is moving laterally to the goal (further from direct line to goal = more lateral movement)
-        double angle = angleGoal - velAngle;
+        double angle = MathFunctions.normalizeAngleSigned(angleGoal - velAngle);
 
         //total velocity relative to the goal (sorta, the values are messed up but it's chill)
-        double magGoal = (TurretConstants.angleMultiplier*angle)*(filteredMagnitude*TurretConstants.magnitudeMultiplier);
+        return (TurretConstants.angleMultiplier*angle)*(filteredMagnitude*TurretConstants.magnitudeMultiplier);
 
 
 
@@ -153,7 +147,6 @@ public class Turret extends BaseSubsystem {
 //        if(velAngle > angleGoal){
 //            return -magGoal;
 //        }
-        return magGoal;
     }
 
     public void resetEncoder(){
