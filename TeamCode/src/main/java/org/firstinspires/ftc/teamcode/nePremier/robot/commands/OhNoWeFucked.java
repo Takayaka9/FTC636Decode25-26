@@ -3,12 +3,13 @@ package org.firstinspires.ftc.teamcode.nePremier.robot.commands;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Turret;
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.turret.TurretI;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
 public class OhNoWeFucked extends BaseCommand {
     final Turret turret;
     Gamepad gamepad = null;
-    public OhNoWeFucked(Turret turret, Gamepad gamepad) {
+    public OhNoWeFucked(TurretI turret, Gamepad gamepad) {
         super();
         this.turret = turret;
         if (gamepad != null) {

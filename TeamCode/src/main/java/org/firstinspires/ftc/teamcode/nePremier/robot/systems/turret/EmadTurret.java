@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.nePremier.robot.systems.turret;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -18,8 +19,9 @@ public class EmadTurret extends BaseSubsystem  implements TurretI {
     @SuppressWarnings("FieldMayBeFinal")
     @Configurable
     public static class EmadTurretConstants {
-        private static double oKd1 = 0.001;
-        private static double oKd2 = 0.0001;
+//        private static double oKd1 = 0.001;
+//        private static double oKd2 = 0.0001;
+        private static double SOTM = 1;
         private static double tKp = 0.03;
         private static double tKd = 0.0001;
         public static final double ticksPerRev = 145.1;
@@ -45,10 +47,49 @@ public class EmadTurret extends BaseSubsystem  implements TurretI {
      *  Calls turnTurret with required inputs to move the turret
      */
     public void trackGoal() {
-        turnTurret(TurretHelper.getFracRads(TurretHelper.clamp(offsetDerivative(getGoalAngle()))));
+        turnTurret(TurretHelper.getFracRads(TurretHelper.clamp(getGoalAngle(getSOTM()))));
     }
 
-    //simply returns the normal goal angle
+    private Pose getSOTM() {
+        //get the real current pose from follower
+        Pose realPose = follower.getPose();
+        double x = realPose.getX();
+        double y = realPose.getY();
+        double heading = realPose.getHeading();
+
+        //get the velocity data from follower
+        double vx = follower.getVelocity().getXComponent();
+        double vy = follower.getVelocity().getYComponent();
+
+        //multiply the velocity data by the tuning constant
+        vx *= EmadTurretConstants.SOTM;
+        vy *= EmadTurretConstants.SOTM;
+
+        //add the multiplied velocity data to the real pose
+        x += vx;
+        y += vy;
+
+        //create the new pose
+        return new Pose(x, y, heading);
+    }
+
+
+    //for SOTM adjusted pose input
+    private double getGoalAngle(Pose pose){
+        double targetPos;
+        Alliance alliance = CurrentAlliance.alliance;
+        if(alliance == Alliance.BLUE){
+            goalAngle = Math.atan2(TDistHelper.goalPoses.blueY - pose.getY(), TDistHelper.goalPoses.blueX - pose.getX());
+        }
+        if(alliance == Alliance.RED){
+            goalAngle = Math.atan2(TDistHelper.goalPoses.redY - pose.getY(), TDistHelper.goalPoses.redX - pose.getX());
+        }
+        double turretAngle = (goalAngle - follower.getHeading());// + getOffset();
+
+        return turretAngle;
+    }
+
+    //simply returns the normal goal angle from follower.getPose()
     private double getGoalAngle(){
         double targetPos;
         Alliance alliance = CurrentAlliance.alliance;
@@ -63,20 +104,21 @@ public class EmadTurret extends BaseSubsystem  implements TurretI {
         return turretAngle;
     }
 
-    //Derivative controller for offset
-    private final ElapsedTime offsetTime = new ElapsedTime();
-    private double lastGoalAngle = 0;
-    private double lastOffset = 0;
-    private double offsetDerivative(double turretAngle) {
-        double derivative1 = (lastGoalAngle - turretAngle) / offsetTime.seconds();
-        double derivative2 = (lastOffset - turretAngle) / offsetTime.seconds();
-        double output = (derivative1 * EmadTurretConstants.oKd1) + (derivative2 * EmadTurretConstants.oKd2);
+//    //Derivative controller for offset
+//    private final ElapsedTime offsetTime = new ElapsedTime();
+//    private double lastGoalAngle = 0;
+//    private double lastOffset = 0;
+//    private double offsetDerivative(double turretAngle) {
+//        double derivative1 = (lastGoalAngle - turretAngle) / offsetTime.seconds();
+//        double derivative2 = (lastOffset - turretAngle) / offsetTime.seconds();
+//        double output = (derivative1 * EmadTurretConstants.oKd1) + (derivative2 * EmadTurretConstants.oKd2);
+//
+//        lastOffset = output;
+//        lastGoalAngle = turretAngle;
+//        turretTime.reset();
+//        return output;
+//    }
 
-        lastOffset = output;
-        lastGoalAngle = turretAngle;
-        turretTime.reset();
-        return output;
-    }
 
     //PID to turn turret to desired position
     private final ElapsedTime turretTime = new ElapsedTime();

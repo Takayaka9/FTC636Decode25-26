@@ -14,6 +14,8 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLift;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLiftDown;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.NewCRLiftServo;
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.turret.EmadTurret;
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.turret.TurretI;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceBlue;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceRed;
@@ -47,7 +49,7 @@ public class Initializer {
 //    public final Limelight limelight;
     public final TakaShooter shooter;
     public final Transfer transfer;
-    public final Turret turret;
+    public final TurretI turret;
     public final NewCRLiftServo liftServo;
     public final Draw draw;
 //    public final Localizer localizer;
@@ -93,7 +95,7 @@ public class Initializer {
 //        limelight = new Limelight(hardwareMap);
         shooter = new TakaShooter(hardwareMap);
         transfer = new Transfer(hardwareMap);
-        turret = new Turret(hardwareMap, follower);
+        turret = new EmadTurret(hardwareMap, follower);
 
 
         ///commands

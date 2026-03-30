@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Turret;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.HoodServo;
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.turret.TurretI;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
@@ -20,7 +21,7 @@ public class FuckedTurretHoodUpdate extends BaseCommand {
     private final Control weFucked;
 
 
-    public FuckedTurretHoodUpdate(Turret turret, HoodServo hood, Follower follower, Gamepad gamepad, OhNoWeFucked ohNoWeFucked) {
+    public FuckedTurretHoodUpdate(TurretI turret, HoodServo hood, Follower follower, Gamepad gamepad, OhNoWeFucked ohNoWeFucked) {
         super();
         this.turret = turret;
         this.hood = hood;
