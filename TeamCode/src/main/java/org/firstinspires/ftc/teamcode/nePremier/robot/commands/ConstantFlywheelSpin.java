@@ -2,17 +2,20 @@ package org.firstinspires.ftc.teamcode.nePremier.robot.commands;
 
 import com.pedropathing.follower.Follower;
 
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.BotPose;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.TakaShooter;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
 public class ConstantFlywheelSpin extends BaseCommand {
     private final TakaShooter shooter;
     private final Follower follower;
-    public ConstantFlywheelSpin(TakaShooter shooter, Follower follower) {
+    private final BotPose botPose;
+    public ConstantFlywheelSpin(TakaShooter shooter, BotPose botpose, Follower follower) {
         super();
         this.shooter = shooter;
+        this.botPose = botpose;
         this.follower = follower;
     }
 
@@ -23,7 +26,7 @@ public class ConstantFlywheelSpin extends BaseCommand {
 
     @Override
     public void loop() {
-        shooter.runForDistance(TDistHelper.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
+        shooter.runForDistance(LocalizationHelper.getTargetDistance(botPose.getBotPose(), CurrentAlliance.alliance));
     }
 
     @Override

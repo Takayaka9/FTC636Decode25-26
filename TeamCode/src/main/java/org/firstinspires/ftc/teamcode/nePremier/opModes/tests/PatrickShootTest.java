@@ -6,8 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Transfer;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;

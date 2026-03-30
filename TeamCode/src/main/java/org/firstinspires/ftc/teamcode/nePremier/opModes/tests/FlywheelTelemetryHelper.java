@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.nePremier.opModes.tests;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 
 public class FlywheelTelemetryHelper {
@@ -9,7 +9,7 @@ public class FlywheelTelemetryHelper {
         i.telemetryM.update();
         i.telemetryM.addData(
                 "target distance - 1ft = 12u (pedro pose unit)",
-                TDistHelper.getTargetDistance(i.follower.getPose(), CurrentAlliance.alliance)
+                LocalizationHelper.getTargetDistance(i.follower.getPose(), CurrentAlliance.alliance)
         );
         i.telemetryM.addData(
                 "alliance",
@@ -19,7 +19,7 @@ public class FlywheelTelemetryHelper {
         //shooter data
         i.telemetryM.addData(
                 "target TPS - 2800 = 6000",
-                i.shooter.getShooterTPS(TDistHelper.getTargetDistance(i.follower.getPose(), CurrentAlliance.alliance))
+                i.shooter.getShooterTPS(LocalizationHelper.getTargetDistance(i.follower.getPose(), CurrentAlliance.alliance))
         );
         i.telemetryM.addData(
                 "1 output power (0-1)",

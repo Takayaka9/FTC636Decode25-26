@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.commands.Draw;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLift;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLiftDown;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.BotPose;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.NewCRLiftServo;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.AllianceBlue;
@@ -47,6 +48,7 @@ public class Initializer {
     public final Turret turret;
     public final NewCRLiftServo liftServo;
     public final Draw draw;
+    public final BotPose botPose;
 //    public final Localizer localizer;
 
 
@@ -73,7 +75,7 @@ public class Initializer {
         /// lil stuff
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         follower = Constants.createFollower(hardwareMap);
-
+        botPose = new BotPose(follower);
 
         /// Subsystems
         hoodServo = new HoodServo(hardwareMap);
@@ -84,7 +86,8 @@ public class Initializer {
 //        limelight = new Limelight(hardwareMap);
         shooter = new TakaShooter(hardwareMap);
         transfer = new Transfer(hardwareMap);
-        turret = new Turret(hardwareMap, follower);
+        turret = new Turret(hardwareMap, follower, botPose);
+
 
 
         ///commands
@@ -96,9 +99,9 @@ public class Initializer {
         makeMoves = new MakeMoves(follower, gamepad1);
         outake = new Outake(transfer);
         shootCommand = new Shoot(transfer, shooter, stopper);
-        constantFlywheelSpin = new ConstantFlywheelSpin(shooter, follower);
+        constantFlywheelSpin = new ConstantFlywheelSpin(shooter, botPose, follower);
         ohNoWeFucked = new OhNoWeFucked(turret, gamepad2);
-        turretHoodUpdate = new FuckedTurretHoodUpdate(turret, hoodServo, follower, gamepad2, ohNoWeFucked);
+        turretHoodUpdate = new FuckedTurretHoodUpdate(turret, hoodServo, follower, botPose, gamepad2, ohNoWeFucked);
         blue = new AllianceBlue();
         red = new AllianceRed();
         resetForTele = new ResetForTele(turret);

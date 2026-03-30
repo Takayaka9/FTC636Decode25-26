@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.nePremier.utils.alliance;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 
-public abstract class TDistHelper {
+public abstract class LocalizationHelper {
     /*
     Get Target Distance is a method to retrieve target distance
     inputs: robotPose, (turret) mode

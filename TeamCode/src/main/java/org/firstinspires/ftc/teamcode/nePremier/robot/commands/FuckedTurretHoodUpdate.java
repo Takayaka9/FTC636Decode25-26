@@ -3,10 +3,11 @@ package org.firstinspires.ftc.teamcode.nePremier.robot.commands;
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.BotPose;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Turret;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.HoodServo;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
@@ -18,13 +19,14 @@ public class FuckedTurretHoodUpdate extends BaseCommand {
     private final Follower follower;
     private boolean overridden = false;
     private final Control weFucked;
+    BotPose botPose;
 
-
-    public FuckedTurretHoodUpdate(Turret turret, HoodServo hood, Follower follower, Gamepad gamepad, OhNoWeFucked ohNoWeFucked) {
+    public FuckedTurretHoodUpdate(Turret turret, HoodServo hood, Follower follower, BotPose botPose, Gamepad gamepad, OhNoWeFucked ohNoWeFucked) {
         super();
         this.turret = turret;
         this.hood = hood;
         this.follower = follower;
+        this.botPose = botPose;
         weFucked = new Control(GamepadInput.x, gamepad, ControlType.Hold, ohNoWeFucked);
     }
 
@@ -34,7 +36,7 @@ public class FuckedTurretHoodUpdate extends BaseCommand {
         if (!weFucked.isRunning()) {
             turret.trackGoal();
         }
-        hood.angleHood(TDistHelper.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
+        hood.angleHood(LocalizationHelper.getTargetDistance(botPose.getBotPose(), CurrentAlliance.alliance));
     }
 
 

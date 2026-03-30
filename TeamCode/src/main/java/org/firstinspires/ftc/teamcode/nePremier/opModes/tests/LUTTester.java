@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.nePremier.opModes.tests;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
@@ -23,7 +23,7 @@ public class LUTTester extends OpMode {
     Alliance alliance = null;
     InterpLUT lut = null;
     TakaShooter shooter = null;
-    TDistHelper distance = null;
+    LocalizationHelper distance = null;
     Follower follower = null;
     @Override
     public void init() {

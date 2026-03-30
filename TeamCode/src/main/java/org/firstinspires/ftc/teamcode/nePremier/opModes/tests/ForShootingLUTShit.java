@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.TakaShooter;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Transfer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.GamepadInput;
@@ -49,7 +49,7 @@ public class ForShootingLUTShit extends OpMode {
         t.update();
         shooter.test(tps);
         h.setPosition(hPos);
-        t.addData("distance", TDistHelper.getTargetDistance(f.getPose(), Alliance.RED));
+        t.addData("distance", LocalizationHelper.getTargetDistance(f.getPose(), Alliance.RED));
         t.addData("power", shooter.get1Power());
         t.addData("velocity", shooter.getAverageVelocity());
         runt.update();

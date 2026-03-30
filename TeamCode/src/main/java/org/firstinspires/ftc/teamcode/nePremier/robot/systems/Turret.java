@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 import org.firstinspires.ftc.teamcode.nePremier.utils.filters.LowPassFilter;
 import com.pedropathing.math.MathFunctions;
@@ -19,12 +19,14 @@ import java.util.ArrayList;
 public class Turret extends BaseSubsystem {
     private final DcMotorEx turret;
     private final Follower follower;
-    public Turret(HardwareMap hardwareMap, Follower follower) {
+    private final BotPose botPose;
+    public Turret(HardwareMap hardwareMap, Follower follower, BotPose botPose) {
         super();
         turret = hardwareMap.get(DcMotorEx.class, "turret");
         turret.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.botPose = botPose;
         this.follower = follower;
     }
     private static final double TICKS_PER_REV = 145.1;
@@ -40,10 +42,10 @@ public class Turret extends BaseSubsystem {
 
         Alliance alliance = CurrentAlliance.alliance;
         if(alliance == Alliance.BLUE){
-            goalAngle = Math.atan2(TDistHelper.goalPoses.blueY - follower.getPose().getY(), TDistHelper.goalPoses.blueX - follower.getPose().getX());
+            goalAngle = Math.atan2(LocalizationHelper.goalPoses.blueY - botPose.getBotPose().getY(), LocalizationHelper.goalPoses.blueX - botPose.getBotPose().getX());
         }
         if(alliance == Alliance.RED){
-            goalAngle = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
+            goalAngle = Math.atan2(LocalizationHelper.goalPoses.redY - botPose.getBotPose().getY(), LocalizationHelper.goalPoses.redX - botPose.getBotPose().getX());
         }
         double robotHeading = follower.getHeading();
         turretAngle = (goalAngle - robotHeading) + follower.getAngularVelocity()*TurretConstants.Kf;// + getOffset();
@@ -108,10 +110,10 @@ public class Turret extends BaseSubsystem {
 
         //get the angle to the goal from bot pos, same as turret aiming
         if(CurrentAlliance.alliance == Alliance.BLUE){
-            angleGoal = Math.atan2(TDistHelper.goalPoses.blueY - follower.getPose().getY(), TDistHelper.goalPoses.blueX - follower.getPose().getX());
+            angleGoal = Math.atan2(LocalizationHelper.goalPoses.blueY - follower.getPose().getY(), LocalizationHelper.goalPoses.blueX - follower.getPose().getX());
         }
         else if(CurrentAlliance.alliance == Alliance.RED){
-            angleGoal = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
+            angleGoal = Math.atan2(LocalizationHelper.goalPoses.redY - follower.getPose().getY(), LocalizationHelper.goalPoses.redX - follower.getPose().getX());
         }
         else{
             angleGoal = 0;

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.TDistHelper;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 
 public class EmadTurret extends BaseSubsystem  implements TurretI {
@@ -53,10 +53,10 @@ public class EmadTurret extends BaseSubsystem  implements TurretI {
         double targetPos;
         Alliance alliance = CurrentAlliance.alliance;
         if(alliance == Alliance.BLUE){
-            goalAngle = Math.atan2(TDistHelper.goalPoses.blueY - follower.getPose().getY(), TDistHelper.goalPoses.blueX - follower.getPose().getX());
+            goalAngle = Math.atan2(LocalizationHelper.goalPoses.blueY - follower.getPose().getY(), LocalizationHelper.goalPoses.blueX - follower.getPose().getX());
         }
         if(alliance == Alliance.RED){
-            goalAngle = Math.atan2(TDistHelper.goalPoses.redY - follower.getPose().getY(), TDistHelper.goalPoses.redX - follower.getPose().getX());
+            goalAngle = Math.atan2(LocalizationHelper.goalPoses.redY - follower.getPose().getY(), LocalizationHelper.goalPoses.redX - follower.getPose().getX());
         }
         double turretAngle = (goalAngle - follower.getHeading());// + getOffset();
 
