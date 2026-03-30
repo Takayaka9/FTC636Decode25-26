@@ -15,24 +15,36 @@ public class TeleControls extends Initializer {
     private final Control allianceRed;
     private final Control intake;
     private final Control outtake;
+    private final Control endOuttake;
     private final Control shoot;
     private final Control weFucked;
     private final Control liftUp;
     private final Control constantControls;
     private final Control down;
+    private final Control mapControl;
+    private final Control locControl;
 
     /// THIS CONSTRUCTOR SERVES AS OUR INIT METHOD
     public TeleControls(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
         super(gamepad1, gamepad2, hardwareMap, telemetry);
         Drawing.init();
-        allianceBlue = new Control(GamepadInput.x, gamepad1, ControlType.Hold, blue);
-        allianceRed = new Control(GamepadInput.b, gamepad1, ControlType.Hold, red);
-        intake = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, transferRun);
-        outtake = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, outake);
-        shoot = new Control(GamepadInput.a, gamepad2, ControlType.Hold, shootCommand);
-        weFucked = new Control(GamepadInput.x, gamepad2, ControlType.Toggle, ohNoWeFucked);
-        liftUp = new Control(GamepadInput.a, gamepad1, ControlType.Hold, liftBot);
-        down = new Control(GamepadInput.y, gamepad1, ControlType.Hold, liftDown);
+
+        //Driver:
+        intake = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, 0, transferRun);
+        outtake = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, 0, outake);
+        endOuttake = new Control(GamepadInput.a, gamepad1, ControlType.Hold, 1, outake);
+        liftUp = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, 1, liftBot);
+        down = new Control(GamepadInput.y, gamepad1, ControlType.Hold, 1, liftDown);
+        shoot = new Control(GamepadInput.right_trigger, gamepad1, ControlType.Hold, shootCommand);
+
+        //gunner:
+        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
+        allianceBlue = new Control(GamepadInput.x, gamepad2, ControlType.Hold, blue);
+        allianceRed = new Control(GamepadInput.b, gamepad2, ControlType.Hold, red);
+        mapControl = new Control(GamepadInput.a, gamepad1, ControlType.Toggle, toggleMap);
+        locControl = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, simpleLoc);
+
+        //constant:
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves, constantFlywheelSpin, draw
 //              , localizer
                 );
@@ -58,6 +70,8 @@ public class TeleControls extends Initializer {
         constantControls.update();
         follower.update();
         telemetryM.update();
+        mapControl.update();
+        locControl.update();
     }
 
     public void stop() {

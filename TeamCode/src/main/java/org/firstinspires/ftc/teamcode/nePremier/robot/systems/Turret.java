@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.turret.TurretI;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
@@ -16,7 +17,7 @@ import com.pedropathing.math.MathFunctions;
 
 import java.util.ArrayList;
 
-public class Turret extends BaseSubsystem {
+public class Turret extends BaseSubsystem implements TurretI {
     private final DcMotorEx turret;
     private final Follower follower;
     private final BotPose botPose;

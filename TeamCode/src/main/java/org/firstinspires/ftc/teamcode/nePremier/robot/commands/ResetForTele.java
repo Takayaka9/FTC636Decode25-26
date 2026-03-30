@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.nePremier.robot.commands;
 
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Turret;
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.turret.TurretI;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
 public class ResetForTele extends BaseCommand {
     final Turret turret;
 //    Control[] controls;
-    public ResetForTele (Turret turret
+    public ResetForTele (TurretI turret
 //            , Control... controlsToStop
             ) {
         this.turret = turret;
