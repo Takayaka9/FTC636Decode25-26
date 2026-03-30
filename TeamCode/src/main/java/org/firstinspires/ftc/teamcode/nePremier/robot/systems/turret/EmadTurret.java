@@ -121,24 +121,24 @@ public class EmadTurret extends BaseSubsystem  implements TurretI {
 
 
     //PID to turn turret to desired position
-    private final ElapsedTime turretTime = new ElapsedTime();
-    private double lastTurretError = 0;
+//    private final ElapsedTime turretTime = new ElapsedTime();
+//    private double lastTurretError = 0;
     public void turnTurret(double tPosition){
         //get error
         double error = tPosition - turret.getCurrentPosition();
-        //get time
-        double dt = turretTime.seconds();
-        if (dt < 0.0001) dt = 0.0001;
-
-        //calculate derivative
-        double derivative = (error- lastTurretError)/ dt;
-        lastTurretError = error;
+//        //get time
+//        double dt = turretTime.seconds();
+//        if (dt < 0.0001) dt = 0.0001;
+//
+//        //calculate derivative
+//        double derivative = (error- lastTurretError)/ dt;
+//        lastTurretError = error;
 
         //calculate output
-        double output = (error * EmadTurretConstants.tKp) + (derivative * EmadTurretConstants.tKd);
+        double output = (error * EmadTurretConstants.tKp);// + (derivative * EmadTurretConstants.tKd);
 
         //reset timer and set output
-        turretTime.reset();
+//        turretTime.reset();
         turret.setPower(output);
     }
 
