@@ -15,9 +15,10 @@ public class BotPose extends BaseSubsystem {
     public BotPose(Follower follower) {
         super();
         this.follower = follower;
-        flightTime.add(0, 0);
-        flightTime.add(0, 0);
-        flightTime.add(0, 0);
+        flightTime.add(0, 0.22);
+        flightTime.add(36, 0.22);
+        flightTime.add(53.6, 0.14);
+        flightTime.add(1000, 5);
         flightTime.createLUT();
     }
     public Pose getBotPose(){
