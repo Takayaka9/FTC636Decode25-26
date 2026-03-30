@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 public class OhNoWeFucked extends BaseCommand {
     final Turret turret;
     Gamepad gamepad = null;
-    public OhNoWeFucked(TurretI turret, Gamepad gamepad) {
+    public OhNoWeFucked(Turret turret, Gamepad gamepad) {
         super();
         this.turret = turret;
         if (gamepad != null) {

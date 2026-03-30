@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 public class ResetForTele extends BaseCommand {
     final Turret turret;
 //    Control[] controls;
-    public ResetForTele (TurretI turret
+    public ResetForTele (Turret turret
 //            , Control... controlsToStop
             ) {
         this.turret = turret;

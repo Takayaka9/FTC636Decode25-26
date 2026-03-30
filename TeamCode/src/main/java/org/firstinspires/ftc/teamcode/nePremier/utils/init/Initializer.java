@@ -10,6 +10,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.Draw;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLift;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLiftDown;
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.SimpleLoc;
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.ToggleMap;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.BotPose;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.NewCRLiftServo;
@@ -66,8 +68,8 @@ public class Initializer {
     public final AllianceRed red;
     public final ResetForTele resetForTele;
     public final OhNoWeFucked ohNoWeFucked;
-
-
+    public final ToggleMap toggleMap;
+    public final SimpleLoc simpleLoc;
 
 
 
@@ -105,6 +107,8 @@ public class Initializer {
         blue = new AllianceBlue();
         red = new AllianceRed();
         resetForTele = new ResetForTele(turret);
+        toggleMap = new ToggleMap();
+        simpleLoc = new SimpleLoc(follower);
         draw = new Draw(follower);
 //        localizer = new Localizer(hardwareMap, follower, light);
     }
