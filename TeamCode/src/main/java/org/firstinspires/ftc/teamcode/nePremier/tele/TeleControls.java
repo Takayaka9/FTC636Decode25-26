@@ -7,8 +7,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
+import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.DriverMap;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.GamepadInput;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.Drawing;
+
+import java.sql.Driver;
 
 public class TeleControls extends Initializer {
     private final Control allianceBlue;
@@ -56,6 +59,7 @@ public class TeleControls extends Initializer {
         follower.update();
         constantControls.run();
         stopper.close();
+        DriverMap.setMap(0);
     }
 
     public void update() {
