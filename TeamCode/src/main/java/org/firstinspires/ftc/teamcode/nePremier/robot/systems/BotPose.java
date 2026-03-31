@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.nePremier.robot.systems;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.seattlesolvers.solverslib.util.InterpLUT;
@@ -9,16 +10,21 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 
+@Configurable
 public class BotPose extends BaseSubsystem {
     Follower follower;
     InterpLUT flightTime = new InterpLUT();
     public BotPose(Follower follower) {
         super();
         this.follower = follower;
-        flightTime.add(0, 0.22);
+        flightTime.add(0, 0.22); //tuned
         flightTime.add(36, 0.22); //tuned
         flightTime.add(53.6, 0.14); //tuned
-        flightTime.add(1000, 5);
+//        flighTime.add(73.5, );
+//        flightTime.add(100, );
+//        flightTime.add( , );
+//        flightTime.add( , );
+        flightTime.add(1000, 5); //tuned
         flightTime.createLUT();
     }
     public Pose getBotPose(){
