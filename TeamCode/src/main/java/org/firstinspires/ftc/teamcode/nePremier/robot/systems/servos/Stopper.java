@@ -12,9 +12,12 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.servo.ServoImplExBase;
 public class Stopper extends BaseSubsystem {
     public static double open = 1;
     public static double closed = 0;
-    Servo s;
+    private final Servo s;
     public Stopper(HardwareMap hardwareMap){
         s = hardwareMap.get(Servo.class, "stopper");
+    }
+    public void setPosition(double position) {
+        s.setPosition(position);
     }
     public void close() {
         s.setPosition(closed);

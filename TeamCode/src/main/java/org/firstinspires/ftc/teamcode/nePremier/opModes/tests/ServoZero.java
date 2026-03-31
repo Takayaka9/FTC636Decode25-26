@@ -34,7 +34,7 @@ public class ServoZero extends OpMode {
                 i.hoodServo.setPosition(servoTestParams.position);
                 break;
             case stopper:
-                //i.stopper.setPosition(servoTestParams.position);
+                i.stopper.setPosition(servoTestParams.position);
                 break;
             case none:
                 break;
