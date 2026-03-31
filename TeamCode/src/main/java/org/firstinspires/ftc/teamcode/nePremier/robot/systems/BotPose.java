@@ -16,8 +16,8 @@ public class BotPose extends BaseSubsystem {
         super();
         this.follower = follower;
         flightTime.add(0, 0.22);
-        flightTime.add(36, 0.22);
-        flightTime.add(53.6, 0.14);
+        flightTime.add(36, 0.22); //tuned
+        flightTime.add(53.6, 0.14); //tuned
         flightTime.add(1000, 5);
         flightTime.createLUT();
     }
@@ -30,8 +30,8 @@ public class BotPose extends BaseSubsystem {
         double velX = follower.getVelocity().getXComponent() * flightTime.get(LocalizationHelper.getTargetDistance(follower.getPose(), alliance));
         double velY = follower.getVelocity().getYComponent() * flightTime.get(LocalizationHelper.getTargetDistance(follower.getPose(), alliance));
 
-        double accelX = follower.getAcceleration().getXComponent() * flightTime.get(LocalizationHelper.getTargetDistance(follower.getPose(), alliance));
-        double accelY = follower.getAcceleration().getYComponent() * flightTime.get(LocalizationHelper.getTargetDistance(follower.getPose(), alliance));
+        double accelX = 0.5 * follower.getAcceleration().getXComponent() * Math.pow(flightTime.get(LocalizationHelper.getTargetDistance(follower.getPose(), alliance)), 2);
+        double accelY = 0.5 * follower.getAcceleration().getYComponent() * Math.pow(flightTime.get(LocalizationHelper.getTargetDistance(follower.getPose(), alliance)), 2);
 
         double newX = x + velX + accelX;
         double newY = y + velY + accelY;
