@@ -12,7 +12,7 @@ public class HoodServo extends ServoImplExBase implements ServoImplexInterface {
     private final InterpLUT lut = new InterpLUT();
     public HoodServo (HardwareMap hardwareMap) {
         super("hood", hardwareMap);
-        lut.add(0, 1);
+        lut.add(0, p1);
         lut.add(d1, p1);
         lut.add(d2, p2);
         lut.add(d3, p3);
