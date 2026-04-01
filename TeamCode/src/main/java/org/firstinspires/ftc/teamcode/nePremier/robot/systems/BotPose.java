@@ -17,9 +17,9 @@ public class BotPose extends BaseSubsystem {
     public BotPose(Follower follower) {
         super();
         this.follower = follower;
-        flightTime.add(0, 0.22); //tuned
-        flightTime.add(36, 0.22); //tuned
-        flightTime.add(53.6, 0.14); //tuned
+        flightTime.add(0, 0); //tuned, 0.22
+        flightTime.add(36, 0); //tuned, 0.22
+        flightTime.add(53.6, 0); //tuned, 0.14
 //        flightTime.add(73.5, );
 //        flightTime.add(100, );
 //        flightTime.add( , );
