@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.paths;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
@@ -88,7 +87,7 @@ public final class CPaths extends BasePathChain implements BuildPaths {
                 .setTangentHeadingInterpolation()
                 .build();
         gateToShoot = follower.pathBuilder()
-                .addPath(new BezierCurve(gatePose, new Pose(96, 61, Math.toRadians(0)), nearShootPose))
+                .addPath(new BezierCurve(gatePose, gateControlPose, nearShootPose))
                 .setLinearHeadingInterpolation(gatePose.getHeading(), nearShootPose.getHeading())
                 .build();
     }
