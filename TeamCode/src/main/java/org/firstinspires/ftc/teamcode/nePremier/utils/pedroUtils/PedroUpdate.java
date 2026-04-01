@@ -32,7 +32,7 @@ abstract class PedroUpdate extends Initializer {
         CurrentAlliance.alliance = alliance;
         intakeControl = new Control(ControlType.Auto, transferRun);
         outtakeControl = new Control(ControlType.Auto, outake);
-        shootControl = new Control(ControlType.Auto, super.shootCommand);
+        shootControl = new Control(ControlType.Auto, shootCommand);
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, constantFlywheelSpin, draw);
         zeroTurretControl = new Control(ControlType.Auto, resetForTele);
         shootTimer.create();

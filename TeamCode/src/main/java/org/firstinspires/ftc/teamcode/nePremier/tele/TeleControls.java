@@ -21,9 +21,9 @@ public class TeleControls extends Initializer {
     private final Control endOuttake;
     private final Control shoot;
     private final Control weFucked;
-    private final Control liftUp;
+    //private final Control liftUp;
     private final Control constantControls;
-    private final Control down;
+    //private final Control down;
     private final Control mapControl;
     private final Control locControl;
 
@@ -33,11 +33,11 @@ public class TeleControls extends Initializer {
         Drawing.init();
 
         //Driver:
-        intake = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, 0, transferRun);
-        outtake = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, 0, outake);
-        endOuttake = new Control(GamepadInput.a, gamepad1, ControlType.Hold, 1, outake);
-        liftUp = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, 1, liftBot);
-        down = new Control(GamepadInput.y, gamepad1, ControlType.Hold, 1, liftDown);
+        intake = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, transferRun);
+        outtake = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, outake);
+        endOuttake = new Control(GamepadInput.a, gamepad1, ControlType.Hold, outake);
+        //liftUp = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, liftBot);
+        //down = new Control(GamepadInput.y, gamepad1, ControlType.Hold, liftDown);
         shoot = new Control(GamepadInput.right_trigger, gamepad1, ControlType.Hold, shootCommand);
 
         //gunner:
@@ -69,8 +69,8 @@ public class TeleControls extends Initializer {
         outtake.update();
         shoot.update();
 //        weFucked.update();
-        liftUp.update();
-        down.update();
+//        liftUp.update();
+//        down.update();
         constantControls.update();
         follower.update();
         telemetryM.update();

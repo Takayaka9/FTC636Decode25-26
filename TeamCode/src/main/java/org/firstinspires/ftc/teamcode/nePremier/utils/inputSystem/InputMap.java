@@ -12,26 +12,29 @@ public class InputMap {
     }
 
     public boolean checkInput() {
-        switch (input) {
-        case a:
-            return gamepad.a;
-        case b:
-            return gamepad.b;
-        case x:
-            return gamepad.x;
-        case y:
-            return gamepad.y;
-        case left_bumper:
-            return gamepad.left_bumper;
-        case right_bumper:
-            return gamepad.right_bumper;
-        case right_trigger:
-            return gamepad.right_trigger > 0.3;
-        case left_trigger:
-            return gamepad.left_trigger > 0.3;
-        default:
-            return false;
+        if (gamepad != null && input != null) {
+            switch (input) {
+                case a:
+                    return gamepad.a;
+                case b:
+                    return gamepad.b;
+                case x:
+                    return gamepad.x;
+                case y:
+                    return gamepad.y;
+                case left_bumper:
+                    return gamepad.left_bumper;
+                case right_bumper:
+                    return gamepad.right_bumper;
+                case right_trigger:
+                    return gamepad.right_trigger > 0.3;
+                case left_trigger:
+                    return gamepad.left_trigger > 0.3;
+                default:
+                    return false;
+            }
         }
+        return false;
     }
 
 }

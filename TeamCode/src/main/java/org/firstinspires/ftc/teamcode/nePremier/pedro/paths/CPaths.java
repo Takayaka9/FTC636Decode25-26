@@ -26,7 +26,6 @@ public final class CPaths extends BasePathChain implements BuildPaths {
     @Override
     public void buildPaths() {
         follower.pathBuilder().setGlobalTangentHeadingInterpolation();
-        follower.pathBuilder().setTValueConstraint(AutoConstants.globalTValue);
         startToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(nearStartPose, nearShootPose))
                 .setLinearHeadingInterpolation(nearStartPose.getHeading(), nearShootPose.getHeading())

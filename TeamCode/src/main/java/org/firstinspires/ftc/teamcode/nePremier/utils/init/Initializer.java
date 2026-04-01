@@ -36,6 +36,7 @@ public class Initializer {
 
     //dependencies
     public final TelemetryManager telemetryM;
+    public final Telemetry telemetry;
     public final Follower follower;
 
 
@@ -76,6 +77,7 @@ public class Initializer {
     public Initializer(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry ignoredTelemetry) {
         /// lil stuff
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
+        this.telemetry = ignoredTelemetry;
         follower = Constants.createFollower(hardwareMap);
         botPose = new BotPose(follower);
 

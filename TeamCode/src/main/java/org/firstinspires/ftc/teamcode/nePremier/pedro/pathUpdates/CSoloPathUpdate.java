@@ -12,6 +12,8 @@ public class CSoloPathUpdate extends BasePathUpdate {
     public CSoloPathUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
         p = new CPaths(follower, alliance);
+        follower.setStartingPose(p.nearStartPose);
+        follower.setPose(p.nearStartPose);
     }
 
     @Override
