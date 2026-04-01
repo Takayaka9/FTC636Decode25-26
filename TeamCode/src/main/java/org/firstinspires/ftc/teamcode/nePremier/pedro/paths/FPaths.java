@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.paths;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
@@ -47,7 +46,7 @@ public final class FPaths extends BasePathChain implements BuildPaths {
                 .setConstantHeadingInterpolation(wallIntakePPose.getHeading())
                 .build();
         wallToShoot = follower.pathBuilder()
-                .addPath(new BezierCurve(wallIntakePose, new Pose(118, 15, Math.toRadians(0)), farShootPose))
+                .addPath(new BezierCurve(wallIntakePose, wallControlPose, farShootPose))
                 .setLinearHeadingInterpolation(wallIntakePose.getHeading(), farShootPose.getHeading())
                 .build();
         shootToFarIntake = follower.pathBuilder()

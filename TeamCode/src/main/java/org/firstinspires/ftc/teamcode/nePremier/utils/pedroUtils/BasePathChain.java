@@ -25,7 +25,9 @@ public class BasePathChain {
     public final Pose wallIntakePPose;
     public final Pose wallIntakePose;
     public final Pose gatePose;
+    public final Pose gateControlPose;
     public final Pose finalShootPose;
+    public final Pose wallControlPose;
     public BasePathChain(Alliance alliance, Follower follower) {
         this.follower = follower;
         switch (alliance) {
@@ -46,7 +48,9 @@ public class BasePathChain {
                 wallIntakePPose = RedPoseLib.wallIntakePPose;
                 wallIntakePose = RedPoseLib.wallIntakePose;
                 gatePose = RedPoseLib.gatePose;
+                gateControlPose = RedPoseLib.gateControlPose;
                 finalShootPose = RedPoseLib.finalShootPose;
+                wallControlPose = RedPoseLib.wallControlPose;
                 break;
             case BLUE:
                 farStartPose = BluePoseLib.farStartPose;
@@ -65,7 +69,9 @@ public class BasePathChain {
                 wallIntakePPose = BluePoseLib.wallIntakePPose;
                 wallIntakePose = BluePoseLib.wallIntakePose;
                 gatePose = BluePoseLib.gatePose;
+                gateControlPose = BluePoseLib.gateControlPose;
                 finalShootPose = BluePoseLib.finalShootPose;
+                wallControlPose = BluePoseLib.wallControlPose;
                 break;
             default:
                 farStartPose = null;
@@ -84,7 +90,9 @@ public class BasePathChain {
                 wallIntakePPose = null;
                 wallIntakePose = null;
                 gatePose = null;
+                gateControlPose = null;
                 finalShootPose = null;
+                wallControlPose = null;
         }
     }
 
