@@ -96,7 +96,6 @@ public class F6PathUpdate extends BasePathUpdate {
                     pathState = 11;
                 }
                 break;
-            //repeat
             case 11:
                 break;
         }
