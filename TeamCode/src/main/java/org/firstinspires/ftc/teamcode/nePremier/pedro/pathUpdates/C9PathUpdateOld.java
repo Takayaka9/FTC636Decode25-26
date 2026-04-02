@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.CPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
@@ -24,13 +25,13 @@ public class C9PathUpdateOld extends BasePathUpdate {
                 break;
             case 1:
                 if (atPose(paths.nearShootPose)) {
-                    shootTimer.resetThenStart();
+                    shootTimer.reset();
                     shootControl.run();
                     pathState = 2;
                 }
                 break;
             case 2:
-                if (shootTimer.checkFinished()) {
+                if (shootTimer.milliseconds() >= AutoConstants.shootTime) {
                     shootControl.stop();
                     follower.followPath(paths.preIntakeSpike2);
                     pathState = 3;
@@ -52,13 +53,13 @@ public class C9PathUpdateOld extends BasePathUpdate {
                 break;
             case 5:
                 if (atPose(paths.nearShootPose)) {
-                    shootTimer.resetThenStart();
+                    shootTimer.reset();
                     shootControl.run();
                     pathState = 6;
                 }
                 break;
             case 6:
-                if (shootTimer.checkFinished()) {
+                if (shootTimer.milliseconds() >= AutoConstants.shootTime) {
                     shootControl.stop();
                     follower.followPath(paths.preIntakeSpike1);
                     pathState = 7;
@@ -80,13 +81,13 @@ public class C9PathUpdateOld extends BasePathUpdate {
                 break;
             case 9:
                 if (atPose(paths.nearShootPose)) {
-                    shootTimer.resetThenStart();
+                    shootTimer.reset();
                     shootControl.run();
                     pathState = 10;
                 }
                 break;
             case 10:
-                if (shootTimer.checkFinished()) {
+                if (shootTimer.milliseconds() >= AutoConstants.shootTime) {
                     shootControl.stop();
                     follower.followPath(paths.preIntakeSpike3);
                     pathState = 11;
@@ -108,7 +109,7 @@ public class C9PathUpdateOld extends BasePathUpdate {
                 break;
             case 13:
                 if (atPose(paths.nearShootPose)) {
-                    shootTimer.resetThenStart();
+                    shootTimer.reset();
                     shootControl.run();
                     pathState = 14;
                 }

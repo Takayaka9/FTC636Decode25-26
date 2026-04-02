@@ -21,10 +21,10 @@ abstract class PedroUpdate extends Initializer {
     public final Control constantControls;
     private final Control zeroTurretControl;
     public final ElapsedTime opModeTimer = new ElapsedTime();
-    public final GenericTime shootTimer = new SolversTiming();
+    public final ElapsedTime shootTimer = new ElapsedTime();
     public final GenericTime fleeTimer = new SolversTiming();
     public boolean fled;
-    public int pathState;
+    public int pathState = 0;
 
 
     public PedroUpdate(HardwareMap hardwareMap, Telemetry telemetry, Alliance alliance) {
@@ -35,8 +35,6 @@ abstract class PedroUpdate extends Initializer {
         shootControl = new Control(ControlType.Auto, shootCommand);
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, constantFlywheelSpin, draw);
         zeroTurretControl = new Control(ControlType.Auto, resetForTele);
-        shootTimer.create();
-        shootTimer.setLength(AutoConstants.shootTime);
         fleeTimer.create();
         fleeTimer.setLength(AutoConstants.fleeTime);
         pathState = 0;
@@ -60,9 +58,9 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final void startDependencies() {
-        shootTimer.setLength(AutoConstants.shootTime);
         fleeTimer.setLength(AutoConstants.fleeTime);
         opModeTimer.reset();
+        shootTimer.reset();
         pathState = 0;
         fled = false;
         constantControls.run();
@@ -70,13 +68,14 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final void updateDependencies() {
+        follower.update();
         intakeControl.update();
         outtakeControl.update();
         shootControl.update();
         constantControls.update();
         telemetryM.update();
-        follower.update();
         telemetryM.addData("Path State", pathState);
+        PoseHolder.setPose(follower.getPose());
     }
 
 }

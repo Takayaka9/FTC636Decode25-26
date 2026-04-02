@@ -10,7 +10,6 @@ public abstract class BasePathUpdate extends PedroUpdate implements PathUpdate {
         super(hardwaremap, telemetry, alliance);
     }
 
-    /// MUST CALL SUPER METHOD WHEN OVERRIDING
     @Override
     public void init() {
         initDependencies();
@@ -23,6 +22,7 @@ public abstract class BasePathUpdate extends PedroUpdate implements PathUpdate {
 
     @Override
     public void update() {
+        updateDependencies();
         AutoHelper.update(this);
     }
 }

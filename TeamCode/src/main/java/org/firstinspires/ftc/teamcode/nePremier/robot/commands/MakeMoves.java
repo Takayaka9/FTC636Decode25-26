@@ -5,6 +5,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
+import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PoseHolder;
 
 public class MakeMoves extends BaseCommand {
     private final Follower follower;
@@ -14,7 +15,7 @@ public class MakeMoves extends BaseCommand {
         super();
         this.follower = follower;
         this.gamepad = gamepad1;
-        this.follower.setStartingPose(new Pose(72, 72, 0));
+        this.follower.setStartingPose(PoseHolder.getPose());
         this.follower.update();
     }
 

@@ -19,7 +19,7 @@ public class Shoot extends BaseCommand {
     @Configurable
     public static class shootConfig {
         public static int delayTime = 300;
-        public static double allowedError = 50;
+        public static double allowedError = 1000;
     }
 
     public Shoot(Transfer transfer, TakaShooter shooter, Stopper stopper) {

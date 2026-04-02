@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.FPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
@@ -13,7 +14,6 @@ public class F6PathUpdate extends BasePathUpdate {
         super(hardwareMap,telemetry, alliance);
         p = new FPaths(follower, alliance);
         follower.setStartingPose(p.farStartPose);
-        follower.setPose(p.farStartPose);
     }
 
     @Override
@@ -25,13 +25,13 @@ public class F6PathUpdate extends BasePathUpdate {
                 break;
             case 1:
                 if (!follower.isBusy()) {
-                    shootTimer.resetThenStart();
+                    shootTimer.reset();
                     shootControl.run();
                     pathState = 2;
                 }
                 break;
             case 2:
-                if (shootTimer.checkFinished()) {
+                if (shootTimer.milliseconds() >= AutoConstants.shootTime) {
                     follower.followPath(p.intakeSpike3);
                     intakeControl.run();
                     shootControl.stop();
@@ -47,13 +47,13 @@ public class F6PathUpdate extends BasePathUpdate {
             case 4:
                 if (!follower.isBusy()) {
                     intakeControl.stop();
-                    shootTimer.resetThenStart();
+                    shootTimer.reset();
                     shootControl.run();
                     pathState = 5;
                 }
                 break;
             case 5:
-                if (shootTimer.checkFinished()) {
+                if (shootTimer.milliseconds() >= AutoConstants.shootTime) {
                     shootControl.stop();
                     intakeControl.run();
                     follower.followPath(p.shootToWall);
@@ -70,12 +70,12 @@ public class F6PathUpdate extends BasePathUpdate {
                 if(!follower.isBusy()){
                     intakeControl.stop();
                     shootControl.run();
-                    shootTimer.resetThenStart();
+                    shootTimer.reset();
                     pathState = 8;
                 }
                 break;
             case 8:
-                if (shootTimer.checkFinished()) {
+                if (shootTimer.milliseconds() >= AutoConstants.shootTime) {
                     shootControl.stop();
                     intakeControl.run();
                     follower.followPath(p.shootToFarIntake);
@@ -92,7 +92,7 @@ public class F6PathUpdate extends BasePathUpdate {
                 if(!follower.isBusy()){
                     intakeControl.stop();
                     shootControl.run();
-                    shootTimer.resetThenStart();
+                    shootTimer.reset();
                     pathState = 11;
                 }
                 break;

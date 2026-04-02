@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.BluePoseLib;
@@ -11,15 +12,19 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 
 public final class AutoHelper {
 
+//    public static void update(BasePathUpdate pathUpdate) {
+//        if (pathUpdate.fleeTimer.checkFinished() && !pathUpdate.fled) {
+//            pathUpdate.follower.followPath(createFleePath(pathUpdate));
+//            pathUpdate.fled = true;
+//        } else if (pathUpdate.fleeTimer.checkFinished() && pathUpdate.fled) {
+//            pathUpdate.zeroTurret();
+//        } else {
+//            pathUpdate.autonomousPathUpdate();
+//        }
+//    }
+
     public static void update(BasePathUpdate pathUpdate) {
-        if (pathUpdate.fleeTimer.checkFinished() && !pathUpdate.fled) {
-            pathUpdate.follower.followPath(createFleePath(pathUpdate));
-            pathUpdate.fled = true;
-        } else if (pathUpdate.fleeTimer.checkFinished() && pathUpdate.fled) {
-            pathUpdate.zeroTurret();
-        } else {
-            pathUpdate.autonomousPathUpdate();
-        }
+        pathUpdate.autonomousPathUpdate();
     }
 
     private static PathChain createFleePath(BasePathUpdate pathUpdate) {
