@@ -21,7 +21,6 @@ public class CRLiftTester extends OpMode {
     @Override
     public void init() {
         servoSystem = new NewCRLiftServo(hardwareMap);
-        currentState = testStates.OFF;
     }
 
     @Override

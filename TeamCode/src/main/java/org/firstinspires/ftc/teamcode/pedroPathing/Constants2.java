@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
+@Deprecated
 @Configurable
 public class Constants2 {
     public static FollowerConstants followerConstants = new FollowerConstants()

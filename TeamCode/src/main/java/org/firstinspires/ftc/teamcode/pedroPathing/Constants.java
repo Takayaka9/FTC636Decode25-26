@@ -21,7 +21,7 @@ public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(0)
             .headingPIDFCoefficients(new PIDFCoefficients(1, 0, 0.03, 0.03))
-            .predictiveBrakingCoefficients(new PredictiveBrakingCoefficients(0.04, 0.11502302605001331, 0.0019858569299951996))
+            .predictiveBrakingCoefficients(new PredictiveBrakingCoefficients(0.042, 0.09823467106242682, 0.002300324832506482))
             .centripetalScaling(0);
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
@@ -34,8 +34,8 @@ public class Constants {
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
             .useBrakeModeInTeleOp(true)
-            .xVelocity(70.79310619924951)
-            .yVelocity(57.02100330262673);
+            .xVelocity(58.53811861774115)
+            .yVelocity(38.70403548113005);
     public static PinpointConstants localizerConstants = new PinpointConstants()
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("pinpoint")

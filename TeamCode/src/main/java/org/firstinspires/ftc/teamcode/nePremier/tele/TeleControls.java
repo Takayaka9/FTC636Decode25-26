@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
@@ -18,12 +20,12 @@ public class TeleControls extends Initializer {
     private final Control allianceRed;
     private final Control intake;
     private final Control outtake;
-    private final Control endOuttake;
+//    private final Control endOuttake;
     private final Control shoot;
-    private final Control weFucked;
-    //private final Control liftUp;
+//    private final Control weFucked;
+    private final Control liftUp;
     private final Control constantControls;
-    //private final Control down;
+    private final Control down;
     private final Control mapControl;
     private final Control locControl;
 
@@ -35,13 +37,13 @@ public class TeleControls extends Initializer {
         //Driver:
         intake = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, transferRun);
         outtake = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, outake);
-        endOuttake = new Control(GamepadInput.a, gamepad1, ControlType.Hold, outake);
-        //liftUp = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, liftBot);
-        //down = new Control(GamepadInput.y, gamepad1, ControlType.Hold, liftDown);
+//        endOuttake = new Control(GamepadInput.a, gamepad1, ControlType.Hold, outake);
+        liftUp = new Control(GamepadInput.a, gamepad1, ControlType.Hold, liftBot);
+        down = new Control(GamepadInput.b, gamepad1, ControlType.Hold, liftDown);
         shoot = new Control(GamepadInput.right_trigger, gamepad1, ControlType.Hold, shootCommand);
 
         //gunner:
-        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
+//        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
         allianceBlue = new Control(GamepadInput.x, gamepad2, ControlType.Hold, blue);
         allianceRed = new Control(GamepadInput.b, gamepad2, ControlType.Hold, red);
         mapControl = new Control(GamepadInput.a, gamepad1, ControlType.Toggle, toggleMap);
@@ -69,10 +71,11 @@ public class TeleControls extends Initializer {
         outtake.update();
         shoot.update();
 //        weFucked.update();
-//        liftUp.update();
-//        down.update();
+        liftUp.update();
+        down.update();
         constantControls.update();
         follower.update();
+        telemetryM.addData("distance", LocalizationHelper.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
         telemetryM.update();
         mapControl.update();
         locControl.update();

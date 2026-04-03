@@ -24,7 +24,7 @@ public class TakaShooter extends BaseSubsystem {
         static double d3 = 73.5; static double r3 = 1075;//tuned
         static double d4 = 100; static double r4 = 1125;//tuned
         static double d5 = 135.5; static double r5 = 1350;//tuned
-        static double d6 = 150; static double r6 = 1365;//tuned
+        static double d6 = 150; static double r6 = 1360;//tuned
         public static double brake = -0.3;
     }
     private final InterpLUT lut = new InterpLUT();

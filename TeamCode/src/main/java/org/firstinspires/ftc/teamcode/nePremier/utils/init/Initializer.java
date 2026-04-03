@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.Draw;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLift;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.NewCRLiftDown;
+import org.firstinspires.ftc.teamcode.nePremier.robot.commands.SideWaysTurret;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.SimpleLoc;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.ToggleMap;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
@@ -71,7 +72,7 @@ public class Initializer {
     public final OhNoWeFucked ohNoWeFucked;
     public final ToggleMap toggleMap;
     public final SimpleLoc simpleLoc;
-
+    public final SideWaysTurret turretSide;
 
 
     public Initializer(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry ignoredTelemetry) {
@@ -112,6 +113,7 @@ public class Initializer {
         toggleMap = new ToggleMap();
         simpleLoc = new SimpleLoc(follower);
         draw = new Draw(follower);
+        turretSide = new SideWaysTurret(turret);
 //        localizer = new Localizer(hardwareMap, follower, light);
     }
 

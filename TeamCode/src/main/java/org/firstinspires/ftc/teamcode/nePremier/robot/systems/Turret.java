@@ -94,6 +94,24 @@ public class Turret extends BaseSubsystem implements TurretI {
 
         turret.setPower(output);
     }
+    public void turnTurretRad(double radians){
+        double tPosition = targetPos = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
+        double cPosition = turret.getCurrentPosition(); //TODO: change 0 to getPosition
+        double error = tPosition - cPosition;
+
+        double dt = turretTime.seconds();
+        if (dt < 0.0001) dt = 0.0001;
+        double derivative = (error-lastTurretError)/dt;
+
+        lastTurretError = error;
+
+        turretTime.reset();
+
+        double output = (error * TurretConstants.Kp);
+
+
+        turret.setPower(output);
+    }
     // taka moving average filter
     // private final ArrayList<Double> lowPassFilter = new ArrayList<>(5);
     LowPassFilter lowPassFilter = new LowPassFilter(TurretConstants.lowPassAlpha);
