@@ -16,7 +16,13 @@ public final class FPaths extends BasePathChain implements BuildPaths {
         buildPaths();
     }
 
-    public PathChain startToShoot, intakeSpike3, spike3toShoot, shootToWall, wallToShoot, shootToFarIntake, farIntakeToShoot;
+    public PathChain startToShoot,
+            intakeSpike3,
+            spike3toShoot,
+            shootToWall,
+            wallToShoot,
+            shootToFarIntake,
+            farIntakeToShoot;
 
     @Override
     public void buildPaths() {
@@ -24,13 +30,12 @@ public final class FPaths extends BasePathChain implements BuildPaths {
                 .setGlobalDeceleration();
         startToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(farStartPose, farShootPose))
-                .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading(), 0.3)
+                .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading(), 0.4)
                 .build();
         intakeSpike3 = follower.pathBuilder()
                 .addPath(new BezierLine(farStartPose, intakeP3Pose))
                 .setLinearHeadingInterpolation(farStartPose.getHeading(), intakeP3Pose.getHeading(), 0.6)
                 .addPath(new BezierLine(intakeP3Pose ,intake3Pose))
-                .setConstantHeadingInterpolation(intake3Pose.getHeading())
                 .build();
         spike3toShoot = follower.pathBuilder()
                 .addPath(new BezierLine(intake3Pose, farShootPose))
