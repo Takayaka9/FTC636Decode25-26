@@ -23,8 +23,8 @@ public final class FPaths extends BasePathChain implements BuildPaths {
         follower.pathBuilder().setGlobalTangentHeadingInterpolation();
 
         startToShoot = follower.pathBuilder()
-                .addPath(new BezierLine(follower.getPose(), farShootPose))
-                .setLinearHeadingInterpolation(follower.getPose().getHeading(), farShootPose.getHeading())
+                .addPath(new BezierLine(farStartPose, farShootPose))
+                .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading())
                 .build();
         preIntakeSpike3 = follower.pathBuilder()
                 .addPath(new BezierLine(farShootPose, intakeP3Pose))
