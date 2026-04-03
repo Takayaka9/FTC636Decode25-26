@@ -21,6 +21,12 @@ public final class RedPoseLib {
     public static int emptyPX = 114; public static int emptyPY = 67; public static int emptyPR = 90;
     public static int gateX = 131; public static int gateY = 61; public static int gateR = 26;
     public static int gateControlX = 96; public static int gateControlY = 61; public static int gateControlR = 0;
+    public static int curvySpike2Control1X = 113; public static int curvySpike2Control1Y = 78; public static int curvySpike2Control1R = 0;
+    public static int curvySpike2Control2X = 82; public static int curvySpike2Control2Y = 58; public static int curvySpike2Control2R = 0;
+    public static int curvySpike3Control1X = 113; public static int curvySpike3Control1Y = 78; public static int curvySpike3Control1R = 0;
+    public static int curvySpike3Control2X = 82; public static int curvySpike3Control2Y = 28; public static int curvySpike3Control2R = 0;
+    public static int curvyGateControl1X = 125; public static int curvyGateControl1Y = 82; public static int curvyGateControl1R = 0;
+    public static int curvyGateControl2X = 105; public static int curvyGateControl2Y = 56; public static int curvyGateControl2R = 0;
     public static int finalShootX = 87; public static int finalShootY = 111; public static int finalShootR = 0;
     public static int wallIntakePX = 135; public static int wallIntakePY = 26; public static int wallIntakePR = 270;
     public static int wallIntakeX = 135; public static int wallIntakeY = 9; public static int wallIntakeR = 270;
@@ -41,6 +47,12 @@ public final class RedPoseLib {
     public static Pose emptyPPose = new Pose(emptyPX, emptyPY, Math.toRadians(emptyPR));
     public static Pose gatePose = new Pose(gateX, gateY, Math.toRadians(gateR));
     public static Pose gateControlPose = new Pose(gateControlX, gateControlY, Math.toRadians(gateControlR));
+    public static Pose curvySpike2Control1Pose = new Pose(curvySpike2Control1X, curvySpike2Control1Y, Math.toRadians(curvySpike2Control1R));
+    public static Pose curvySpike2Control2Pose = new Pose(curvySpike2Control2X, curvySpike2Control2Y, Math.toRadians(curvySpike2Control2R));
+    public static Pose curvySpike3Control1Pose = new Pose(curvySpike3Control1X, curvySpike3Control1Y, Math.toRadians(curvySpike3Control1R));
+    public static Pose curvySpike3Control2Pose = new Pose(curvySpike3Control2X, curvySpike3Control2Y, Math.toRadians(curvySpike3Control2R));
+    public static Pose curvyGateControl1Pose = new Pose(curvyGateControl1X, curvyGateControl1Y, Math.toRadians(curvyGateControl1R));
+    public static Pose curvyGateControl2Pose = new Pose(curvyGateControl2X, curvyGateControl2Y, Math.toRadians(curvyGateControl2R));
     public static Pose finalShootPose = new Pose(finalShootX, finalShootY, Math.toRadians(finalShootR));
     public static Pose wallIntakePPose = new Pose(wallIntakePX, wallIntakePY, Math.toRadians(wallIntakePR));
     public static Pose wallIntakePose = new Pose(wallIntakeX, wallIntakeY, Math.toRadians(wallIntakeR));

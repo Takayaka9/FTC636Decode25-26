@@ -3,14 +3,11 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.paths;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.HeadingInterpolator;
-import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 
-import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
-import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BuildPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathChain;
+import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BuildPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 
 public final class CurvyPaths extends BasePathChain implements BuildPaths {
@@ -49,17 +46,17 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
 
 
         intakeSpike2 = follower.pathBuilder()
-                .addPath(new BezierCurve(nearShootPose, new Pose(113,78), new Pose(82,58), intake2Pose))
-                .addPath(new BezierCurve(intake2Pose, new Pose(113,78), new Pose(82,58), nearShootPose))
+                .addPath(new BezierCurve(nearShootPose, curvySpike2Control1Pose, curvySpike2Control2Pose, intake2Pose))
+                .addPath(new BezierCurve(intake2Pose, curvySpike2Control1Pose, curvySpike2Control2Pose, nearShootPose))
                 .setHeadingInterpolation(HeadingInterpolator.tangent.reverse())
                 .build();
 
         spike2andEmpty = follower.pathBuilder()
-                .addPath(new BezierCurve(nearShootPose, new Pose(113,78), new Pose(82,58), intake2Pose))
+                .addPath(new BezierCurve(nearShootPose, curvySpike2Control1Pose, curvySpike2Control2Pose, intake2Pose))
                 .addParametricCallback(.995, () -> follower.followPath(gateOpen))
                 .build();
         returnToShoot = follower.pathBuilder()
-                .addPath(new BezierCurve(intake2Pose, new Pose(113,78), new Pose(82,58), nearShootPose))
+                .addPath(new BezierCurve(intake2Pose, curvySpike2Control1Pose, curvySpike2Control2Pose, nearShootPose))
                 .setHeadingInterpolation(HeadingInterpolator.tangent.reverse())
                 .build();
         gateOpen = follower.pathBuilder()
@@ -71,17 +68,17 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
                 .build();
 
         intakeSpike3 = follower.pathBuilder()
-                .addPath(new BezierCurve(nearShootPose, new Pose(113,78), new Pose(82,28), intakeP3Pose))
-                .addPath(new BezierCurve(intakeP3Pose, new Pose(82,28), new Pose(113,78), nearShootPose))
+                .addPath(new BezierCurve(nearShootPose, curvySpike3Control1Pose, curvySpike3Control2Pose, intakeP3Pose))
+                .addPath(new BezierCurve(intakeP3Pose, curvySpike3Control2Pose, curvySpike3Control1Pose, nearShootPose))
                 .setHeadingInterpolation(HeadingInterpolator.tangent.reverse())
                 .build();
 
         shootToGate = follower.pathBuilder()
-                .addPath(new BezierCurve(nearShootPose, new Pose(125,82), new Pose(105,56), gatePose))
+                .addPath(new BezierCurve(nearShootPose, curvyGateControl1Pose, curvyGateControl2Pose, gatePose))
                 .build();
 
         gateToShoot = follower.pathBuilder()
-                .addPath(new BezierCurve(gatePose, new Pose(105,56), new Pose(125,82), nearShootPose))
+                .addPath(new BezierCurve(gatePose, curvyGateControl2Pose, curvyGateControl1Pose, nearShootPose))
                 .build();
 
     }

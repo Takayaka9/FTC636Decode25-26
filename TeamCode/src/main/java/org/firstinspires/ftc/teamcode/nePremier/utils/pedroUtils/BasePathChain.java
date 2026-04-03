@@ -26,6 +26,12 @@ public class BasePathChain {
     public final Pose wallIntakePose;
     public final Pose gatePose;
     public final Pose gateControlPose;
+    public final Pose curvySpike2Control1Pose;
+    public final Pose curvySpike2Control2Pose;
+    public final Pose curvySpike3Control1Pose;
+    public final Pose curvySpike3Control2Pose;
+    public final Pose curvyGateControl1Pose;
+    public final Pose curvyGateControl2Pose;
     public final Pose finalShootPose;
     public final Pose wallControlPose;
     public BasePathChain(Alliance alliance, Follower follower) {
@@ -49,6 +55,12 @@ public class BasePathChain {
                 wallIntakePose = RedPoseLib.wallIntakePose;
                 gatePose = RedPoseLib.gatePose;
                 gateControlPose = RedPoseLib.gateControlPose;
+                curvySpike2Control1Pose = RedPoseLib.curvySpike2Control1Pose;
+                curvySpike2Control2Pose = RedPoseLib.curvySpike2Control2Pose;
+                curvySpike3Control1Pose = RedPoseLib.curvySpike3Control1Pose;
+                curvySpike3Control2Pose = RedPoseLib.curvySpike3Control2Pose;
+                curvyGateControl1Pose = RedPoseLib.curvyGateControl1Pose;
+                curvyGateControl2Pose = RedPoseLib.curvyGateControl2Pose;
                 finalShootPose = RedPoseLib.finalShootPose;
                 wallControlPose = RedPoseLib.wallControlPose;
                 break;
@@ -70,6 +82,12 @@ public class BasePathChain {
                 wallIntakePose = BluePoseLib.wallIntakePose;
                 gatePose = BluePoseLib.gatePose;
                 gateControlPose = BluePoseLib.gateControlPose;
+                curvySpike2Control1Pose = BluePoseLib.curvySpike2Control1Pose;
+                curvySpike2Control2Pose = BluePoseLib.curvySpike2Control2Pose;
+                curvySpike3Control1Pose = BluePoseLib.curvySpike3Control1Pose;
+                curvySpike3Control2Pose = BluePoseLib.curvySpike3Control2Pose;
+                curvyGateControl1Pose = BluePoseLib.curvyGateControl1Pose;
+                curvyGateControl2Pose = BluePoseLib.curvyGateControl2Pose;
                 finalShootPose = BluePoseLib.finalShootPose;
                 wallControlPose = BluePoseLib.wallControlPose;
                 break;
@@ -91,6 +109,12 @@ public class BasePathChain {
                 wallIntakePose = null;
                 gatePose = null;
                 gateControlPose = null;
+                curvySpike2Control1Pose = null;
+                curvySpike2Control2Pose = null;
+                curvySpike3Control1Pose = null;
+                curvySpike3Control2Pose = null;
+                curvyGateControl1Pose = null;
+                curvyGateControl2Pose = null;
                 finalShootPose = null;
                 wallControlPose = null;
         }

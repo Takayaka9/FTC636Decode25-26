@@ -18,6 +18,12 @@ public final class BluePoseLib {
     public static Pose emptyPPose = RedPoseLib.emptyPPose.getPose().mirror();
     public static Pose gatePose = RedPoseLib.gatePose.getPose().mirror();
     public static Pose gateControlPose = RedPoseLib.gateControlPose.getPose().mirror();
+    public static Pose curvySpike2Control1Pose = RedPoseLib.curvySpike2Control1Pose.getPose().mirror();
+    public static Pose curvySpike2Control2Pose = RedPoseLib.curvySpike2Control2Pose.getPose().mirror();
+    public static Pose curvySpike3Control1Pose = RedPoseLib.curvySpike3Control1Pose.getPose().mirror();
+    public static Pose curvySpike3Control2Pose = RedPoseLib.curvySpike3Control2Pose.getPose().mirror();
+    public static Pose curvyGateControl1Pose = RedPoseLib.curvyGateControl1Pose.getPose().mirror();
+    public static Pose curvyGateControl2Pose = RedPoseLib.curvyGateControl2Pose.getPose().mirror();
     public static Pose finalShootPose = RedPoseLib.finalShootPose.getPose().mirror();
     public static Pose wallIntakePPose = RedPoseLib.wallIntakePPose.getPose().mirror();
     public static Pose wallIntakePose = RedPoseLib.wallIntakePose.getPose().mirror();
