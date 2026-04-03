@@ -12,12 +12,24 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 
 public final class AutoHelper {
 
+//    public static void update(BasePathUpdate pathUpdate) {
+//        if (pathUpdate.fleeTimer.checkFinished() && !pathUpdate.fled) {
+//            pathUpdate.follower.followPath(createFleePath(pathUpdate));
+//            pathUpdate.fled = true;
+//        } else if (pathUpdate.fleeTimer.checkFinished() && pathUpdate.fled) {
+//            pathUpdate.zeroTurret();
+//        } else {
+//            pathUpdate.autonomousPathUpdate();
+//        }
+//    }
+
     public static void update(BasePathUpdate pathUpdate) {
         if (pathUpdate.fleeTimer.checkFinished() && !pathUpdate.fled) {
-            pathUpdate.follower.followPath(createFleePath(pathUpdate));
             pathUpdate.fled = true;
+            pathUpdate.autonomousPathUpdate();
         } else if (pathUpdate.fleeTimer.checkFinished() && pathUpdate.fled) {
             pathUpdate.zeroTurret();
+            pathUpdate.autonomousPathUpdate();
         } else {
             pathUpdate.autonomousPathUpdate();
         }
