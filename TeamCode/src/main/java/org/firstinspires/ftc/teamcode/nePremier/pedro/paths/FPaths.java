@@ -16,23 +16,19 @@ public final class FPaths extends BasePathChain implements BuildPaths {
         buildPaths();
     }
 
-    public PathChain startToShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToWall, wallToShoot, shootToFarIntake, farIntakeToShoot;
+    public PathChain startToShoot, intakeSpike3, spike3toShoot, shootToWall, wallToShoot, shootToFarIntake, farIntakeToShoot;
 
     @Override
     public void buildPaths() {
-        follower.pathBuilder().setGlobalTangentHeadingInterpolation();
-
+        follower.pathBuilder().setGlobalTangentHeadingInterpolation()
+                .setGlobalDeceleration();
         startToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(farStartPose, farShootPose))
-                .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading())
-                .build();
-        preIntakeSpike3 = follower.pathBuilder()
-                .addPath(new BezierLine(farShootPose, intakeP3Pose))
-                .setConstantHeadingInterpolation(intake3Pose.getHeading())
+                .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading(), 0.3)
                 .build();
         intakeSpike3 = follower.pathBuilder()
                 .addPath(new BezierLine(farStartPose, intakeP3Pose))
-                .setConstantHeadingInterpolation(intakeP3Pose.getHeading())
+                .setLinearHeadingInterpolation(farStartPose.getHeading(), intakeP3Pose.getHeading(), 0.6)
                 .addPath(new BezierLine(intakeP3Pose ,intake3Pose))
                 .setConstantHeadingInterpolation(intake3Pose.getHeading())
                 .build();
