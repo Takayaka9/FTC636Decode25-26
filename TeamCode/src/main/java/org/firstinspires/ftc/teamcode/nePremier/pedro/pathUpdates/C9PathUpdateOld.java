@@ -24,7 +24,7 @@ public class C9PathUpdateOld extends BasePathUpdate {
                 pathState = 1;
                 break;
             case 1:
-                if (atPose(paths.nearShootPose)) {
+                if (atPose()) {
                     shootTimer.reset();
                     shootControl.run();
                     pathState = 2;
@@ -38,21 +38,21 @@ public class C9PathUpdateOld extends BasePathUpdate {
                 }
                 break;
             case 3:
-                if (atPose(paths.intakeP2Pose)) {
+                if (atPose()) {
                     intakeControl.run();
                     follower.followPath(paths.intakeSpike2);
                     pathState = 4;
                 }
                 break;
             case 4:
-                if (atPose(paths.intake2Pose)) {
+                if (atPose()) {
                     intakeControl.stop();
                     follower.followPath(paths.spike2ToShoot);
                     pathState = 5;
                 }
                 break;
             case 5:
-                if (atPose(paths.nearShootPose)) {
+                if (atPose()) {
                     shootTimer.reset();
                     shootControl.run();
                     pathState = 6;
@@ -66,21 +66,21 @@ public class C9PathUpdateOld extends BasePathUpdate {
                 }
                 break;
             case 7:
-                if (atPose(paths.intakeP2Pose)) {
+                if (atPose()) {
                     intakeControl.run();
                     follower.followPath(paths.intakeSpike1);
                     pathState = 8;
                 }
                 break;
             case 8:
-                if (atPose(paths.intake1Pose)) {
+                if (atPose()) {
                     intakeControl.stop();
                     follower.followPath(paths.spike1toShoot);
                     pathState = 9;
                 }
                 break;
             case 9:
-                if (atPose(paths.nearShootPose)) {
+                if (atPose()) {
                     shootTimer.reset();
                     shootControl.run();
                     pathState = 10;
@@ -94,21 +94,21 @@ public class C9PathUpdateOld extends BasePathUpdate {
                 }
                 break;
             case 11:
-                if (atPose(paths.intakeP3Pose)) {
+                if (atPose()) {
                     intakeControl.run();
                     follower.followPath(paths.intakeSpike3);
                     pathState = 12;
                 }
                 break;
             case 12:
-                if (atPose(paths.intake3Pose)) {
+                if (atPose()) {
                     intakeControl.stop();
                     follower.followPath(paths.spike3toShoot);
                     pathState = 13;
                 }
                 break;
             case 13:
-                if (atPose(paths.nearShootPose)) {
+                if (atPose()) {
                     shootTimer.reset();
                     shootControl.run();
                     pathState = 14;

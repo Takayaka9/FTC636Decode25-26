@@ -16,14 +16,15 @@ public final class FPaths extends BasePathChain implements BuildPaths {
         buildPaths();
     }
 
-    public PathChain startToShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToLeave, abort, shootToWall, wallToShoot, shootToFarIntake, farIntakeToShoot;
+    public PathChain startToShoot, preIntakeSpike3, intakeSpike3, spike3toShoot, shootToWall, wallToShoot, shootToFarIntake, farIntakeToShoot;
 
     @Override
     public void buildPaths() {
         follower.pathBuilder().setGlobalTangentHeadingInterpolation();
+
         startToShoot = follower.pathBuilder()
-                .addPath(new BezierLine(farStartPose, farShootPose))
-                .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading())
+                .addPath(new BezierLine(follower.getPose(), farShootPose))
+                .setLinearHeadingInterpolation(follower.getPose().getHeading(), farShootPose.getHeading())
                 .build();
         preIntakeSpike3 = follower.pathBuilder()
                 .addPath(new BezierLine(farShootPose, intakeP3Pose))

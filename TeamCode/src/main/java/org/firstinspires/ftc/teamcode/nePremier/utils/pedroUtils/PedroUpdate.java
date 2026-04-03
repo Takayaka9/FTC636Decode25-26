@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils;
 
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -41,8 +40,8 @@ abstract class PedroUpdate extends Initializer {
         fled = false;
     }
 
-    public final boolean atPose(Pose pose) {
-        return follower.atPose(pose, AutoConstants.globalPoseTolerance, AutoConstants.globalPoseTolerance);
+    public final boolean atPose() {
+        return follower.getCurrentTValue() > AutoConstants.globalTValue;
     }
 
     public final void zeroTurret() {
