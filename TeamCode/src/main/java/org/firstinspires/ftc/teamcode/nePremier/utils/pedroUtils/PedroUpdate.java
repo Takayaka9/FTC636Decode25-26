@@ -50,6 +50,29 @@ abstract class PedroUpdate extends Initializer {
         zeroTurretControl.run();
     }
 
+    /// stops everything and shoots, more complete method for easiness
+    public final void shoot() {
+        intakeControl.stop();
+        outtakeControl.stop();
+        shootTimer.reset();
+        shootControl.run();
+    }
+
+    /// checks the shooTimer and returns
+    public final boolean checkShoot() {
+        return shootTimer.milliseconds() >= AutoConstants.shootTime;
+    }
+
+    public final void setPathState(int newState) {
+        pathState = newState;
+    }
+
+    public final void intake() {
+        outtakeControl.stop();
+        shootControl.stop();
+        intakeControl.run();
+    }
+
     public final void initDependencies() {
         opModeTimer.reset();
         pathState = 0;

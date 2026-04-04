@@ -39,7 +39,7 @@ public final class AutoHelper {
 //        pathUpdate.autonomousPathUpdate();
 //    }
 
-    private static PathChain createFleePath(BasePathUpdate pathUpdate) {
+    public static PathChain createFleePath(BasePathUpdate pathUpdate) {
         Pose fleePose = null;
         switch (CurrentAlliance.alliance) {
             case RED:
