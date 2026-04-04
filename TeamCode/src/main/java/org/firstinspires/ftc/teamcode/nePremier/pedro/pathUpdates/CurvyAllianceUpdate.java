@@ -1,0 +1,82 @@
+package org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates;
+
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.CPaths;
+import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
+import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.AutoHelper;
+import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
+
+public class CurvyAllianceUpdate extends BasePathUpdate {
+    final CPaths p;
+    public CurvyAllianceUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
+        super(hardwareMap,telemetry, alliance);
+        p = new CPaths(follower, alliance);
+        follower.setStartingPose(p.nearStartPose);
+    }
+
+    @Override
+    public void autonomousPathUpdate() {
+        switch(pathState) {
+            case 0:
+                follower.followPath(p.startToShoot);
+                setPathState(1);
+                break;
+            case 1:
+                if (!follower.isBusy()) {
+                    shoot();
+                    setPathState(2);
+                }
+                break;
+            case 2:
+                if (checkShoot()) {
+                    intake();
+                    follower.followPath(p.intakeSpike1);
+                    setPathState(3);
+                }
+                break;
+            case 3:
+                if (!follower.isBusy()) {
+                    shoot();
+                    setPathState(4);
+                }
+                break;
+            case 4:
+                if (checkShoot()) {
+                    intake();
+                    follower.followPath(p.intakeSpike2);
+                    setPathState(5);
+                }
+                break;
+            case 5:
+                if (!follower.isBusy()) {
+                    shoot();
+                    setPathState(6);
+                }
+                break;
+            case 6:
+                if (checkShoot()) {
+                    intake();
+                    follower.followPath(p.intakeSpike3);
+                }
+                break;
+            case 7:
+                if (!follower.isBusy()) {
+                    shoot();
+                    setPathState(8);
+                }
+                break;
+            case 8:
+                if (checkShoot()) {
+                    follower.followPath(AutoHelper.createFleePath(this));
+                    shootControl.stop();
+                    setPathState(9);
+                }
+                break;
+            case 9:
+                break;
+        }
+    }
+}
