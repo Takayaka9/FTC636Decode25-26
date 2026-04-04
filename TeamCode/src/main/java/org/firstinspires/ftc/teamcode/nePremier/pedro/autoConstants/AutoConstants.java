@@ -8,4 +8,6 @@ public  class AutoConstants {
     public static int fleeTime = 29000; //In milliseconds
     public static double fleePathTValue = 0.5;
     public static double globalTValue = 0.9;
+    public static int gateTime = 1000;
+    public static int gateCycles = 2;
 }

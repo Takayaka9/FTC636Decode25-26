@@ -21,6 +21,7 @@ abstract class PedroUpdate extends Initializer {
     private final Control zeroTurretControl;
     public final ElapsedTime opModeTimer = new ElapsedTime();
     public final ElapsedTime shootTimer = new ElapsedTime();
+    public final ElapsedTime gateTimer = new ElapsedTime();
     public final GenericTime fleeTimer = new SolversTiming();
     public boolean fled;
     public int pathState = 0;
@@ -63,6 +64,11 @@ abstract class PedroUpdate extends Initializer {
         return shootTimer.milliseconds() >= AutoConstants.shootTime;
     }
 
+    public final boolean checkGate() {
+        return gateTimer.milliseconds() >= AutoConstants.gateTime;
+    }
+
+
     public final void setPathState(int newState) {
         pathState = newState;
     }
@@ -72,6 +78,8 @@ abstract class PedroUpdate extends Initializer {
         shootControl.stop();
         intakeControl.run();
     }
+
+
 
     public final void initDependencies() {
         opModeTimer.reset();
