@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants;
 
 import com.pedropathing.geometry.Pose;
 
+@SuppressWarnings("NonFinalStaticVariableUsedInClassInitialization")
 public final class BluePoseLib {
     public static Pose farStartPose = RedPoseLib.farStartPose.getPose().mirror();
     public static Pose farShootPose = RedPoseLib.farShootPose.getPose().mirror();
