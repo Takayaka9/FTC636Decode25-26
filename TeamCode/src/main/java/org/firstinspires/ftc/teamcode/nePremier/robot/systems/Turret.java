@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.nePremier.robot.systems;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -42,11 +43,13 @@ public class Turret extends BaseSubsystem implements TurretI {
     public void trackGoal(){
 
         Alliance alliance = CurrentAlliance.alliance;
+        Pose predicted = botPose.getBotPose();
+
         if(alliance == Alliance.BLUE){
-            goalAngle = Math.atan2(LocalizationHelper.goalPoses.blueY - botPose.getBotPose().getY(), LocalizationHelper.goalPoses.blueX - botPose.getBotPose().getX());
+            goalAngle = Math.atan2(LocalizationHelper.goalPoses.blueY - predicted.getY(), LocalizationHelper.goalPoses.blueX - predicted.getX());
         }
         if(alliance == Alliance.RED){
-            goalAngle = Math.atan2(LocalizationHelper.goalPoses.redY - botPose.getBotPose().getY(), LocalizationHelper.goalPoses.redX - botPose.getBotPose().getX());
+            goalAngle = Math.atan2(LocalizationHelper.goalPoses.redY - predicted.getY(), LocalizationHelper.goalPoses.redX - predicted.getX());
         }
         double robotHeading = follower.getHeading();
         turretAngle = (goalAngle - robotHeading) + follower.getAngularVelocity()*TurretConstants.Kf;// + getOffset();
