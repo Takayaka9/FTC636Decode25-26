@@ -133,6 +133,14 @@ public class TakaShooter extends BaseSubsystem {
 
         //pidTime.reset();
         shooter.setPower(output);
+
+        if(measuredVelocity < target){
+            output = 1;
+        }
+        else{
+            output = 0;
+        }
+
         return output;
     }
 

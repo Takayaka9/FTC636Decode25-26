@@ -68,7 +68,7 @@ public class Turret extends BaseSubsystem implements TurretI {
     @Configurable
     public static class TurretConstants {
         private static double Kp = 0.03;
-        private static double Kf = 0.1;
+        private static double Kf = -0.1;
         private static double Ki = 0;
         public static final double overrideSensitivity = 10;
         private static double angleMultiplier = 0.01;
