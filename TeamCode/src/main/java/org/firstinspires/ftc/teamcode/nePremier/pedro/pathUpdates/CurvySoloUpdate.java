@@ -3,22 +3,20 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
-import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.CPaths;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.CurvyPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.AutoHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
+import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PoseHolder;
 
 public class CurvySoloUpdate extends BasePathUpdate {
     final CurvyPaths p;
-    private int gates = 1;
     public CurvySoloUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
         p = new CurvyPaths(follower, alliance);
-        follower.setStartingPose(p.nearStartPose);
-        gates = 1;
+        follower.setPose(p.nearStartPose);
     }
+
     @Override
     public void autonomousPathUpdate() {
         switch(pathState) {
@@ -35,15 +33,21 @@ public class CurvySoloUpdate extends BasePathUpdate {
             case 2:
                 if (checkShoot()) {
                     shootControl.stop();
-                    follower.followPath(p.intakeSpike1);
-                    setPathState(99);
+                    follower.followPath(p.spike2andEmpty);
+                    setPathState(90);
                 }
                 break;
-            case 99:
+            case 90:
                 intakeControl.run();
                 setPathState(3);
                 break;
             case 3:
+                if(!follower.isBusy()){
+                    follower.followPath(p.returnToShoot);
+                    setPathState(83);
+                }
+                break;
+            case 83:
                 if (!follower.isBusy()) {
                     shoot();
                     setPathState(4);
@@ -52,60 +56,45 @@ public class CurvySoloUpdate extends BasePathUpdate {
             case 4:
                 if (checkShoot()) {
                     shootControl.stop();
-                    follower.followPath(p.spike2andEmpty);
+                    follower.followPath(p.intakeSpike1);
                     setPathState(49);
                 }
                 break;
             case 49:
                 intakeControl.run();
-                setPathState(5);
+                setPathState(67);
                 break;
-            case 5:
+            case 67:
                 if (!follower.isBusy()) {
                     shoot();
-                    setPathState(60);
+                    setPathState(6);
                 }
                 break;
-            /// case 60 is intended to receive the robot while it is shooting and then gate cycle
-            case 60:
+            case 6:
                 if (checkShoot()) {
                     shootControl.stop();
-                    follower.followPath(p.gateToShoot);
+                    follower.followPath(p.intakeSpike3);
                     setPathState(69);
                 }
                 break;
             case 69:
                 intakeControl.run();
-                setPathState(70);
+                setPathState(7);
                 break;
-            case 70:
-                if (!follower.isBusy()) {
-                    gateTimer.reset();
-                    setPathState(80);
-                }
-                break;
-            case 80:
-                if (checkGate()) {
-                    follower.followPath(p.gateToShoot);
-                    setPathState(90);
-                }
-                break;
-            case 90:
+            case 7:
                 if (!follower.isBusy()) {
                     shoot();
-                    setPathState(100);
+                    setPathState(8);
                 }
                 break;
-            case 100:
-                if (gates >= AutoConstants.gateCycles) {
+            case 8:
+                if (checkShoot()) {
                     follower.followPath(AutoHelper.createFleePath(this));
-                    setPathState(11);
-                } else {
-                    gates++;
-                    setPathState(60);
+                    shootControl.stop();
+                    setPathState(9);
                 }
                 break;
-            case 11:
+            case 9:
                 break;
         }
     }

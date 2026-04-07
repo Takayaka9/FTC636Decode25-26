@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
-import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.CPaths;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.CurvyPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.AutoHelper;
@@ -12,12 +11,13 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
 
 public class CurvyAllianceUpdate extends BasePathUpdate {
     final CurvyPaths p;
+    private int gates = 1;
     public CurvyAllianceUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
         p = new CurvyPaths(follower, alliance);
         follower.setStartingPose(p.nearStartPose);
+        gates = 1;
     }
-
     @Override
     public void autonomousPathUpdate() {
         switch(pathState) {
@@ -35,10 +35,10 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 if (checkShoot()) {
                     shootControl.stop();
                     follower.followPath(p.intakeSpike1);
-                    setPathState(90);
+                    setPathState(99);
                 }
                 break;
-            case 90:
+            case 99:
                 intakeControl.run();
                 setPathState(3);
                 break;
@@ -51,7 +51,7 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
             case 4:
                 if (checkShoot()) {
                     shootControl.stop();
-                    follower.followPath(p.intakeSpike2);
+                    follower.followPath(p.spike2andEmpty);
                     setPathState(49);
                 }
                 break;
@@ -62,34 +62,49 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
             case 5:
                 if (!follower.isBusy()) {
                     shoot();
-                    setPathState(6);
+                    setPathState(60);
                 }
                 break;
-            case 6:
+            /// case 60 is intended to receive the robot while it is shooting and then gate cycle
+            case 60:
                 if (checkShoot()) {
                     shootControl.stop();
-                    follower.followPath(p.intakeSpike3);
+                    follower.followPath(p.gateToShoot);
                     setPathState(69);
                 }
                 break;
             case 69:
                 intakeControl.run();
-                setPathState(7);
+                setPathState(70);
                 break;
-            case 7:
+            case 70:
+                if (!follower.isBusy()) {
+                    gateTimer.reset();
+                    setPathState(80);
+                }
+                break;
+            case 80:
+                if (checkGate()) {
+                    follower.followPath(p.gateToShoot);
+                    setPathState(90);
+                }
+                break;
+            case 90:
                 if (!follower.isBusy()) {
                     shoot();
-                    setPathState(8);
+                    setPathState(100);
                 }
                 break;
-            case 8:
-                if (checkShoot()) {
+            case 100:
+                if (gates >= AutoConstants.gateCycles) {
                     follower.followPath(AutoHelper.createFleePath(this));
-                    shootControl.stop();
-                    setPathState(9);
+                    setPathState(11);
+                } else {
+                    gates++;
+                    setPathState(60);
                 }
                 break;
-            case 9:
+            case 11:
                 break;
         }
     }
