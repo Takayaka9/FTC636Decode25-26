@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.nePremier.tele.TeleControls;
 import org.firstinspires.ftc.teamcode.nePremier.tele.TestControls;
-
+@TeleOp()
 public class aLukeInMexico extends OpMode {
     public TestControls teleControls = null;
     @Override

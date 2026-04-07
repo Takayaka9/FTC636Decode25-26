@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.nePremier.opModes.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.CSoloPathUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PathUpdate;
-
+@Disabled
 @Autonomous
 public class RCSolo extends OpMode {
 

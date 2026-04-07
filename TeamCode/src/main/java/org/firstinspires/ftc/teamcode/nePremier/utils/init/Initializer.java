@@ -80,7 +80,7 @@ public class Initializer {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         this.telemetry = ignoredTelemetry;
         follower = Constants.createFollower(hardwareMap);
-        botPose = new BotPose(follower);
+        botPose = new BotPose(follower, telemetryM);
 
         /// Subsystems
         hoodServo = new HoodServo(hardwareMap);

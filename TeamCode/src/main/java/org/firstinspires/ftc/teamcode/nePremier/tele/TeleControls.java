@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.nePremier.robot.systems.BotPose;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
@@ -46,8 +47,8 @@ public class TeleControls extends Initializer {
 //        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
         allianceBlue = new Control(GamepadInput.x, gamepad2, ControlType.Hold, blue);
         allianceRed = new Control(GamepadInput.b, gamepad2, ControlType.Hold, red);
-        mapControl = new Control(GamepadInput.a, gamepad1, ControlType.Toggle, toggleMap);
-        locControl = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, simpleLoc);
+        mapControl = new Control(GamepadInput.a, gamepad2, ControlType.Toggle, toggleMap);
+        locControl = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, simpleLoc);
 
         //constant:
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves, constantFlywheelSpin, draw
@@ -76,6 +77,8 @@ public class TeleControls extends Initializer {
         constantControls.update();
         follower.update();
         telemetryM.addData("distance", LocalizationHelper.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
+        telemetryM.addData("vel comp pose x", botPose.getBotPose().getX());
+        telemetryM.addData("follower power x", follower.getPose().getX());
         telemetryM.update();
         mapControl.update();
         locControl.update();

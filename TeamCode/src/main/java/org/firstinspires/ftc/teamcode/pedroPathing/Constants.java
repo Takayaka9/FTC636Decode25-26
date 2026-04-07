@@ -45,7 +45,7 @@ public class Constants {
             .forwardPodY(3.6266)
             .strafePodX(-3.54205);
 
-    public static PathConstraints pathConstraints = new PathConstraints(0.96,
+    public static PathConstraints pathConstraints = new PathConstraints(0.98,
             0.1,
             0.1,
             0.009,
