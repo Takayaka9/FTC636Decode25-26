@@ -19,7 +19,7 @@ public class HoodServo extends ServoImplExBase implements ServoImplexInterface {
         lut.add(d4, p4);
         lut.add(d5, p5);
         lut.add(d6, p6);
-        lut.add(1000, p6);
+        lut.add(10000, p6);
         lut.createLUT();
     }
 

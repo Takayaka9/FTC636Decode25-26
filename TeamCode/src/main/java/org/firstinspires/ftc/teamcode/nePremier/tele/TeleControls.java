@@ -47,8 +47,8 @@ public class TeleControls extends Initializer {
 //        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
         allianceBlue = new Control(GamepadInput.x, gamepad2, ControlType.Hold, blue);
         allianceRed = new Control(GamepadInput.b, gamepad2, ControlType.Hold, red);
-        mapControl = new Control(GamepadInput.a, gamepad1, ControlType.Toggle, toggleMap);
-        locControl = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, simpleLoc);
+        mapControl = new Control(GamepadInput.a, gamepad2, ControlType.Toggle, toggleMap);
+        locControl = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, simpleLoc);
 
         //constant:
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves, constantFlywheelSpin, draw

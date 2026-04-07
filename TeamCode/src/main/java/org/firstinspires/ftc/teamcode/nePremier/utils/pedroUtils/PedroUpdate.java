@@ -74,7 +74,7 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final void intake() {
-        outtakeControl.stop();
+        //outtakeControl.stop();
         shootControl.stop();
         intakeControl.run();
     }
