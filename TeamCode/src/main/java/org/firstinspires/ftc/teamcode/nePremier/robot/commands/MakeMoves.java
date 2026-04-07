@@ -15,12 +15,12 @@ public class MakeMoves extends BaseCommand {
         super();
         this.follower = follower;
         this.gamepad = gamepad1;
-        this.follower.setStartingPose(PoseHolder.getPose());
         this.follower.update();
     }
 
     @Override
     public void init() {
+        follower.setStartingPose(PoseHolder.getPose());
         follower.startTeleOpDrive();
     }
 
