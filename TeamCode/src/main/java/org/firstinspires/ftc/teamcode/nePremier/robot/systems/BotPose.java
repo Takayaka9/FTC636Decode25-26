@@ -6,7 +6,6 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
@@ -43,7 +42,7 @@ public class BotPose extends BaseSubsystem {
 
         double x = follower.getPose().getX();
         double y = follower.getPose().getY();
-        double distance = LocalizationHelper.getTargetDistance(follower.getPose(), alliance);
+        double distance = LocalizationHelper.getTargetDistance(follower.getPose());
         double t = flightTime.get(distance) * BotPoseConstants.leadMultiplier;
 
         double velX = follower.getVelocity().getXComponent() * t;

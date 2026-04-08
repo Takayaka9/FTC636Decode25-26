@@ -4,7 +4,6 @@ import com.pedropathing.follower.Follower;
 
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.BotPose;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.TakaShooter;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
@@ -26,7 +25,7 @@ public class ConstantFlywheelSpin extends BaseCommand {
 
     @Override
     public void loop() {
-        shooter.runForDistance(LocalizationHelper.getTargetDistance(botPose.getBotPose(), CurrentAlliance.alliance));
+        shooter.runForDistance(LocalizationHelper.getTargetDistance(botPose.getBotPose()));
     }
 
     @Override

@@ -52,7 +52,10 @@ public class Turret extends BaseSubsystem implements TurretI {
             goalAngle = Math.atan2(LocalizationHelper.goalPoses.redY - predicted.getY(), LocalizationHelper.goalPoses.redX - predicted.getX());
         }
         double robotHeading = follower.getHeading();
-        turretAngle = (goalAngle - robotHeading) + follower.getAngularVelocity()*TurretConstants.Kf;// + getOffset();
+        // Use the shortest signed angle so mirrored blue headings near the +/-pi wrap
+        // don't send the turret to the opposite hard stop.
+        turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading)
+                + follower.getAngularVelocity()*TurretConstants.Kf;// + getOffset();
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }

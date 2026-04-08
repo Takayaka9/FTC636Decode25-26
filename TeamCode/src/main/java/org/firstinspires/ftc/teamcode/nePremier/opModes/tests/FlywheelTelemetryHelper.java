@@ -9,7 +9,7 @@ public class FlywheelTelemetryHelper {
         i.telemetryM.update();
         i.telemetryM.addData(
                 "target distance - 1ft = 12u (pedro pose unit)",
-                LocalizationHelper.getTargetDistance(i.follower.getPose(), CurrentAlliance.alliance)
+                LocalizationHelper.getTargetDistance(i.follower.getPose())
         );
         i.telemetryM.addData(
                 "alliance",
@@ -19,7 +19,7 @@ public class FlywheelTelemetryHelper {
         //shooter data
         i.telemetryM.addData(
                 "target TPS - 2800 = 6000",
-                i.shooter.getShooterTPS(LocalizationHelper.getTargetDistance(i.follower.getPose(), CurrentAlliance.alliance))
+                i.shooter.getShooterTPS(LocalizationHelper.getTargetDistance(i.follower.getPose()))
         );
         i.telemetryM.addData(
                 "1 output power (0-1)",

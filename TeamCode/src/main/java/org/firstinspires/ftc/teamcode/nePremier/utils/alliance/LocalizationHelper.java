@@ -12,19 +12,19 @@ public abstract class LocalizationHelper {
      */
     @Configurable
     public static class goalPoses {
-        public static double blueX = 4;
-        public static double blueY = 144;
+        public static double blueX = 0;
+        public static double blueY = 140;
         public static double redX = 144;
         public static double redY = 140;
     }
 
-    public static double getTargetDistance(Pose currentPose, Alliance alliance){
+    public static double getTargetDistance(Pose currentPose){
         double targetDistance = 0;
-        if (alliance == Alliance.RED){
+        if (CurrentAlliance.alliance == Alliance.RED){
             Pose redGoal = new Pose(goalPoses.redX, goalPoses.redY);
             targetDistance = currentPose.distanceFrom(redGoal);
         }
-        else if (alliance == Alliance.BLUE){
+        else if (CurrentAlliance.alliance == Alliance.BLUE){
             Pose blueGoal = new Pose(goalPoses.blueX, goalPoses.blueY);
             targetDistance = currentPose.distanceFrom(blueGoal);
         }

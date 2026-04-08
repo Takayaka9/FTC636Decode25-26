@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.TakaShooter;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Transfer;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
@@ -49,7 +48,7 @@ public class ForShootingLUTShit extends OpMode {
         t.update();
         shooter.test(tps);
         h.setPosition(hPos);
-        t.addData("distance", LocalizationHelper.getTargetDistance(f.getPose(), Alliance.RED));
+        t.addData("distance", LocalizationHelper.getTargetDistance(f.getPose()));
         t.addData("power", shooter.get1Power());
         t.addData("velocity", shooter.getAverageVelocity());
         runt.update();

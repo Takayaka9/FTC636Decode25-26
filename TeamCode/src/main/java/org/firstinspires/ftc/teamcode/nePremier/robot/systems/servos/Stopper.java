@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.servo.ServoImplExBase;
 @Configurable
 public class Stopper extends BaseSubsystem {
     public static double open = 0.43;
-    public static double closed = 0.3;
+    public static double closed = 0.25;
     private final Servo s;
     public Stopper(HardwareMap hardwareMap){
         s = hardwareMap.get(Servo.class, "stopper");

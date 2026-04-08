@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.BotPose;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Turret;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.HoodServo;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
@@ -36,7 +35,7 @@ public class FuckedTurretHoodUpdate extends BaseCommand {
         if (!weFucked.isRunning()) {
             turret.trackGoal();
         }
-        hood.angleHood(LocalizationHelper.getTargetDistance(botPose.getBotPose(), CurrentAlliance.alliance));
+        hood.angleHood(LocalizationHelper.getTargetDistance(botPose.getBotPose()));
     }
 
 

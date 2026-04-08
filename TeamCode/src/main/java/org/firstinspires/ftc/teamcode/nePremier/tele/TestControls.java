@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
@@ -12,8 +11,6 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.DriverMap;
 import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.GamepadInput;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.Drawing;
-
-import java.sql.Driver;
 
 public class TestControls extends Initializer {
     private final Control allianceBlue;
@@ -75,7 +72,7 @@ public class TestControls extends Initializer {
         down.update();
         constantControls.update();
         follower.update();
-        telemetryM.addData("distance", LocalizationHelper.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
+        telemetryM.addData("distance", LocalizationHelper.getTargetDistance(follower.getPose()));
         telemetryM.update();
         mapControl.update();
         locControl.update();

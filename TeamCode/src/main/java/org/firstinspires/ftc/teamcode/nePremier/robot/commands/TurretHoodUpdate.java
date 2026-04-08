@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Turret;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.HoodServo;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
@@ -43,7 +42,7 @@ public class TurretHoodUpdate extends BaseCommand {
         } else {
             turret.trackGoal();
         }
-        hood.angleHood(LocalizationHelper.getTargetDistance(follower.getPose(), CurrentAlliance.alliance));
+        hood.angleHood(LocalizationHelper.getTargetDistance(follower.getPose()));
     }
 
 }
