@@ -39,7 +39,7 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
 
         intakeSpike1 = follower.pathBuilder()
                 .addPath(new BezierCurve(nearShootPose, intakeP1Pose, intake1Pose))
-                .setConstantHeadingInterpolation(nearShootPose.getHeading())
+                .setConstantHeadingInterpolation(intake1Pose.getHeading())
                 .addPath(new BezierLine(intake1Pose, nearShootPose))
                 .setConstantHeadingInterpolation(nearShootPose.getHeading())
                 .build();
@@ -73,7 +73,7 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
                 .addPath(new BezierCurve(nearShootPose, intakeP3Pose, intake3Pose))
                 .setConstantHeadingInterpolation(nearShootPose.getHeading())
                 .addPath(new BezierLine(intake3Pose, nearShootPose))
-//                .addPath(new BezierLine(intakeP3Pose, curvySpike3Control2Pose, curvySpike3Control1Pose, nearShootPose))
+//                .addPath(new BezierCurve(intakeP3Pose, curvySpike3Control2Pose, curvySpike3Control1Pose, nearShootPose))
                 .setConstantHeadingInterpolation(nearShootPose.getHeading())
                 .build();
 

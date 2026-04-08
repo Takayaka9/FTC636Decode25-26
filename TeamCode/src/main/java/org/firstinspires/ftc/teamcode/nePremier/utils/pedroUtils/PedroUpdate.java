@@ -48,7 +48,7 @@ abstract class PedroUpdate extends Initializer {
         return follower.atPose(getShootPose(), 5, 5);
     }
 
-    private final Pose getShootPose() {
+    private Pose getShootPose() {
         if (CurrentAlliance.alliance == Alliance.BLUE) {
             return BluePoseLib.nearShootPose;
         } else if (CurrentAlliance.alliance == Alliance.RED) {
@@ -57,6 +57,9 @@ abstract class PedroUpdate extends Initializer {
         return null;
     }
 
+    public final boolean atIntakePose(Pose intakePose) {
+        return follower.atPose(intakePose, 5, 5);
+    }
 
     public final void zeroTurret() {
         constantControls.stop();

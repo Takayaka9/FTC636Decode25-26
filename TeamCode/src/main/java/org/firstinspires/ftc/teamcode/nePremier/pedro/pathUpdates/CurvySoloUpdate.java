@@ -23,7 +23,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 setPathState(1);
                 break;
             case 1:
-                if (atPose()) {
+                if (!follower.isBusy()) {
                     shoot();
                     setPathState(2);
                 }
@@ -63,7 +63,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 setPathState(67);
                 break;
             case 67:
-                if (atPose()) {
+                if (!follower.isBusy() && atPose()) {
                     shoot();
                     setPathState(6);
                 }
@@ -80,7 +80,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 setPathState(7);
                 break;
             case 7:
-                if (atPose()) {
+                if (!follower.isBusy() && atPose()) {
                     shoot();
                     setPathState(8);
                 }

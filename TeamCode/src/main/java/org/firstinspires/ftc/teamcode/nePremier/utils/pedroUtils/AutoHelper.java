@@ -24,14 +24,12 @@ public final class AutoHelper {
 //    }
 
     public static void update(BasePathUpdate pathUpdate) {
+        pathUpdate.autonomousPathUpdate();
         if (pathUpdate.fleeTimer.checkFinished() && !pathUpdate.fled) {
             pathUpdate.fled = true;
-            pathUpdate.autonomousPathUpdate();
-        } else if (pathUpdate.fleeTimer.checkFinished() && pathUpdate.fled) {
+        }
+        if (pathUpdate.fled) {
             pathUpdate.zeroTurret();
-            pathUpdate.autonomousPathUpdate();
-        } else {
-            pathUpdate.autonomousPathUpdate();
         }
     }
 
