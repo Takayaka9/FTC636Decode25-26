@@ -39,11 +39,11 @@ public class CAlliancePathUpdate extends BasePathUpdate {
                 }
                 break;
             case 3:
-                if (!atPose()) {
-                    follower.followPath(p.spike2andEmpty);
-                    pathState = 4;
-                }
-                break;
+//                if (!atPose()) {
+//                    follower.followPath(p.spike2andEmpty);
+//                    pathState = 4;
+//                }
+//                break;
             case 4:
                 if(!follower.isBusy()){
                     follower.followPath(p.emptyToShoot);

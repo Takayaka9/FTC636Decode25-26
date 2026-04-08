@@ -7,8 +7,6 @@ import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.CurvyPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.AutoHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
-import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PoseHolder;
-
 public class CurvySoloUpdate extends BasePathUpdate {
     final CurvyPaths p;
     public CurvySoloUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
@@ -25,7 +23,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 setPathState(1);
                 break;
             case 1:
-                if (!follower.isBusy()) {
+                if (atPose()) {
                     shoot();
                     setPathState(2);
                 }
@@ -48,7 +46,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 }
                 break;
             case 83:
-                if (!follower.isBusy()) {
+                if (atPose()) {
                     shoot();
                     setPathState(4);
                 }
@@ -65,7 +63,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 setPathState(67);
                 break;
             case 67:
-                if (!follower.isBusy()) {
+                if (atPose()) {
                     shoot();
                     setPathState(6);
                 }
@@ -82,7 +80,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 setPathState(7);
                 break;
             case 7:
-                if (!follower.isBusy()) {
+                if (atPose()) {
                     shoot();
                     setPathState(8);
                 }

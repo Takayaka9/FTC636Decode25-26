@@ -26,7 +26,7 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 setPathState(1);
                 break;
             case 1:
-                if (!follower.isBusy()) {
+                if (atPose()) {
                     shoot();
                     setPathState(2);
                 }
@@ -43,7 +43,7 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 setPathState(3);
                 break;
             case 3:
-                if (!follower.isBusy()) {
+                if (atPose()) {
                     shoot();
                     setPathState(4);
                 }
@@ -60,7 +60,7 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 setPathState(5);
                 break;
             case 5:
-                if (!follower.isBusy()) {
+                if (atPose()) {
                     shoot();
                     setPathState(60);
                 }
@@ -90,7 +90,7 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 }
                 break;
             case 90:
-                if (!follower.isBusy()) {
+                if (atPose()) {
                     shoot();
                     setPathState(100);
                 }

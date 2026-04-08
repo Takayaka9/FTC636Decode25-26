@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils;
 
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.BluePoseLib;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.RedPoseLib;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
@@ -42,8 +45,18 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final boolean atPose() {
-        return follower.getCurrentTValue() > AutoConstants.globalTValue;
+        return follower.atPose(getShootPose(), 5, 5);
     }
+
+    private final Pose getShootPose() {
+        if (CurrentAlliance.alliance == Alliance.BLUE) {
+            return BluePoseLib.nearShootPose;
+        } else if (CurrentAlliance.alliance == Alliance.RED) {
+            return RedPoseLib.nearShootPose;
+        }
+        return null;
+    }
+
 
     public final void zeroTurret() {
         constantControls.stop();
