@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.nePremier.opModes.auto;
+package org.firstinspires.ftc.teamcode.nePremier.opModes.auto.old;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -9,13 +9,13 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PathUpdate;
 @Disabled
 @Autonomous
-public class RCSolo extends OpMode {
+public class BCSolo extends OpMode {
 
     PathUpdate pathUpdate = null;
 
     @Override
     public void init() {
-        pathUpdate = new CSoloPathUpdate(Alliance.RED, hardwareMap, telemetry);
+        pathUpdate = new CSoloPathUpdate(Alliance.BLUE, hardwareMap, telemetry);
         pathUpdate.init();
     }
 
