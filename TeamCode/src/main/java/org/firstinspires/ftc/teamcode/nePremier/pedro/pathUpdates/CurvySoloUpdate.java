@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.CurvyPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.AutoHelper;
@@ -54,7 +55,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
             case 4:
                 if (checkShoot()) {
                     shootControl.stop();
-                    follower.followPath(p.intakeSpike1);
+                    follower.followPath(p.intakeSpike1, AutoConstants.intakeSpeed, true);
                     setPathState(49);
                 }
                 break;

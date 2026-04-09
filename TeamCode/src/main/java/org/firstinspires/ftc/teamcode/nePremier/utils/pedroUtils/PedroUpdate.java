@@ -105,6 +105,7 @@ abstract class PedroUpdate extends Initializer {
 
     public final void startDependencies() {
         fleeTimer.setLength(AutoConstants.fleeTime);
+        fleeTimer.resetThenStart();
         opModeTimer.reset();
         shootTimer.reset();
         pathState = 0;
