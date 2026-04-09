@@ -38,8 +38,8 @@ abstract class PedroUpdate extends Initializer {
         shootControl = new Control(ControlType.Auto, shootCommand);
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, constantFlywheelSpin, draw);
         zeroTurretControl = new Control(ControlType.Auto, resetForTele);
-        fleeTimer.create();
         fleeTimer.setLength(AutoConstants.fleeTime);
+        fleeTimer.create();
         pathState = 0;
         fled = false;
     }
@@ -104,7 +104,6 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final void startDependencies() {
-        fleeTimer.setLength(AutoConstants.fleeTime);
         fleeTimer.resetThenStart();
         opModeTimer.reset();
         shootTimer.reset();
