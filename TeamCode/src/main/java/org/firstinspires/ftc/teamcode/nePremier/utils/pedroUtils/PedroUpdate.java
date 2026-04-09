@@ -120,6 +120,7 @@ abstract class PedroUpdate extends Initializer {
         outtakeControl.update();
         shootControl.update();
         constantControls.update();
+        zeroTurretControl.update();
         telemetryM.update();
         telemetryM.addData("Path State", pathState);
         PoseHolder.setPose(follower.getPose());
