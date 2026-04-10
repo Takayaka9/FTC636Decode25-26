@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.nePremier.opModes.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.FarPathUpdate;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.FarUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PathUpdate;
 @Autonomous
@@ -13,7 +13,7 @@ public class BFar extends OpMode {
 
     @Override
     public void init() {
-        pathUpdate = new FarPathUpdate(Alliance.BLUE, hardwareMap, telemetry);
+        pathUpdate = new FarUpdate(Alliance.BLUE, hardwareMap, telemetry);
         pathUpdate.init();
     }
 

@@ -5,13 +5,12 @@ import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 
-import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathChain;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BuildPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 
-public final class FPaths extends BasePathChain implements BuildPaths {
-    public FPaths(Follower follower, Alliance alliance) {
+public final class FarPaths extends BasePathChain implements BuildPaths {
+    public FarPaths(Follower follower, Alliance alliance) {
         super(alliance, follower);
         buildPaths();
     }
@@ -30,12 +29,11 @@ public final class FPaths extends BasePathChain implements BuildPaths {
                 .setGlobalDeceleration();
         startToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(farStartPose, farShootPose))
-                .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading(), 0.4)
+                .setLinearHeadingInterpolation(farStartPose.getHeading(), farShootPose.getHeading())
                 .build();
         intakeSpike3 = follower.pathBuilder()
-                .addPath(new BezierLine(farStartPose, intakeP3Pose))
-                .setLinearHeadingInterpolation(farStartPose.getHeading(), intakeP3Pose.getHeading(), 0.6)
-                .addPath(new BezierLine(intakeP3Pose ,intake3Pose))
+                .addPath(new BezierCurve(farShootPose, intakeP3Pose, intake3Pose))
+                .setLinearHeadingInterpolation(farShootPose.getHeading(), intakeP3Pose.getHeading(), 0.6)
                 .build();
         spike3toShoot = follower.pathBuilder()
                 .addPath(new BezierLine(intake3Pose, farShootPose))
