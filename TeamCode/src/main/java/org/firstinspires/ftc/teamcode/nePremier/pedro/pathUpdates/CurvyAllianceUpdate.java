@@ -26,13 +26,13 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 setPathState(1);
                 break;
             case 1:
-                if (!follower.isBusy()) {
+                if (checkStartShoot()) {
                     shoot();
-                    setPathState(2);
+                    setPathState(1);
                 }
                 break;
             case 2:
-                if (checkShoot()) {
+                if (checkShoot() && !follower.isBusy()) {
                     shootControl.stop();
                     follower.followPath(p.intakeSpike1, AutoConstants.intakeSpeed, true);
                     setPathState(49);

@@ -13,7 +13,7 @@ public class FarUpdate extends BasePathUpdate {
     public FarUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
         p = new FarPaths(follower, alliance);
-        follower.setStartingPose(p.farStartPose);
+        follower.setPose(p.farStartPose);
     }
 
     @Override

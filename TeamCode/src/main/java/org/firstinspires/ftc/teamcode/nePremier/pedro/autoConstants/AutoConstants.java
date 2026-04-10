@@ -11,4 +11,5 @@ public  class AutoConstants {
     public static int gateTime = 1000;
     public static int gateCycles = 2;
     public static double intakeSpeed = 0.8;
+    public static double firstShootTime = 250;
 }

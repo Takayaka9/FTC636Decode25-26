@@ -84,6 +84,10 @@ abstract class PedroUpdate extends Initializer {
         return gateTimer.milliseconds() >= AutoConstants.gateTime;
     }
 
+    public final boolean checkStartShoot() {
+        return shootTimer.milliseconds() >= AutoConstants.startShootTime;
+    }
+
 
     public final void setPathState(int newState) {
         pathState = newState;
