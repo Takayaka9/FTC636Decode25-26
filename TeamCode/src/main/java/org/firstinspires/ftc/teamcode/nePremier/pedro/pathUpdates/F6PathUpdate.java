@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.FPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
@@ -25,16 +24,15 @@ public class F6PathUpdate extends BasePathUpdate {
                 break;
             case 1:
                 if (!follower.isBusy()) {
-                    shootTimer.reset();
-                    shootControl.run();
+                    shoot();
                     pathState = 2;
                 }
                 break;
             case 2:
-                if (shootTimer.milliseconds() >= AutoConstants.shootTime) {
+                if (checkShoot()) {
+                    shootControl.stop();
                     follower.followPath(p.intakeSpike3);
                     intakeControl.run();
-                    shootControl.stop();
                     pathState = 3;
                 }
                 break;
@@ -46,16 +44,13 @@ public class F6PathUpdate extends BasePathUpdate {
                 break;
             case 4:
                 if (!follower.isBusy()) {
-                    intakeControl.stop();
-                    shootTimer.reset();
-                    shootControl.run();
+                    shoot();
                     pathState = 5;
                 }
                 break;
             case 5:
-                if (shootTimer.milliseconds() >= AutoConstants.shootTime) {
-                    shootControl.stop();
-                    intakeControl.run();
+                if (checkShoot()) {
+                    intake();
                     follower.followPath(p.shootToWall);
                     pathState = 6;
                 }
@@ -68,16 +63,13 @@ public class F6PathUpdate extends BasePathUpdate {
                 break;
             case 7:
                 if(!follower.isBusy()){
-                    intakeControl.stop();
-                    shootControl.run();
-                    shootTimer.reset();
+                    shoot();
                     pathState = 8;
                 }
                 break;
             case 8:
-                if (shootTimer.milliseconds() >= AutoConstants.shootTime) {
-                    shootControl.stop();
-                    intakeControl.run();
+                if (checkShoot()) {
+                    intake();
                     follower.followPath(p.shootToFarIntake);
                     pathState = 9;
                 }
@@ -90,13 +82,17 @@ public class F6PathUpdate extends BasePathUpdate {
                 break;
             case 10:
                 if(!follower.isBusy()){
-                    intakeControl.stop();
-                    shootControl.run();
-                    shootTimer.reset();
+                    shoot();
                     pathState = 11;
                 }
                 break;
             case 11:
+                if (checkShoot()) {
+                    shootControl.stop();
+                    pathState = 12;
+                }
+                break;
+            case 12:
                 break;
         }
     }
