@@ -81,11 +81,11 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final boolean checkGate() {
-        return gateTimer.milliseconds() >= AutoConstants.gateTime;
+        return opModeTimer.milliseconds() >= AutoConstants.gateTime;
     }
 
     public final boolean checkStartShoot() {
-        return shootTimer.milliseconds() >= AutoConstants.startShootTime;
+        return opModeTimer.milliseconds() >= AutoConstants.startShootTime;
     }
 
 
