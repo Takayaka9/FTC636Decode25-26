@@ -26,7 +26,7 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 setPathState(1);
                 break;
             case 1:
-                if (atPose()) {
+                if (!follower.isBusy()) {
                     shoot();
                     setPathState(2);
                 }
@@ -34,16 +34,16 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
             case 2:
                 if (checkShoot()) {
                     shootControl.stop();
-                    follower.followPath(p.intakeSpike1);
-                    setPathState(99);
+                    follower.followPath(p.intakeSpike1, AutoConstants.intakeSpeed, true);
+                    setPathState(49);
                 }
                 break;
-            case 99:
+            case 49:
                 intakeControl.run();
-                setPathState(3);
+                setPathState(67);
                 break;
-            case 3:
-                if (atPose()) {
+            case 67:
+                if (!follower.isBusy() && atPose()) {
                     shoot();
                     setPathState(4);
                 }
@@ -52,14 +52,20 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 if (checkShoot()) {
                     shootControl.stop();
                     follower.followPath(p.spike2andEmpty);
-                    setPathState(49);
+                    setPathState(90);
                 }
                 break;
-            case 49:
+            case 90:
                 intakeControl.run();
-                setPathState(5);
+                setPathState(3);
                 break;
-            case 5:
+            case 3:
+                if (!follower.isBusy()) {
+                    follower.followPath(p.returnToShoot);
+                    setPathState(83);
+                }
+                break;
+            case 83:
                 if (atPose()) {
                     shoot();
                     setPathState(60);
@@ -69,7 +75,7 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
             case 60:
                 if (checkShoot()) {
                     shootControl.stop();
-                    follower.followPath(p.gateToShoot);
+                    follower.followPath(p.shootToGate);
                     setPathState(69);
                 }
                 break;
@@ -86,22 +92,26 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
             case 80:
                 if (checkGate()) {
                     follower.followPath(p.gateToShoot);
-                    setPathState(90);
+                    setPathState(91);
                 }
                 break;
-            case 90:
-                if (atPose()) {
+            case 91:
+                if (!follower.isBusy() && atPose()) {
                     shoot();
                     setPathState(100);
                 }
                 break;
             case 100:
-                if (gates >= AutoConstants.gateCycles) {
-                    follower.followPath(AutoHelper.createFleePath(this));
-                    setPathState(11);
-                } else {
-                    gates++;
-                    setPathState(60);
+                if (checkShoot()) {
+                    shootControl.stop();
+                    if (gates >= AutoConstants.gateCycles) {
+                        follower.followPath(AutoHelper.createFleePath(this));
+                        setPathState(11);
+                    } else {
+                        gates++;
+                        follower.followPath(p.shootToGate);
+                        setPathState(69);
+                    }
                 }
                 break;
             case 11:
