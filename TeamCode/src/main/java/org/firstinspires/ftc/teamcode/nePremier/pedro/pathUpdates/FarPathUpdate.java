@@ -7,9 +7,9 @@ import org.firstinspires.ftc.teamcode.nePremier.pedro.paths.FPaths;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
 
-public class F6PathUpdate extends BasePathUpdate {
+public class FarPathUpdate extends BasePathUpdate {
     final FPaths p;
-    public F6PathUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
+    public FarPathUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
         p = new FPaths(follower, alliance);
         follower.setStartingPose(p.farStartPose);
