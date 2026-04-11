@@ -24,9 +24,9 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 setPathState(1);
                 break;
             case 1:
-                if (checkShoot() && !follower.isBusy()) {
+                if (!follower.isBusy()) {
                     shoot();
-                    setPathState(1);
+                    setPathState(2);
                 }
                 break;
             case 2:

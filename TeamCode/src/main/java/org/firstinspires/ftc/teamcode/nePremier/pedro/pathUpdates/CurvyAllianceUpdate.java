@@ -26,13 +26,13 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 setPathState(1);
                 break;
             case 1:
-                if (checkStartShoot()) {
+                if (!follower.isBusy()) {
                     shoot();
-                    setPathState(1);
+                    setPathState(2);
                 }
                 break;
             case 2:
-                if (checkShoot() && !follower.isBusy()) {
+                if (checkShoot()) {
                     shootControl.stop();
                     follower.followPath(p.intakeSpike1, AutoConstants.intakeSpeed, true);
                     setPathState(49);
@@ -51,20 +51,20 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
             case 4:
                 if (checkShoot()) {
                     shootControl.stop();
-                    follower.followPath(p.spike2andEmpty);
+                    follower.followPath(p.intakeSpike2, true);
                     setPathState(90);
                 }
                 break;
             case 90:
                 intakeControl.run();
-                setPathState(3);
+                setPathState(83); //TODO: IF WE SWITCH BACK TO OPEN CHANGE THIS
                 break;
-            case 3:
-                if (!follower.isBusy()) {
-                    follower.followPath(p.returnToShoot);
-                    setPathState(83);
-                }
-                break;
+//            case 3:
+//                if (!follower.isBusy()) {
+//                    follower.followPath(p.returnToShoot);
+//                    setPathState(83);
+//                }
+//                break;
             case 83:
                 if (atPose()) {
                     shoot();
@@ -91,7 +91,7 @@ public class CurvyAllianceUpdate extends BasePathUpdate {
                 break;
             case 80:
                 if (checkGate()) {
-                    follower.followPath(p.gateToShoot);
+                    follower.followPath(p.gateToShoot, true);
                     setPathState(91);
                 }
                 break;
