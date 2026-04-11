@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.nePremier.opModes.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.CurvyAllianceUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.CurvySoloUpdate;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.EmadAllianceUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PathUpdate;
 
@@ -15,7 +17,8 @@ public class RCurvyAlliance extends OpMode {
 
     @Override
     public void init() {
-        pathUpdate = new CurvyAllianceUpdate(Alliance.RED, hardwareMap, telemetry);
+        AutoConstants.gateCycles = 2;
+        pathUpdate = new EmadAllianceUpdate(Alliance.RED, hardwareMap, telemetry);
         pathUpdate.init();
     }
 

@@ -4,7 +4,7 @@ import com.bylazar.configurables.annotations.Configurable;
 
 @Configurable
 public  class AutoConstants {
-    public static int shootTime = 1200; //In milliseconds
+    public static int shootTime = 1100; //In milliseconds
     public static int fleeTime = 29000; //In milliseconds
     public static double fleePathTValue = 0.5;
     public static double globalTValue = 0.9;
@@ -12,4 +12,5 @@ public  class AutoConstants {
     public static int gateCycles = 2;
     public static double intakeSpeed = 0.8;
     public static double startShootTime = 900;
+    public static int skipGateTime = 24000;
 }

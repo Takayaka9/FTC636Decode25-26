@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.CurvyAllianceUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.CurvySoloUpdate;
+import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.EmadAllianceUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PathUpdate;
 
@@ -15,7 +16,7 @@ public class BCurvyAlliance extends OpMode {
 
     @Override
     public void init() {
-        pathUpdate = new CurvyAllianceUpdate(Alliance.BLUE, hardwareMap, telemetry);
+        pathUpdate = new EmadAllianceUpdate(Alliance.BLUE, hardwareMap, telemetry);
         pathUpdate.init();
     }
 

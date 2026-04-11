@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils;
 
+import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
@@ -39,23 +40,31 @@ public final class AutoHelper {
 
     public static PathChain createFleePath(BasePathUpdate pathUpdate) {
         Pose fleePose = null;
-        switch (CurrentAlliance.alliance) {
-            case RED:
-                fleePose = new Pose(96, 58);
-                break;
-            case BLUE:
-                fleePose = new Pose(48, 58);
-                break;
+        if (pathUpdate.follower.getPose().getY() > 38.5) {
+            switch (CurrentAlliance.alliance) {
+                case RED:
+                    fleePose = new Pose(116, 60);
+                    break;
+                case BLUE:
+                    fleePose = new Pose(28, 60);
+                    break;
+            }
+        } else {
+            switch (CurrentAlliance.alliance) {
+                case RED:
+                    fleePose = new Pose(96, 24);
+                    break;
+                case BLUE:
+                    fleePose = new Pose(48, 24);
+                    break;
+            }
         }
 
-        PathChain fleePath;
-        fleePath = pathUpdate.follower.pathBuilder()
+        return pathUpdate.follower.pathBuilder()
                 .addPath(new BezierLine(pathUpdate.follower.getPose(), fleePose))
-                .setTangentHeadingInterpolation()
+                .setConstantHeadingInterpolation(pathUpdate.follower.getPose().getHeading())
                 .setBrakingStrength(0)
-                .setTValueConstraint(AutoConstants.fleePathTValue)
                 .build();
-        return fleePath;
     }
 
 }

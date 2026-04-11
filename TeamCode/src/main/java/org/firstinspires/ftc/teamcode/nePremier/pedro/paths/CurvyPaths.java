@@ -22,10 +22,11 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
             intakeSpike1,
             intakeSpike3,
             shootToGate,
-            gateToShoot;
-
-    public PathChain gateOpen,
+            gateToShoot,
             returnToShoot;
+
+    private PathChain gateOpen;
+
 
     @Override
     public void buildPaths() {
@@ -41,24 +42,21 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
                 .addPath(new BezierCurve(nearShootPose, intakeP1Pose, intake1Pose))
                 .setConstantHeadingInterpolation(intake1Pose.getHeading())
                 .addPath(new BezierLine(intake1Pose, nearShootPose))
-                .setConstantHeadingInterpolation(nearShootPose.getHeading())
+                .setLinearHeadingInterpolation(intake1Pose.getHeading(), nearShootPose.getHeading())
                 .build();
 
 
         intakeSpike2 = follower.pathBuilder()
                 .addPath(new BezierCurve(nearShootPose, curvySpike2Control1Pose, curvySpike2Control2Pose, intake2Pose))
-                .addPath(new BezierCurve(intake2Pose, curvySpike2Control1Pose, curvySpike2Control2Pose, nearShootPose))
+                .setConstantHeadingInterpolation(nearShootPose.getHeading())
+                .addPath(new BezierCurve(intake2Pose, curvySpike2Control1Pose, nearShootPose))
                 .setHeadingInterpolation(HeadingInterpolator.tangent.reverse())
                 .build();
 
         spike2andEmpty = follower.pathBuilder()
                 .addPath(new BezierCurve(nearShootPose, curvySpike2Control1Pose, curvySpike2Control2Pose, intake2Pose))
                 .setConstantHeadingInterpolation(nearShootPose.getHeading())
-                .addParametricCallback(.995, () -> follower.followPath(gateOpen))
-                .build();
-        returnToShoot = follower.pathBuilder()
-                .addPath(new BezierCurve(emptyPose, intake2Pose, intakeP2Pose, nearShootPose))
-                .setLinearHeadingInterpolation(emptyPose.getHeading(), nearShootPose.getHeading())
+                .addParametricCallback(.95, () -> follower.followPath(gateOpen))
                 .build();
 
         gateOpen = follower.pathBuilder()
@@ -67,6 +65,11 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
 //                .addPath(new BezierCurve(emptyPose, emptyPPose, intake2Pose))
 //                .setLinearHeadingInterpolation(emptyPose.getHeading(), intake2Pose.getHeading())
                 //.addParametricCallback(.995, () -> follower.followPath(returnToShoot))
+                .build();
+
+        returnToShoot = follower.pathBuilder()
+                .addPath(new BezierLine(emptyPose, nearShootPose))
+                .setLinearHeadingInterpolation(emptyPose.getHeading(), nearShootPose.getHeading())
                 .build();
 
         intakeSpike3 = follower.pathBuilder()
@@ -78,12 +81,14 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
                 .build();
 
         shootToGate = follower.pathBuilder()
-                .addPath(new BezierCurve(nearShootPose, curvyGateControl1Pose, curvyGateControl2Pose, gatePose))
+//                .addPath(new BezierCurve(nearShootPose, curvyGateControl1Pose, curvyGateControl2Pose, gatePose))
+                .addPath(new BezierLine(nearShootPose, gatePose))
+                .setLinearHeadingInterpolation(nearShootPose.getHeading(), gatePose.getHeading())
                 .build();
 
         gateToShoot = follower.pathBuilder()
-                .addPath(new BezierCurve(gatePose, curvyGateControl2Pose, curvyGateControl1Pose, nearShootPose))
-                .setConstantHeadingInterpolation(nearShootPose.getHeading())
+                .addPath(new BezierLine(gatePose, nearShootPose))
+                .setLinearHeadingInterpolation(gatePose.getHeading(), nearShootPose.getHeading())
                 .build();
 
     }
