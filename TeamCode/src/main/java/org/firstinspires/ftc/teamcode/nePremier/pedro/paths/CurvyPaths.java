@@ -63,6 +63,7 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
                 .setLinearHeadingInterpolation(emptyPose.getHeading(), nearShootPose.getHeading())
                 .build();
 
+        //not used
         gateOpen = follower.pathBuilder()
                 .addPath(new BezierCurve(intake2Pose, emptyPPose, emptyPose))
                 .setLinearHeadingInterpolation(intake2Pose.getHeading(), emptyPose.getHeading())
@@ -71,6 +72,7 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
                 //.addParametricCallback(.995, () -> follower.followPath(returnToShoot))
                 .build();
 
+        //not used
         returnToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(emptyPose, nearShootPose))
                 .setLinearHeadingInterpolation(emptyPose.getHeading(), nearShootPose.getHeading())
@@ -89,6 +91,15 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
                 .addPath(new BezierLine(nearShootPose, gatePose))
                 .setLinearHeadingInterpolation(nearShootPose.getHeading(), gatePose.getHeading())
                 .build();
+
+        //TODO: PLAN B FOR GATE INTAKE: switch gate timer to 0, do not use gateToShoot, and use this init instead
+//        shootToGate = follower.pathBuilder()
+//                .addPath(new BezierLine(nearShootPose, gatePose))
+//                .setLinearHeadingInterpolation(nearShootPose.getHeading(), gatePose.getHeading())
+//                .addPath(new BezierCurve(gatePose, curvyGateOpenControlPose, curvyGateOpenPose))
+//                .setConstantHeadingInterpolation(gatePose.getHeading())
+//                .addPath(new BezierLine(curvyGateOpenPose, nearShootPose))
+//                .build();
 
         gateToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(gatePose, nearShootPose))

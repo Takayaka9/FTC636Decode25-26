@@ -25,6 +25,8 @@ public final class BluePoseLib {
     public static Pose curvySpike3Control2Pose = RedPoseLib.curvySpike3Control2Pose.getPose().mirror();
     public static Pose curvyGateControl1Pose = RedPoseLib.curvyGateControl1Pose.getPose().mirror();
     public static Pose curvyGateControl2Pose = RedPoseLib.curvyGateControl2Pose.getPose().mirror();
+    public static Pose curvyGateOpenControlPose = RedPoseLib.curvyGateOpenControlPose.getPose().mirror();
+    public static Pose curvyGateOpenPose = RedPoseLib.curvyGateOpenPose.getPose().mirror();
     public static Pose finalShootPose = RedPoseLib.finalShootPose.getPose().mirror();
     public static Pose wallIntakePPose = RedPoseLib.wallIntakePPose.getPose().mirror();
     public static Pose wallIntakePose = RedPoseLib.wallIntakePose.getPose().mirror();

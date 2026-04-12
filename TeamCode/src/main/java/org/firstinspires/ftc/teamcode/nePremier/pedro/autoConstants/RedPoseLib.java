@@ -27,6 +27,8 @@ public final class RedPoseLib {
     public static int curvySpike3Control2X = 70; public static int curvySpike3Control2Y = 10; public static int curvySpike3Control2R = 0; //unused
     public static int curvyGateControl1X = 115; public static int curvyGateControl1Y = 98; public static int curvyGateControl1R = 0;
     public static int curvyGateControl2X = 106; public static int curvyGateControl2Y = 45; public static int curvyGateControl2R = 0;
+    public static int curvyGateOpenControlX = 133; public static int curvyGateOpenControlY = 40; public static int curvyGateOpenControlR = 0;
+    public static int curvyGateOpenX = 130; public static int curvyGateOpenY = 59; public static int curvyGateOpenR = 0;
     public static int finalShootX = 87; public static int finalShootY = 111; public static int finalShootR = 0;
     public static int wallIntakePX = 135; public static int wallIntakePY = 26; public static int wallIntakePR = 270;
     public static int wallIntakeX = 135; public static int wallIntakeY = 9; public static int wallIntakeR = 270;
@@ -53,6 +55,8 @@ public final class RedPoseLib {
     public static Pose curvySpike3Control2Pose = new Pose(curvySpike3Control2X, curvySpike3Control2Y, Math.toRadians(curvySpike3Control2R));
     public static Pose curvyGateControl1Pose = new Pose(curvyGateControl1X, curvyGateControl1Y, Math.toRadians(curvyGateControl1R));
     public static Pose curvyGateControl2Pose = new Pose(curvyGateControl2X, curvyGateControl2Y, Math.toRadians(curvyGateControl2R));
+    public static Pose curvyGateOpenControlPose = new Pose(curvyGateOpenControlX, curvyGateOpenControlY, Math.toRadians(curvyGateOpenControlR));
+    public static Pose curvyGateOpenPose = new Pose(curvyGateOpenX, curvyGateOpenY, Math.toRadians(curvyGateOpenR));
     public static Pose finalShootPose = new Pose(finalShootX, finalShootY, Math.toRadians(finalShootR));
     public static Pose wallIntakePPose = new Pose(wallIntakePX, wallIntakePY, Math.toRadians(wallIntakePR));
     public static Pose wallIntakePose = new Pose(wallIntakeX, wallIntakeY, Math.toRadians(wallIntakeR));
