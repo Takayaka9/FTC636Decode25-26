@@ -45,7 +45,8 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final boolean atPose() {
-        return follower.atPose(getShootPose(), 6, 6);
+        return follower.atPose(getShootPose(), 6, 6)
+                && follower.getCurrentTValue() > AutoConstants.globalTValue;
     }
 
     private Pose getShootPose() {

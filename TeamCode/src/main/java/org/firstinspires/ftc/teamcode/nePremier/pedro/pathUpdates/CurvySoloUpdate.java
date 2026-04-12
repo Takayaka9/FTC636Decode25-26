@@ -26,7 +26,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
             case 1:
                 if (!follower.isBusy()) {
                     shoot();
-                    setPathState(2);
+                    setPathState(4);
                 }
                 break;
             case 2:
@@ -38,14 +38,14 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 break;
             case 90:
                 intakeControl.run();
-                setPathState(3);
+                setPathState(6);
                 break;
-            case 3:
-                if(!follower.isBusy()){
-                    follower.followPath(p.returnToShoot);
-                    setPathState(83);
-                }
-                break;
+//            case 3:
+//                if(!follower.isBusy()){
+//                    follower.followPath(p.returnToShoot);
+//                    setPathState(83);
+//                }
+//                break;
             case 83:
                 if (atPose()) {
                     shoot();
@@ -66,7 +66,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
             case 67:
                 if (!follower.isBusy() && atPose()) {
                     shoot();
-                    setPathState(6);
+                    setPathState(2);
                 }
                 break;
             case 6:

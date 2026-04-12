@@ -56,7 +56,11 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
         spike2andEmpty = follower.pathBuilder()
                 .addPath(new BezierCurve(nearShootPose, curvySpike2Control1Pose, curvySpike2Control2Pose, intake2Pose))
                 .setConstantHeadingInterpolation(nearShootPose.getHeading())
-                .addParametricCallback(.95, () -> follower.followPath(gateOpen))
+//                .addParametricCallback(.95, () -> follower.followPath(gateOpen))
+                .addPath(new BezierCurve(intake2Pose, emptyPPose, emptyPose))
+                .setLinearHeadingInterpolation(intake2Pose.getHeading(), emptyPose.getHeading())
+                .addPath(new BezierLine(emptyPose, nearShootPose))
+                .setLinearHeadingInterpolation(emptyPose.getHeading(), nearShootPose.getHeading())
                 .build();
 
         gateOpen = follower.pathBuilder()

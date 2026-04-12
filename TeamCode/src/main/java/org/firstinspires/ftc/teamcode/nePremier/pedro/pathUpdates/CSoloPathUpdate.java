@@ -40,12 +40,6 @@ public class CSoloPathUpdate extends BasePathUpdate {
             case 3:
                 if (!follower.isBusy()) {
                     follower.followPath(p.spike2andEmpty);
-                    pathState = 4;
-                }
-                break;
-            case 4:
-                if(!follower.isBusy()){
-                    follower.followPath(p.emptyToShoot);
                     pathState = 5;
                 }
                 break;
