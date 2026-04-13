@@ -88,7 +88,7 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
 
         shootToGate = follower.pathBuilder()
 //                .addPath(new BezierCurve(nearShootPose, curvyGateControl1Pose, curvyGateControl2Pose, gatePose))
-                .addPath(new BezierLine(nearShootPose, gatePose))
+                .addPath(new BezierCurve(nearShootPose, gateControlPose, gatePose))
                 .setLinearHeadingInterpolation(nearShootPose.getHeading(), gatePose.getHeading())
                 .build();
 
@@ -102,7 +102,7 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
 //                .build();
 
         gateToShoot = follower.pathBuilder()
-                .addPath(new BezierLine(gatePose, nearShootPose))
+                .addPath(new BezierCurve(gatePose, gateControlPose, nearShootPose))
                 .setLinearHeadingInterpolation(gatePose.getHeading(), nearShootPose.getHeading())
                 .build();
 

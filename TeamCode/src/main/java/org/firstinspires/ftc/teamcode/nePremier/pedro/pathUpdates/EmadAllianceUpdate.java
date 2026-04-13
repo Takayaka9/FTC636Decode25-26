@@ -84,7 +84,7 @@ public class EmadAllianceUpdate extends BasePathUpdate {
                 setPathState(70);
                 break;
             case 70:
-                if (!follower.isBusy()) {
+                if (follower.atPose(p.gatePose,1,1)) {
                     gateTimer.reset();
                     setPathState(80);
                 }
