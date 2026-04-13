@@ -84,7 +84,7 @@ public class EmadAllianceUpdate extends BasePathUpdate {
                 setPathState(70);
                 break;
             case 70:
-                if (follower.atPose(p.gatePose,1,1)) {
+                if (!follower.isBusy() || follower.atPose(p.gatePose, 5, 5) || follower.getCurrentTValue() > 0.97) {
                     gateTimer.reset();
                     setPathState(80);
                 }
@@ -104,7 +104,7 @@ public class EmadAllianceUpdate extends BasePathUpdate {
             case 100:
                 if (checkShoot()) {
                     shootControl.stop();
-                    if (gates >= AutoConstants.gateCycles & opModeTimer.milliseconds() >= AutoConstants.skipGateTime) {
+                    if (gates >= AutoConstants.gateCycles && opModeTimer.milliseconds() >= AutoConstants.skipGateTime) {
                         follower.followPath(AutoHelper.createFleePath(this));
                         setPathState(11);
                     } else {

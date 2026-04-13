@@ -20,7 +20,7 @@ public final class RedPoseLib {
     public static int emptyX = 131; public static int emptyY = 64; public static int emptyR = 270;
     public static int emptyPX = 128; public static int emptyPY = 61; public static int emptyPR = 270;
     public static int gateX = 130; public static int gateY = 58; public static int gateR = 26;
-    public static int gateControlX = 126; public static int gateControlY = 55; public static int gateControlR = 0;
+    public static int gateControlX = 127; public static int gateControlY = 55; public static int gateControlR = 0;
     public static int curvySpike2Control1X = 95; public static int curvySpike2Control1Y = 79; public static int curvySpike2Control1R = 0;
     public static int curvySpike2Control2X = 88; public static int curvySpike2Control2Y = 59; public static int curvySpike2Control2R = 0;
     public static int curvySpike3Control1X = 110; public static int curvySpike3Control1Y = 78; public static int curvySpike3Control1R = 0; //unused

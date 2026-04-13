@@ -82,7 +82,7 @@ abstract class PedroUpdate extends Initializer {
     }
 
     public final boolean checkGate() {
-        return opModeTimer.milliseconds() >= AutoConstants.gateTime;
+        return gateTimer.milliseconds() >= AutoConstants.gateTime;
     }
 
     public final boolean checkStartShoot() {
@@ -112,6 +112,7 @@ abstract class PedroUpdate extends Initializer {
         fleeTimer.resetThenStart();
         opModeTimer.reset();
         shootTimer.reset();
+        gateTimer.reset();
         pathState = 0;
         fled = false;
         constantControls.run();
@@ -127,6 +128,8 @@ abstract class PedroUpdate extends Initializer {
         zeroTurretControl.update();
         telemetryM.update();
         telemetryM.addData("Path State", pathState);
+        telemetryM.addData("Gate Timer", gateTimer.milliseconds());
+        telemetryM.addData("Gate Time Target", AutoConstants.gateTime);
         PoseHolder.setPose(follower.getPose());
     }
 
