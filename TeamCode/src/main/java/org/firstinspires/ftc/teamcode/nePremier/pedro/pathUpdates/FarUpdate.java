@@ -30,7 +30,7 @@ public class FarUpdate extends BasePathUpdate {
                 }
                 break;
             case 2:
-                if (checkShoot()) {
+                if (checkFarShoot()) {
                     shootControl.stop();
                     follower.followPath(p.intakeSpike3);
                     setPathState(20);
@@ -54,7 +54,7 @@ public class FarUpdate extends BasePathUpdate {
                 }
                 break;
             case 5:
-                if (checkShoot()) {
+                if (checkFarShoot()) {
                     shootControl.stop();
                     follower.followPath(p.shootToWall);
                     setPathState(50);
@@ -78,7 +78,7 @@ public class FarUpdate extends BasePathUpdate {
                 }
                 break;
             case 8:
-                if (checkShoot()) {
+                if (checkFarShoot()) {
                     shootControl.stop();
                     follower.followPath(p.shootToFarIntake);
                     setPathState(80);
@@ -102,7 +102,7 @@ public class FarUpdate extends BasePathUpdate {
                 }
                 break;
             case 11:
-                if (checkShoot()) {
+                if (checkFarShoot()) {
                     shootControl.stop();
                     pathState = 12;
                 }
