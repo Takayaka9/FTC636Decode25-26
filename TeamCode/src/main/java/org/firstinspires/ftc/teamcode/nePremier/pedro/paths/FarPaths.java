@@ -41,9 +41,9 @@ public final class FarPaths extends BasePathChain implements BuildPaths {
                 .build();
         shootToWall = follower.pathBuilder()
                 .addPath(new BezierLine(farShootPose, wallIntakePPose))
-                .setLinearHeadingInterpolation(farShootPose.getHeading(), wallIntakePPose.getHeading())
+                .setLinearHeadingInterpolation(farShootPose.getHeading(), wallIntakePose.getHeading())
                 .addPath(new BezierLine(wallIntakePPose, wallIntakePose))
-                .setConstantHeadingInterpolation(wallIntakePPose.getHeading())
+                .setConstantHeadingInterpolation(wallIntakePose.getHeading())
                 .build();
         wallToShoot = follower.pathBuilder()
                 .addPath(new BezierCurve(wallIntakePose, wallControlPose, farShootPose))

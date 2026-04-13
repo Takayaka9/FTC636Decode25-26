@@ -24,7 +24,7 @@ public class FarUpdate extends BasePathUpdate {
                 setPathState(1);
                 break;
             case 1:
-                if (!follower.isBusy()) {
+                if (atFarPose()) {
                     shoot();
                     setPathState(2);
                 }
@@ -48,7 +48,7 @@ public class FarUpdate extends BasePathUpdate {
                 }
                 break;
             case 4:
-                if (!follower.isBusy()) {
+                if (atFarPose()) {
                     shoot();
                     setPathState(5);
                 }
@@ -71,7 +71,7 @@ public class FarUpdate extends BasePathUpdate {
                 }
                 break;
             case 7:
-                if(!follower.isBusy()){
+                if(atFarPose()){
                     shoot();
                     setPathState(8);
                 }
@@ -94,7 +94,7 @@ public class FarUpdate extends BasePathUpdate {
                 }
                 break;
             case 10:
-                if(!follower.isBusy()){
+                if(atFarPose()){
                     shoot();
                     setPathState(11);
                 }

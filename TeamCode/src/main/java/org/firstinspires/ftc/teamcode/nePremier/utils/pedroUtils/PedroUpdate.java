@@ -49,6 +49,20 @@ abstract class PedroUpdate extends Initializer {
                 && follower.getCurrentTValue() > AutoConstants.globalTValue;
     }
 
+    public final boolean atFarPose() {
+        return follower.atPose(getFarShootPose(), 3, 3)
+                && follower.getCurrentTValue() > AutoConstants.globalTValue;
+    }
+
+    private Pose getFarShootPose() {
+        if (CurrentAlliance.alliance == Alliance.BLUE) {
+            return BluePoseLib.nearShootPose;
+        } else if (CurrentAlliance.alliance == Alliance.RED) {
+            return RedPoseLib.nearShootPose;
+        }
+        return null;
+    }
+
     private Pose getShootPose() {
         if (CurrentAlliance.alliance == Alliance.BLUE) {
             return BluePoseLib.nearShootPose;

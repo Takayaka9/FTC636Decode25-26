@@ -14,13 +14,13 @@ public final class RedPoseLib {
     public static int intakeP3X = 80; public static int intakeP3Y = 27; public static int intakeP3R = 0;
     public static int Intake3X = 131; public static int Intake3Y = 35; public static int Intake3R = 0;
     public static int intakeP2X = 95; public static int intakeP2Y = 60; public static int intakeP2R = 0;
-    public static int Intake2X = 132; public static int Intake2Y = 63; public static int Intake2R = 0;
+    public static int Intake2X = 130; public static int Intake2Y = 63; public static int Intake2R = 0;
     public static int intakeP1X = 95; public static int intakeP1Y = 84; public static int intakeP1R = 0;
     public static int Intake1X = 124; public static int Intake1Y = 86; public static int Intake1R = 355;
     public static int emptyX = 131; public static int emptyY = 64; public static int emptyR = 270;
     public static int emptyPX = 128; public static int emptyPY = 61; public static int emptyPR = 270;
-    public static int gateX = 130; public static int gateY = 58; public static int gateR = 26;
-    public static int gateControlX = 127; public static int gateControlY = 55; public static int gateControlR = 0;
+    public static int gateX = 132; public static int gateY = 60; public static int gateR = 26;
+    public static int gateControlX = 127; public static int gateControlY = 56; public static int gateControlR = 0;
     public static int curvySpike2Control1X = 95; public static int curvySpike2Control1Y = 79; public static int curvySpike2Control1R = 0;
     public static int curvySpike2Control2X = 88; public static int curvySpike2Control2Y = 59; public static int curvySpike2Control2R = 0;
     public static int curvySpike3Control1X = 110; public static int curvySpike3Control1Y = 78; public static int curvySpike3Control1R = 0; //unused
@@ -30,8 +30,8 @@ public final class RedPoseLib {
     public static int curvyGateOpenControlX = 133; public static int curvyGateOpenControlY = 40; public static int curvyGateOpenControlR = 0;
     public static int curvyGateOpenX = 130; public static int curvyGateOpenY = 59; public static int curvyGateOpenR = 0;
     public static int finalShootX = 87; public static int finalShootY = 111; public static int finalShootR = 0;
-    public static int wallIntakePX = 135; public static int wallIntakePY = 26; public static int wallIntakePR = 270;
-    public static int wallIntakeX = 135; public static int wallIntakeY = 9; public static int wallIntakeR = 270;
+    public static int wallIntakePX = 135; public static int wallIntakePY = 26; public static int wallIntakePR = 260;
+    public static int wallIntakeX = 135; public static int wallIntakeY = 9; public static int wallIntakeR = 260;
     public static int wallControlX = 118; public static int wallControlY = 15; public static int wallControlR = 0;
 
     public static Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));
