@@ -30,7 +30,7 @@ public class FarUpdate extends BasePathUpdate {
                 }
                 break;
             case 2:
-                if (checkFarShoot()) {
+                if (checkShoot(2500)) {
                     shootControl.stop();
                     follower.followPath(p.intakeSpike3);
                     setPathState(20);

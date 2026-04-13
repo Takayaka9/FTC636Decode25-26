@@ -95,6 +95,10 @@ abstract class PedroUpdate extends Initializer {
         return shootTimer.milliseconds() >= AutoConstants.shootTime;
     }
 
+    public final boolean checkShoot(int time) {
+        return shootTimer.milliseconds() >= time;
+    }
+
     public final boolean checkFarShoot() {
         return shootTimer.milliseconds() >= AutoConstants.farShootTime;
     }
