@@ -4,8 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
-import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.CurvyAllianceUpdate;
-import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.CurvySoloUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.pedro.pathUpdates.EmadAllianceUpdate;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.PathUpdate;

@@ -14,12 +14,12 @@ public final class RedPoseLib {
     public static int intakeP3X = 80; public static int intakeP3Y = 27; public static int intakeP3R = 0;
     public static int Intake3X = 131; public static int Intake3Y = 35; public static int Intake3R = 0;
     public static int intakeP2X = 95; public static int intakeP2Y = 60; public static int intakeP2R = 0;
-    public static int Intake2X = 134; public static int Intake2Y = 63; public static int Intake2R = 0;
+    public static int Intake2X = 132; public static int Intake2Y = 63; public static int Intake2R = 0;
     public static int intakeP1X = 95; public static int intakeP1Y = 84; public static int intakeP1R = 0;
-    public static int Intake1X = 126; public static int Intake1Y = 86; public static int Intake1R = 355;
+    public static int Intake1X = 124; public static int Intake1Y = 86; public static int Intake1R = 355;
     public static int emptyX = 131; public static int emptyY = 64; public static int emptyR = 270;
     public static int emptyPX = 128; public static int emptyPY = 61; public static int emptyPR = 270;
-    public static int gateX = 132; public static int gateY = 59; public static int gateR = 26;
+    public static int gateX = 132; public static int gateY = 55; public static int gateR = 26;
     public static int gateControlX = 103; public static int gateControlY = 61; public static int gateControlR = 0;
     public static int curvySpike2Control1X = 95; public static int curvySpike2Control1Y = 79; public static int curvySpike2Control1R = 0;
     public static int curvySpike2Control2X = 88; public static int curvySpike2Control2Y = 59; public static int curvySpike2Control2R = 0;
