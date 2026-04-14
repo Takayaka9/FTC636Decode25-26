@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.servo.ServoImplExBase;
 public class HoodServo extends ServoImplExBase implements ServoImplexInterface {
     private final InterpLUT lut = new InterpLUT();
     public HoodServo (HardwareMap hardwareMap) {
-        super("hood", hardwareMap);
+        super("hood", hardwareMap, false);
         lut.add(0, p1);
         lut.add(d1, p1);
         lut.add(d2, p2);

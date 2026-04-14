@@ -10,14 +10,22 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem
 public class ServoImplExBase extends BaseSubsystem implements ServoImplexInterface {
     final ServoImplEx servo;
     PwmRange range = null;
+    private boolean pwmEnabled;
 
 //    PwmConverter converter;
 
     public ServoImplExBase(String name, HardwareMap hardwareMap) {
+        this(name, hardwareMap, true);
+    }
+
+    public ServoImplExBase(String name, HardwareMap hardwareMap, boolean enablePwmOnInit) {
         super();
         servo = hardwareMap.get(ServoImplEx.class, name);
+        pwmEnabled = enablePwmOnInit;
 //        converter = new PwmConverter();
-        servo.setPwmEnable();
+        if (enablePwmOnInit) {
+            servo.setPwmEnable();
+        }
     }
 
 //    @Deprecated
@@ -27,6 +35,10 @@ public class ServoImplExBase extends BaseSubsystem implements ServoImplexInterfa
 //    }
 
     public void setPosition(double position) {
+        if (!pwmEnabled) {
+            servo.setPwmEnable();
+            pwmEnabled = true;
+        }
         servo.setPosition(position);
     }
 
@@ -35,6 +47,10 @@ public class ServoImplExBase extends BaseSubsystem implements ServoImplexInterfa
     }
 
     public void togglePosition(boolean open) {
+        if (!pwmEnabled) {
+            servo.setPwmEnable();
+            pwmEnabled = true;
+        }
         if (open) {
             servo.setPosition(0);
         } else {
