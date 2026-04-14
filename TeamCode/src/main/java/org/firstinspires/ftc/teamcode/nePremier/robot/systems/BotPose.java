@@ -19,7 +19,7 @@ public class BotPose extends BaseSubsystem {
     @SuppressWarnings("FieldMayBeFinal")
     @Configurable
     public static class BotPoseConstants {
-        public static double leadMultiplier = 0;
+        public static double leadMultiplier = 1.3;
     }
 
     public BotPose(Follower follower, TelemetryManager t) {
