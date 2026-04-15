@@ -14,7 +14,7 @@ public final class RedPoseLib {
     public static int intakeP3X = 80; public static int intakeP3Y = 27; public static int intakeP3R = 0;
     public static int Intake3X = 131; public static int Intake3Y = 35; public static int Intake3R = 0;
     public static int intakeP2X = 95; public static int intakeP2Y = 60; public static int intakeP2R = 0;
-    public static int Intake2X = 130; public static int Intake2Y = 63; public static int Intake2R = 0;
+    public static int Intake2X = 128; public static int Intake2Y = 63; public static int Intake2R = 0;
     public static int intakeP1X = 95; public static int intakeP1Y = 84; public static int intakeP1R = 0;
     public static int Intake1X = 124; public static int Intake1Y = 86; public static int Intake1R = 355;
     public static int emptyX = 131; public static int emptyY = 64; public static int emptyR = 270;

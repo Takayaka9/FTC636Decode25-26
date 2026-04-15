@@ -67,6 +67,9 @@ public class TeleControls extends Initializer {
         intake.update();
         outtake.update();
         shoot.update();
+        if (!shoot.isRunning()) {
+            stopper.close();
+        }
 //        weFucked.update();
         liftUp.update();
         down.update();

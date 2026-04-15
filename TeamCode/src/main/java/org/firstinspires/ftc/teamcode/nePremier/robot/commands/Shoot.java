@@ -34,7 +34,7 @@ public class Shoot extends BaseCommand {
     @Override
     public void init() {
         stopperDelay.start();
-        stopper.open();
+        stopper.close();
         transfer.stop();
 //        shooter.stop();
     }
@@ -58,8 +58,10 @@ public class Shoot extends BaseCommand {
 
     public void autoShoot() {
         if (inRPMRange() && stopperDelay.done()) {
+            stopper.open();
             transfer.run();
         } else {
+            stopper.close();
             transfer.stop();
         }
     }
