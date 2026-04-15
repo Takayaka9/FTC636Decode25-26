@@ -38,7 +38,13 @@ public class CurvySoloUpdate extends BasePathUpdate {
                 break;
             case 90:
                 intakeControl.run();
-                setPathState(6);
+                setPathState(91);
+                break;
+            case 91:
+                if (atPose()) {
+                    shoot();
+                    setPathState(6);
+                }
                 break;
 //            case 3:
 //                if(!follower.isBusy()){
