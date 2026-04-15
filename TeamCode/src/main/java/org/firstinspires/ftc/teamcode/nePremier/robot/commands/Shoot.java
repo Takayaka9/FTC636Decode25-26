@@ -18,7 +18,7 @@ public class Shoot extends BaseCommand {
 
     @Configurable
     public static class shootConfig {
-        public static int delayTime = 90;
+        public static int delayTime = 50;
         public static double allowedError = 135;
     }
 

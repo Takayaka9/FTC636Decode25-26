@@ -28,7 +28,7 @@ public class HoodServo extends ServoImplExBase implements ServoImplexInterface {
     static double d3 = 73.5; static double p3 = 0.85;//tuned
     static double d4 = 100; static double p4 = 0.85;//tuned
     static double d5 = 135.5; static double p5 = 0.85; //max
-    static double d6 = 150; static double p6 = 0.85; //max
+    static double d6 = 15000; static double p6 = 0.85; //max
 
     public void angleHood(double targetDistance) {
         double angle = lut.get(targetDistance);
