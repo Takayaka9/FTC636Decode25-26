@@ -105,7 +105,7 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
 
         gateToShoot = follower.pathBuilder()
                 .addPath(new BezierLine(curvyGateOpenPose, nearShootPose))
-                .setLinearHeadingInterpolation(gatePose.getHeading(), nearShootPose.getHeading())
+                .setLinearHeadingInterpolation(curvyGateOpenPose.getHeading(), nearShootPose.getHeading(), 0.5)
                 .build();
 
     }
