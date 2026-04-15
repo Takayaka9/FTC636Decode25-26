@@ -6,8 +6,6 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 
@@ -19,7 +17,8 @@ public class BotPose extends BaseSubsystem {
     @SuppressWarnings("FieldMayBeFinal")
     @Configurable
     public static class BotPoseConstants {
-        public static double leadMultiplier = 1.6;
+        public static double leadMultiplier = 1; //1.6 on old code
+        public static int predictionIterations = 3;
     }
 
     public BotPose(Follower follower, TelemetryManager t) {
@@ -38,22 +37,27 @@ public class BotPose extends BaseSubsystem {
         flightTime.createLUT();
     }
     public Pose getBotPose(){
-        Alliance alliance = CurrentAlliance.alliance;
+        Pose currentPose = follower.getPose();
+        double x = currentPose.getX();
+        double y = currentPose.getY();
+        double velX = follower.getVelocity().getXComponent();
+        double velY = follower.getVelocity().getYComponent();
+        double accelX = follower.getAcceleration().getXComponent();
+        double accelY = follower.getAcceleration().getYComponent();
 
-        double x = follower.getPose().getX();
-        double y = follower.getPose().getY();
-        double distance = LocalizationHelper.getTargetDistance(follower.getPose());
-        double t = flightTime.get(distance) * BotPoseConstants.leadMultiplier;
+        Pose predictedPose = currentPose;
+        int iterations = Math.max(1, BotPoseConstants.predictionIterations);
 
-        double velX = follower.getVelocity().getXComponent() * t;
-        double velY = follower.getVelocity().getYComponent() * t;
+        for (int i = 0; i < iterations; i++) {
+            double distance = LocalizationHelper.getTargetDistance(predictedPose);
+            double t = flightTime.get(distance) * BotPoseConstants.leadMultiplier;
 
-        double accelX = 0.5 * follower.getAcceleration().getXComponent() * t * t;
-        double accelY = 0.5 * follower.getAcceleration().getYComponent() * t * t;
+            double newX = x + (velX * t) + (0.5 * accelX * t * t);
+            double newY = y + (velY * t) + (0.5 * accelY * t * t);
 
-        double newX = x + velX + accelX;
-        double newY = y + velY + accelY;
+            predictedPose = new Pose(newX, newY, follower.getHeading());
+        }
 
-        return new Pose(newX, newY, follower.getHeading());
+        return predictedPose;
     }
 }
