@@ -55,7 +55,7 @@ public class Turret extends BaseSubsystem implements TurretI {
         // Use the shortest signed angle so mirrored blue headings near the +/-pi wrap
         // don't send the turret to the opposite hard stop.
         turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading)
-                + follower.getAngularVelocity()*TurretConstants.Kf;// + getOffset();
+                + follower.getAngularVelocity()*TurretConstants.Kf;
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
@@ -72,12 +72,7 @@ public class Turret extends BaseSubsystem implements TurretI {
     public static class TurretConstants {
         private static double Kp = 0.03;
         private static double Kf = -0.1;
-        private static double Ki = 0;
         public static final double overrideSensitivity = 10;
-        private static double angleMultiplier = 0.01;
-        private static double magnitudeMultiplier = 0.01;
-        private static double lowPassAlpha = 0.2;
-        private static double maxChange = 0.05;
     }
 
     //PID to turn turret
@@ -117,63 +112,6 @@ public class Turret extends BaseSubsystem implements TurretI {
 
 
         turret.setPower(output);
-    }
-    // taka moving average filter
-    // private final ArrayList<Double> lowPassFilter = new ArrayList<>(5);
-    LowPassFilter lowPassFilter = new LowPassFilter(TurretConstants.lowPassAlpha);
-    private double getVelocityOffset(){
-        double angleGoal;
-
-        //inches per second the bot is moving at
-        double magnitude = follower.getVelocity().getMagnitude();
-
-        lowPassFilter.setAlpha(TurretConstants.lowPassAlpha);
-        double filteredMagnitude = lowPassFilter.update(magnitude);
-
-        //what direction the bot is moving in
-        double velAngle = follower.getVelocity().getTheta();
-
-        //get the angle to the goal from bot pos, same as turret aiming
-        if(CurrentAlliance.alliance == Alliance.BLUE){
-            angleGoal = Math.atan2(LocalizationHelper.goalPoses.blueY - follower.getPose().getY(), LocalizationHelper.goalPoses.blueX - follower.getPose().getX());
-        }
-        else if(CurrentAlliance.alliance == Alliance.RED){
-            angleGoal = Math.atan2(LocalizationHelper.goalPoses.redY - follower.getPose().getY(), LocalizationHelper.goalPoses.redX - follower.getPose().getX());
-        }
-        else{
-            angleGoal = 0;
-        }
-
-        //calculate how much the bot is moving laterally to the goal (further from direct line to goal = more lateral movement)
-        double angle = MathFunctions.normalizeAngleSigned(angleGoal - velAngle);
-
-        //total velocity relative to the goal (sorta, the values are messed up but it's chill)
-        return (TurretConstants.angleMultiplier*angle)*(filteredMagnitude*TurretConstants.magnitudeMultiplier);
-
-
-
-        //emad simple filter for max change
-//        double delta = magGoal - filteredMagGoal;
-//        delta = Math.max(-TurretConstants.maxChange, Math.min(TurretConstants.maxChange, delta));
-//        filteredMagGoal += delta;
-
-        //emad other simpler filter
-//        if (Math.abs(magGoal) < TurretConstants.maxChange) {
-//            magGoal = 0;
-//        }
-
-
-        // taka moving  average filter
-        // if (lowPassFilter.size() > 4) {
-        //     lowPassFilter.remove(0);
-        // }
-        // lowPassFilter.add(magGoal);
-        // magGoal = averageList(lowPassFilter);
-
-        //return pos/neg values depending on moving left or right
-//        if(velAngle > angleGoal){
-//            return -magGoal;
-//        }
     }
 
     public void resetEncoder(){
