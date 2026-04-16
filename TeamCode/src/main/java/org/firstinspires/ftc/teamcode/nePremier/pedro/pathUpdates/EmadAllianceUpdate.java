@@ -12,12 +12,19 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
 public class EmadAllianceUpdate extends BasePathUpdate {
     final CurvyPaths p;
     private int gates = 1;
+
     public EmadAllianceUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
         p = new CurvyPaths(follower, alliance);
         follower.setStartingPose(p.nearStartPose);
         gates = 1;
     }
+
+    private boolean atFinalShootPose() {
+        return follower.atPose(p.finalShootPose, 10, 8)
+                && follower.getCurrentTValue() > AutoConstants.globalTValue;
+    }
+
     @Override
     public void autonomousPathUpdate() {
         switch(pathState) {
@@ -105,13 +112,41 @@ public class EmadAllianceUpdate extends BasePathUpdate {
                 if (checkShoot()) {
                     shootControl.stop();
                     if (gates >= AutoConstants.gateCycles && opModeTimer.milliseconds() >= AutoConstants.skipGateTime) {
-                        follower.followPath(AutoHelper.createFleePath(this));
-                        setPathState(11);
+//                        follower.followPath(AutoHelper.createFleePath(this));
+                        setPathState(690);
                     } else {
                         gates++;
                         follower.followPath(p.shootToGate);
                         setPathState(69);
                     }
+                }
+                break;
+            case 690:
+                intakeControl.run();
+                setPathState(700);
+                break;
+            case 700:
+                if (!follower.isBusy() || follower.atPose(p.gatePose, 5, 5) || follower.getCurrentTValue() > 0.97) {
+                    gateTimer.reset();
+                    setPathState(800);
+                }
+                break;
+            case 800:
+                if (checkGate()) {
+                    follower.followPath(p.gateToShoot2, true);
+                    setPathState(910);
+                }
+                break;
+            case 910:
+                if (atFinalShootPose()) {
+                    shoot();
+                    setPathState(920);
+                }
+                break;
+            case 920:
+                if (checkShoot()) {
+                    shootControl.stop();
+                    setPathState(11);
                 }
                 break;
             case 11:
