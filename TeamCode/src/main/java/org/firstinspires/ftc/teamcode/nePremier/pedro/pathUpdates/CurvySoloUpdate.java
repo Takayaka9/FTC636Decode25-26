@@ -13,7 +13,7 @@ public class CurvySoloUpdate extends BasePathUpdate {
     public CurvySoloUpdate(Alliance alliance, HardwareMap hardwareMap, Telemetry telemetry) {
         super(hardwareMap,telemetry, alliance);
         p = new CurvyPaths(follower, alliance);
-        follower.setPose(p.nearStartPose);
+        follower.setStartingPose(p.nearStartPose);
     }
 
     @Override
