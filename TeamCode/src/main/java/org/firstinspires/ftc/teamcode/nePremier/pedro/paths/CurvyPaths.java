@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.nePremier.pedro.paths;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.HeadingInterpolator;
 import com.pedropathing.paths.PathChain;
 
@@ -23,6 +24,7 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
             intakeSpike3,
             shootToGate,
             gateToShoot,
+            gateToShoot2,
             returnToShoot;
 
     private PathChain gateOpen;
@@ -108,6 +110,10 @@ public final class CurvyPaths extends BasePathChain implements BuildPaths {
                 .setLinearHeadingInterpolation(curvyGateOpenPose.getHeading(), nearShootPose.getHeading(), 0.5)
                 .build();
 
+        gateToShoot2 = follower.pathBuilder()
+                .addPath(new BezierLine(curvyGateOpenPose, new Pose(59, 106,0)))
+                .setLinearHeadingInterpolation(curvyGateOpenPose.getHeading(), 0, 0.5)
+                .build();
     }
 
 }
