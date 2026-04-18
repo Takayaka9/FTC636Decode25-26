@@ -6,7 +6,7 @@ import com.pedropathing.geometry.Pose;
 @SuppressWarnings("NonFinalStaticVariableUsedInClassInitialization")
 @Configurable
 public final class RedPoseLib {
-    public static int farStartX = 89; public static int farStartY = 8; public static int farStartR = 90;
+    public static int farStartX = 87; public static int farStartY = 9; public static int farStartR = 90;
     public static int farShootX = 87; public static int farShootY = 15; public static int farShootR = 73;
     public static int farIntakeX = 135; public static int farIntakeY = 12; public static int farIntakeR = 0;
     public static int nearStartX = 120; public static int nearStartY = 129; public static int nearStartR = 37;
@@ -29,7 +29,7 @@ public final class RedPoseLib {
     public static int curvyGateControl2X = 106; public static int curvyGateControl2Y = 45; public static int curvyGateControl2R = 0;
     public static int curvyGateOpenControlX = 133; public static int curvyGateOpenControlY = 40; public static int curvyGateOpenControlR = 0;
     public static int curvyGateOpenX = 130; public static int curvyGateOpenY = 59; public static int curvyGateOpenR = 0;
-    public static int finalShootX = 87; public static int finalShootY = 111; public static int finalShootR = 0;
+    public static int finalShootX = 84; public static int finalShootY = 111; public static int finalShootR = 0;
     public static int wallIntakePX = 135; public static int wallIntakePY = 26; public static int wallIntakePR = 270;
     public static int wallIntakeX = 135; public static int wallIntakeY = 9; public static int wallIntakeR = 260;
     public static int wallControlX = 118; public static int wallControlY = 15; public static int wallControlR = 0;

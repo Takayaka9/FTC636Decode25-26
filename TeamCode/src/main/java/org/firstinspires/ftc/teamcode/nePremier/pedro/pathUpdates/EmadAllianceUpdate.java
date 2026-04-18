@@ -111,8 +111,8 @@ public class EmadAllianceUpdate extends BasePathUpdate {
             case 100:
                 if (checkShoot()) {
                     shootControl.stop();
-                    if (gates >= AutoConstants.gateCycles && opModeTimer.milliseconds() >= AutoConstants.skipGateTime) {
-//                        follower.followPath(AutoHelper.createFleePath(this));
+                    if (gates >= AutoConstants.gateCycles || opModeTimer.milliseconds() >= AutoConstants.skipGateTime) {
+                        follower.followPath(p.shootToGate, true);
                         setPathState(690);
                     } else {
                         gates++;

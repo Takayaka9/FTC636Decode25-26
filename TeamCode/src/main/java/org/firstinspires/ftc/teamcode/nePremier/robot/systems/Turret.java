@@ -56,11 +56,11 @@ public class Turret extends BaseSubsystem implements TurretI {
         // don't send the turret to the opposite hard stop.
         turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading)
                 + follower.getAngularVelocity()*TurretConstants.Kf;
-        if(turretAngle >= Math.PI/2){
-            turretAngle = Math.PI/2;
+        if(turretAngle >= Math.toRadians(80)){
+            turretAngle = Math.toRadians(80);
         }
-        if(turretAngle <= -Math.PI/2){
-            turretAngle = -Math.PI/2;
+        if(turretAngle <= -Math.toRadians(80)) {
+            turretAngle = -Math.toRadians(80);
         }
 
         targetPos = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));

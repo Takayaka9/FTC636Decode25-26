@@ -23,7 +23,7 @@ public class TeleControls extends Initializer {
     private final Control liftUp;
     private final Control constantControls;
     private final Control down;
-    private final Control mapControl;
+//    private final Control mapControl;
     private final Control locControl;
 
     /// THIS CONSTRUCTOR SERVES AS OUR INIT METHOD
@@ -43,8 +43,8 @@ public class TeleControls extends Initializer {
 //        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
         allianceBlue = new Control(GamepadInput.x, gamepad2, ControlType.Hold, blue);
         allianceRed = new Control(GamepadInput.b, gamepad2, ControlType.Hold, red);
-        mapControl = new Control(GamepadInput.a, gamepad2, ControlType.Toggle, toggleMap);
-        locControl = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, simpleLoc);
+//        mapControl = new Control(GamepadInput.a, gamepad2, ControlType.Toggle, toggleMap);
+        locControl = new Control(GamepadInput.y, gamepad2, ControlType.Hold, simpleLoc);
 
         //constant:
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves, constantFlywheelSpin, draw
@@ -79,7 +79,7 @@ public class TeleControls extends Initializer {
         telemetryM.addData("vel comp pose x", botPose.getBotPose().getX());
         telemetryM.addData("follower power x", follower.getPose().getX());
         telemetryM.update();
-        mapControl.update();
+//        mapControl.update();
         locControl.update();
     }
 
