@@ -12,9 +12,9 @@ public abstract class LocalizationHelper {
      */
     @Configurable
     public static class goalPoses {
-        public static double blueX = 0;
+        public static double blueX = 4;
         public static double blueY = 140;
-        public static double redX = 144;
+        public static double redX = 140;
         public static double redY = 140;
     }
 

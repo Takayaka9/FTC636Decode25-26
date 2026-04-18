@@ -31,7 +31,7 @@ public final class RedPoseLib {
     public static int curvyGateOpenX = 130; public static int curvyGateOpenY = 59; public static int curvyGateOpenR = 0;
     public static int finalShootX = 84; public static int finalShootY = 111; public static int finalShootR = 0;
     public static int wallIntakePX = 135; public static int wallIntakePY = 26; public static int wallIntakePR = 270;
-    public static int wallIntakeX = 135; public static int wallIntakeY = 9; public static int wallIntakeR = 260;
+    public static int wallIntakeX = 134; public static int wallIntakeY = 10; public static int wallIntakeR = 285;
     public static int wallControlX = 118; public static int wallControlY = 15; public static int wallControlR = 0;
 
     public static Pose farStartPose = new Pose(farStartX, farStartY, Math.toRadians(farStartR));

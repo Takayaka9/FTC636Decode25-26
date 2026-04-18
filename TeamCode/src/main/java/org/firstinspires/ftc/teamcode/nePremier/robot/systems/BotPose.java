@@ -32,6 +32,7 @@ public class BotPose extends BaseSubsystem {
         flightTime.add(135 , 1.02); //tuned
         flightTime.add(150 , 1.02); //tuned
         flightTime.add(1000, 1.02); //tuned
+        flightTime.add(100000000, 1.02); //tuned
 //        flightTime.add(0, 0); //for turn off
 //        flightTime.add(1000, 1.02); //for turn off
         flightTime.createLUT();
