@@ -31,7 +31,7 @@ public class MakeMoves extends BaseCommand {
                 follower.setTeleOpDrive(
                         -gamepad.left_stick_y*1,
                         -gamepad.left_stick_x*1,
-                        -gamepad.right_stick_x*0.75,
+                        -gamepad.right_stick_x*1,
                         true
                 );
             }
