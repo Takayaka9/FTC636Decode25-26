@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.afterPremier.robot.subsystems;
 
+import static com.pedropathing.ivy.commands.Commands.infinite;
+
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.ivy.CommandBuilder;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.seattlesolvers.solverslib.util.InterpLUT;
@@ -31,7 +34,6 @@ public class Hood {
         double angle = lut.get(targetDistance);
         h.setPosition(angle);
     }
-
     public void down(){
         h.setPosition(1);
     }
