@@ -13,13 +13,13 @@ public class Intake {
     public Intake(HardwareMap hardwareMap){
         i = hardwareMap.get(DcMotorEx.class, "transfer");
     }
-    CommandBuilder in(){
+    public CommandBuilder in(){
         return instant(() -> i.setPower(1)).requiring(i);
     }
-    CommandBuilder out(){
+    public CommandBuilder out(){
         return instant(() -> i.setPower(-1)).requiring(i);
     }
-    CommandBuilder off(){
+    public CommandBuilder off(){
         return instant(() -> i.setPower(0)).requiring(i);
     }
 }

@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.afterPremier.robot.subsystems;
 
-import static com.pedropathing.ivy.commands.Commands.infinite;
 import static com.pedropathing.ivy.commands.Commands.instant;
 
 import com.bylazar.configurables.annotations.Configurable;
-import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.ivy.CommandBuilder;
 import com.pedropathing.math.MathFunctions;
@@ -20,32 +18,23 @@ import org.firstinspires.ftc.teamcode.afterPremier.util.RobotConstants;
 public class Turret {
     private final DcMotorEx t;
     private double offset;
-    Follower f;
-    Alliance a;
-    public Turret(HardwareMap hardwareMap, Follower follower, Alliance alliance){
+    public Turret(HardwareMap hardwareMap){
         t = hardwareMap.get(DcMotorEx.class, "turret");
         t.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         t.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        f = follower;
-        a = alliance;
+        //f = follower;
         offset = 0;
     }
     private static final double TICKS_PER_REV = 145.1;
     private double goalAngle = 0;
     private double turretAngle = 0;
     private double targetPos;
-    public void aim(){
-        if(a == Alliance.RED){
-            goalAngle = Math.atan2(RobotConstants.redGoal.getY() - f.getPose().getY(), RobotConstants.redGoal.getX() - f.getPose().getX());
-        }
-        if(a == Alliance.BLUE){
-            goalAngle = Math.atan2(RobotConstants.blueGoal.getY() - f.getPose().getY(), RobotConstants.blueGoal.getX() - f.getPose().getX());
-        }
-        double robotHeading = f.getHeading();
+    public void aim(Pose goal, Pose current){
+        goalAngle = Math.atan2(goal.getY() - current.getY(), goal.getX() - current.getX());
+        double robotHeading = current.getHeading();
         // Use the shortest signed angle so mirrored blue headings near the +/-pi wrap
         // don't send the turret to the opposite hard stop.
-        turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading)
-                + f.getAngularVelocity()* TurretConstants.Kf;// + getOffset();
+        turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading) + offset;
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
@@ -53,28 +42,33 @@ public class Turret {
             turretAngle = -Math.PI/2;
         }
         targetPos = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
-        turnTurret(targetPos + offset);
+        turnTurret(targetPos);
     }
-    private double tOffset;
-    private double getTurretOffset(){
-        return tOffset;
+    public double getTurretOffset(){
+        return offset;
     }
-    private void setTurretPos(double offset){
-        tOffset = offset;
+    public void setOffset(double newOffset){
+        offset = newOffset;
     }
     public void useLastTurretPos(){
-        setTurretPos(RobotConstants.turretPosTransfer);
+        setOffset(RobotConstants.turretPosTransfer);
+    }
+    public CommandBuilder incrementLeft(){
+        return instant(() -> offset += 0.1);
+    }
+    public CommandBuilder incrementRight(){
+        return instant(() -> offset -= 0.1);
     }
     private final ElapsedTime turretTime= new ElapsedTime();
     private double lastTurretError = 0;
 
-    public void turnTurret(double tPosition){
+    public void turnTurret(double tPosition) {
         double cPosition = t.getCurrentPosition() + getTurretOffset(); //TODO: change 0 to getPosition
         double error = tPosition - cPosition;
 
         double dt = turretTime.seconds();
         if (dt < 0.0001) dt = 0.0001;
-        double derivative = (error-lastTurretError)/dt;
+        double derivative = (error - lastTurretError) / dt;
 
         lastTurretError = error;
 
@@ -84,16 +78,9 @@ public class Turret {
 
         t.setPower(output);
     }
-    public CommandBuilder incrementLeft(){
-        return instant(() -> offset += 0.1);
-    }
-    public CommandBuilder incrementRight(){
-        return instant(() -> offset -= 0.1);
-    }
     public void periodic(){
 
     }
-
     @SuppressWarnings("FieldMayBeFinal")
     @Configurable
     public static class TurretConstants {

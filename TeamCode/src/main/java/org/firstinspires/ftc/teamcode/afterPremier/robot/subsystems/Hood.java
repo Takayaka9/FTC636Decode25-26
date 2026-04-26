@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.afterPremier.robot.subsystems;
 import static com.pedropathing.ivy.commands.Commands.infinite;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.geometry.Pose;
 import com.pedropathing.ivy.CommandBuilder;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -29,8 +30,8 @@ public class Hood {
     static double d4 = 100; static double p4 = 0.85;//tuned
     static double d5 = 135.5; static double p5 = 0.85; //max
     static double d6 = 150; static double p6 = 0.85; //max
-
-    public void angleHood(double targetDistance) {
+    public void angleHood(Pose current, Pose target) {
+        double targetDistance = current.distanceFrom(target);
         double angle = lut.get(targetDistance);
         h.setPosition(angle);
     }
