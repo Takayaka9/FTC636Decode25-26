@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.afterPremier.robot.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.afterPremier.robot.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
 import org.firstinspires.ftc.teamcode.afterPremier.util.RobotConstants;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 public class Rico {
     public final Turret t;

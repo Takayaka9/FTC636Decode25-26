@@ -6,11 +6,11 @@ import org.firstinspires.ftc.teamcode.afterPremier.robot.Rico;
 import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
 import org.firstinspires.ftc.teamcode.afterPremier.util.BaseOpMode;
 
-public class TeleOp extends BaseOpMode {
+public class BaseTeleOp extends BaseOpMode {
     Rico r;
     final Alliance a;
     Follower f;
-    public TeleOp(Alliance a){
+    public BaseTeleOp(Alliance a){
         this.a = a;
     }
     @Override
