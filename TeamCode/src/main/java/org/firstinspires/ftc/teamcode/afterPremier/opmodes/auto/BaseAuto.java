@@ -21,6 +21,8 @@ public class BaseAuto extends BaseOpMode {
     public void loop() {
         super.loop();
         r.periodic();
+
+        //stores turret and robot positions
         RobotConstants.turretPosTransfer = r.t.getPosition();
         RobotConstants.setPose(r.f.getPose());
     }

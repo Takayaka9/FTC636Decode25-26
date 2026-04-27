@@ -44,15 +44,18 @@ public class Turret {
     public double getTurretOffset(){
         return offset;
     }
+    //sets offsets
     public void setOffset(double newOffset){
         offset = newOffset;
     }
+    //call at beginning of tele
     public void useLastTurretPos(){
         setOffset(RobotConstants.turretPosTransfer);
     }
     public int getPosition(){
         return t.getCurrentPosition();
     }
+    //adds manual offsets by a little in either direction
     public CommandBuilder incrementLeft(){
         return instant(() -> offset += 0.1);
     }
@@ -77,9 +80,6 @@ public class Turret {
         double output = (error * TurretConstants.Kp);
 
         t.setPower(output);
-    }
-    public void periodic(){
-
     }
     @SuppressWarnings("FieldMayBeFinal")
     @Configurable

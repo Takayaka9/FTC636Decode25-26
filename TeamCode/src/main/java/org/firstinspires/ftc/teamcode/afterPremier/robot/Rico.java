@@ -37,6 +37,7 @@ public class Rico {
         s = new Stopper(hardwareMap);
         setGoalPose();
     }
+    //set goal pose for red/blue
     private void setGoalPose(){
         if(a == Alliance.RED){
             goalPose = RobotConstants.redGoal;
@@ -45,6 +46,7 @@ public class Rico {
             goalPose = RobotConstants.blueGoal;
         }
     }
+    //run constantly
     public void periodic(){
         f.update();
         t.aim(goalPose, f.getPose());

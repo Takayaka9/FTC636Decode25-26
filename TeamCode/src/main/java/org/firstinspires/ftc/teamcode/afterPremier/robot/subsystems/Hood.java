@@ -30,11 +30,13 @@ public class Hood {
     static double d4 = 100; static double p4 = 0.85;//tuned
     static double d5 = 135.5; static double p5 = 0.85; //max
     static double d6 = 150; static double p6 = 0.85; //max
+    //angles hood based on poses passed in
     public void angleHood(Pose current, Pose target) {
         double targetDistance = current.distanceFrom(target);
         double angle = lut.get(targetDistance);
         h.setPosition(angle);
     }
+    //yeah idk when we'd use this but
     public void down(){
         h.setPosition(1);
     }
