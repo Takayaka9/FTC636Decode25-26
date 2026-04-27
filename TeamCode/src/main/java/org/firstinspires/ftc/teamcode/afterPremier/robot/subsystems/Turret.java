@@ -26,22 +26,19 @@ public class Turret {
         offset = 0;
     }
     private static final double TICKS_PER_REV = 145.1;
-    private double goalAngle = 0;
-    private double turretAngle = 0;
-    private double targetPos;
     public void aim(Pose goal, Pose current){
-        goalAngle = Math.atan2(goal.getY() - current.getY(), goal.getX() - current.getX());
+        double goalAngle = Math.atan2(goal.getY() - current.getY(), goal.getX() - current.getX());
         double robotHeading = current.getHeading();
         // Use the shortest signed angle so mirrored blue headings near the +/-pi wrap
         // don't send the turret to the opposite hard stop.
-        turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading) + offset;
+        double turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading) + offset;
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
         if(turretAngle <= -Math.PI/2){
             turretAngle = -Math.PI/2;
         }
-        targetPos = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
+        double targetPos = (turretAngle * ((TICKS_PER_REV * 5.1) / (Math.PI * 2)));
         turnTurret(targetPos);
     }
     public double getTurretOffset(){
@@ -52,6 +49,9 @@ public class Turret {
     }
     public void useLastTurretPos(){
         setOffset(RobotConstants.turretPosTransfer);
+    }
+    public int getPosition(){
+        return t.getCurrentPosition();
     }
     public CommandBuilder incrementLeft(){
         return instant(() -> offset += 0.1);

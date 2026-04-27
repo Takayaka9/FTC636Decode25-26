@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
 @TeleOp
-public class RedTeleOp extends BaseTeleOp {
-    public RedTeleOp(){
-        super(Alliance.RED);
+public class BlueTeleOp extends BaseTeleOp{
+    public BlueTeleOp(){
+        super(Alliance.BLUE);
     }
 }

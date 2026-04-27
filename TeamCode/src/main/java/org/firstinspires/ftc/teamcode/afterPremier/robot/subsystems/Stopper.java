@@ -15,10 +15,10 @@ public class Stopper {
     public Stopper(HardwareMap hardwareMap){
         s = hardwareMap.get(Servo.class, "stopper");
     }
-    CommandBuilder close(){
+    public CommandBuilder close(){
         return instant(() -> s.setPosition(closed)).requiring(s);
     }
-    CommandBuilder open(){
+    public CommandBuilder open(){
         return instant(() -> s.setPosition(open)).requiring(s);
     }
 }
