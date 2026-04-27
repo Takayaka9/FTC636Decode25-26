@@ -9,10 +9,10 @@ public class BaseTeleOp extends BaseOpMode {
     final Alliance a;
     public BaseTeleOp(Alliance a){
         this.a = a;
-        r = new Rico(hardwareMap, a);
     }
     @Override
     public void init() {
+        r = new Rico(hardwareMap, a);
         super.init();
         r.t.useLastTurretPos();
     }
