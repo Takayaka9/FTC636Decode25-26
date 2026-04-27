@@ -7,6 +7,8 @@ import com.pedropathing.geometry.Pose;
 public class RobotConstants {
     public static Pose blueGoal= new Pose(0, 140);
     public static Pose redGoal = new Pose(144, 140);
+
+    //utils
     public static Pose lastPose = null;
     public static Pose getPose(){
         if(lastPose == null){
