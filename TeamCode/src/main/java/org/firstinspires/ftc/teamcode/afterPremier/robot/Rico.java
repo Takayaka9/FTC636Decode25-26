@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.afterPremier.robot;
 
+import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.parallel;
+import static com.pedropathing.ivy.groups.Groups.sequential;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
@@ -52,5 +54,17 @@ public class Rico {
         t.aim(goalPose, f.getPose());
         h.angleHood(f.getPose(), goalPose);
         fly.run(f.getPose(), goalPose);
+    }
+    //run in loop for auto
+    public void autoLoop(){
+        RobotConstants.turretPosTransfer = t.getPosition();
+        RobotConstants.setPose(f.getPose());
+    }
+    public CommandBuilder shoot(){
+        return sequential(
+                s.open(),
+                waitMs(100),
+                i.in()
+        );
     }
 }

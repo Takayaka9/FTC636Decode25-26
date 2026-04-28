@@ -9,31 +9,31 @@ import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
 public class PoseLib {
     public PoseLib(Alliance a) {
         if (a == Alliance.BLUE) {
-            farStartPose = farStartPose.getPose().mirror();
-            farShootPose = farShootPose.getPose().mirror();
-            farIntakePose = farIntakePose.getPose().mirror();
-            nearStartPose = nearStartPose.getPose().mirror();
-            nearShootPose = nearShootPose.getPose().mirror();
-            intakeP3Pose = intakeP3Pose.getPose().mirror();
-            intake3Pose = intake3Pose.getPose().mirror();
-            intakeP2Pose = intakeP2Pose.getPose().mirror();
-            intake2Pose = intake2Pose.getPose().mirror();
-            intakeP1Pose = intakeP1Pose.getPose().mirror();
-            intake1Pose = intake1Pose.getPose().mirror();
-            emptyPose = emptyPose.getPose().mirror();
-            emptyPPose = emptyPPose.getPose().mirror();
-            gatePose = gatePose.getPose().mirror();
-            gateControlPose = gateControlPose.getPose().mirror();
-            curvySpike2Control1Pose = curvySpike2Control1Pose.getPose().mirror();
-            curvySpike2Control2Pose = curvySpike2Control2Pose.getPose().mirror();
-            curvySpike3Control1Pose = curvySpike3Control1Pose.getPose().mirror();
-            curvySpike3Control2Pose = curvySpike3Control2Pose.getPose().mirror();
-            curvyGateControl1Pose = curvyGateControl1Pose.getPose().mirror();
-            curvyGateControl2Pose = curvyGateControl2Pose.getPose().mirror();
-            finalShootPose = finalShootPose.getPose().mirror();
-            wallIntakePPose = wallIntakePPose.getPose().mirror();
-            wallIntakePose = wallIntakePose.getPose().mirror();
-            wallControlPose = wallControlPose.getPose().mirror();
+            farStartPose = farStartPose.mirror();
+            farShootPose = farShootPose.mirror();
+            farIntakePose = farIntakePose.mirror();
+            nearStartPose = nearStartPose.mirror();
+            nearShootPose = nearShootPose.mirror();
+            intakeP3Pose = intakeP3Pose.mirror();
+            intake3Pose = intake3Pose.mirror();
+            intakeP2Pose = intakeP2Pose.mirror();
+            intake2Pose = intake2Pose.mirror();
+            intakeP1Pose = intakeP1Pose.mirror();
+            intake1Pose = intake1Pose.mirror();
+            emptyPose = emptyPose.mirror();
+            emptyPPose = emptyPPose.mirror();
+            gatePose = gatePose.mirror();
+            gateControlPose = gateControlPose.mirror();
+            curvySpike2Control1Pose = curvySpike2Control1Pose.mirror();
+            curvySpike2Control2Pose = curvySpike2Control2Pose.mirror();
+            curvySpike3Control1Pose = curvySpike3Control1Pose.mirror();
+            curvySpike3Control2Pose = curvySpike3Control2Pose.mirror();
+            curvyGateControl1Pose = curvyGateControl1Pose.mirror();
+            curvyGateControl2Pose = curvyGateControl2Pose.mirror();
+            finalShootPose = finalShootPose.mirror();
+            wallIntakePPose = wallIntakePPose.mirror();
+            wallIntakePose = wallIntakePose.mirror();
+            wallControlPose = wallControlPose.mirror();
         }
     }
 
