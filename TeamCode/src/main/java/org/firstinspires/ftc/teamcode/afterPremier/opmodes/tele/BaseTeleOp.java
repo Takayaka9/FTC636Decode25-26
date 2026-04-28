@@ -24,8 +24,7 @@ public class BaseTeleOp extends BaseOpMode {
 
         //shoot behavior
         if(gamepad1.left_trigger > 0.2){
-            r.s.open().schedule();
-            r.i.in().schedule();
+            r.shoot().schedule();
         }
         else{
             r.s.close().schedule();
