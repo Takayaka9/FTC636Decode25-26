@@ -56,14 +56,23 @@ public class Flywheel {
 
         m.setPower(output);
     }
-    public void run(Pose current, Pose goal){
-        double target = lut.get(current.distanceFrom(goal));
+    double target = 0;
+    public void setTarget(Pose current, Pose goal){
+        target = lut.get(current.distanceFrom(goal));
+    }
+    public double getTarget(){
+        return target;
+    }
+    public void run(double target){
         bangbang(target, f1);
         bangbang(target, f2);
     }
     public void stop(){
         f1.setPower(0);
         f2.setPower(0);
+    }
+    public boolean targetReached(double target){
+        return Math.abs(target - f2.getVelocity()) < 110;
     }
     public static double Kp = 0.8;
     public static double Kd = 0;

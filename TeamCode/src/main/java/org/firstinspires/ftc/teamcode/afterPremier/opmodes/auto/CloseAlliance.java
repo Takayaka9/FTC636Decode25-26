@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.afterPremier.opmodes.auto;
 
-import static com.pedropathing.ivy.commands.Commands.instant;
 import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.parallel;
+import static com.pedropathing.ivy.groups.Groups.race;
+import static com.pedropathing.ivy.groups.Groups.repeat;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 
 import com.pedropathing.ivy.CommandBuilder;
@@ -32,19 +33,40 @@ public class CloseAlliance extends BaseOpMode {
         r.s.close();
         schedule(
                 sequential(
-                        PedroCommands.follow(r.f, p.startToShoot),
-                        r.shoot(),
-                        parallel(
-                                PedroCommands.follow(r.f, p.intakeSpike1),
-                                r.i.in()
+                        race(
+                                auto(),
+                                waitMs(28000)
                         ),
-                        r.shoot(),
-                        parallel(
-                                PedroCommands.follow(r.f, p.spike2andEmpty),
-                                r.i.in()
-                        ),
-                        r.shoot()
+                        PedroCommands.follow(r.f, r.createFleePath())
                 )
+        );
+    }
+    public CommandBuilder auto(){
+        return sequential(
+                PedroCommands.follow(r.f, p.startToShoot),
+                r.autoShoot(),
+                parallel(
+                        PedroCommands.follow(r.f, p.intakeSpike1),
+                        r.i.in()
+                ),
+                r.autoShoot(),
+                parallel(
+                        PedroCommands.follow(r.f, p.spike2andEmpty),
+                        r.i.in()
+                ),
+                r.autoShoot(),
+                repeat(
+                        gateAndShoot(), 2
+                )
+        );
+    }
+    public CommandBuilder gateAndShoot(){
+        return sequential(
+                parallel(
+                        PedroCommands.follow(r.f, p.shootToGate),
+                        r.i.in()
+                ),
+                r.autoShoot()
         );
     }
 
