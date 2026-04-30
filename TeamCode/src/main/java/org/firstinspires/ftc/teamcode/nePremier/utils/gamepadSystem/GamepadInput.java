@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem;
+package org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem;
 
 public enum GamepadInput {
     a,

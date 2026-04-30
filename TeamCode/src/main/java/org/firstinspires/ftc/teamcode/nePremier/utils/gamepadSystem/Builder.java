@@ -1,9 +1,7 @@
-package org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem;
+package org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem;
 
 import com.pedropathing.ivy.Command;
 import com.qualcomm.robotcore.hardware.Gamepad;
-
-import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
 import java.util.ArrayList;
 import java.util.Arrays;

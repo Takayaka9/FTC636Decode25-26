@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.TransferRun;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.Transfer;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.GamepadInput;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.Control;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.ControlType;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.GamepadInput;
 
 /**
  * Shoot Tester for testing LUT calibration, initializes the whole robot as standard.
