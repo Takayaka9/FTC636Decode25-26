@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem;
 
+import com.pedropathing.ivy.Command;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
@@ -14,7 +15,7 @@ public abstract class Builder {
     Gamepad gamepad = null;
     ControlType type = ControlType.Hold;
     double scale = 1;
-    BaseCommand[] commands = null;
+    Command[] commands = null;
     ArrayList<Control> controls = new ArrayList<>();
 
     ///reset to default values once a control has been added
@@ -76,7 +77,7 @@ public abstract class Builder {
     public void setScale(double scale) {
         this.scale = scale;
     }
-    public void setControls(BaseCommand... commands) {
+    public void setControls(Command... commands) {
         this.commands = commands;
     }
 
