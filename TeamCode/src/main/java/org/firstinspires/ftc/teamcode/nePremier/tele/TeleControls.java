@@ -38,7 +38,7 @@ public class TeleControls extends Initializer {
         liftUp = new Control(GamepadInput.a, gamepad1, ControlType.Hold, liftBot);
         down = new Control(GamepadInput.b, gamepad1, ControlType.Hold, liftDown);
         shoot = new Control(GamepadInput.right_trigger, gamepad1, ControlType.Hold, shootCommand);
-
+ 
         //gunner:
 //        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
         allianceBlue = new Control(GamepadInput.x, gamepad2, ControlType.Hold, blue);

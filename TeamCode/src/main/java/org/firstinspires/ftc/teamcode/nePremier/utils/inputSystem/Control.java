@@ -13,11 +13,12 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
     private boolean released = true;
     private boolean mapped = false;
     private int mapKey = 0;
+    private double scale = 1;
 
     /// Constructor for input based control types (gamepad activated)
     public Control (GamepadInput input, Gamepad gamepad, ControlType type, BaseCommand... command) throws IllegalArgumentException {
         if (type != ControlType.Hold & type != ControlType.Toggle) {
-            throw new IllegalArgumentException("Control type must be Toggle or Hold otherwise controls should not be specified");
+            throw new IllegalArgumentException("Control type must be Auto or Continuous otherwise inputs must be specified");
         }
 
         this.type = type;
@@ -26,11 +27,25 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
         constructArray(command);
     }
 
-    /// Constructor for input based control types (gamepad activated)
+    /// Constructor for input based control types with scaling for linear type (gamepad activated)
+    public Control (GamepadInput input, Gamepad gamepad, ControlType type, double scale, BaseCommand... command) throws IllegalArgumentException {
+        if (type != ControlType.Linear) {
+            throw new IllegalArgumentException("Scale should not be specified for non-linear controls");
+        }
+
+        this.scale = scale;
+        this.type = type;
+        this.map = new InputMap(input, gamepad);
+
+        constructArray(command);
+    }
+
+   /// Constructor for input based control types with map functionality (gamepad activated)
     public Control (GamepadInput input, Gamepad gamepad, ControlType type, int map, BaseCommand... command) throws IllegalArgumentException {
         if (type != ControlType.Hold & type != ControlType.Toggle) {
             throw new IllegalArgumentException("Control type must be Toggle or Hold otherwise controls should not be specified");
         }
+
         activateMap();
         this.mapKey = map;
         this.type = type;
@@ -39,10 +54,26 @@ public final class Control extends SchedulerIsNotInWarmClimateExeption{
         constructArray(command);
     }
 
+    /// Constructor for input based control types with scaling for linear type and map functionality (gamepad activated)
+    public Control (GamepadInput input, Gamepad gamepad, ControlType type, double scale, int map, BaseCommand... command) throws IllegalArgumentException {
+        if (type != ControlType.Linear) {
+            throw new IllegalArgumentException("Scale should not be specified for non-linear controls");
+        }
+
+        activateMap();
+        this.scale = scale;
+        this.type = type;
+        this.map = new InputMap(input, gamepad);
+
+        constructArray(command);
+    }
+
+
+
     /// Constructor for auto control-type (code activated)
     public Control (ControlType type, BaseCommand... command) throws IllegalArgumentException {
         if (type != ControlType.Auto) {
-            throw new IllegalArgumentException("Control type must be Auto or Continuous otherwise inputs must be specified");
+            throw new IllegalArgumentException("Control type must be Toggle or Hold otherwise controls should not be specified");
         }
 
         this.type = type;

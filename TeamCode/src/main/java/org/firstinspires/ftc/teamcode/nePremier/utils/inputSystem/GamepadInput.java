@@ -9,4 +9,8 @@ public enum GamepadInput {
     right_bumper,
     right_trigger,
     left_trigger,
+    dpad_down,
+    dpad_up,
+    dpad_left,
+    dpad_right
 }
