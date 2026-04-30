@@ -72,7 +72,6 @@ public final class Control {
     }
 
 
-
     /// Constructor for auto control-type (code activated)
     public Control (ControlType type, Command... command) throws IllegalArgumentException {
         if (type != ControlType.Auto) {

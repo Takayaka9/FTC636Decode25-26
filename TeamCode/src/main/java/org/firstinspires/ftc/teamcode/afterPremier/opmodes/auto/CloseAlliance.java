@@ -41,6 +41,7 @@ public class CloseAlliance extends BaseOpMode {
                 )
         );
     }
+
     public CommandBuilder auto(){
         return sequential(
                 PedroCommands.follow(r.f, p.startToShoot),
