@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.nePremier.robot.commands.MakeMoves;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.Control;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.ControlType;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @TeleOp

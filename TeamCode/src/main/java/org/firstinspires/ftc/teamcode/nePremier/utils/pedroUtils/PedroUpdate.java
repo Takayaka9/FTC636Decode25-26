@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.RedPoseLib;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.Alliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.Control;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.ControlType;
 import org.firstinspires.ftc.teamcode.nePremier.utils.timers.GenericTime;
 import org.firstinspires.ftc.teamcode.nePremier.utils.timers.SolversTiming;
 

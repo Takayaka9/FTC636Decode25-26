@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem;
+package org.firstinspires.ftc.teamcode.nePremier.utils.zinputSystem;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 
+@Deprecated
 public class SchedulerIsNotInWarmClimateExeption {
     ///schuedualaadooo
     public void LoopCommand(BaseCommand command, WeNeeeeedToGetGoooder state) {

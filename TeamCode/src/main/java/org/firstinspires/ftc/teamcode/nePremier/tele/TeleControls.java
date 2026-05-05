@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelper;
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.Control;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.ControlType;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.DriverMap;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.GamepadInput;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.Control;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.ControlType;
+import org.firstinspires.ftc.teamcode.nePremier.utils.zinputSystem.DriverMap;
+import org.firstinspires.ftc.teamcode.nePremier.utils.gamepadSystem.GamepadInput;
 import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.Drawing;
 
 public class TeleControls extends Initializer {

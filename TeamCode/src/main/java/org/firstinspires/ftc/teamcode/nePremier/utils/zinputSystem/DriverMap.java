@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem;
+package org.firstinspires.ftc.teamcode.nePremier.utils.zinputSystem;
 
+@Deprecated
 public class DriverMap {
     private static int map = 0;
 

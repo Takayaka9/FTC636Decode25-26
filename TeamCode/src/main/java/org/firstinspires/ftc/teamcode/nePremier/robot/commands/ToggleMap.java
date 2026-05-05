@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.nePremier.robot.commands;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
-import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.DriverMap;
+import org.firstinspires.ftc.teamcode.nePremier.utils.zinputSystem.DriverMap;
 
 public class ToggleMap extends BaseCommand {
 
