@@ -17,14 +17,16 @@ import org.firstinspires.ftc.teamcode.afterPremier.util.pathing.ClosePaths;
 public class CloseAlliance extends BaseOpMode {
     ClosePaths p;
     Rico r;
+    Alliance a;
     public CloseAlliance(Alliance a){
         super();
-        r = new Rico(hardwareMap, a);
-        p = new ClosePaths(a, r.f);
+        this.a = a;
     }
     @Override
     public void init() {
         super.init();
+        r = new Rico(hardwareMap, a);
+        p = new ClosePaths(a, r.f);
     }
 
     @Override
