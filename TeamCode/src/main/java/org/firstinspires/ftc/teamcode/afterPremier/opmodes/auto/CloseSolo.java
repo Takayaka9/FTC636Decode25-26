@@ -14,10 +14,10 @@ import org.firstinspires.ftc.teamcode.afterPremier.robot.Rico;
 import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
 import org.firstinspires.ftc.teamcode.afterPremier.util.pathing.ClosePaths;
 
-public class CloseAlliance extends BaseOpMode {
+public class CloseSolo extends BaseOpMode {
     ClosePaths p;
     Rico r;
-    public CloseAlliance(Alliance a){
+    public CloseSolo(Alliance a){
         super();
         r = new Rico(hardwareMap, a);
         p = new ClosePaths(a, r.f);
@@ -55,6 +55,11 @@ public class CloseAlliance extends BaseOpMode {
                 ),
                 parallel(
                         PedroCommands.follow(r.f, p.intakeSpike1),
+                        r.i.in()
+                ),
+                r.autoShoot(),
+                parallel(
+                        PedroCommands.follow(r.f, p.intakeSpike3),
                         r.i.in()
                 ),
                 r.autoShoot()
