@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.afterPremier.util;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 
 @Configurable
@@ -18,8 +19,10 @@ public class RobotConstants {
             return lastPose;
         }
     }
-    public static void setPose(Pose p){
-        lastPose = p;
+    public static void setPose(Follower f){
+        if(f.getPose().getX() != 0){
+            lastPose = f.getPose();
+        }
     }
     public static double turretPosTransfer = 0;
 }

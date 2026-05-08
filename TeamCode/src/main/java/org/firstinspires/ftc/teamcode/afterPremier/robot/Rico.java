@@ -65,7 +65,7 @@ public class Rico {
     //run in loop for auto
     public void autoLoop(){
         RobotConstants.turretPosTransfer = t.getPosition();
-        RobotConstants.setPose(f.getPose());
+        RobotConstants.setPose(f);
     }
     public CommandBuilder shoot(){
         return sequential(
