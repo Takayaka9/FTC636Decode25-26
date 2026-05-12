@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Configurable
 public class Stopper {
     private final Servo s;
-    public static double open = 0.43;
-    public static double closed = 0.25;
+    public static double open = 0.85;
+    public static double closed = 1;
     public Stopper(HardwareMap hardwareMap){
         s = hardwareMap.get(Servo.class, "stopper");
     }

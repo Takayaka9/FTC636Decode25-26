@@ -21,9 +21,6 @@ import org.firstinspires.ftc.teamcode.afterPremier.robot.subsystems.Stopper;
 import org.firstinspires.ftc.teamcode.afterPremier.robot.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
 import org.firstinspires.ftc.teamcode.afterPremier.util.RobotConstants;
-import org.firstinspires.ftc.teamcode.nePremier.pedro.autoConstants.AutoConstants;
-import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.CurrentAlliance;
-import org.firstinspires.ftc.teamcode.nePremier.utils.pedroUtils.BasePathUpdate;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 public class Rico {
@@ -70,10 +67,12 @@ public class Rico {
     public CommandBuilder shoot(){
         return sequential(
                 i.off(),
-                waitUntil(() -> fly.targetReached(fly.getTarget())),
+                //waitUntil(() -> fly.targetReached(fly.getTarget())),
                 s.open(),
                 waitMs(100),
-                i.in()
+                i.in(),
+                waitMs(1000),
+                s.close()
         );
     }
     public CommandBuilder autoShoot(){
@@ -97,7 +96,7 @@ public class Rico {
                 .addPath(new BezierLine(f.getPose(), fleePose))
                 .setTangentHeadingInterpolation()
                 .setBrakingStrength(0)
-                .setTValueConstraint(AutoConstants.fleePathTValue)
+                .setTValueConstraint(0.6)
                 .build();
         return fleePath;
     }

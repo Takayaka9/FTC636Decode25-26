@@ -23,6 +23,7 @@ public class BaseTeleOp extends BaseOpMode {
     public void start() {
         super.start();
         r.f.startTeleOpDrive(false);
+        r.s.close();
     }
 
     @Override
@@ -40,9 +41,6 @@ public class BaseTeleOp extends BaseOpMode {
         //shoot behavior
         if(gamepad1.left_trigger > 0.2){
             r.shoot().schedule();
-        }
-        else{
-            r.s.close().schedule();
         }
 
         //intake behavior
