@@ -35,16 +35,23 @@ public class BaseTeleOp extends BaseOpMode {
         r.f.setTeleOpDrive(
                 -gamepad1.left_stick_y*1,
                 -gamepad1.left_stick_x*1,
-                -gamepad1.right_stick_x*0.75,
-                false, a == Alliance.BLUE ? Math.toRadians(180) : 0
+                -gamepad1.right_stick_x*1,
+                true
         );
 
-        if(gamepad1.leftTriggerWasPressed()){
+        if(gamepad1.rightTriggerWasPressed()){
             r.shoot().schedule();
             shooting = true;
         }
         else if(!(gamepad1.right_trigger < 0.2)){
             shooting = false;
+        }
+
+        if(gamepad2.rightBumperWasPressed()){
+            r.t.incrementRight().schedule();
+        }
+        else if(gamepad2.leftBumperWasPressed()){
+            r.t.incrementLeft().schedule();
         }
 
         //intake behavior

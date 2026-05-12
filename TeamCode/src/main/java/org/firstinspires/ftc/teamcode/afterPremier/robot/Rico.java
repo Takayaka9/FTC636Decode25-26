@@ -56,6 +56,9 @@ public class Rico {
         fly.setTarget(f.getPose(), goalPose);
         fly.run(fly.getTarget());
     }
+    private void moveGoal(Pose goal){
+
+    }
     //run in loop for auto
     public void autoLoop(){
         RobotConstants.turretPosTransfer = t.getPosition();
@@ -68,7 +71,7 @@ public class Rico {
                 s.open(),
                 waitMs(100),
                 i.in(),
-                waitMs(1000),
+                waitMs(1400),
                 s.close()
         ).setPriority(1);
     }
