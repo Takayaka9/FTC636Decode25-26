@@ -33,7 +33,7 @@ public class CloseSolo extends BaseOpMode {
     @Override
     public void start() {
         super.start();
-        r.s.close();
+        r.s.close().schedule();
         schedule(
                 sequential(
                         race(

@@ -2,15 +2,12 @@ package org.firstinspires.ftc.teamcode.afterPremier.robot;
 
 import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.commands.Commands.waitUntil;
-import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.CommandBuilder;
-import com.pedropathing.ivy.behaviors.ConflictBehavior;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -67,13 +64,13 @@ public class Rico {
     public CommandBuilder shoot(){
         return sequential(
                 i.off(),
-                //waitUntil(() -> fly.targetReached(fly.getTarget())),
+                waitUntil(() -> fly.targetReached(fly.getTarget())),
                 s.open(),
                 waitMs(100),
                 i.in(),
                 waitMs(1000),
                 s.close()
-        );
+        ).setPriority(1);
     }
     public CommandBuilder autoShoot(){
         return sequential(

@@ -17,56 +17,67 @@ import org.firstinspires.ftc.teamcode.afterPremier.util.RobotConstants;
 @Configurable
 public class Turret {
     private final DcMotorEx t;
-    private double offset;
+    private double encoderPositionOffsetTicks;
+    private double manualAngleOffsetRadians;
     public Turret(HardwareMap hardwareMap){
         t = hardwareMap.get(DcMotorEx.class, "turret");
         t.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         t.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //f = follower;
-        offset = 0;
+        encoderPositionOffsetTicks = 0;
+        manualAngleOffsetRadians = 0;
     }
     private static final double TICKS_PER_REV = 145.1;
+    private static final double TURRET_GEAR_RATIO = 5.1;
+    private static final double TICKS_PER_RADIAN = (TICKS_PER_REV * TURRET_GEAR_RATIO) / (Math.PI * 2);
+    private static final double ENCODER_RESET_THRESHOLD_TICKS = 5;
+
     public void aim(Pose goal, Pose current){
         double goalAngle = Math.atan2(goal.getY() - current.getY(), goal.getX() - current.getX());
         double robotHeading = current.getHeading();
         // Use the shortest signed angle so mirrored blue headings near the +/-pi wrap
         // don't send the turret to the opposite hard stop.
-        double turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading) + offset;
+        double turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading) + manualAngleOffsetRadians;
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
         if(turretAngle <= -Math.PI/2){
             turretAngle = -Math.PI/2;
         }
-        double targetPos = (turretAngle * ((TICKS_PER_REV * 5.1) / (Math.PI * 2)));
+        double targetPos = turretAngle * TICKS_PER_RADIAN;
         turnTurret(targetPos);
     }
     public double getTurretOffset(){
-        return offset;
+        return encoderPositionOffsetTicks;
     }
     //sets offsets
     public void setOffset(double newOffset){
-        offset = newOffset;
+        encoderPositionOffsetTicks = newOffset;
     }
     //call at beginning of tele
     public void useLastTurretPos(){
-        setOffset(RobotConstants.turretPosTransfer);
+        if(Math.abs(t.getCurrentPosition()) < ENCODER_RESET_THRESHOLD_TICKS){
+            setOffset(RobotConstants.turretPosTransfer);
+        }
+        else{
+            setOffset(0);
+        }
     }
     public int getPosition(){
         return t.getCurrentPosition();
     }
     //adds manual offsets by a little in either direction
     public CommandBuilder incrementLeft(){
-        return instant(() -> offset += 0.1);
+        return instant(() -> manualAngleOffsetRadians += 0.1);
     }
     public CommandBuilder incrementRight(){
-        return instant(() -> offset -= 0.1);
+        return instant(() -> manualAngleOffsetRadians -= 0.1);
     }
     private final ElapsedTime turretTime= new ElapsedTime();
     private double lastTurretError = 0;
 
     public void turnTurret(double tPosition) {
-        double cPosition = t.getCurrentPosition() + getTurretOffset(); //TODO: change 0 to getPosition
+        double cPosition = t.getCurrentPosition() + getTurretOffset();
         double error = tPosition - cPosition;
 
         double dt = turretTime.seconds();

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.afterPremier.opmodes.tele;
 
+import com.pedropathing.ivy.Command;
+
 import org.firstinspires.ftc.teamcode.afterPremier.opmodes.BaseOpMode;
 import org.firstinspires.ftc.teamcode.afterPremier.robot.Rico;
 import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
@@ -23,9 +25,8 @@ public class BaseTeleOp extends BaseOpMode {
     public void start() {
         super.start();
         r.f.startTeleOpDrive(false);
-        r.s.close();
     }
-
+    private boolean shooting = false;
     @Override
     public void loop() {
         super.loop();
@@ -38,12 +39,18 @@ public class BaseTeleOp extends BaseOpMode {
                 false, a == Alliance.BLUE ? Math.toRadians(180) : 0
         );
 
-        //shoot behavior
-        if(gamepad1.left_trigger > 0.2){
+        if(gamepad1.leftTriggerWasPressed()){
             r.shoot().schedule();
+            shooting = true;
+        }
+        else if(!(gamepad1.right_trigger < 0.2)){
+            shooting = false;
         }
 
         //intake behavior
+        if(shooting){
+            return;
+        }
         if(gamepad1.right_bumper){
             r.i.in().schedule();
         }
