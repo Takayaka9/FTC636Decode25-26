@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.afterPremier.robot.subsystems;
 import static com.pedropathing.ivy.commands.Commands.instant;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.ivy.CommandBuilder;
 import com.pedropathing.math.MathFunctions;
@@ -10,8 +11,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.seattlesolvers.solverslib.util.InterpLUT;
 
-import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
 import org.firstinspires.ftc.teamcode.afterPremier.util.RobotConstants;
 
 @Configurable
@@ -26,18 +27,19 @@ public class Turret {
         //f = follower;
         encoderPositionOffsetTicks = 0;
         manualAngleOffsetRadians = 0;
+        create();
     }
     private static final double TICKS_PER_REV = 145.1;
     private static final double TURRET_GEAR_RATIO = 5.1;
     private static final double TICKS_PER_RADIAN = (TICKS_PER_REV * TURRET_GEAR_RATIO) / (Math.PI * 2);
     private static final double ENCODER_RESET_THRESHOLD_TICKS = 5;
-
-    public void aim(Pose goal, Pose current){
+    public static double multiplier = 0;
+    public void aim(Pose goal, Pose current, Follower f){
         double goalAngle = Math.atan2(goal.getY() - current.getY(), goal.getX() - current.getX());
         double robotHeading = current.getHeading();
         // Use the shortest signed angle so mirrored blue headings near the +/-pi wrap
         // don't send the turret to the opposite hard stop.
-        double turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading) + manualAngleOffsetRadians;
+        double turretAngle = MathFunctions.normalizeAngleSigned(goalAngle - robotHeading) + manualAngleOffsetRadians + f.getAngularVelocity()*multiplier;
         if(turretAngle >= Math.PI/2){
             turretAngle = Math.PI/2;
         }
@@ -103,5 +105,20 @@ public class Turret {
         private static double magnitudeMultiplier = 0.01;
         private static double lowPassAlpha = 0.2;
         private static double maxChange = 0.05;
+    }
+    InterpLUT flightTime = new InterpLUT();
+    public void create(){
+        flightTime.add(0, 0.22);
+        flightTime.add(36, 0.22);
+        flightTime.add(53.6, 0.14);
+        flightTime.add(73.5, 0.34);
+        flightTime.add(100, 0.44);
+        flightTime.add(135, 1.02);
+        flightTime.add(150, 1.02);
+        flightTime.add(10000000, 1.02);
+        flightTime.createLUT();
+    }
+    public double getLUT(double input){
+        return flightTime.get(input);
     }
 }

@@ -51,13 +51,26 @@ public class Rico {
     //run constantly
     public void periodic(){
         f.update();
-        t.aim(goalPose, f.getPose());
-        h.angleHood(f.getPose(), goalPose);
-        fly.setTarget(f.getPose(), goalPose);
+        Pose goal = moveGoal(goalPose);
+        t.aim(goal, f.getPose(), f);
+        h.angleHood(f.getPose(), goal);
+        fly.setTarget(f.getPose(), goal);
         fly.run(fly.getTarget());
     }
-    private void moveGoal(Pose goal){
+    private Pose moveGoal(Pose goal){
+        double flightTime = t.getLUT(goal.distanceFrom(f.getPose()));
 
+        double velX = f.getVelocity().getXComponent();
+        double velY = f.getVelocity().getYComponent();
+
+        double accelX = f.getAcceleration().getXComponent();
+        double accelY = f.getAcceleration().getYComponent();
+
+        double flightTimeSquared = flightTime * flightTime;
+        double newX = goal.getX() - (velX * flightTime + accelX * flightTimeSquared / 2);
+        double newY = goal.getY() - (velY * flightTime + accelY * flightTimeSquared / 2);
+
+        return new Pose(newX, newY);
     }
     //run in loop for auto
     public void autoLoop(){
@@ -69,16 +82,15 @@ public class Rico {
                 i.off(),
                 waitUntil(() -> fly.targetReached(fly.getTarget())),
                 s.open(),
-                waitMs(100),
-                i.in(),
-                waitMs(1400),
-                s.close()
+                waitMs(50),
+                i.in()
         ).setPriority(1);
     }
     public CommandBuilder autoShoot(){
         return sequential(
                 shoot(),
-                waitMs(1500)
+                waitMs(1400),
+                s.close()
         );
     }
     public PathChain createFleePath() {

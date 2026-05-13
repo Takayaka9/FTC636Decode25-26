@@ -66,6 +66,7 @@ public class BaseTeleOp extends BaseOpMode {
         }
         else{
             r.i.off().schedule();
+            r.s.close().schedule();
         }
     }
 }
