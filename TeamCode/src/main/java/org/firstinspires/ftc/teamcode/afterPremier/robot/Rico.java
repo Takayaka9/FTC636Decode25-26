@@ -4,6 +4,8 @@ import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.commands.Commands.waitUntil;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -29,6 +31,7 @@ public class Rico {
     public Pose goalPose = RobotConstants.redGoal;
     public Alliance a;
     public final Follower f;
+    public final TelemetryManager telemetry;
     public Rico(HardwareMap hardwareMap, Alliance alliance){
         a = alliance;
         f = Constants.createFollower(hardwareMap);
@@ -37,6 +40,7 @@ public class Rico {
         i = new Intake(hardwareMap);
         fly = new Flywheel(hardwareMap);
         s = new Stopper(hardwareMap);
+        telemetry = PanelsTelemetry.INSTANCE.getTelemetry();
         setGoalPose();
     }
     //set goal pose for red/blue
@@ -51,10 +55,11 @@ public class Rico {
     //run constantly
     public void periodic(){
         f.update();
+        telemetry.update();
         Pose goal = moveGoal(goalPose);
-        t.aim(goal, f.getPose(), f);
-        h.angleHood(f.getPose(), goal);
-        fly.setTarget(f.getPose(), goal);
+        t.aim(goalPose, f.getPose(), f);
+        h.angleHood(f.getPose(), goalPose);
+        fly.setTarget(f.getPose(), goalPose);
         fly.run(fly.getTarget());
     }
     private Pose moveGoal(Pose goal){
@@ -83,13 +88,13 @@ public class Rico {
                 waitUntil(() -> fly.targetReached(fly.getTarget())),
                 s.open(),
                 waitMs(50),
-                i.in()
+                i.in(),
+                waitMs(1400)
         ).setPriority(1);
     }
     public CommandBuilder autoShoot(){
         return sequential(
                 shoot(),
-                waitMs(1400),
                 s.close()
         );
     }

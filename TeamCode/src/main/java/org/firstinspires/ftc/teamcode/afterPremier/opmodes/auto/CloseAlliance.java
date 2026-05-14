@@ -54,18 +54,18 @@ public class CloseAlliance extends BaseOpMode {
                 PedroCommands.follow(r.f, p.startToShoot),
                 r.autoShoot(),
                 parallel(
+                        PedroCommands.follow(r.f, p.intakeSpike1),
+                        r.i.in()
+                ),
+                r.autoShoot(),
+                parallel(
                         PedroCommands.follow(r.f, p.intakeSpike2),
                         r.i.in()
                 ),
                 r.autoShoot(),
                 repeat(
                         gateAndShoot(), gates
-                ),
-                parallel(
-                        PedroCommands.follow(r.f, p.intakeSpike1),
-                        r.i.in()
-                ),
-                r.autoShoot()
+                )
         );
     }
     public static int gateWait = 1400;

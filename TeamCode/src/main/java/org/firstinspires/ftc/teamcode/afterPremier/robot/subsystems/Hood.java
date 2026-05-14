@@ -34,7 +34,10 @@ public class Hood {
     public void angleHood(Pose current, Pose target) {
         double targetDistance = current.distanceFrom(target);
         double angle = lut.get(targetDistance);
-        h.setPosition(angle);
+        setPosition(angle);
+    }
+    public void setPosition(double position){
+        h.setPosition(position);
     }
     //yeah idk when we'd use this but
     public void down(){

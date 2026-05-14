@@ -63,8 +63,8 @@ public class Flywheel {
         return target;
     }
     public void run(double target){
-        bangbang(target, f1);
-        bangbang(target, f2);
+        pid(target, f1);
+        pid(target, f2);
     }
     public void stop(){
         f1.setPower(0);

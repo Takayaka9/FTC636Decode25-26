@@ -53,6 +53,11 @@ public class CloseSolo extends BaseOpMode {
                 PedroCommands.follow(r.f, p.startToShoot),
                 r.autoShoot(),
                 parallel(
+                        PedroCommands.follow(r.f, p.intakeSpike1),
+                        r.i.in()
+                ),
+                r.autoShoot(),
+                parallel(
                         PedroCommands.follow(r.f, p.intakeSpike2),
                         r.i.in()
                 ),
@@ -60,11 +65,6 @@ public class CloseSolo extends BaseOpMode {
                 repeat(
                         gateAndShoot(), gates
                 ),
-                parallel(
-                        PedroCommands.follow(r.f, p.intakeSpike1),
-                        r.i.in()
-                ),
-                r.autoShoot(),
                 parallel(
                         PedroCommands.follow(r.f, p.intakeSpike3),
                         r.i.in()
