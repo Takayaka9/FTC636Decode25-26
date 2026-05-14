@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.afterPremier.opmodes.auto;
 
+import static com.pedropathing.ivy.commands.Commands.lazy;
 import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.race;
 import static com.pedropathing.ivy.groups.Groups.repeat;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.ivy.CommandBuilder;
 import com.pedropathing.ivy.pedro.PedroCommands;
 
@@ -13,7 +15,9 @@ import org.firstinspires.ftc.teamcode.afterPremier.opmodes.BaseOpMode;
 import org.firstinspires.ftc.teamcode.afterPremier.robot.Rico;
 import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
 import org.firstinspires.ftc.teamcode.afterPremier.util.pathing.ClosePaths;
+import org.firstinspires.ftc.teamcode.afterPremier.util.pathing.PoseLib;
 
+@Configurable
 public class CloseAlliance extends BaseOpMode {
     ClosePaths p;
     Rico r;
@@ -32,6 +36,7 @@ public class CloseAlliance extends BaseOpMode {
     @Override
     public void start() {
         super.start();
+        r.f.setStartingPose(p.getStartingPose());
         r.s.close().schedule();
         schedule(
                 sequential(
@@ -39,11 +44,11 @@ public class CloseAlliance extends BaseOpMode {
                                 auto(),
                                 waitMs(28000)
                         ),
-                        PedroCommands.follow(r.f, r.createFleePath())
+                        lazy(() -> PedroCommands.follow(r.f, r.createFleePath()))
                 )
         );
     }
-
+    public static int gates = 2;
     public CommandBuilder auto(){
         return sequential(
                 PedroCommands.follow(r.f, p.startToShoot),
@@ -54,7 +59,7 @@ public class CloseAlliance extends BaseOpMode {
                 ),
                 r.autoShoot(),
                 repeat(
-                        gateAndShoot(), 2
+                        gateAndShoot(), gates
                 ),
                 parallel(
                         PedroCommands.follow(r.f, p.intakeSpike1),
@@ -63,12 +68,15 @@ public class CloseAlliance extends BaseOpMode {
                 r.autoShoot()
         );
     }
+    public static int gateWait = 1400;
     public CommandBuilder gateAndShoot(){
         return sequential(
                 parallel(
                         PedroCommands.follow(r.f, p.shootToGate),
                         r.i.in()
                 ),
+                waitMs(gateWait),
+                PedroCommands.follow(r.f, p.gateToShoot),
                 r.autoShoot()
         );
     }

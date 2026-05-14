@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.afterPremier.util.pathing;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.HeadingInterpolator;
 import com.pedropathing.paths.PathChain;
 
@@ -86,5 +87,8 @@ public class ClosePaths {
                 .addPath(new BezierCurve(p.gatePose, p.curvyGateControl2Pose, p.curvyGateControl1Pose, p.nearShootPose))
                 .setConstantHeadingInterpolation(p.nearShootPose.getHeading())
                 .build();
+    }
+    public Pose getStartingPose(){
+        return p.nearStartPose;
     }
 }

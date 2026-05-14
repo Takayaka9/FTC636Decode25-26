@@ -7,35 +7,33 @@ import static com.pedropathing.ivy.groups.Groups.race;
 import static com.pedropathing.ivy.groups.Groups.repeat;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 
-import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.ivy.CommandBuilder;
+import com.pedropathing.ivy.groups.Groups;
 import com.pedropathing.ivy.pedro.PedroCommands;
 
 import org.firstinspires.ftc.teamcode.afterPremier.opmodes.BaseOpMode;
 import org.firstinspires.ftc.teamcode.afterPremier.robot.Rico;
 import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
-import org.firstinspires.ftc.teamcode.afterPremier.util.pathing.ClosePaths;
-@Configurable
-public class CloseSolo extends BaseOpMode {
-    ClosePaths p;
+import org.firstinspires.ftc.teamcode.afterPremier.util.pathing.FarPaths;
+
+public class Far extends BaseOpMode {
+    FarPaths f;
     Rico r;
     Alliance a;
-    public CloseSolo(Alliance a){
+    public Far(Alliance a){
         super();
         this.a = a;
-
     }
     @Override
     public void init() {
         super.init();
         r = new Rico(hardwareMap, a);
-        p = new ClosePaths(a, r.f);
     }
 
     @Override
     public void start() {
         super.start();
-        r.f.setStartingPose(p.getStartingPose());
+        r.f.setStartingPose(f.getStartingPose());
         r.s.close().schedule();
         schedule(
                 sequential(
@@ -47,40 +45,35 @@ public class CloseSolo extends BaseOpMode {
                 )
         );
     }
-    public static int gates = 2;
+    public static int farIntake = 2;
     public CommandBuilder auto(){
         return sequential(
-                PedroCommands.follow(r.f, p.startToShoot),
+                PedroCommands.follow(r.f, f.startToShoot),
                 r.autoShoot(),
                 parallel(
-                        PedroCommands.follow(r.f, p.intakeSpike2),
+                        PedroCommands.follow(r.f, f.intakeSpike3, 0.75),
                         r.i.in()
                 ),
+                PedroCommands.follow(r.f, f.spike3toShoot),
+                r.autoShoot(),
+                parallel(
+                        PedroCommands.follow(r.f, f.shootToWall),
+                        r.i.in()
+                ),
+                PedroCommands.follow(r.f, f.wallToShoot),
                 r.autoShoot(),
                 repeat(
-                        gateAndShoot(), gates
-                ),
-                parallel(
-                        PedroCommands.follow(r.f, p.intakeSpike1),
-                        r.i.in()
-                ),
-                r.autoShoot(),
-                parallel(
-                        PedroCommands.follow(r.f, p.intakeSpike3),
-                        r.i.in()
-                ),
-                r.autoShoot()
+                        farIntake(), farIntake
+                )
         );
     }
-    public static int gateWait = 1400;
-    public CommandBuilder gateAndShoot(){
+    public CommandBuilder farIntake(){
         return sequential(
                 parallel(
-                        PedroCommands.follow(r.f, p.shootToGate),
+                        PedroCommands.follow(r.f, f.shootToFarIntake),
                         r.i.in()
                 ),
-                waitMs(gateWait),
-                PedroCommands.follow(r.f, p.gateToShoot),
+                PedroCommands.follow(r.f, f.farIntakeToShoot),
                 r.autoShoot()
         );
     }

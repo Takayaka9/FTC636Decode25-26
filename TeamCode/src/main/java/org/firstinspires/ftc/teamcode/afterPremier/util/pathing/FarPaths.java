@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.afterPremier.util.pathing;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 
 import org.firstinspires.ftc.teamcode.afterPremier.util.Alliance;
@@ -63,5 +64,8 @@ public class FarPaths {
                 .addPath(new BezierLine(p.farIntakePose, p.farShootPose))
                 .setConstantHeadingInterpolation(p.farShootPose.getHeading())
                 .build();
+    }
+    public Pose getStartingPose(){
+        return p.farStartPose;
     }
 }
