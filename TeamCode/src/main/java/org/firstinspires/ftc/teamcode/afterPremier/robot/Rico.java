@@ -56,10 +56,10 @@ public class Rico {
     public void periodic(){
         f.update();
         telemetry.update();
-        Pose goal = moveGoal(goalPose);
-        t.aim(goalPose, f.getPose(), f);
-        h.angleHood(f.getPose(), goalPose);
-        fly.setTarget(f.getPose(), goalPose);
+        Pose goal = moveGoal(goalPose); //change all parameters under to goalPose for no sotm
+        t.aim(goal, f.getPose(), f);
+        h.angleHood(f.getPose(), goal);
+        fly.setTarget(f.getPose(), goal);
         fly.run(fly.getTarget());
     }
     private Pose moveGoal(Pose goal){

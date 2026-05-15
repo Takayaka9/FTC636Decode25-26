@@ -38,11 +38,18 @@ public class BaseTeleOp extends BaseOpMode {
         }
         if(automatic){
             r.periodic();
+            if(gamepad1.rightBumperWasPressed()){
+                r.t.incrementRight().schedule();
+            }
+            else if(gamepad1.leftBumperWasPressed()){
+                r.t.incrementLeft().schedule();
+            }
         }
         else{
             r.f.update();
             r.telemetry.update();
             r.t.turnTurret(0);
+            r.fly.setTarget(1100);
             r.fly.run(1100);
             r.h.setPosition(0.85);
         }
@@ -57,17 +64,9 @@ public class BaseTeleOp extends BaseOpMode {
             r.shoot().schedule();
             shooting = true;
         }
-        else if(!(gamepad2.right_trigger < 0.2)){
+        else if(gamepad2.right_trigger < 0.2){
             shooting = false;
         }
-
-        if(gamepad1.rightBumperWasPressed()){
-            r.t.incrementRight().schedule();
-        }
-        else if(gamepad1.leftBumperWasPressed()){
-            r.t.incrementLeft().schedule();
-        }
-
         //intake behavior
         if(shooting){
             return;

@@ -59,6 +59,9 @@ public class Flywheel {
     public void setTarget(Pose current, Pose goal){
         target = lut.get(current.distanceFrom(goal));
     }
+    public void setTarget(double t){
+        target = t;
+    }
     public double getTarget(){
         return target;
     }
