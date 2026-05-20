@@ -32,8 +32,8 @@ public class ConstantFlywheelSpin extends BaseCommand {
 //        shooter.runForDistance(LocalizationHelper.getTargetDistance(botPose.getBotPose()));
         if(gamepad.x) setTPS += 10;
         if(gamepad.b) setTPS -= 10;
-        Math.max(setTPS, 900);
-        Math.min(setTPS, 1450);
+        setTPS = Math.max(setTPS, 900);
+        setTPS = Math.min(setTPS, 1450);
         shooter.test(setTPS);
     }
 
