@@ -34,7 +34,7 @@ public class ConstantFlywheelSpin extends BaseCommand {
         if(gamepad.b) setTPS -= 10;
         Math.max(setTPS, 900);
         Math.min(setTPS, 1450);
-        shooter.test(1200);
+        shooter.test(setTPS);
     }
 
     @Override
