@@ -25,7 +25,8 @@ public class ConstantFlywheelSpin extends BaseCommand {
 
     @Override
     public void loop() {
-        shooter.runForDistance(LocalizationHelper.getTargetDistance(botPose.getBotPose()));
+//        shooter.runForDistance(LocalizationHelper.getTargetDistance(botPose.getBotPose()));
+        shooter.test(1200);
     }
 
     @Override

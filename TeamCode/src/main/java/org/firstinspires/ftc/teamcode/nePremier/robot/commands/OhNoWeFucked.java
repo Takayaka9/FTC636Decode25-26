@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 public class OhNoWeFucked extends BaseCommand {
     final Turret turret;
     Gamepad gamepad = null;
+    int ticks = 0;
     public OhNoWeFucked(Turret turret, Gamepad gamepad) {
         super();
         this.turret = turret;
@@ -19,10 +20,11 @@ public class OhNoWeFucked extends BaseCommand {
 
     @Override
     public void loop() {
-        turret.turnTurret(Math.round(gamepad.left_stick_x * 100));
+        ticks = ticks + Math.round(gamepad.left_stick_x * 40);
+        turret.turnTurret(ticks);
     }
     @Override
     public void stop() {
-        turret.resetEncoder();
+//        turret.resetEncoder();
     }
 }

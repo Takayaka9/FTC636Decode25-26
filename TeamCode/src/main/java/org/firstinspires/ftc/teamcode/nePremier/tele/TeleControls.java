@@ -32,12 +32,12 @@ public class TeleControls extends Initializer {
         Drawing.init();
 
         //Driver:
-        intake = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, transferRun); //TODO
-        outtake = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, outake); //TODO
+        intake = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, transferRun); //TODO
+        outtake = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake); //TODO
 //        endOuttake = new Control(GamepadInput.a, gamepad2, ControlType.Hold, outake);
 //        liftUp = new Control(GamepadInput.a, gamepad2, ControlType.Hold, liftBot);
 //        down = new Control(GamepadInput.b, gamepad2, ControlType.Hold, liftDown);
-        shoot = new Control(GamepadInput.right_trigger, gamepad1, ControlType.Hold, shootCommand); //TODO
+        shoot = new Control(GamepadInput.right_trigger, gamepad2, ControlType.Hold, shootCommand); //TODO
 
         //gunner:
 //        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
@@ -62,8 +62,8 @@ public class TeleControls extends Initializer {
     }
 
     public void update() {
-        allianceBlue.update();
-        allianceRed.update();
+//        allianceBlue.update();
+//        allianceRed.update();
         intake.update();
         outtake.update();
         shoot.update();
