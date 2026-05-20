@@ -36,7 +36,7 @@ public class FuckedTurretHoodUpdate extends BaseCommand {
 //        if (!weFucked.isRunning()) {
 //            turret.trackGoal();
 //        }
-        hood.angleHood(LocalizationHelper.getTargetDistance(botPose.getBotPose()));
+        hood.setPosition(0.88);
     }
 
 

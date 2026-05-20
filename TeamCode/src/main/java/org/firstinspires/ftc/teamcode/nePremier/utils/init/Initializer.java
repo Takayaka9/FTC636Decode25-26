@@ -104,7 +104,7 @@ public class Initializer {
         makeMoves = new MakeMoves(follower, gamepad1);
         outake = new Outake(transfer);
         shootCommand = new Shoot(transfer, shooter, stopper);
-        constantFlywheelSpin = new ConstantFlywheelSpin(shooter, botPose, follower);
+        constantFlywheelSpin = new ConstantFlywheelSpin(shooter, botPose, follower, gamepad2);
         ohNoWeFucked = new OhNoWeFucked(turret, gamepad2);
         turretHoodUpdate = new FuckedTurretHoodUpdate(turret, hoodServo, follower, botPose, gamepad2, ohNoWeFucked);
         blue = new AllianceBlue();

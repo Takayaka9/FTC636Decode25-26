@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.nePremier.robot.commands;
 
 import com.pedropathing.follower.Follower;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.BotPose;
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.TakaShooter;
@@ -11,11 +12,14 @@ public class ConstantFlywheelSpin extends BaseCommand {
     private final TakaShooter shooter;
     private final Follower follower;
     private final BotPose botPose;
-    public ConstantFlywheelSpin(TakaShooter shooter, BotPose botpose, Follower follower) {
+    private final Gamepad gamepad;
+    int setTPS = 1000;
+    public ConstantFlywheelSpin(TakaShooter shooter, BotPose botpose, Follower follower, Gamepad gamepad) {
         super();
         this.shooter = shooter;
         this.botPose = botpose;
         this.follower = follower;
+        this.gamepad = gamepad;
     }
 
     @Override
@@ -26,6 +30,10 @@ public class ConstantFlywheelSpin extends BaseCommand {
     @Override
     public void loop() {
 //        shooter.runForDistance(LocalizationHelper.getTargetDistance(botPose.getBotPose()));
+        if(gamepad.x) setTPS += 10;
+        if(gamepad.b) setTPS -= 10;
+        Math.max(setTPS, 900);
+        Math.min(setTPS, 1450);
         shooter.test(1200);
     }
 
