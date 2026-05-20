@@ -72,8 +72,8 @@ public class Rico {
         double accelY = f.getAcceleration().getYComponent();
 
         double flightTimeSquared = flightTime * flightTime;
-        double newX = goal.getX() - (velX * flightTime + accelX * flightTimeSquared / 2);
-        double newY = goal.getY() - (velY * flightTime + accelY * flightTimeSquared / 2);
+        double newX = goal.getX() - (velX * flightTime);// + accelX * flightTimeSquared / 2);
+        double newY = goal.getY() - (velY * flightTime);// + accelY * flightTimeSquared / 2);
 
         return new Pose(newX, newY);
     }
