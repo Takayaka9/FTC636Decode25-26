@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseCommand;
 @Configurable
 public class SimpleLoc extends BaseCommand {
     private final Follower f;
-    private final Pose resetPose = new Pose(135.4, 8.5, 0);
+    private final Pose resetPose = new Pose(106, 33.5, 180);
 
     public SimpleLoc(Follower follower) {
         super();

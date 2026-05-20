@@ -32,19 +32,19 @@ public class TeleControls extends Initializer {
         Drawing.init();
 
         //Driver:
-        intake = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, transferRun);
-        outtake = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake);
-//        endOuttake = new Control(GamepadInput.a, gamepad1, ControlType.Hold, outake);
+        intake = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, transferRun); //TODO
+        outtake = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, outake); //TODO
+//        endOuttake = new Control(GamepadInput.a, gamepad2, ControlType.Hold, outake);
 //        liftUp = new Control(GamepadInput.a, gamepad2, ControlType.Hold, liftBot);
-//        down = new Control(GamepadInput.b, gamepad1, ControlType.Hold, liftDown);
-        shoot = new Control(GamepadInput.right_trigger, gamepad2, ControlType.Hold, shootCommand);
+//        down = new Control(GamepadInput.b, gamepad2, ControlType.Hold, liftDown);
+        shoot = new Control(GamepadInput.right_trigger, gamepad1, ControlType.Hold, shootCommand); //TODO
 
         //gunner:
 //        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
         allianceBlue = new Control(GamepadInput.x, gamepad2, ControlType.Hold, blue);
         allianceRed = new Control(GamepadInput.b, gamepad2, ControlType.Hold, red);
 //        mapControl = new Control(GamepadInput.a, gamepad2, ControlType.Toggle, toggleMap);
-        locControl = new Control(GamepadInput.y, gamepad2, ControlType.Hold, simpleLoc);
+        locControl = new Control(GamepadInput.a, gamepad2, ControlType.Hold, simpleLoc);
 
         //constant:
         constantControls = new Control(ControlType.Auto, turretHoodUpdate, makeMoves, constantFlywheelSpin, draw
