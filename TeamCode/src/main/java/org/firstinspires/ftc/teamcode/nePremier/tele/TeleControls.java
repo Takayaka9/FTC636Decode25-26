@@ -27,6 +27,7 @@ public class TeleControls extends Initializer {
     private final Control locControl;
 
     /// THIS CONSTRUCTOR SERVES AS OUR INIT METHOD
+    /// modified for demonstrations
     public TeleControls(Gamepad gamepad1, Gamepad gamepad2, HardwareMap hardwareMap, Telemetry telemetry) {
         super(gamepad1, gamepad2, hardwareMap, telemetry);
         Drawing.init();
