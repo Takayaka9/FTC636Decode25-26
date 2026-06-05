@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelpe
 import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem;
 import org.firstinspires.ftc.teamcode.nePremier.utils.filters.LowPassFilter;
 import com.pedropathing.math.MathFunctions;
+import static org.firstinspires.ftc.teamcode.nePremier.robot.commands.OhNoWeFucked.RADCONFIG.turretLimit;
 
 import java.util.ArrayList;
 
@@ -96,7 +97,9 @@ public class Turret extends BaseSubsystem implements TurretI {
         turret.setPower(output);
     }
     public void turnTurretRad(double radians){
-        double tPosition = targetPos = (turretAngle*((TICKS_PER_REV*5.1)/(Math.PI*2)));
+        radians = Math.min(radians, Math.toRadians(turretLimit));
+        radians = Math.max(radians, -Math.toRadians(turretLimit));
+        double tPosition = targetPos = (radians*((TICKS_PER_REV*5.1)/(Math.PI*2)));
         double cPosition = turret.getCurrentPosition(); //TODO: change 0 to getPosition
         double error = tPosition - cPosition;
 
