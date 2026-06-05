@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.commandUtils.BaseSubsystem
 
 @SuppressWarnings("unused")
 public class Light extends BaseSubsystem {
+//emad wrote this comment using nano in terminal :)
     final Servo light;
     public Light(HardwareMap hardwareMap) {
         super();
