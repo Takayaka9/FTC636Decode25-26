@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.nePremier.opModes.tests;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.nePremier.robot.systems.servos.NewCRLiftServo;
+@Disabled
 @Configurable
 @TeleOp
 public class CRLiftTester extends OpMode {

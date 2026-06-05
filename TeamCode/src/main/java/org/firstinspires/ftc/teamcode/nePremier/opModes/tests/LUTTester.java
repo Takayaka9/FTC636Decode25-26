@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.alliance.LocalizationHelpe
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.seattlesolvers.solverslib.util.InterpLUT;
@@ -17,6 +18,8 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 
 //TODO: FIX TO NOT USE COMMAND LOOP IF WE NEED THIS
 @Configurable
+@Disabled
+
 @TeleOp
 public class LUTTester extends OpMode {
     Initializer initializer = null;

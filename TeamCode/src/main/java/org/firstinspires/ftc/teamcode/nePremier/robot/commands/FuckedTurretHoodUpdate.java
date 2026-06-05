@@ -26,8 +26,7 @@ public class FuckedTurretHoodUpdate extends BaseCommand {
         this.hood = hood;
         this.follower = follower;
         this.botPose = botPose;
-        weFucked = new Control(GamepadInput.a, gamepad, ControlType.Auto, ohNoWeFucked);
-        weFucked.run();
+        weFucked = new Control(GamepadInput.a, gamepad, ControlType.Toggle, ohNoWeFucked);
     }
 
     @Override

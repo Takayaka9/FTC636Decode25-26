@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.nePremier.tele.TeleControls;
 
 import java.util.List;
 
-@TeleOp(name = "aRicoInMexico")
+@TeleOp(name = "ForDemo")
 public class PatrickInLondonTele extends OpMode {
     public TeleControls teleControls = null;
     List <LynxModule> allHubs;

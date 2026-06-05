@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.nePremier.opModes.tests;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -16,6 +17,8 @@ import org.firstinspires.ftc.teamcode.nePremier.utils.inputSystem.GamepadInput;
  * Had a bit too much fun with this one, probably should have been simpler
  */
 @TeleOp
+@Disabled
+
 public class PatrickShootTest extends OpMode {
     Initializer i = null;
     Control opModeShoot = null;

@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.nePremier.opModes.tests;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.nePremier.utils.init.Initializer;
 
 @TeleOp
+@Disabled
+
 public class ServoZero extends OpMode {
     public enum servoSelect {
         hood,

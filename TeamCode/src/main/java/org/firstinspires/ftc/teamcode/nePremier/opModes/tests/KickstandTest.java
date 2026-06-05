@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.nePremier.opModes.tests;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 @Configurable
+@Disabled
+
 @TeleOp
 public class KickstandTest extends OpMode {
     Servo liftLeft = null;

@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.nePremier.opModes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.nePremier.tele.TeleControls;
 import org.firstinspires.ftc.teamcode.nePremier.tele.TestControls;
+@Disabled
+
 @TeleOp()
 public class aLukeInMexico extends OpMode {
     public TestControls teleControls = null;
