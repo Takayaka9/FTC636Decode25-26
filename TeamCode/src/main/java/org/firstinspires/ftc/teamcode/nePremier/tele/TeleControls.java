@@ -71,8 +71,8 @@ public class TeleControls extends Initializer {
             stopper.close();
         }
 //        weFucked.update();
-        liftUp.update();
-        down.update();
+//        liftUp.update();
+//        down.update();
         constantControls.update();
         follower.update();
         telemetryM.addData("distance", LocalizationHelper.getTargetDistance(follower.getPose()));
