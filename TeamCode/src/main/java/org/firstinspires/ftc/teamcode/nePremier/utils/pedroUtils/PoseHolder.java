@@ -11,6 +11,6 @@ public class PoseHolder {
     }
 
     public static void setPose(Pose newPose) {
-        pose = newPose;
+        if (newPose.getY() != 0 && newPose.getX() != 0) pose = newPose;
     }
 }
