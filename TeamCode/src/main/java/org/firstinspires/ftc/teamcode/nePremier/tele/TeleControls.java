@@ -32,12 +32,12 @@ public class TeleControls extends Initializer {
         Drawing.init();
 
         //Driver:
-        intake = new Control(GamepadInput.right_bumper, gamepad1, ControlType.Hold, transferRun);
-        outtake = new Control(GamepadInput.left_bumper, gamepad1, ControlType.Hold, outake);
+        intake = new Control(GamepadInput.right_bumper, gamepad2, ControlType.Hold, transferRun);
+        outtake = new Control(GamepadInput.left_bumper, gamepad2, ControlType.Hold, outake);
 //        endOuttake = new Control(GamepadInput.a, gamepad1, ControlType.Hold, outake);
         liftUp = new Control(GamepadInput.a, gamepad1, ControlType.Hold, liftBot);
         down = new Control(GamepadInput.b, gamepad1, ControlType.Hold, liftDown);
-        shoot = new Control(GamepadInput.right_trigger, gamepad1, ControlType.Hold, shootCommand);
+        shoot = new Control(GamepadInput.right_trigger, gamepad2, ControlType.Hold, shootCommand);
 
         //gunner:
 //        weFucked = new Control(GamepadInput.y, gamepad2, ControlType.Toggle, ohNoWeFucked);
@@ -71,8 +71,8 @@ public class TeleControls extends Initializer {
             stopper.close();
         }
 //        weFucked.update();
-        liftUp.update();
-        down.update();
+//        liftUp.update();
+//        down.update();
         constantControls.update();
         follower.update();
         telemetryM.addData("distance", LocalizationHelper.getTargetDistance(follower.getPose()));
