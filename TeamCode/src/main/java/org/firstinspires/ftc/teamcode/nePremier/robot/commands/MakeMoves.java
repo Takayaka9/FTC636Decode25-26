@@ -32,7 +32,7 @@ public class MakeMoves extends BaseCommand {
                         -gamepad.left_stick_y*1,
                         -gamepad.left_stick_x*1,
                         -gamepad.right_stick_x*1,
-                        true
+                        false
                 );
             }
             if (gamepad.left_trigger > 0.3) {
@@ -40,7 +40,7 @@ public class MakeMoves extends BaseCommand {
                         -gamepad.left_stick_y*0.35,
                         -gamepad.left_stick_x*0.35,
                         -gamepad.right_stick_x*0.25,
-                        true
+                        false
                 );
             }
         }
